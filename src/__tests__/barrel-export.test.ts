@@ -10,6 +10,7 @@
 import { describe, it, expect } from "vitest";
 
 const EXPECTED_EXPORTS = [
+  "Breadcrumb",
   "BrowserFrame",
   "ProjectHero",
   "ProblemSection",
@@ -41,7 +42,7 @@ describe("src/components/project/index.ts barrel export", () => {
     }
   });
 
-  it("does not export any unexpected names beyond the 8 components", async () => {
+  it("does not export any unexpected names beyond the 9 components", async () => {
     const barrel = await import("@/components/project");
     const exportedKeys = Object.keys(barrel);
     // Every exported key must be in the expected list

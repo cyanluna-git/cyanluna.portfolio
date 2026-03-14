@@ -1,3 +1,4 @@
+export { default as Breadcrumb } from "./Breadcrumb";
 export { default as BrowserFrame } from "./BrowserFrame";
 export { default as ProjectHero } from "./ProjectHero";
 export { default as ProblemSection } from "./ProblemSection";

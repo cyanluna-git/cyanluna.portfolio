@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import type { ProjectDetail } from "@/types/project-detail";
 import Nav from "@/components/Nav";
 import {
+  Breadcrumb,
   ProjectHero,
   ProblemSection,
   ApproachSection,
@@ -40,6 +41,13 @@ export default function ProjectDetailClient({
   return (
     <div className="min-h-screen">
       <Nav lang={lang} onLangChange={setLang} showHomeLinks={false} />
+
+      <Breadcrumb
+        vertical={project.vertical}
+        verticalColor={project.verticalColor}
+        projectTitle={project.title}
+        lang={lang}
+      />
 
       <ProjectHero
         title={project.title}
