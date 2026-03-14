@@ -1,0 +1,21 @@
+services:
+  oqc-demo-db:
+    image: postgres:16-alpine
+    container_name: oqc-demo-db
+    environment:
+      POSTGRES_DB: oqc_demo
+      POSTGRES_USER: oqc
+      POSTGRES_PASSWORD: oqc_demo_pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - oqc_demo_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oqc -d oqc_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  oqc_demo_data:
