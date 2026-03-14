@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
 
@@ -29,6 +30,8 @@ const t = {
     active: { en: "In Development", ko: "개발 중" },
     beta: { en: "Beta", ko: "베타" },
   },
+  viewDetails: { en: "View Details \u2192", ko: "\uc790\uc138\ud788 \ubcf4\uae30 \u2192" },
+  comingSoon: { en: "Coming Soon", ko: "\uc900\ube44\uc911" },
   footer: {
     en: "Built with curiosity across domains.",
     ko: "도메인을 넘나드는 호기심으로 만들었습니다.",
@@ -59,15 +62,11 @@ function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }
   );
 }
 
-function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
-  const [expanded, setExpanded] = useState(false);
+function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
   const vColor = verticals[project.vertical].color;
 
   return (
-    <article
-      data-vertical={project.vertical}
-      className="group relative rounded-2xl border border-border bg-surface hover:bg-surface-hover transition-all duration-300 overflow-hidden"
-    >
+    <>
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${vColor}40, transparent)` }} />
 
       <div className="p-6">
@@ -89,28 +88,47 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
           ))}
         </div>
 
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-xs text-muted hover:text-foreground transition-colors cursor-pointer"
-        >
-          {expanded ? "Less \u2191" : "More \u2193"}
-        </button>
-
-        {expanded && (
-          <div className="mt-4 pt-4 border-t border-border space-y-3 animate-fade-up">
-            <p className="text-sm text-zinc-400 leading-relaxed">{project.description[lang]}</p>
-            <ul className="space-y-1.5">
-              {project.highlights[lang].map((h, i) => (
-                <li key={i} className="text-sm text-zinc-500 flex gap-2">
-                  <span className="shrink-0 mt-1.5 w-1 h-1 rounded-full" style={{ backgroundColor: vColor }} />
-                  {h}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {project.hasDetailPage ? (
+          <span className="text-xs font-medium transition-colors" style={{ color: vColor }}>
+            {t.viewDetails[lang]}
+          </span>
+        ) : (
+          <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-medium rounded-full border border-white/10 bg-white/5 text-muted">
+            {t.comingSoon[lang]}
+          </span>
         )}
       </div>
-    </article>
+    </>
+  );
+}
+
+function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
+  const cardClass = `group relative rounded-2xl border border-border bg-surface transition-all duration-300 overflow-hidden block ${
+    project.hasDetailPage
+      ? "hover:scale-[1.02] cursor-pointer"
+      : "opacity-60 cursor-default"
+  }`;
+
+  if (project.hasDetailPage) {
+    return (
+      <Link
+        href={`/projects/${project.id}`}
+        data-vertical={project.vertical}
+        className={cardClass}
+      >
+        <ProjectCardInner project={project} lang={lang} />
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      data-vertical={project.vertical}
+      className={cardClass}
+      aria-disabled="true"
+    >
+      <ProjectCardInner project={project} lang={lang} />
+    </div>
   );
 }
 

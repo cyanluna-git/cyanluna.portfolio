@@ -7,6 +7,7 @@ export type Project = {
   stack: string[];
   highlights: { en: string[]; ko: string[] };
   status: "live" | "active" | "beta";
+  hasDetailPage: boolean;
   url?: string;
   repo?: string;
 };
@@ -64,6 +65,7 @@ export const projects: Project[] = [
     },
     vertical: "industrial",
     stack: ["React", "FastAPI", "PostgreSQL", "Modbus TCP", "BDD/Gherkin"],
+    hasDetailPage: true,
     highlights: {
       en: [
         "BDD scenarios replace 200+ page paper checklists",
@@ -96,6 +98,7 @@ export const projects: Project[] = [
     },
     vertical: "industrial",
     stack: ["React", "FastAPI", "InfluxDB", "Modbus TCP", "ReactFlow"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "YAML-driven API generation — zero backend code per product",
@@ -128,6 +131,7 @@ export const projects: Project[] = [
     },
     vertical: "industrial",
     stack: ["React 19", "FastAPI", "PostgreSQL", "SAML 2.0", "AI (Groq/Gemini)"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "Org hierarchy: Division → Department → Team → Position",
@@ -162,6 +166,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["React 19", "FastAPI", "Supabase", "Groq/Gemini LLM", "Vercel"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "Omakase pattern: validated modules → AI selection → ZWO output",
@@ -194,6 +199,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["React", "FastAPI", "PostgreSQL", "TimescaleDB", "Recharts"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "Breath-by-breath metabolic data processing",
@@ -226,6 +232,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["Next.js 15", "React 19", "Supabase", "Kakao Maps SDK", "Recharts"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "4-stage data pipeline: stage → match → fingerprint → curate",
@@ -260,6 +267,7 @@ export const projects: Project[] = [
     },
     vertical: "consumer",
     stack: ["Ruby on Rails 8", "SQLite", "Tailwind CSS", "Stimulus", "Kakao OAuth"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "Service workflow: intake → diagnosis → repair → delivery",
@@ -292,6 +300,7 @@ export const projects: Project[] = [
     },
     vertical: "consumer",
     stack: ["Next.js 15", "Drizzle ORM", "SQLite", "Tailwind CSS"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "7 bank parsers handling 3 different file format families",
@@ -326,6 +335,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Neon PostgreSQL", "Claude Code", "REST API", "Multi-agent"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "6 agents: Planner → Critic → Builder → Shield → Inspector → Ranger",
@@ -358,6 +368,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Python", "Claude API", "Bitbucket API", "Markdown"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "3 domain lenses: Backend / Frontend / PLC",
@@ -390,6 +401,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Next.js", "PostgreSQL", "Claude API", "Jira/Confluence API", "Slack API"],
+    hasDetailPage: false,
     highlights: {
       en: [
         "Bidirectional incremental sync: Jira ↔ DB ↔ Confluence",
