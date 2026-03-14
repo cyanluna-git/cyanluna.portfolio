@@ -166,7 +166,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["React 19", "FastAPI", "Supabase", "Groq/Gemini LLM", "Vercel"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "Omakase pattern: validated modules → AI selection → ZWO output",
@@ -199,7 +199,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["React", "FastAPI", "PostgreSQL", "TimescaleDB", "Recharts"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "Breath-by-breath metabolic data processing",
@@ -232,7 +232,7 @@ export const projects: Project[] = [
     },
     vertical: "health",
     stack: ["Next.js 15", "React 19", "Supabase", "Kakao Maps SDK", "Recharts"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "4-stage data pipeline: stage → match → fingerprint → curate",
@@ -267,7 +267,7 @@ export const projects: Project[] = [
     },
     vertical: "consumer",
     stack: ["Ruby on Rails 8", "SQLite", "Tailwind CSS", "Stimulus", "Kakao OAuth"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "Service workflow: intake → diagnosis → repair → delivery",
@@ -300,7 +300,7 @@ export const projects: Project[] = [
     },
     vertical: "consumer",
     stack: ["Next.js 15", "Drizzle ORM", "SQLite", "Tailwind CSS"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "7 bank parsers handling 3 different file format families",

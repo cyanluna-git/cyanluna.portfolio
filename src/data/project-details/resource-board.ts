@@ -209,5 +209,8 @@ export const resourceBoard: ProjectDetail = {
     slug: "equipment-gateway",
     title: { en: "Equipment Gateway", ko: "장비 게이트웨이" },
   },
-  nextProject: undefined,
+  nextProject: {
+    slug: "ai-cycling-coach",
+    title: { en: "AI Cycling Coach", ko: "AI 사이클링 코치" },
+  },
 };
