@@ -1,0 +1,21 @@
+services:
+  eob-demo-db:
+    image: postgres:16-alpine
+    container_name: eob-demo-db
+    environment:
+      POSTGRES_DB: eob_demo
+      POSTGRES_USER: eob
+      POSTGRES_PASSWORD: eob_demo_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - eob_demo_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eob -d eob_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  eob_demo_data:
