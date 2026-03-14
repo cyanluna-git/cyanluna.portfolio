@@ -22,14 +22,14 @@ export default function ProjectNav({
   const langParam = lang === "ko" ? "?lang=ko" : "";
 
   return (
-    <section className="py-16 px-6 border-t border-border">
-      <div className="max-w-5xl mx-auto flex items-center justify-between">
+    <section className="py-10 sm:py-16 px-4 sm:px-6 border-t border-border">
+      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
         {/* Left: Back to portfolio or previous project */}
         <div>
           {prevProject ? (
             <a
               href={`/projects/${prevProject.slug}${langParam}`}
-              className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors min-h-[44px] py-2"
             >
               <svg
                 className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"
@@ -54,7 +54,7 @@ export default function ProjectNav({
           ) : (
             <a
               href={`/${langParam}`}
-              className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+              className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors min-h-[44px] py-2"
             >
               <svg
                 className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform"
@@ -78,7 +78,7 @@ export default function ProjectNav({
         {nextProject && (
           <a
             href={`/projects/${nextProject.slug}${langParam}`}
-            className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+            className="group flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors min-h-[44px] py-2"
           >
             <span className="flex flex-col items-end">
               <span className="text-[11px] font-mono text-muted">

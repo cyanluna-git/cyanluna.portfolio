@@ -197,20 +197,20 @@ export default function Home() {
       <Nav lang={lang} onLangChange={setLang} showHomeLinks />
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-24 pb-12 sm:pt-32 sm:pb-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1] whitespace-pre-line animate-fade-up">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] whitespace-pre-line animate-fade-up">
             {t.hero[lang]}
           </h1>
-          <p className="mt-6 text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-1">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-1">
             {t.sub[lang]}
           </p>
 
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl animate-fade-up delay-2">
+          <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl animate-fade-up delay-2">
             {(Object.entries(stats) as [keyof typeof stats, number][]).map(([key, val]) => (
-              <div key={key} className="text-center p-4 rounded-xl border border-border bg-surface">
-                <div className="text-2xl font-bold font-mono">{val}</div>
-                <div className="text-xs text-muted mt-1">{t.statsLabel[key][lang]}</div>
+              <div key={key} className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface">
+                <div className="text-xl sm:text-2xl font-bold font-mono">{val}</div>
+                <div className="text-[11px] sm:text-xs text-muted mt-1">{t.statsLabel[key][lang]}</div>
               </div>
             ))}
           </div>
@@ -221,14 +221,14 @@ export default function Home() {
       <AboutSection lang={lang} />
 
       {/* Projects */}
-      <section id="projects" className="py-20 px-6">
+      <section id="projects" className="py-12 sm:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold tracking-tight mb-8">{t.sectionTitle[lang]}</h2>
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8">{t.sectionTitle[lang]}</h2>
 
-          <div className="flex flex-wrap gap-2 mb-10">
+          <div className="flex flex-wrap gap-2 mb-8 sm:mb-10">
             <button
               onClick={() => setFilter("all")}
-              className={`px-3.5 py-1.5 text-sm rounded-lg border transition-colors cursor-pointer ${
+              className={`px-3.5 py-2 text-sm rounded-lg border transition-colors cursor-pointer min-h-[44px] ${
                 filter === "all"
                   ? "bg-white/10 border-white/20 text-foreground"
                   : "border-border text-muted hover:text-foreground hover:border-white/20"
@@ -240,7 +240,7 @@ export default function Home() {
               <button
                 key={key}
                 onClick={() => setFilter(key)}
-                className={`px-3.5 py-1.5 text-sm rounded-lg border transition-colors flex items-center gap-2 cursor-pointer ${
+                className={`px-3.5 py-2 text-sm rounded-lg border transition-colors flex items-center gap-2 cursor-pointer min-h-[44px] ${
                   filter === key
                     ? "bg-white/10 border-white/20 text-foreground"
                     : "border-border text-muted hover:text-foreground hover:border-white/20"
@@ -253,12 +253,12 @@ export default function Home() {
           </div>
 
           {filter !== "all" && (
-            <p className="text-sm text-muted mb-8 animate-fade-up">
+            <p className="text-sm text-muted mb-6 sm:mb-8 animate-fade-up">
               {verticals[filter].description[lang]}
             </p>
           )}
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((project, i) => (
               <div key={project.id} className={`animate-fade-up delay-${Math.min(i + 1, 5)}`}>
                 <ProjectCard project={project} lang={lang} />
@@ -269,10 +269,10 @@ export default function Home() {
       </section>
 
       {/* Stack */}
-      <section id="stack" className="py-20 px-6 border-t border-border">
+      <section id="stack" className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold tracking-tight mb-10">{t.stackTitle[lang]}</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-10">{t.stackTitle[lang]}</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {stackGroups.map((group) => (
               <div key={group.label} className="space-y-3">
                 <h3 className="text-xs font-mono text-muted uppercase tracking-widest">{group.label}</h3>
@@ -293,7 +293,7 @@ export default function Home() {
       <ContactSection lang={lang} />
 
       {/* Footer */}
-      <footer className="py-16 px-6 border-t border-border">
+      <footer className="py-10 sm:py-16 px-4 sm:px-6 border-t border-border">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-sm text-muted">{t.footer[lang]}</p>
           <p className="text-xs text-zinc-600 mt-2 font-mono">cyanluna.dev</p>

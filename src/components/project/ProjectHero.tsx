@@ -33,9 +33,9 @@ export default function ProjectHero({
   lang,
 }: ProjectHeroProps) {
   return (
-    <section className="pt-24 pb-16 px-6">
+    <section className="pt-20 pb-10 sm:pt-24 sm:pb-16 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center gap-3 mb-6 animate-fade-up">
+        <div className="flex items-center gap-3 mb-4 sm:mb-6 animate-fade-up">
           <div
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: verticalColor }}
@@ -50,14 +50,14 @@ export default function ProjectHero({
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] animate-fade-up delay-1">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] animate-fade-up delay-1">
           {title[lang]}
         </h1>
-        <p className="mt-4 text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-2">
+        <p className="mt-3 sm:mt-4 text-base sm:text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-2">
           {tagline[lang]}
         </p>
 
-        <div className="mt-10 animate-fade-up delay-3">
+        <div className="mt-8 sm:mt-10 animate-fade-up delay-3">
           <BrowserFrame
             accentColor={verticalColor}
             imageSrc={heroImage}

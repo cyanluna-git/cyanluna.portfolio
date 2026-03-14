@@ -22,18 +22,18 @@ export default function ProblemSection({
   lang,
 }: ProblemSectionProps) {
   return (
-    <section className="py-20 px-6">
+    <section className="py-12 sm:py-20 px-4 sm:px-6">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight mb-10">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-10">
           {sectionT.title[lang]}
         </h2>
 
         {/* Pain point cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-16">
           {painPoints.map((point, i) => (
             <div
               key={i}
-              className="relative rounded-xl border border-border bg-surface p-6 hover:bg-surface-hover transition-colors"
+              className="relative rounded-xl border border-border bg-surface p-5 sm:p-6 hover:bg-surface-hover transition-colors"
             >
               <div
                 className="absolute top-0 left-0 right-0 h-px"

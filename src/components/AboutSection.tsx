@@ -57,24 +57,24 @@ function LinkedInIcon() {
 
 export default function AboutSection({ lang }: { lang: Lang }) {
   return (
-    <section id="about" className="py-20 px-6 border-t border-border">
+    <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
       <div className="max-w-6xl mx-auto">
         {/* Section title */}
-        <h2 className="text-2xl font-bold tracking-tight mb-8 animate-fade-up">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 animate-fade-up">
           {t.sectionTitle[lang]}
         </h2>
 
         {/* Bio + Social */}
-        <div className="mb-12 animate-fade-up delay-1">
-          <p className="text-lg text-muted leading-relaxed max-w-3xl">
+        <div className="mb-8 sm:mb-12 animate-fade-up delay-1">
+          <p className="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">
             {t.bio[lang]}
           </p>
-          <div className="flex items-center gap-3 mt-6">
+          <div className="flex items-center gap-3 mt-5 sm:mt-6">
             <a
               href="https://github.com/cyanluna"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-surface text-muted hover:text-foreground hover:border-white/20 transition-colors"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border bg-surface text-muted hover:text-foreground hover:border-white/20 transition-colors"
               aria-label="GitHub"
             >
               <GitHubIcon />
@@ -83,7 +83,7 @@ export default function AboutSection({ lang }: { lang: Lang }) {
               href="https://linkedin.com/in/cyanluna"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-surface text-muted hover:text-foreground hover:border-white/20 transition-colors"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border bg-surface text-muted hover:text-foreground hover:border-white/20 transition-colors"
               aria-label="LinkedIn"
             >
               <LinkedInIcon />
@@ -92,11 +92,11 @@ export default function AboutSection({ lang }: { lang: Lang }) {
         </div>
 
         {/* Domain Expertise */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 sm:mb-12">
           {domains.map((domain, i) => (
             <div
               key={domain.label}
-              className={`relative rounded-2xl border border-border bg-surface p-5 animate-fade-up delay-${Math.min(i + 2, 5)}`}
+              className={`relative rounded-2xl border border-border bg-surface p-4 sm:p-5 animate-fade-up delay-${Math.min(i + 2, 5)}`}
             >
               {/* Top accent line */}
               <div
@@ -134,14 +134,14 @@ export default function AboutSection({ lang }: { lang: Lang }) {
         </div>
 
         {/* Counter highlights */}
-        <div className="grid grid-cols-3 gap-4 max-w-lg animate-fade-up delay-3">
+        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg animate-fade-up delay-3">
           {counters.map((c) => (
             <div
               key={c.value}
-              className="text-center p-4 rounded-xl border border-border bg-surface"
+              className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface"
             >
-              <div className="text-2xl font-bold font-mono">{c.value}</div>
-              <div className="text-xs text-muted mt-1">{c.label[lang]}</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono">{c.value}</div>
+              <div className="text-[11px] sm:text-xs text-muted mt-1">{c.label[lang]}</div>
             </div>
           ))}
         </div>

@@ -37,13 +37,13 @@ export default function ArchSection({
   const nodeMap = new Map(nodes.map((n) => [n.id, n]));
 
   return (
-    <section className="py-20 px-6 border-t border-border">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight mb-10">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-10">
           {sectionT.title[lang]}
         </h2>
 
-        <div className="rounded-xl border border-border bg-surface p-6 overflow-x-auto">
+        <div className="rounded-xl border border-border bg-surface p-4 sm:p-6 overflow-x-auto -mx-4 sm:mx-0">
           <div className="relative" style={{ minWidth: maxX, minHeight: maxY }}>
             {/* SVG arrows layer */}
             <svg

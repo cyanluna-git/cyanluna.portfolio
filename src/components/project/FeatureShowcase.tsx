@@ -19,19 +19,19 @@ export default function FeatureShowcase({
   lang,
 }: FeatureShowcaseProps) {
   return (
-    <section className="py-20 px-6 border-t border-border">
+    <section className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight mb-12">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-12">
           {sectionT.title[lang]}
         </h2>
 
-        <div className="space-y-20">
+        <div className="space-y-12 sm:space-y-20">
           {features.map((feature, i) => {
             const isEven = i % 2 === 1;
             return (
               <div
                 key={i}
-                className={`grid md:grid-cols-2 gap-8 items-center ${
+                className={`grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-center ${
                   isEven ? "md:direction-rtl" : ""
                 }`}
               >
@@ -47,10 +47,10 @@ export default function FeatureShowcase({
                 {/* Text side */}
                 <div className={`${isEven ? "md:order-1" : "md:order-2"}`}>
                   <div
-                    className="w-8 h-1 rounded-full mb-4"
+                    className="w-8 h-1 rounded-full mb-3 sm:mb-4"
                     style={{ backgroundColor: verticalColor }}
                   />
-                  <h3 className="text-lg font-semibold mb-3">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3">
                     {feature.title[lang]}
                   </h3>
                   <p className="text-sm text-zinc-400 leading-relaxed">
