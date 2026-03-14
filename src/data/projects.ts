@@ -1,3 +1,9 @@
+export type ProjectMedia = {
+  type: "gif" | "video" | "image";
+  src: string;
+  poster?: string;
+};
+
 export type Project = {
   id: string;
   title: { en: string; ko: string };
@@ -8,6 +14,7 @@ export type Project = {
   highlights: { en: string[]; ko: string[] };
   status: "live" | "active" | "beta";
   hasDetailPage: boolean;
+  media?: ProjectMedia;
   url?: string;
   repo?: string;
 };

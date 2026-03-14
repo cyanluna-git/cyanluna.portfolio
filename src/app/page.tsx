@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
 import AboutSection from "@/components/AboutSection";
@@ -64,12 +65,62 @@ function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }
   );
 }
 
+function ProjectMediaArea({ project }: { project: Project }) {
+  const vColor = verticals[project.vertical].color;
+
+  if (project.media) {
+    const { type, src, poster } = project.media;
+
+    if (type === "video") {
+      return (
+        <div className="aspect-video overflow-hidden bg-black">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={poster}
+            className="w-full h-full object-cover"
+          >
+            <source src={src} type="video/mp4" />
+          </video>
+        </div>
+      );
+    }
+
+    return (
+      <div className="aspect-video overflow-hidden bg-black">
+        <Image
+          src={src}
+          alt=""
+          width={640}
+          height={360}
+          loading="lazy"
+          unoptimized={type === "gif"}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="aspect-video"
+      style={{
+        background: `linear-gradient(to bottom, ${vColor}18, ${vColor}06)`,
+      }}
+    />
+  );
+}
+
 function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
   const vColor = verticals[project.vertical].color;
 
   return (
     <>
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${vColor}40, transparent)` }} />
+
+      <ProjectMediaArea project={project} />
 
       <div className="p-6">
         <div className="flex items-start justify-between gap-3 mb-3">
