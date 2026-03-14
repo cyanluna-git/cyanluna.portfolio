@@ -6,6 +6,8 @@ export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
+const SITE_URL = "https://cyanlunaportfolio.vercel.app";
+
 export async function generateMetadata({
   params,
 }: {
@@ -15,9 +17,27 @@ export async function generateMetadata({
   const project = getProjectDetail(slug);
   if (!project) return { title: "Project Not Found" };
 
+  const title = `${project.title.en} — CyanLuna`;
+  const description = project.tagline.en;
+  const url = `${SITE_URL}/projects/${slug}`;
+
   return {
-    title: `${project.title.en} — CyanLuna`,
-    description: project.tagline.en,
+    title: project.title.en,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title,
+      description,
+    },
+    alternates: {
+      canonical: url,
+    },
   };
 }
 

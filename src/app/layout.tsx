@@ -12,15 +12,57 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://cyanlunaportfolio.vercel.app";
+const TITLE = "CyanLuna — Engineering Portfolio";
+const DESCRIPTION =
+  "Full-stack engineer building manufacturing automation, health tech, and AI-native developer tools.";
+
 export const metadata: Metadata = {
-  title: "CyanLuna — Engineering Portfolio",
-  description:
-    "Full-stack engineer building manufacturing automation, health tech, and AI-native developer tools.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: "%s — CyanLuna",
+  },
+  description: DESCRIPTION,
+  keywords: [
+    "full-stack engineer",
+    "manufacturing automation",
+    "health tech",
+    "AI developer tools",
+    "React",
+    "Next.js",
+    "FastAPI",
+    "portfolio",
+    "CyanLuna",
+  ],
+  authors: [{ name: "CyanLuna" }],
+  creator: "CyanLuna",
   openGraph: {
-    title: "CyanLuna — Engineering Portfolio",
-    description:
-      "Full-stack engineer building manufacturing automation, health tech, and AI-native developer tools.",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "CyanLuna Portfolio",
     type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -34,6 +76,32 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased grain`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfilePage",
+              mainEntity: {
+                "@type": "Person",
+                name: "CyanLuna",
+                url: SITE_URL,
+                jobTitle: "Full-Stack Engineer",
+                description: DESCRIPTION,
+                knowsAbout: [
+                  "Manufacturing Automation",
+                  "Health Tech",
+                  "AI Developer Tools",
+                  "React",
+                  "Next.js",
+                  "FastAPI",
+                  "PostgreSQL",
+                ],
+                sameAs: [],
+              },
+            }),
+          }}
+        />
         {children}
       </body>
     </html>
