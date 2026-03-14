@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
+import AboutSection from "@/components/AboutSection";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -163,6 +164,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* About */}
+      <AboutSection lang={lang} />
 
       {/* Projects */}
       <section id="projects" className="py-20 px-6">

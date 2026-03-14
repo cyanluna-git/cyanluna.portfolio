@@ -3,6 +3,7 @@
 type Lang = "en" | "ko";
 
 const navT = {
+  about: { en: "About", ko: "About" },
   projects: { en: "Projects", ko: "프로젝트" },
   stack: { en: "Stack", ko: "스택" },
 };
@@ -23,6 +24,9 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
         <div className="flex items-center gap-4">
           {showHomeLinks && (
             <>
+              <a href="#about" className="text-xs text-muted hover:text-foreground transition-colors">
+                {navT.about[lang]}
+              </a>
               <a href="#projects" className="text-xs text-muted hover:text-foreground transition-colors">
                 {navT.projects[lang]}
               </a>
