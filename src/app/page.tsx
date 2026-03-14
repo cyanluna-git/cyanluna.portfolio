@@ -5,6 +5,7 @@ import Link from "next/link";
 import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
 import AboutSection from "@/components/AboutSection";
+import ContactSection from "@/components/ContactSection";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -236,6 +237,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Contact CTA */}
+      <ContactSection lang={lang} />
 
       {/* Footer */}
       <footer className="py-16 px-6 border-t border-border">

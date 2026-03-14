@@ -6,6 +6,7 @@ const navT = {
   about: { en: "About", ko: "About" },
   projects: { en: "Projects", ko: "프로젝트" },
   stack: { en: "Stack", ko: "스택" },
+  contact: { en: "Contact", ko: "연락" },
 };
 
 interface NavProps {
@@ -31,7 +32,10 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
                 {navT.projects[lang]}
               </a>
               <a href="#stack" className="text-xs text-muted hover:text-foreground transition-colors">
-                Stack
+                {navT.stack[lang]}
+              </a>
+              <a href="#contact" className="text-xs text-muted hover:text-foreground transition-colors">
+                {navT.contact[lang]}
               </a>
             </>
           )}
