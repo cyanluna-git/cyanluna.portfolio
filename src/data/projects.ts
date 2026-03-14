@@ -98,7 +98,7 @@ export const projects: Project[] = [
     },
     vertical: "industrial",
     stack: ["React", "FastAPI", "InfluxDB", "Modbus TCP", "ReactFlow"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "YAML-driven API generation — zero backend code per product",
