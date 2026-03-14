@@ -131,7 +131,7 @@ export const projects: Project[] = [
     },
     vertical: "industrial",
     stack: ["React 19", "FastAPI", "PostgreSQL", "SAML 2.0", "AI (Groq/Gemini)"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "Org hierarchy: Division → Department → Team → Position",
