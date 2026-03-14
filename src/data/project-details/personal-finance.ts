@@ -187,5 +187,8 @@ export const personalFinance: ProjectDetail = {
     slug: "today-bike",
     title: { en: "Today.Bike", ko: "Today.Bike" },
   },
-  nextProject: undefined,
+  nextProject: {
+    slug: "kanban-pipeline",
+    title: { en: "AI Kanban Pipeline", ko: "AI 칸반 파이프라인" },
+  },
 };

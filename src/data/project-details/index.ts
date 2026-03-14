@@ -7,6 +7,9 @@ import { cpetPlatform } from "./cpet-platform";
 import { rideAnalytics } from "./ride-analytics";
 import { todayBike } from "./today-bike";
 import { personalFinance } from "./personal-finance";
+import { kanbanPipeline } from "./kanban-pipeline";
+import { codeReviewSuite } from "./code-review-suite";
+import { javis } from "./javis";
 
 export const projectDetails: Record<string, ProjectDetail> = {
   "smart-factory-qc": smartFactoryQc,
@@ -17,6 +20,9 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "ride-analytics": rideAnalytics,
   "today-bike": todayBike,
   "personal-finance": personalFinance,
+  "kanban-pipeline": kanbanPipeline,
+  "code-review-suite": codeReviewSuite,
+  "javis": javis,
 };
 
 export function getProjectDetail(slug: string): ProjectDetail | undefined {

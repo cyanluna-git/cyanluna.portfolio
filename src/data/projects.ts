@@ -335,7 +335,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Neon PostgreSQL", "Claude Code", "REST API", "Multi-agent"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "6 agents: Planner → Critic → Builder → Shield → Inspector → Ranger",
@@ -368,7 +368,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Python", "Claude API", "Bitbucket API", "Markdown"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "3 domain lenses: Backend / Frontend / PLC",
@@ -401,7 +401,7 @@ export const projects: Project[] = [
     },
     vertical: "devtools",
     stack: ["Next.js", "PostgreSQL", "Claude API", "Jira/Confluence API", "Slack API"],
-    hasDetailPage: false,
+    hasDetailPage: true,
     highlights: {
       en: [
         "Bidirectional incremental sync: Jira ↔ DB ↔ Confluence",
