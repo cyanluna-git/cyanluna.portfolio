@@ -1,5 +1,7 @@
 "use client";
 
+import { useInView } from "@/hooks/useInView";
+
 type Lang = "en" | "ko";
 
 const t = {
@@ -37,9 +39,12 @@ function MailIcon() {
 }
 
 export default function ContactSection({ lang }: { lang: Lang }) {
+  const [ref, inView] = useInView();
+
   return (
     <section
       id="contact"
+      ref={ref as React.RefObject<HTMLElement>}
       className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden"
       style={{
         background: "linear-gradient(180deg, #09090b 0%, #0f1117 30%, #131620 50%, #0f1117 70%, #09090b 100%)",
@@ -50,16 +55,16 @@ export default function ContactSection({ lang }: { lang: Lang }) {
       <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/10 to-transparent" />
 
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 animate-fade-up">
+        <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-4 scroll-fade ${inView ? "in-view" : ""}`}>
           {t.sectionTitle[lang]}
         </h2>
 
-        <p className="text-base sm:text-lg text-muted leading-relaxed max-w-xl mx-auto whitespace-pre-line mb-8 sm:mb-10 animate-fade-up delay-1">
+        <p className={`text-base sm:text-lg text-muted leading-relaxed max-w-xl mx-auto whitespace-pre-line mb-8 sm:mb-10 scroll-fade stagger-2 ${inView ? "in-view" : ""}`}>
           {t.cta[lang]}
         </p>
 
         {/* Email CTA button */}
-        <div className="mb-6 sm:mb-8 animate-fade-up delay-2">
+        <div className={`mb-6 sm:mb-8 scroll-fade stagger-3 ${inView ? "in-view" : ""}`}>
           <a
             href="mailto:contact@cyanluna.dev"
             className="inline-flex items-center gap-2.5 px-6 py-3 text-sm font-medium rounded-xl border border-blue-500/30 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300 min-h-[44px]"
@@ -70,7 +75,7 @@ export default function ContactSection({ lang }: { lang: Lang }) {
         </div>
 
         {/* Social links */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 animate-fade-up delay-3">
+        <div className={`flex flex-col sm:flex-row items-center justify-center gap-3 scroll-fade stagger-4 ${inView ? "in-view" : ""}`}>
           <a
             href="https://github.com/cyanluna"
             target="_blank"

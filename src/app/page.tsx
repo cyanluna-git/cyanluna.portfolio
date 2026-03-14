@@ -7,6 +7,8 @@ import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
+import { useInView } from "@/hooks/useInView";
+import { useCounter } from "@/hooks/useCounter";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -185,6 +187,128 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
   );
 }
 
+function ProjectsSection({
+  lang,
+  filter,
+  setFilter,
+  filtered,
+}: {
+  lang: Lang;
+  filter: Vertical | "all";
+  setFilter: (v: Vertical | "all") => void;
+  filtered: Project[];
+}) {
+  const [ref, inView] = useInView();
+
+  return (
+    <section
+      id="projects"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-12 sm:py-20 px-4 sm:px-6"
+    >
+      <div className="max-w-6xl mx-auto">
+        <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 scroll-fade ${inView ? "in-view" : ""}`}>
+          {t.sectionTitle[lang]}
+        </h2>
+
+        <div className={`flex flex-wrap gap-2 mb-8 sm:mb-10 scroll-fade ${inView ? "in-view" : ""}`}>
+          <button
+            onClick={() => setFilter("all")}
+            className={`px-3.5 py-2 text-sm rounded-lg border transition-colors cursor-pointer min-h-[44px] ${
+              filter === "all"
+                ? "bg-white/10 border-white/20 text-foreground"
+                : "border-border text-muted hover:text-foreground hover:border-white/20"
+            }`}
+          >
+            {t.allFilter[lang]}
+          </button>
+          {(Object.entries(verticals) as [Vertical, (typeof verticals)[Vertical]][]).map(([key, v]) => (
+            <button
+              key={key}
+              onClick={() => setFilter(key)}
+              className={`px-3.5 py-2 text-sm rounded-lg border transition-colors flex items-center gap-2 cursor-pointer min-h-[44px] ${
+                filter === key
+                  ? "bg-white/10 border-white/20 text-foreground"
+                  : "border-border text-muted hover:text-foreground hover:border-white/20"
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: v.color }} />
+              {v.label[lang]}
+            </button>
+          ))}
+        </div>
+
+        {filter !== "all" && (
+          <p className={`text-sm text-muted mb-6 sm:mb-8 scroll-fade ${inView ? "in-view" : ""}`}>
+            {verticals[filter].description[lang]}
+          </p>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map((project, i) => (
+            <div
+              key={project.id}
+              className={`scroll-fade stagger-${Math.min(i + 1, 6)} ${inView ? "in-view" : ""}`}
+            >
+              <ProjectCard project={project} lang={lang} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StackSection({ lang }: { lang: Lang }) {
+  const [ref, inView] = useInView();
+
+  return (
+    <section
+      id="stack"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border"
+    >
+      <div className="max-w-6xl mx-auto">
+        <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-10 scroll-fade ${inView ? "in-view" : ""}`}>
+          {t.stackTitle[lang]}
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stackGroups.map((group, i) => (
+            <div
+              key={group.label}
+              className={`space-y-3 scroll-fade stagger-${Math.min(i + 1, 6)} ${inView ? "in-view" : ""}`}
+            >
+              <h3 className="text-xs font-mono text-muted uppercase tracking-widest">{group.label}</h3>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span key={item} className="px-3 py-1.5 text-sm rounded-lg border border-border bg-surface text-zinc-300">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroStatCard({ label, end }: { label: string; end: number }) {
+  const [ref, inView] = useInView({ threshold: 0.3 });
+  const display = useCounter({ end, duration: 400, enabled: inView });
+
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface"
+    >
+      <div className="text-xl sm:text-2xl font-bold font-mono">{display}</div>
+      <div className="text-[11px] sm:text-xs text-muted mt-1">{label}</div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<Vertical | "all">("all");
@@ -208,10 +332,7 @@ export default function Home() {
 
           <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl animate-fade-up delay-2">
             {(Object.entries(stats) as [keyof typeof stats, number][]).map(([key, val]) => (
-              <div key={key} className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface">
-                <div className="text-xl sm:text-2xl font-bold font-mono">{val}</div>
-                <div className="text-[11px] sm:text-xs text-muted mt-1">{t.statsLabel[key][lang]}</div>
-              </div>
+              <HeroStatCard key={key} label={t.statsLabel[key][lang]} end={val} />
             ))}
           </div>
         </div>
@@ -221,73 +342,10 @@ export default function Home() {
       <AboutSection lang={lang} />
 
       {/* Projects */}
-      <section id="projects" className="py-12 sm:py-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8">{t.sectionTitle[lang]}</h2>
-
-          <div className="flex flex-wrap gap-2 mb-8 sm:mb-10">
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-3.5 py-2 text-sm rounded-lg border transition-colors cursor-pointer min-h-[44px] ${
-                filter === "all"
-                  ? "bg-white/10 border-white/20 text-foreground"
-                  : "border-border text-muted hover:text-foreground hover:border-white/20"
-              }`}
-            >
-              {t.allFilter[lang]}
-            </button>
-            {(Object.entries(verticals) as [Vertical, (typeof verticals)[Vertical]][]).map(([key, v]) => (
-              <button
-                key={key}
-                onClick={() => setFilter(key)}
-                className={`px-3.5 py-2 text-sm rounded-lg border transition-colors flex items-center gap-2 cursor-pointer min-h-[44px] ${
-                  filter === key
-                    ? "bg-white/10 border-white/20 text-foreground"
-                    : "border-border text-muted hover:text-foreground hover:border-white/20"
-                }`}
-              >
-                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: v.color }} />
-                {v.label[lang]}
-              </button>
-            ))}
-          </div>
-
-          {filter !== "all" && (
-            <p className="text-sm text-muted mb-6 sm:mb-8 animate-fade-up">
-              {verticals[filter].description[lang]}
-            </p>
-          )}
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((project, i) => (
-              <div key={project.id} className={`animate-fade-up delay-${Math.min(i + 1, 5)}`}>
-                <ProjectCard project={project} lang={lang} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ProjectsSection lang={lang} filter={filter} setFilter={setFilter} filtered={filtered} />
 
       {/* Stack */}
-      <section id="stack" className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-8 sm:mb-10">{t.stackTitle[lang]}</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {stackGroups.map((group) => (
-              <div key={group.label} className="space-y-3">
-                <h3 className="text-xs font-mono text-muted uppercase tracking-widest">{group.label}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span key={item} className="px-3 py-1.5 text-sm rounded-lg border border-border bg-surface text-zinc-300">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <StackSection lang={lang} />
 
       {/* Contact CTA */}
       <ContactSection lang={lang} />

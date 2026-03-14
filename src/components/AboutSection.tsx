@@ -1,5 +1,8 @@
 "use client";
 
+import { useInView } from "@/hooks/useInView";
+import { useCounter } from "@/hooks/useCounter";
+
 type Lang = "en" | "ko";
 
 const t = {
@@ -34,9 +37,9 @@ const domains = [
 ];
 
 const counters = [
-  { value: "12+", label: { en: "Projects Shipped", ko: "\uD504\uB85C\uC81D\uD2B8" } },
-  { value: "4", label: { en: "Domain Verticals", ko: "\uB3C4\uBA54\uC778" } },
-  { value: "15+", label: { en: "Tech Stacks", ko: "\uAE30\uC220 \uC2A4\uD0DD" } },
+  { value: "12+", num: 12, suffix: "+", label: { en: "Projects Shipped", ko: "\uD504\uB85C\uC81D\uD2B8" } },
+  { value: "4", num: 4, suffix: "", label: { en: "Domain Verticals", ko: "\uB3C4\uBA54\uC778" } },
+  { value: "15+", num: 15, suffix: "+", label: { en: "Tech Stacks", ko: "\uAE30\uC220 \uC2A4\uD0DD" } },
 ];
 
 function GitHubIcon() {
@@ -55,17 +58,44 @@ function LinkedInIcon() {
   );
 }
 
-export default function AboutSection({ lang }: { lang: Lang }) {
+function CounterCard({
+  end,
+  suffix,
+  label,
+  enabled,
+}: {
+  end: number;
+  suffix: string;
+  label: string;
+  enabled: boolean;
+}) {
+  const display = useCounter({ end, duration: 400, enabled, suffix });
+
   return (
-    <section id="about" className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border">
+    <div className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface">
+      <div className="text-xl sm:text-2xl font-bold font-mono">{display}</div>
+      <div className="text-[11px] sm:text-xs text-muted mt-1">{label}</div>
+    </div>
+  );
+}
+
+export default function AboutSection({ lang }: { lang: Lang }) {
+  const [ref, inView] = useInView();
+
+  return (
+    <section
+      id="about"
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-12 sm:py-20 px-4 sm:px-6 border-t border-border"
+    >
       <div className="max-w-6xl mx-auto">
         {/* Section title */}
-        <h2 className="text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 animate-fade-up">
+        <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-6 sm:mb-8 scroll-fade ${inView ? "in-view" : ""}`}>
           {t.sectionTitle[lang]}
         </h2>
 
         {/* Bio + Social */}
-        <div className="mb-8 sm:mb-12 animate-fade-up delay-1">
+        <div className={`mb-8 sm:mb-12 scroll-fade stagger-2 ${inView ? "in-view" : ""}`}>
           <p className="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">
             {t.bio[lang]}
           </p>
@@ -96,7 +126,7 @@ export default function AboutSection({ lang }: { lang: Lang }) {
           {domains.map((domain, i) => (
             <div
               key={domain.label}
-              className={`relative rounded-2xl border border-border bg-surface p-4 sm:p-5 animate-fade-up delay-${Math.min(i + 2, 5)}`}
+              className={`relative rounded-2xl border border-border bg-surface p-4 sm:p-5 scroll-fade stagger-${Math.min(i + 3, 6)} ${inView ? "in-view" : ""}`}
             >
               {/* Top accent line */}
               <div
@@ -134,15 +164,15 @@ export default function AboutSection({ lang }: { lang: Lang }) {
         </div>
 
         {/* Counter highlights */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg animate-fade-up delay-3">
+        <div className={`grid grid-cols-3 gap-3 sm:gap-4 max-w-lg scroll-fade stagger-5 ${inView ? "in-view" : ""}`}>
           {counters.map((c) => (
-            <div
+            <CounterCard
               key={c.value}
-              className="text-center p-3 sm:p-4 rounded-xl border border-border bg-surface"
-            >
-              <div className="text-xl sm:text-2xl font-bold font-mono">{c.value}</div>
-              <div className="text-[11px] sm:text-xs text-muted mt-1">{c.label[lang]}</div>
-            </div>
+              end={c.num}
+              suffix={c.suffix}
+              label={c.label[lang]}
+              enabled={inView}
+            />
           ))}
         </div>
       </div>
