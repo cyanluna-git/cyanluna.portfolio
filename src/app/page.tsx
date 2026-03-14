@@ -6,6 +6,7 @@ import Image from "next/image";
 import { projects, verticals, stats, type Project } from "@/data/projects";
 import Nav from "@/components/Nav";
 import AboutSection from "@/components/AboutSection";
+import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
 import { useInView } from "@/hooks/useInView";
 import { useCounter } from "@/hooks/useCounter";
@@ -340,6 +341,9 @@ export default function Home() {
 
       {/* About */}
       <AboutSection lang={lang} />
+
+      {/* Three Worlds Intersection */}
+      <IntersectionSection lang={lang} />
 
       {/* Projects */}
       <ProjectsSection lang={lang} filter={filter} setFilter={setFilter} filtered={filtered} />
