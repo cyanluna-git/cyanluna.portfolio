@@ -158,7 +158,7 @@ export default async function ProjectOgImage({
               fontFamily: "monospace",
             }}
           >
-            cyanlunaportfolio.vercel.app
+            cyanluna.com
           </span>
         </div>
       </div>

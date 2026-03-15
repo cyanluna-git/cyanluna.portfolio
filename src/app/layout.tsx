@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://cyanlunaportfolio.vercel.app";
+const SITE_URL = "https://cyanluna.com";
 const TITLE = "CyanLuna — Engineering Portfolio";
 const DESCRIPTION =
   "Full-stack engineer building manufacturing automation, health tech, and AI-native developer tools.";

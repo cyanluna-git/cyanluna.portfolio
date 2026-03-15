@@ -142,7 +142,7 @@ export default function OgImage(): ImageResponse {
             fontFamily: "monospace",
           }}
         >
-          cyanlunaportfolio.vercel.app
+          cyanluna.com
         </div>
       </div>
     ),

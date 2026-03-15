@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllProjectSlugs } from "@/data/project-details";
 
-const SITE_URL = "https://cyanlunaportfolio.vercel.app";
+const SITE_URL = "https://cyanluna.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectRoutes = getAllProjectSlugs().map((slug) => ({

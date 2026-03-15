@@ -6,7 +6,7 @@ export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
-const SITE_URL = "https://cyanlunaportfolio.vercel.app";
+const SITE_URL = "https://cyanluna.com";
 
 export async function generateMetadata({
   params,
