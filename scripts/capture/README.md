@@ -15,6 +15,8 @@ Capture screenshots for a specific project:
 
 ```bash
 pnpm capture:unahouse
+pnpm capture:cpet
+pnpm capture:today-bike
 ```
 
 Run the full pipeline (seed data + capture + optimize):
@@ -33,6 +35,24 @@ scripts/capture/
   scenarios/       — capture scenario scripts per project
 ```
 
+## Scenarios
+
+| Script | Project | Server | Port |
+|--------|---------|--------|------|
+| `capture:unahouse` | Personal Finance | una.house.fiance | 3104 |
+| `capture:today-bike` | Today.Bike | today.bike | 3000 |
+| `capture:ai-cycling-coach` | AI Cycling Coach | Vercel (prod) | — |
+| `capture:kanban` | AI Kanban Pipeline | kanban-board | 5173 |
+| `capture:cpet` | CPET Platform | cpet.db | 3100 |
+| `capture:ride-analytics` | Ride Analytics | asan.bicycle | 3102 |
+| `capture:assist-11th` | aSSiST 11th Community | assist.11th | 3103 |
+| `capture:assist-hub` | Assist Hub | assist-hub | 5103 |
+| `capture:equipment-gateway` | Equipment Gateway | edwards/unify | 3001 |
+| `capture:resource-board` | Resource Board | edwards.operation.board | 3004 |
+| `capture:smart-factory-qc` | Smart Factory QC | edwards.oqc.infra | 3006 |
+| `capture:javis` | Javis | jira.javis | 3009 |
+| `capture:code-review` | Code Review Suite | (CLI, static HTML) | — |
+
 ## Configuration
 
 | Setting | Value | Notes |
@@ -47,3 +67,4 @@ scripts/capture/
 1. Create seed script in `seeds/<project>.ts` (if needed)
 2. Create scenario in `scenarios/<project>.ts`
 3. Add npm script to `package.json`
+4. Update this README's Scenarios table
