@@ -232,6 +232,119 @@ curl -I https://eob.cyanluna.com
 curl -I https://gateway.cyanluna.com
 ```
 
+## Common Directives
+
+### gzip
+
+Add to the `http` block in `nginx.conf`:
+
+```nginx
+gzip on;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
+gzip_min_length 256;
+gzip_vary on;
+```
+
+All demo virtual hosts inherit these settings automatically.
+
+### WebSocket Proxy
+
+Not required for the current static-only demo architecture. If a future demo introduces a WebSocket backend, add the following inside the relevant `location` block:
+
+```nginx
+location /ws/ {
+    proxy_pass http://127.0.0.1:<BACKEND_PORT>;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_read_timeout 86400;
+}
+```
+
+### Health Check
+
+Add a shared health endpoint to any one virtual host (e.g. `demo.cyanluna.com`) for uptime monitoring:
+
+```nginx
+location = /healthz {
+    access_log off;
+    return 200 "ok\n";
+    add_header Content-Type text/plain;
+}
+```
+
+External monitors (e.g. Cloudflare Health Checks, UptimeRobot) can poll `https://demo.cyanluna.com/healthz`.
+
+## Adding a New Demo
+
+To add a new demo subdomain (example: `newdemo.cyanluna.com`):
+
+1. Create the static directory on Oracle:
+
+```bash
+sudo mkdir -p /var/www/cyanluna-demos/newdemo
+sudo chown $USER:$(id -gn) /var/www/cyanluna-demos/newdemo
+```
+
+2. Add a new virtual host block to `cyanluna-demos.conf`:
+
+```nginx
+server {
+    listen 80;
+    server_name newdemo.cyanluna.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name newdemo.cyanluna.com;
+
+    ssl_certificate     /etc/ssl/cyanluna/origin-cert.pem;
+    ssl_certificate_key /etc/ssl/cyanluna/origin-key.pem;
+
+    root /var/www/cyanluna-demos/newdemo;
+    index index.html;
+
+    access_log /var/log/nginx/newdemo.access.log;
+    error_log  /var/log/nginx/newdemo.error.log;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+3. Validate and reload Nginx:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+4. Add a Cloudflare DNS `A` record:
+
+| Type | Name | Target | Proxy |
+| --- | --- | --- | --- |
+| `A` | `newdemo` | `<ORACLE_PUBLIC_IP>` | `Proxied` |
+
+The existing Cloudflare Origin CA certificate covers `*.cyanluna.com`, so no additional TLS setup is needed.
+
+5. Deploy the build:
+
+```bash
+pnpm build
+rsync -avz dist/ oracle:/var/www/cyanluna-demos/newdemo/
+```
+
+6. Verify:
+
+```bash
+curl -I https://newdemo.cyanluna.com
+```
+
+7. Update the Demo Topology table in this document.
+
 ## Operational Rules
 
 - keep each demo as build artifacts plus static assets
