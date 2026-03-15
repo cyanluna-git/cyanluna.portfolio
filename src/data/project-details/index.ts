@@ -9,6 +9,8 @@ import { todayBike } from "./today-bike";
 import { personalFinance } from "./personal-finance";
 import { kanbanPipeline } from "./kanban-pipeline";
 import { codeReviewSuite } from "./code-review-suite";
+import { assistHub } from "./assist-hub";
+import { assist11th } from "./assist-11th";
 import { javis } from "./javis";
 
 export const projectDetails: Record<string, ProjectDetail> = {
@@ -22,6 +24,8 @@ export const projectDetails: Record<string, ProjectDetail> = {
   "personal-finance": personalFinance,
   "kanban-pipeline": kanbanPipeline,
   "code-review-suite": codeReviewSuite,
+  "assist-hub": assistHub,
+  "assist-11th": assist11th,
   "javis": javis,
 };
 

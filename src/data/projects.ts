@@ -174,6 +174,7 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["React 19", "FastAPI", "Supabase", "Groq/Gemini LLM", "Vercel"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/ai-cycling-coach/thumbnail.gif" },
     highlights: {
       en: [
         "Omakase pattern: validated modules → AI selection → ZWO output",
@@ -207,6 +208,7 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["React", "FastAPI", "PostgreSQL", "TimescaleDB", "Recharts"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/cpet-platform/thumbnail.gif" },
     highlights: {
       en: [
         "Breath-by-breath metabolic data processing",
@@ -240,6 +242,7 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["Next.js 15", "React 19", "Supabase", "Kakao Maps SDK", "Recharts"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/ride-analytics/thumbnail.gif" },
     highlights: {
       en: [
         "4-stage data pipeline: stage → match → fingerprint → curate",
@@ -275,6 +278,7 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Ruby on Rails 8", "SQLite", "Tailwind CSS", "Stimulus", "Kakao OAuth"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/today-bike/thumbnail.gif" },
     highlights: {
       en: [
         "Service workflow: intake → diagnosis → repair → delivery",
@@ -308,6 +312,7 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Next.js 15", "Drizzle ORM", "SQLite", "Tailwind CSS"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/personal-finance/thumbnail.gif" },
     highlights: {
       en: [
         "7 bank parsers handling 3 different file format families",
@@ -320,6 +325,75 @@ export const projects: Project[] = [
         "파일명 기반 카드사 자동 감지",
         "키워드 기반 가맹점 → 카테고리 자동 분류",
         "월별/카드별 지출 분석 대시보드",
+      ],
+    },
+    status: "active",
+  },
+
+  {
+    id: "assist-hub",
+    title: {
+      en: "Assist Hub",
+      ko: "Assist Hub",
+    },
+    tagline: {
+      en: "Personal academic workspace for MBA",
+      ko: "MBA 학사 관리 개인 워크스페이스",
+    },
+    description: {
+      en: "Single-user localhost application that consolidates Google Classroom materials, multi-source notifications (SMS, Gmail, RSS), and academic schedules into one dashboard. Built with Next.js 16 and Prisma + SQLite for zero-configuration local persistence.",
+      ko: "Google Classroom 자료, 멀티 소스 알림(SMS, Gmail, RSS), 학사 일정을 하나의 대시보드로 통합하는 단일 사용자 로컬호스트 애플리케이션입니다. Next.js 16과 Prisma + SQLite로 제로 설정 로컬 데이터 저장을 제공합니다.",
+    },
+    vertical: "consumer",
+    stack: ["Next.js 16", "Prisma", "SQLite", "Google APIs", "Tailwind CSS"],
+    hasDetailPage: true,
+    media: { type: "gif", src: "/projects/assist-hub/thumbnail.gif" },
+    highlights: {
+      en: [
+        "3-in-1 bulletin: SMS + Gmail + RSS aggregation",
+        "Google Classroom/Gmail/Calendar API integration",
+        "Zero-config SQLite local persistence",
+        "Learning console with reading & summary queues",
+      ],
+      ko: [
+        "3-in-1 게시판: SMS + Gmail + RSS 통합",
+        "Google Classroom/Gmail/Calendar API 연동",
+        "제로 설정 SQLite 로컬 데이터 저장",
+        "리딩 큐 & 요약 큐가 포함된 학습 콘솔",
+      ],
+    },
+    status: "active",
+  },
+  {
+    id: "assist-11th",
+    title: {
+      en: "aSSiST 11th Community",
+      ko: "aSSiST 11기 커뮤니티",
+    },
+    tagline: {
+      en: "MBA cohort community platform",
+      ko: "MBA 동기 커뮤니티 플랫폼",
+    },
+    description: {
+      en: "Full-featured community platform for MBA cohort members. Features community boards (notice/free/column), photo gallery, polls, study groups, lunch recommendations with Kakao Maps, thesis repository, and student council management — all as a PWA for mobile-first access.",
+      ko: "MBA 동기를 위한 풀 기능 커뮤니티 플랫폼입니다. 커뮤니티 게시판(공지/자유/칼럼), 사진 갤러리, 투표, 소모임, 카카오맵 기반 점심 추천, 논문 저장소, 학생회 관리를 PWA로 모바일 우선 접근을 제공합니다.",
+    },
+    vertical: "consumer",
+    stack: ["Next.js 15", "Drizzle ORM", "Neon PostgreSQL", "AWS S3", "Kakao Maps"],
+    hasDetailPage: true,
+    media: { type: "gif", src: "/projects/assist-11th/thumbnail.gif" },
+    highlights: {
+      en: [
+        "PWA: installable on mobile without app store",
+        "Invitation-code closed community registration",
+        "Kakao Maps lunch recommendation (Babzip)",
+        "10+ features: posts, gallery, polls, events, groups, thesis",
+      ],
+      ko: [
+        "PWA: 앱스토어 없이 모바일 설치 가능",
+        "초대 코드 기반 폐쇄형 커뮤니티 등록",
+        "카카오맵 점심 추천 (밥집)",
+        "10+ 기능: 게시판, 갤러리, 투표, 이벤트, 소모임, 논문",
       ],
     },
     status: "active",
@@ -343,6 +417,7 @@ export const projects: Project[] = [
     vertical: "devtools",
     stack: ["Neon PostgreSQL", "Claude Code", "REST API", "Multi-agent"],
     hasDetailPage: true,
+    media: { type: "gif", src: "/projects/kanban-pipeline/thumbnail.gif" },
     highlights: {
       en: [
         "6 agents: Planner → Critic → Builder → Shield → Inspector → Ranger",
@@ -428,7 +503,7 @@ export const projects: Project[] = [
 ];
 
 export const stats = {
-  projects: 12,
+  projects: 14,
   techStacks: 15,
   domains: 4,
   agents: 6,

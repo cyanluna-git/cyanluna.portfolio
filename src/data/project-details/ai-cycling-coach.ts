@@ -13,7 +13,7 @@ export const aiCyclingCoach: ProjectDetail = {
     en: "AI-powered personalized cycling training",
     ko: "AI 기반 개인 맞춤 사이클링 트레이닝",
   },
-  heroImage: "/projects/ai-cycling-coach/hero.png",
+  heroImage: "/projects/ai-cycling-coach/landing.webp",
 
   painPoints: [
     {
@@ -105,7 +105,7 @@ export const aiCyclingCoach: ProjectDetail = {
         en: "Select your training goal and available time, and the AI assembles a structured workout from pre-validated modules. Uses LLM intelligence to match workout intensity to your current fatigue level (TSB) and training phase, outputting a ride-ready ZWO file.",
         ko: "훈련 목표와 가용 시간을 선택하면 AI가 사전 검증된 모듈로 구조화된 운동을 조합합니다. LLM을 활용하여 현재 피로도(TSB)와 훈련 단계에 맞는 운동 강도를 매칭하고, 바로 라이딩 가능한 ZWO 파일을 출력합니다.",
       },
-      image: "/projects/ai-cycling-coach/feature-workout-generator.png",
+      image: "/projects/ai-cycling-coach/workout-generator.webp",
     },
     {
       title: {
@@ -116,7 +116,7 @@ export const aiCyclingCoach: ProjectDetail = {
         en: "Automatically calculates and visualizes your 7 power zones based on FTP. Shows time-in-zone distribution across workouts, identifies training gaps, and recommends zone-specific sessions to build a balanced fitness profile.",
         ko: "FTP를 기반으로 7개 파워 존을 자동 계산하고 시각화합니다. 운동별 존 내 시간 분포를 보여주고, 훈련 갭을 식별하며, 균형 잡힌 체력 프로필을 구축하기 위한 존별 세션을 추천합니다.",
       },
-      image: "/projects/ai-cycling-coach/feature-power-zone.png",
+      image: "/projects/ai-cycling-coach/fitness-card.webp",
     },
     {
       title: {
@@ -127,7 +127,7 @@ export const aiCyclingCoach: ProjectDetail = {
         en: "Weekly periodization view showing planned vs. completed workouts, TSS (Training Stress Score) targets, and rest day recommendations. Syncs with Intervals.icu for automatic training data import and progress tracking.",
         ko: "계획 대비 완료된 운동, TSS(트레이닝 스트레스 스코어) 목표, 휴식일 추천을 보여주는 주간 주기화 뷰입니다. Intervals.icu와 동기화하여 자동 훈련 데이터 가져오기 및 진행 추적을 제공합니다.",
       },
-      image: "/projects/ai-cycling-coach/feature-training-calendar.png",
+      image: "/projects/ai-cycling-coach/weekly-plan.webp",
     },
     {
       title: {
@@ -138,7 +138,7 @@ export const aiCyclingCoach: ProjectDetail = {
         en: "Long-term performance trends with FTP progression, CTL/ATL/TSB charts, and power curve analysis. Tracks improvements across training blocks and provides data-driven insights for peak performance timing.",
         ko: "FTP 진행 추이, CTL/ATL/TSB 차트, 파워 커브 분석을 포함한 장기 퍼포먼스 트렌드입니다. 훈련 블록 전반의 향상을 추적하고 피크 퍼포먼스 타이밍에 대한 데이터 기반 인사이트를 제공합니다.",
       },
-      image: "/projects/ai-cycling-coach/feature-performance.png",
+      image: "/projects/ai-cycling-coach/landing.webp",
     },
   ],
 

@@ -3,50 +3,50 @@ import type { ProjectDetail } from "@/types/project-detail";
 export const todayBike: ProjectDetail = {
   slug: "today-bike",
   vertical: "consumer",
-  verticalColor: "#F59E0B",
+  verticalColor: "#6366F1",
   status: "beta",
   title: {
     en: "Today.Bike",
     ko: "Today.Bike",
   },
   tagline: {
-    en: "All-in-one platform for today's bicycle ride",
-    ko: "오늘의 자전거 라이딩을 위한 올인원 플랫폼",
+    en: "Bicycle service management platform — from intake to delivery",
+    ko: "접수부터 출고까지, 자전거 서비스 관리 플랫폼",
   },
-  heroImage: "/projects/today-bike/hero.png",
+  heroImage: "/projects/today-bike/home.webp",
 
   painPoints: [
     {
-      icon: "🌤️",
+      icon: "📋",
       title: {
-        en: "Weather Checking Across Apps",
-        ko: "여러 앱에서 날씨 확인",
+        en: "Paper-Based Service Tracking",
+        ko: "종이 기반 서비스 관리",
       },
       description: {
-        en: "Cyclists had to check multiple weather apps before every ride — one for temperature, another for wind, yet another for precipitation probability. No single view answered the simple question: 'Should I ride today?'",
-        ko: "사이클리스트가 매 라이딩 전 여러 날씨 앱을 확인해야 했습니다 — 온도용 앱, 바람용 앱, 강수 확률용 앱. '오늘 라이딩해도 될까?'라는 단순한 질문에 답하는 단일 뷰가 없었습니다.",
+        en: "Most bicycle shops still track service orders on whiteboards or paper logbooks. Orders get lost between stages, mechanics can't see what's queued, and owners have no visibility into shop throughput. A single misplaced note means a customer's bike sits untouched for days.",
+        ko: "대부분의 자전거 매장은 여전히 화이트보드나 종이 장부로 서비스 주문을 추적합니다. 단계 사이에서 주문이 분실되고, 정비사는 대기열을 볼 수 없으며, 대표는 매장 처리량을 파악할 수 없습니다. 메모 하나를 잃어버리면 고객의 자전거가 며칠이나 방치됩니다.",
       },
     },
     {
-      icon: "🌬️",
+      icon: "📞",
       title: {
-        en: "No Ride-Specific Weather",
-        ko: "라이딩 특화 날씨 정보 부재",
+        en: "Phone-Call Status Updates",
+        ko: "전화 기반 진행 확인",
       },
       description: {
-        en: "Generic weather forecasts don't address cycling-specific concerns: headwind direction relative to route, feels-like temperature at 30km/h speed, or the narrow time window where conditions are rideable.",
-        ko: "일반 날씨 예보는 사이클링 특화 관심사를 다루지 않습니다: 경로 대비 역풍 방향, 30km/h 속도에서의 체감 온도, 라이딩 가능한 좁은 시간대 등을 고려하지 않습니다.",
+        en: "Every customer calls to ask 'Is my bike ready?' — interrupting mechanics mid-repair. There's no self-service portal, no automated notifications, and no way for customers to track progress on their own. The shop phone becomes a bottleneck.",
+        ko: "모든 고객이 '제 자전거 다 됐나요?'라고 전화합니다 — 수리 중인 정비사의 작업을 중단시킵니다. 셀프서비스 포털도, 자동 알림도, 고객이 스스로 진행 상황을 추적할 방법도 없습니다. 매장 전화가 병목이 됩니다.",
       },
     },
     {
-      icon: "📱",
+      icon: "🔍",
       title: {
-        en: "Scattered Cycling Info",
-        ko: "분산된 사이클링 정보",
+        en: "No Service History",
+        ko: "정비 이력 부재",
       },
       description: {
-        en: "Weather, route conditions, air quality, sunrise/sunset times, and community ride plans were scattered across different apps and websites. No central hub aggregated all pre-ride information in one place.",
-        ko: "날씨, 경로 상태, 대기질, 일출/일몰 시간, 커뮤니티 라이드 계획이 여러 앱과 웹사이트에 분산되어 있었습니다. 모든 사전 라이딩 정보를 한 곳에 모아주는 중앙 허브가 없었습니다.",
+        en: "When a customer returns for a second visit, the shop has no record of what was done before. Parts replaced, adjustments made, recurring issues — all lost. Without a service history tied to each bicycle, every visit starts from zero.",
+        ko: "고객이 재방문하면 이전에 어떤 작업을 했는지 기록이 없습니다. 교체한 부품, 조정 내용, 반복 문제 — 모두 소실됩니다. 각 자전거에 연결된 정비 이력 없이, 매번 처음부터 시작합니다.",
       },
     },
   ],
@@ -54,132 +54,132 @@ export const todayBike: ProjectDetail = {
   beforeAfter: [
     {
       before: {
-        en: "Checking 3-4 apps for weather, wind, and air quality before riding",
-        ko: "라이딩 전 날씨, 바람, 대기질을 3-4개 앱에서 확인",
+        en: "Whiteboard with sticky notes tracking 20+ service orders",
+        ko: "20건 이상의 서비스 주문을 포스트잇으로 추적하는 화이트보드",
       },
       after: {
-        en: "Single ride-ready dashboard with all conditions at a glance",
-        ko: "한눈에 모든 조건을 볼 수 있는 단일 라이드 레디 대시보드",
+        en: "Digital kanban board with drag-and-drop across 4 service stages",
+        ko: "4개 서비스 단계를 드래그 앤 드롭으로 관리하는 디지털 칸반 보드",
       },
     },
     {
       before: {
-        en: "Generic weather forecasts not tailored for cycling",
-        ko: "사이클링에 맞춤화되지 않은 일반 날씨 예보",
+        en: "Customers calling the shop repeatedly to check repair status",
+        ko: "수리 상태 확인을 위해 매장에 반복 전화하는 고객",
       },
       after: {
-        en: "Cycling-specific metrics: wind impact, feels-like at speed, ride window",
-        ko: "사이클링 특화 메트릭: 바람 영향, 속도별 체감 온도, 라이딩 적정 시간대",
+        en: "Customer portal with real-time status tracking via Kakao login",
+        ko: "카카오 로그인으로 실시간 진행 상황을 확인하는 고객 포털",
       },
     },
     {
       before: {
-        en: "No way to know if planned route has favorable weather conditions",
-        ko: "계획한 경로의 날씨 조건이 유리한지 알 방법 없음",
+        en: "No proof of work quality — just 'trust us, it's fixed'",
+        ko: "작업 품질 증명 불가 — '다 고쳤습니다' 말뿐",
       },
       after: {
-        en: "Route-specific weather forecast showing conditions along the entire path",
-        ko: "전체 경로를 따라 조건을 보여주는 경로별 날씨 예보",
+        en: "Before & After photo gallery documenting every transformation",
+        ko: "모든 정비 과정을 기록하는 Before & After 사진 갤러리",
       },
     },
   ],
 
   approach: {
     title: {
-      en: "Ride-First Weather Intelligence",
-      ko: "라이딩 우선 날씨 인텔리전스",
+      en: "Shop Operations as a Service Pipeline",
+      ko: "매장 운영의 서비스 파이프라인화",
     },
     description: {
-      en: "Instead of showing raw weather data and letting cyclists interpret it, the platform processes meteorological data through a cycling-specific lens. Wind speed and direction are translated into headwind/tailwind impact for popular routes. Temperature is adjusted for wind chill at riding speed. Precipitation probability is mapped to ride-window recommendations ('Best window: 7-10 AM'). The Flutter app delivers this as a mobile-first experience with push notifications when conditions become favorable, while the FastAPI backend aggregates multiple weather data sources and caches results for sub-second response times.",
-      ko: "원시 날씨 데이터를 보여주고 사이클리스트가 해석하게 하는 대신, 플랫폼이 기상 데이터를 사이클링 특화 관점으로 처리합니다. 풍속과 풍향을 인기 경로에 대한 역풍/순풍 영향으로 변환합니다. 온도는 라이딩 속도에서의 체감 온도로 보정됩니다. 강수 확률은 라이딩 시간대 추천('최적 시간대: 오전 7-10시')으로 매핑됩니다. Flutter 앱이 조건이 유리해지면 푸시 알림과 함께 모바일 우선 경험을 제공하며, FastAPI 백엔드가 여러 날씨 데이터 소스를 집계하고 결과를 캐싱하여 서브초 응답 시간을 보장합니다.",
+      en: "The platform models the entire bicycle service lifecycle as a structured pipeline — reception, diagnosis, repair, and delivery — each with its own checklist and photo documentation points. Every bicycle gets a digital passport (QR code) that links to its complete service history. The admin panel provides a kanban view where mechanics drag orders between stages, while the customer-facing portal lets owners track their bike's status in real-time via Kakao OAuth login. Built with Rails 8 for rapid full-stack iteration, SQLite for zero-ops deployment, and Stimulus for lightweight interactivity without the overhead of a JavaScript framework.",
+      ko: "플랫폼은 자전거 서비스 전체 수명주기를 구조화된 파이프라인으로 모델링합니다 — 접수, 진단, 수리, 출고 — 각 단계마다 체크리스트와 사진 기록 포인트가 있습니다. 모든 자전거에 QR 코드 기반 디지털 여권이 부여되어 완전한 정비 이력과 연결됩니다. 관리자 패널은 정비사가 주문을 단계 간 드래그하는 칸반 뷰를 제공하고, 고객 포털에서는 카카오 OAuth 로그인으로 자전거 상태를 실시간 추적할 수 있습니다. Rails 8로 빠른 풀스택 반복 개발, SQLite로 운영 부담 없는 배포, Stimulus로 JavaScript 프레임워크 부담 없는 경량 인터랙티비티를 구현했습니다.",
     },
   },
 
   features: [
     {
       title: {
-        en: "Ride-Ready Weather Dashboard",
-        ko: "라이드 레디 날씨 대시보드",
+        en: "Service Workflow Engine",
+        ko: "서비스 워크플로우 엔진",
       },
       description: {
-        en: "A single screen that answers 'Should I ride today?' with a clear go/no-go indicator. Shows current conditions, hourly forecast, and optimal ride windows with cycling-specific interpretations of wind, temperature, and precipitation.",
-        ko: "'오늘 라이딩해도 될까?'에 명확한 Go/No-Go 지표로 답하는 단일 화면입니다. 현재 조건, 시간별 예보, 바람/온도/강수의 사이클링 특화 해석과 함께 최적 라이딩 시간대를 보여줍니다.",
+        en: "Six service types (overhaul, repair, fitting, upgrade, parts, rental) each with step-by-step processes. From initial condition assessment and full disassembly to cleaning, greasing, reassembly, and final test ride — every step is documented with photos and notes. Customers see exactly what was done and why.",
+        ko: "6가지 서비스 유형(분해정비, 수리, 피팅, 업그레이드, 파츠, 대여) 각각에 단계별 프로세스가 있습니다. 초기 상태 점검과 완전 분해부터 세척, 그리싱, 재조립, 최종 테스트 라이딩까지 — 모든 단계가 사진과 메모로 기록됩니다. 고객은 무엇을, 왜 했는지 정확히 확인할 수 있습니다.",
       },
-      image: "/projects/today-bike/feature-weather-dashboard.png",
+      image: "/projects/today-bike/service-overhaul.webp",
     },
     {
       title: {
-        en: "Wind / Temperature Analysis",
-        ko: "바람 / 온도 분석",
+        en: "Before & After Gallery",
+        ko: "Before & After 갤러리",
       },
       description: {
-        en: "Detailed wind rose showing direction and intensity throughout the day, overlaid with popular route directions to indicate headwind/tailwind conditions. Temperature chart includes feels-like adjustments at typical cycling speeds (25-35 km/h).",
-        ko: "하루 종일 방향과 강도를 보여주는 상세 풍배도에 인기 경로 방향을 오버레이하여 역풍/순풍 조건을 표시합니다. 온도 차트에는 일반적인 사이클링 속도(25-35 km/h)에서의 체감 온도 보정이 포함됩니다.",
+        en: "Every service order captures the bicycle's condition before and after work. The gallery becomes a living portfolio of the shop's craftsmanship — showing potential customers the quality of transformation they can expect. Each entry links to the specific bicycle model, service type, and date for complete traceability.",
+        ko: "모든 서비스 주문에서 작업 전후 자전거 상태를 촬영합니다. 갤러리는 매장 장인정신의 살아있는 포트폴리오가 되어, 잠재 고객에게 기대할 수 있는 변화의 품질을 보여줍니다. 각 항목은 특정 자전거 모델, 서비스 유형, 날짜와 연결되어 완전한 추적이 가능합니다.",
       },
-      image: "/projects/today-bike/feature-wind-temp.png",
+      image: "/projects/today-bike/gallery.webp",
     },
     {
       title: {
-        en: "Route Weather Forecast",
-        ko: "경로 날씨 예보",
+        en: "Operations Dashboard",
+        ko: "운영 대시보드",
       },
       description: {
-        en: "Select a route and see weather conditions along the entire path — not just at the start point. Accounts for elevation changes, coastal vs. inland differences, and time-of-arrival at each waypoint based on estimated riding speed.",
-        ko: "경로를 선택하면 출발점뿐만 아니라 전체 경로를 따라 날씨 조건을 확인할 수 있습니다. 고도 변화, 해안가 대 내륙 차이, 예상 라이딩 속도 기반 각 중간 지점 도착 시간을 고려합니다.",
+        en: "Real-time overview of shop operations: total customers, registered bicycles, active service orders, and completion rates. The kanban board visualizes the service pipeline with cards flowing through reception, diagnosis, in-progress, and delivery columns. Quick actions let staff create new orders, register customers, or add bicycles in one click.",
+        ko: "매장 운영의 실시간 개요: 총 고객수, 등록 자전거, 활성 서비스 주문, 완료율. 칸반 보드가 서비스 파이프라인을 시각화하여 접수, 진단, 작업중, 출고 열로 카드가 흐릅니다. 빠른 실행 버튼으로 직원이 새 주문 생성, 고객 등록, 자전거 추가를 원클릭으로 처리합니다.",
       },
-      image: "/projects/today-bike/feature-route-weather.png",
+      image: "/projects/today-bike/admin-kanban.webp",
     },
     {
       title: {
-        en: "Community Feed",
-        ko: "커뮤니티 피드",
+        en: "Products & Parts Catalog",
+        ko: "제품 & 파츠 카탈로그",
       },
       description: {
-        en: "Real-time feed of ride reports from the cycling community — current road conditions, wind reports, group ride announcements, and photo updates. Filter by region and route to get hyper-local intelligence before heading out.",
-        ko: "사이클링 커뮤니티의 실시간 라이드 리포트 피드 — 현재 도로 상태, 바람 리포트, 그룹 라이드 공지, 사진 업데이트. 지역과 경로별 필터로 출발 전 초지역적 인텔리전스를 확인할 수 있습니다.",
+        en: "Integrated product catalog for parts, accessories, apparel, nutrition, and supplies. Categories with filtering let customers browse available items online. Each product links to service orders where it was used, creating a complete chain from part to repair to bicycle.",
+        ko: "파츠, 액세서리, 의류, 보급식, 기타 용품을 위한 통합 제품 카탈로그. 카테고리 필터링으로 고객이 온라인에서 이용 가능한 제품을 탐색할 수 있습니다. 각 제품은 사용된 서비스 주문과 연결되어 부품에서 수리, 자전거까지 완전한 체인을 만듭니다.",
       },
-      image: "/projects/today-bike/feature-community.png",
+      image: "/projects/today-bike/products.webp",
     },
   ],
 
   architecture: {
     nodes: [
-      { id: "mobile", label: { en: "Mobile App", ko: "모바일 앱" }, type: "client", x: 50, y: 50 },
-      { id: "flutter", label: { en: "Flutter", ko: "Flutter" }, type: "client", x: 200, y: 50 },
-      { id: "fastapi", label: { en: "FastAPI", ko: "FastAPI" }, type: "server", x: 200, y: 180 },
-      { id: "weather", label: { en: "Weather API", ko: "Weather API" }, type: "external", x: 350, y: 100 },
-      { id: "firebase", label: { en: "Firebase", ko: "Firebase" }, type: "database", x: 50, y: 180 },
-      { id: "push", label: { en: "Push Notifications", ko: "푸시 알림" }, type: "service", x: 350, y: 260 },
+      { id: "browser", label: { en: "Browser", ko: "브라우저" }, type: "client", x: 50, y: 50 },
+      { id: "rails", label: { en: "Rails 8", ko: "Rails 8" }, type: "server", x: 200, y: 50 },
+      { id: "sqlite", label: { en: "SQLite", ko: "SQLite" }, type: "database", x: 50, y: 180 },
+      { id: "stimulus", label: { en: "Stimulus + Turbo", ko: "Stimulus + Turbo" }, type: "client", x: 350, y: 50 },
+      { id: "kakao", label: { en: "Kakao OAuth", ko: "카카오 OAuth" }, type: "external", x: 350, y: 180 },
+      { id: "storage", label: { en: "Active Storage", ko: "Active Storage" }, type: "service", x: 200, y: 180 },
     ],
     connections: [
-      { from: "mobile", to: "flutter", label: { en: "Native", ko: "네이티브" } },
-      { from: "flutter", to: "fastapi", label: { en: "REST API", ko: "REST API" } },
-      { from: "fastapi", to: "weather", label: { en: "Forecast Data", ko: "예보 데이터" } },
-      { from: "fastapi", to: "firebase", label: { en: "User / Cache", ko: "사용자 / 캐시" } },
-      { from: "fastapi", to: "push", label: { en: "Ride Alert", ko: "라이드 알림" } },
+      { from: "browser", to: "rails", label: { en: "Turbo Stream", ko: "Turbo Stream" } },
+      { from: "rails", to: "sqlite", label: { en: "Active Record", ko: "Active Record" } },
+      { from: "rails", to: "stimulus", label: { en: "Hotwire", ko: "Hotwire" } },
+      { from: "rails", to: "kakao", label: { en: "OAuth 2.0", ko: "OAuth 2.0" } },
+      { from: "rails", to: "storage", label: { en: "Photo Upload", ko: "사진 업로드" } },
     ],
   },
 
   metrics: [
     {
-      value: "Go/No",
-      label: { en: "Ride Decision", ko: "라이드 결정" },
-      description: { en: "Instant ride-readiness indicator based on all conditions", ko: "모든 조건을 종합한 즉시 라이딩 가능 여부 지표" },
+      value: "20",
+      label: { en: "Domain Models", ko: "도메인 모델" },
+      description: { en: "Covering full shop operations from customers to invoices", ko: "고객부터 청구서까지 전체 매장 운영을 커버" },
     },
     {
-      value: "360°",
-      label: { en: "Wind Analysis", ko: "바람 분석" },
-      description: { en: "Full wind rose with route-relative headwind/tailwind", ko: "경로 대비 역풍/순풍이 포함된 전체 풍배도" },
+      value: "6",
+      label: { en: "Service Types", ko: "서비스 유형" },
+      description: { en: "Overhaul, repair, fitting, upgrade, parts, and rental workflows", ko: "분해정비, 수리, 피팅, 업그레이드, 파츠, 대여 워크플로우" },
     },
     {
-      value: "Route",
-      label: { en: "Path Forecast", ko: "경로 예보" },
-      description: { en: "Weather conditions along entire route, not just start point", ko: "출발점뿐 아니라 전체 경로를 따른 날씨 조건" },
+      value: "QR",
+      label: { en: "Bicycle Passport", ko: "자전거 여권" },
+      description: { en: "QR code linking each bicycle to its complete service history", ko: "각 자전거를 완전한 정비 이력에 연결하는 QR 코드" },
     },
     {
-      value: "Push",
-      label: { en: "Ride Alerts", ko: "라이드 알림" },
-      description: { en: "Notifications when weather window becomes favorable", ko: "날씨 조건이 유리해지면 알림 발송" },
+      value: "Live",
+      label: { en: "Production", ko: "운영 중" },
+      description: { en: "Running at asan.bike serving a real bicycle shop", ko: "asan.bike에서 실제 자전거 매장에 서비스 중" },
     },
   ],
 

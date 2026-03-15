@@ -13,7 +13,7 @@ export const rideAnalytics: ProjectDetail = {
     en: "Cycling ride data analysis and course recommendations",
     ko: "자전거 라이딩 데이터 분석 및 코스 추천",
   },
-  heroImage: "/projects/ride-analytics/hero.png",
+  heroImage: "/projects/ride-analytics/home.webp",
 
   painPoints: [
     {
@@ -105,7 +105,7 @@ export const rideAnalytics: ProjectDetail = {
         en: "Comprehensive dashboard showing all ride statistics — distance, elevation, power, heart rate — with filterable views by date range, route, and ride type. Server/client component boundary optimization ensures fast initial load with interactive drill-downs.",
         ko: "거리, 고도, 파워, 심박수 등 모든 라이드 통계를 보여주는 종합 대시보드입니다. 기간, 경로, 라이드 유형별 필터 가능한 뷰를 제공합니다. 서버/클라이언트 컴포넌트 경계 최적화로 빠른 초기 로딩과 인터랙티브 드릴다운을 보장합니다.",
       },
-      image: "/projects/ride-analytics/feature-dashboard.png",
+      image: "/projects/ride-analytics/courses.webp",
     },
     {
       title: {
@@ -116,7 +116,7 @@ export const rideAnalytics: ProjectDetail = {
         en: "Aggregate visualization of all ride routes on Kakao Maps, with color intensity indicating ride frequency. Identify your most-ridden roads, discover unexplored areas nearby, and visualize seasonal riding pattern changes.",
         ko: "카카오맵에서 모든 라이드 경로의 집계 시각화로, 색상 강도가 라이드 빈도를 나타냅니다. 가장 자주 달리는 도로를 파악하고, 근처의 미개척 지역을 발견하며, 계절별 라이딩 패턴 변화를 시각화합니다.",
       },
-      image: "/projects/ride-analytics/feature-heatmap.png",
+      image: "/projects/ride-analytics/explore.webp",
     },
     {
       title: {
@@ -127,7 +127,7 @@ export const rideAnalytics: ProjectDetail = {
         en: "Compare performance across rides on the same route — speed, power, and heart rate overlaid on the route map. Track segment-level improvements over time and identify sections where you're getting faster or slower.",
         ko: "같은 경로에서의 라이드 간 성능 비교 — 속도, 파워, 심박수를 경로 지도에 오버레이합니다. 시간에 따른 구간별 향상을 추적하고 빨라지거나 느려지는 구간을 식별합니다.",
       },
-      image: "/projects/ride-analytics/feature-comparison.png",
+      image: "/projects/ride-analytics/course-detail.webp",
     },
     {
       title: {
@@ -138,7 +138,7 @@ export const rideAnalytics: ProjectDetail = {
         en: "AI-powered course suggestions based on your riding history, fitness level, and preferences (distance, elevation, scenery). Analyzes curated route data to recommend new routes that match your training goals and exploration interests.",
         ko: "라이딩 이력, 체력 수준, 선호도(거리, 고도, 경치)를 바탕으로 한 AI 기반 코스 추천입니다. 큐레이션된 경로 데이터를 분석하여 훈련 목표와 탐험 관심사에 맞는 새로운 경로를 추천합니다.",
       },
-      image: "/projects/ride-analytics/feature-recommendation.png",
+      image: "/projects/ride-analytics/explore-selected.webp",
     },
   ],
 

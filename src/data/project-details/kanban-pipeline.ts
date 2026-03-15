@@ -13,7 +13,7 @@ export const kanbanPipeline: ProjectDetail = {
     en: "6-agent AI team that plans, builds, tests, and reviews your code",
     ko: "코드를 계획, 구현, 테스트, 리뷰하는 6-에이전트 AI 팀",
   },
-  heroImage: "/projects/kanban-pipeline/hero.png",
+  heroImage: "/projects/kanban-pipeline/board.webp",
 
   painPoints: [
     {
@@ -41,12 +41,12 @@ export const kanbanPipeline: ProjectDetail = {
     {
       icon: "📋",
       title: {
-        en: "Manual Task Tracking",
-        ko: "수동 태스크 추적",
+        en: "Vague 'Done' Criteria",
+        ko: "모호한 '완료' 기준",
       },
       description: {
-        en: "Tracking what needs to be done, what's in progress, and what's blocked requires manual bookkeeping that distracts from actual development. Status updates become stale within hours.",
-        ko: "해야 할 일, 진행 중인 일, 차단된 일을 추적하려면 실제 개발에서 주의를 분산시키는 수동 관리가 필요합니다. 상태 업데이트는 몇 시간 내에 구식이 됩니다.",
+        en: "Tasks start with rough descriptions and end with 'looks good enough'. No upfront acceptance criteria, no verifiable checklist, no structured review — just a developer's gut feeling that it's probably done.",
+        ko: "태스크가 대략적인 설명으로 시작해서 '이 정도면 됐겠지'로 끝납니다. 사전 수락 기준도, 검증 가능한 체크리스트도, 구조화된 리뷰도 없이 — 개발자의 감으로 완료를 판단합니다.",
       },
     },
   ],
@@ -68,18 +68,18 @@ export const kanbanPipeline: ProjectDetail = {
         ko: "리뷰나 품질 게이트 없이 코드를 푸시",
       },
       after: {
-        en: "Auto code review + circuit breaker stops bad code after 3 rejections",
-        ko: "자동 코드 리뷰 + 3회 거부 시 회로 차단기로 불량 코드 차단",
+        en: "Inspector scores code on 7 dimensions + circuit breaker stops bad code after 3 rejections",
+        ko: "Inspector가 7개 차원으로 코드를 평가 + 3회 거부 시 회로 차단기로 불량 코드 차단",
       },
     },
     {
       before: {
-        en: "Task status manually updated and constantly stale",
-        ko: "수동으로 업데이트하고 항상 구식인 태스크 상태",
+        en: "Task descriptions with no acceptance criteria or completion checklist",
+        ko: "수락 기준이나 완료 체크리스트 없는 태스크 설명",
       },
       after: {
-        en: "Tasks flow automatically through 7 columns as agents complete work",
-        ko: "에이전트가 작업을 완료하면 7개 컬럼을 자동으로 흐르는 태스크",
+        en: "Planner writes done_when checklist upfront; Ranger verifies every item passes",
+        ko: "Planner가 사전에 done_when 체크리스트 작성; Ranger가 모든 항목 통과를 검증",
       },
     },
   ],
@@ -90,96 +90,96 @@ export const kanbanPipeline: ProjectDetail = {
       ko: "멀티 에이전트 칸반 오케스트레이션",
     },
     description: {
-      en: "The pipeline models software development as a 7-column kanban board (Request → Plan → Plan Review → Implement → Code Review → Test → Done) where 6 specialized AI agents each own a column. The Planner decomposes requirements into implementation plans, the Critic reviews plans for feasibility, the Builder generates code, the Shield performs code review with architectural checks, the Inspector runs tests, and the Ranger handles deployment tasks. A circuit breaker automatically halts the pipeline after 3 consecutive rejections at any review stage, preventing infinite loops. Human-in-the-loop approval gates at plan review and code review ensure critical decisions remain under developer control. Built on Neon PostgreSQL with a REST API consumed by Claude Code skills.",
-      ko: "파이프라인은 소프트웨어 개발을 7-컬럼 칸반 보드(요청 → 계획 → 계획 리뷰 → 구현 → 코드 리뷰 → 테스트 → 완료)로 모델링하며, 6개 전문 AI 에이전트가 각 컬럼을 담당합니다. Planner가 요구사항을 구현 계획으로 분해하고, Critic이 계획의 실현 가능성을 리뷰하고, Builder가 코드를 생성하고, Shield가 아키텍처 검사로 코드 리뷰를 수행하고, Inspector가 테스트를 실행하고, Ranger가 배포 작업을 처리합니다. 회로 차단기는 리뷰 단계에서 연속 3회 거부 시 자동으로 파이프라인을 중단하여 무한 루프를 방지합니다. 계획 리뷰와 코드 리뷰의 사람 승인 게이트로 핵심 결정이 개발자 통제 하에 유지됩니다. Neon PostgreSQL 기반으로 Claude Code 스킬이 소비하는 REST API로 구축되었습니다.",
+      en: "The pipeline models software development as a 7-column kanban board where 6 specialized AI agents each own a stage. Planner decomposes requirements into implementation plans with explicit done_when checklists. Critic reviews plans for feasibility, scoring clarity, done-when quality, and reversibility. Builder generates code following the approved plan. Shield writes tests covering edge cases the Builder might miss. Inspector performs structured code review across 7 dimensions (quality, error handling, type safety, security, performance, coverage, completion). Ranger runs lint, build, and the full test suite. A circuit breaker halts the pipeline after 3 consecutive rejections, preventing infinite rework loops. Every agent signs its output with nickname, model, and timestamp — the task card becomes the complete work log. Human approval gates at plan review and code review keep critical decisions under developer control.",
+      ko: "파이프라인은 소프트웨어 개발을 7-컬럼 칸반 보드로 모델링하며, 6개 전문 AI 에이전트가 각 단계를 담당합니다. Planner가 요구사항을 명시적 done_when 체크리스트와 함께 구현 계획으로 분해합니다. Critic이 명확성, 완료 기준 품질, 가역성을 평가하며 계획을 리뷰합니다. Builder가 승인된 계획에 따라 코드를 생성합니다. Shield가 Builder가 놓칠 수 있는 엣지 케이스를 커버하는 테스트를 작성합니다. Inspector가 7개 차원(품질, 에러 처리, 타입 안전성, 보안, 성능, 커버리지, 완성도)으로 구조화된 코드 리뷰를 수행합니다. Ranger가 린트, 빌드, 전체 테스트 스위트를 실행합니다. 회로 차단기가 연속 3회 거부 시 파이프라인을 중단하여 무한 재작업 루프를 방지합니다. 모든 에이전트가 닉네임, 모델, 타임스탬프로 출력에 서명하여 — 태스크 카드가 완전한 작업 로그가 됩니다. 계획 리뷰와 코드 리뷰의 사람 승인 게이트로 핵심 결정이 개발자 통제 하에 유지됩니다.",
     },
   },
 
   features: [
     {
       title: {
-        en: "7-Column Pipeline",
-        ko: "7-컬럼 파이프라인",
+        en: "7-Column Pipeline with 3 Levels",
+        ko: "3단계 레벨의 7-컬럼 파이프라인",
       },
       description: {
-        en: "Tasks flow through Request → Plan → Plan Review → Implement → Code Review → Test → Done. Each transition is triggered by an agent completing its work and updating the task status via the kanban API. The pipeline supports 3 levels: Quick (L1) skips reviews, Standard (L2) includes plan review, and Full (L3) activates all gates.",
-        ko: "태스크가 요청 → 계획 → 계획 리뷰 → 구현 → 코드 리뷰 → 테스트 → 완료를 거칩니다. 각 전환은 에이전트가 작업을 완료하고 칸반 API를 통해 태스크 상태를 업데이트하면 트리거됩니다. Quick(L1)은 리뷰 생략, Standard(L2)는 계획 리뷰 포함, Full(L3)은 모든 게이트 활성화의 3단계를 지원합니다.",
+        en: "Tasks flow through Request, Plan, Plan Review, Implement, Code Review, Test, and Done. The pipeline supports 3 risk levels: L1 Quick skips all reviews for trivial changes, L2 Standard includes code review, and L3 Full activates every gate including plan review and testing. Each level maps to the actual risk profile of the change.",
+        ko: "태스크가 요청, 계획, 계획 리뷰, 구현, 코드 리뷰, 테스트, 완료를 거칩니다. 3가지 리스크 레벨을 지원합니다: L1 Quick은 사소한 변경에 모든 리뷰를 건너뛰고, L2 Standard는 코드 리뷰를 포함하며, L3 Full은 계획 리뷰와 테스트를 포함한 모든 게이트를 활성화합니다.",
       },
-      image: "/projects/kanban-pipeline/feature-pipeline.png",
+      image: "/projects/kanban-pipeline/board.webp",
     },
     {
       title: {
-        en: "Multi-Agent Orchestration",
-        ko: "멀티 에이전트 오케스트레이션",
+        en: "6 Specialized AI Agents",
+        ko: "6개 전문 AI 에이전트",
       },
       description: {
-        en: "Six specialized agents — Planner, Critic, Builder, Shield, Inspector, and Ranger — each have distinct responsibilities and skill sets. Agents communicate through the shared kanban state, with each agent pulling tasks from its designated column and pushing completed work to the next.",
-        ko: "Planner, Critic, Builder, Shield, Inspector, Ranger 6개 전문 에이전트가 각각 고유한 책임과 스킬 세트를 가집니다. 에이전트는 공유 칸반 상태를 통해 소통하며, 각 에이전트가 담당 컬럼에서 태스크를 가져와 완료된 작업을 다음 컬럼으로 넘깁니다.",
+        en: "Each agent has a fixed nickname and distinct responsibility: Planner decomposes requirements, Critic reviews plans, Builder writes code, Shield writes tests, Inspector scores implementations on 7 dimensions, and Ranger runs the full test suite. Model routing is configurable — Planner and Builder use high-reasoning models (Opus), while review agents use faster models (Sonnet).",
+        ko: "각 에이전트에 고정 닉네임과 고유 책임이 있습니다: Planner가 요구사항을 분해, Critic이 계획을 리뷰, Builder가 코드를 작성, Shield가 테스트를 작성, Inspector가 7개 차원으로 구현을 평가, Ranger가 전체 테스트 스위트를 실행합니다. Planner와 Builder는 고추론 모델(Opus), 리뷰 에이전트는 빠른 모델(Sonnet)을 사용합니다.",
       },
-      image: "/projects/kanban-pipeline/feature-agents.png",
+      image: "/projects/kanban-pipeline/task-detail.webp",
     },
     {
       title: {
-        en: "Auto Code Review",
-        ko: "자동 코드 리뷰",
+        en: "Full Audit Trail",
+        ko: "완전한 감사 추적",
       },
       description: {
-        en: "The Shield agent performs automated code review on every implementation, checking for architectural consistency, test coverage, security issues, and code style. Review results are stored as structured feedback attached to the task, creating a review trail for every change.",
-        ko: "Shield 에이전트가 모든 구현에 자동 코드 리뷰를 수행하여 아키텍처 일관성, 테스트 커버리지, 보안 이슈, 코드 스타일을 검사합니다. 리뷰 결과가 구조화된 피드백으로 태스크에 첨부되어 모든 변경의 리뷰 이력을 생성합니다.",
+        en: "Every agent signs its output with a signature header: nickname, model name, and timestamp. The agent_log field records a chronological JSON array of all agent actions. Plan, implementation notes, review comments, and test results are stored as structured data — the task card itself becomes the complete work log with full traceability.",
+        ko: "모든 에이전트가 닉네임, 모델명, 타임스탬프로 출력에 서명합니다. agent_log 필드가 모든 에이전트 작업의 시간순 JSON 배열을 기록합니다. 계획, 구현 노트, 리뷰 코멘트, 테스트 결과가 구조화된 데이터로 저장되어 — 태스크 카드 자체가 완전한 추적이 가능한 작업 로그가 됩니다.",
       },
-      image: "/projects/kanban-pipeline/feature-review.png",
+      image: "/projects/kanban-pipeline/list-view.webp",
     },
     {
       title: {
-        en: "Circuit Breaker Safety",
-        ko: "회로 차단기 안전장치",
+        en: "Circuit Breaker + Human Gates",
+        ko: "회로 차단기 + 사람 승인 게이트",
       },
       description: {
-        en: "A built-in circuit breaker monitors rejection counts at review stages. After 3 consecutive rejections, the pipeline automatically halts and escalates to the developer, preventing infinite rework loops and wasted computation. Human approval gates at plan review and code review provide additional safety.",
-        ko: "내장 회로 차단기가 리뷰 단계의 거부 횟수를 모니터링합니다. 연속 3회 거부 후 파이프라인이 자동으로 중단되고 개발자에게 에스컬레이션하여 무한 재작업 루프와 연산 낭비를 방지합니다. 계획 리뷰와 코드 리뷰의 사람 승인 게이트가 추가 안전장치를 제공합니다.",
+        en: "A built-in circuit breaker monitors rejection counts at every review stage. After 3 consecutive rejections, the pipeline halts and escalates to the developer — preventing infinite rework loops and wasted computation. Human approval gates at plan review and code review ensure critical decisions stay under developer control, even in auto mode.",
+        ko: "내장 회로 차단기가 모든 리뷰 단계의 거부 횟수를 모니터링합니다. 연속 3회 거부 후 파이프라인이 중단되고 개발자에게 에스컬레이션 — 무한 재작업 루프와 연산 낭비를 방지합니다. 계획 리뷰와 코드 리뷰의 사람 승인 게이트로 자동 모드에서도 핵심 결정이 개발자 통제 하에 유지됩니다.",
       },
-      image: "/projects/kanban-pipeline/feature-circuit-breaker.png",
+      image: "/projects/kanban-pipeline/chronicle.webp",
     },
   ],
 
   architecture: {
     nodes: [
-      { id: "skills", label: { en: "Claude Code Skills", ko: "Claude Code 스킬" }, type: "client", x: 50, y: 50 },
-      { id: "api", label: { en: "Kanban REST API", ko: "칸반 REST API" }, type: "server", x: 200, y: 50 },
-      { id: "neon", label: { en: "Neon PostgreSQL", ko: "Neon PostgreSQL" }, type: "database", x: 200, y: 180 },
-      { id: "planner", label: { en: "Planner Agent", ko: "Planner 에이전트" }, type: "service", x: 50, y: 180 },
-      { id: "builder", label: { en: "Builder Agent", ko: "Builder 에이전트" }, type: "service", x: 350, y: 50 },
-      { id: "shield", label: { en: "Shield Agent", ko: "Shield 에이전트" }, type: "service", x: 350, y: 180 },
+      { id: "cli", label: { en: "Claude Code CLI", ko: "Claude Code CLI" }, type: "client", x: 50, y: 50 },
+      { id: "orchestrator", label: { en: "Skill Orchestrator", ko: "스킬 오케스트레이터" }, type: "server", x: 200, y: 50 },
+      { id: "api", label: { en: "Kanban REST API", ko: "칸반 REST API" }, type: "server", x: 350, y: 50 },
+      { id: "neon", label: { en: "Neon PostgreSQL", ko: "Neon PostgreSQL" }, type: "database", x: 350, y: 180 },
+      { id: "agents", label: { en: "6 AI Agents", ko: "6개 AI 에이전트" }, type: "service", x: 50, y: 180 },
+      { id: "board", label: { en: "Web Board UI", ko: "웹 보드 UI" }, type: "client", x: 200, y: 180 },
     ],
     connections: [
-      { from: "skills", to: "api", label: { en: "HTTP", ko: "HTTP" } },
+      { from: "cli", to: "orchestrator", label: { en: "Skill Invoke", ko: "스킬 호출" } },
+      { from: "orchestrator", to: "api", label: { en: "HTTP", ko: "HTTP" } },
+      { from: "orchestrator", to: "agents", label: { en: "Dispatch", ko: "디스패치" } },
       { from: "api", to: "neon", label: { en: "SQL", ko: "SQL" } },
-      { from: "planner", to: "api", label: { en: "Plan Tasks", ko: "태스크 계획" } },
-      { from: "builder", to: "api", label: { en: "Implement", ko: "구현" } },
-      { from: "shield", to: "api", label: { en: "Review", ko: "리뷰" } },
+      { from: "board", to: "api", label: { en: "REST", ko: "REST" } },
     ],
   },
 
   metrics: [
     {
-      value: "7",
-      label: { en: "Pipeline Columns", ko: "파이프라인 컬럼" },
-      description: { en: "Automated pipeline from request to done", ko: "요청에서 완료까지 자동화된 파이프라인" },
-    },
-    {
       value: "6",
       label: { en: "AI Agents", ko: "AI 에이전트" },
-      description: { en: "Specialized agents for each pipeline stage", ko: "각 파이프라인 단계별 전문 에이전트" },
+      description: { en: "Planner, Critic, Builder, Shield, Inspector, Ranger", ko: "Planner, Critic, Builder, Shield, Inspector, Ranger" },
+    },
+    {
+      value: "842",
+      label: { en: "Tasks Processed", ko: "처리된 태스크" },
+      description: { en: "Tasks orchestrated across 10+ projects in production", ko: "10개 이상 프로젝트에서 운영 중인 태스크 처리 수" },
     },
     {
       value: "L3",
       label: { en: "Pipeline Depth", ko: "파이프라인 깊이" },
-      description: { en: "Full pipeline with all review gates active", ko: "모든 리뷰 게이트가 활성화된 풀 파이프라인" },
+      description: { en: "3 risk levels with configurable review gates", ko: "설정 가능한 리뷰 게이트의 3가지 리스크 레벨" },
     },
     {
       value: "3x",
       label: { en: "Circuit Breaker", ko: "회로 차단기" },
-      description: { en: "Auto-stop after 3 consecutive rejections", ko: "연속 3회 거부 시 자동 정지" },
+      description: { en: "Auto-stop after 3 consecutive rejections at any stage", ko: "어떤 단계에서든 연속 3회 거부 시 자동 정지" },
     },
   ],
 

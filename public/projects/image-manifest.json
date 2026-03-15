@@ -1,1 +1,403 @@
-{}
+{
+  "personal-finance": {
+    "cards": {
+      "src": "/projects/personal-finance/cards.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACQAQCdASoKAAcABUB8JZwAAudPl+AA4n+t3eJAT8Xm/UIAAAA=",
+      "alt": ""
+    },
+    "dashboard": {
+      "src": "/projects/personal-finance/dashboard.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoKAAcABUB8JYgCdAEPBKqzaeQAAM4/Xht5WAsVrYUE/la1Sl+5KN2NABJRWj0AoTXJoAAA",
+      "alt": ""
+    },
+    "fixed-expenses": {
+      "src": "/projects/personal-finance/fixed-expenses.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoKAAcABUB8JZwAAudZfggA4n+t3eLOM1QKAAAA",
+      "alt": ""
+    },
+    "income": {
+      "src": "/projects/personal-finance/income.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAACwAQCdASoKAAcABUB8JZwAAudIFCgAAPl9Ny85FfpAqqtxQAA=",
+      "alt": ""
+    },
+    "loans": {
+      "src": "/projects/personal-finance/loans.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoKAAcABUB8JZwAAvrcPzOsgAD+7IxS9oOkjLdokAAAAA==",
+      "alt": ""
+    },
+    "transactions": {
+      "src": "/projects/personal-finance/transactions.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoKAAcABUB8JZwAAudYwQAA+X03LzgAjjUcAA==",
+      "alt": ""
+    },
+    "trips": {
+      "src": "/projects/personal-finance/trips.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoKAAcABUB8JZwAAudFw0AA4n+t3eJLPUj5+oQA",
+      "alt": ""
+    }
+  },
+  "today-bike": {
+    "admin-bicycles": {
+      "src": "/projects/today-bike/admin-bicycles.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACwAQCdASoKAAcABUB8JZwAAurZ30cAAM4/v33xAAAAAA==",
+      "alt": ""
+    },
+    "admin-dashboard": {
+      "src": "/projects/today-bike/admin-dashboard.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACQAQCdASoKAAcABUB8JaQAAudZtgAAzj+/ffEAAAA=",
+      "alt": ""
+    },
+    "admin-kanban": {
+      "src": "/projects/today-bike/admin-kanban.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoKAAcABUB8JZwAAudLLQAAzj+/ffGWLEcAAA==",
+      "alt": ""
+    },
+    "blog": {
+      "src": "/projects/today-bike/blog.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoKAAcABUB8JaQAAu1y2npSAAD+4MzE/04D0oP1MbkfavC2xsTyWtJtGTgMhg018261oAAA",
+      "alt": ""
+    },
+    "gallery": {
+      "src": "/projects/today-bike/gallery.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAQCdASoKAAcABUB8JZwAAtuVpiQAAP7h7N+RQurkOhRln7IJ3/yy/ie/Cw9mR4AAAA==",
+      "alt": ""
+    },
+    "home": {
+      "src": "/projects/today-bike/home.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADQAQCdASoKAAcABUB8JYgAAu0T1oO0AAD+yYCdi3pz5IC/c3re3ekYMe9wMmAegJpU5o92o7i+1lwAAAA=",
+      "alt": ""
+    },
+    "products": {
+      "src": "/projects/today-bike/products.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoKAAcABUB8JZwAAu0ahElAgAD+x2uY3PL/uS2GVzLkcVa4uRW/uOEYlmqkZTLj/TgjQAAA",
+      "alt": ""
+    },
+    "service-overhaul": {
+      "src": "/projects/today-bike/service-overhaul.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoKAAcABUB8JaQAA3AA/vAz6UV8agAA",
+      "alt": ""
+    }
+  },
+  "kanban-pipeline": {
+    "board": {
+      "src": "/projects/kanban-pipeline/board.webp",
+      "width": 1200,
+      "height": 771,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAADQAQCdASoKAAYABUB8JYwCdAEPDm0OkAD+6XpmECl/M5gA",
+      "alt": ""
+    },
+    "chronicle": {
+      "src": "/projects/kanban-pipeline/chronicle.webp",
+      "width": 1200,
+      "height": 771,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAABwAQCdASoKAAYABUB8JYwCdAGIQAD+74JP+lWIY/HVUAAA",
+      "alt": ""
+    },
+    "list-view": {
+      "src": "/projects/kanban-pipeline/list-view.webp",
+      "width": 1200,
+      "height": 771,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAABwAQCdASoKAAYABUB8JYwCdAGIQAD+73jPjKyDAAA=",
+      "alt": ""
+    },
+    "task-detail": {
+      "src": "/projects/kanban-pipeline/task-detail.webp",
+      "width": 1200,
+      "height": 771,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAABQAQCdASoKAAYABUB8JZQABAAAAP7wVmgg2Xn4aRISGAAA",
+      "alt": ""
+    }
+  },
+  "ai-cycling-coach": {
+    "fitness-card": {
+      "src": "/projects/ai-cycling-coach/fitness-card.webp",
+      "width": 1200,
+      "height": 1419,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoIAAoABUB8JZwAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "landing": {
+      "src": "/projects/ai-cycling-coach/landing.webp",
+      "width": 1200,
+      "height": 800,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAAAwAQCdASoKAAcABUB8JaQAA3AA/vA0cbxX51ZyLLK54gAA",
+      "alt": ""
+    },
+    "weekly-plan": {
+      "src": "/projects/ai-cycling-coach/weekly-plan.webp",
+      "width": 1200,
+      "height": 1138,
+      "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACwAQCdASoKAAkABUB8JZwAAuVuXiwAAP7vvDAXsDjBFh9HjoHJcCAA",
+      "alt": ""
+    },
+    "workout-generator": {
+      "src": "/projects/ai-cycling-coach/workout-generator.webp",
+      "width": 1200,
+      "height": 1216,
+      "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAADQAQCdASoKAAoABUB8JZQAAudgQrY4AAD+7U1edzTe3jRZmZDSmQ57/SyxcTgU+AAo4AAA",
+      "alt": ""
+    }
+  },
+  "cpet-platform": {
+    "admin": {
+      "src": "/projects/cpet-platform/admin.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "cohort": {
+      "src": "/projects/cpet-platform/cohort.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoKAAYABUB8JaQAA3AA/vB80IqAAA==",
+      "alt": ""
+    },
+    "metabolism-full": {
+      "src": "/projects/cpet-platform/metabolism-full.webp",
+      "width": 1200,
+      "height": 1294,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoJAAoABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "metabolism-patterns": {
+      "src": "/projects/cpet-platform/metabolism-patterns.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "metabolism": {
+      "src": "/projects/cpet-platform/metabolism.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vB2AAA=",
+      "alt": ""
+    },
+    "raw-data": {
+      "src": "/projects/cpet-platform/raw-data.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "subject-detail": {
+      "src": "/projects/cpet-platform/subject-detail.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "subject-tests": {
+      "src": "/projects/cpet-platform/subject-tests.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAAAwAQCdASoKAAYABUB8JaQAA3AA/vBhsaBc+yIAAAA=",
+      "alt": ""
+    },
+    "subjects": {
+      "src": "/projects/cpet-platform/subjects.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBdAAA=",
+      "alt": ""
+    },
+    "test-view-2": {
+      "src": "/projects/cpet-platform/test-view-2.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoKAAYABUB8JaQAA3AA/vCUBcdl5oAA",
+      "alt": ""
+    },
+    "test-view": {
+      "src": "/projects/cpet-platform/test-view.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoKAAYABUB8JaQAA3AA/vCUBcdl5oAA",
+      "alt": ""
+    }
+  },
+  "ride-analytics": {
+    "course-detail": {
+      "src": "/projects/ride-analytics/course-detail.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoKAAYABUB8JZwAA3AA/vARpDmAAA==",
+      "alt": ""
+    },
+    "courses": {
+      "src": "/projects/ride-analytics/courses.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoKAAYABUB8JZwAAupQkXAA/u+76rqIgBwAAA==",
+      "alt": ""
+    },
+    "explore-selected": {
+      "src": "/projects/ride-analytics/explore-selected.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAAAwAQCdASoKAAYABUB8JZQAA3AA/u+1tJtCVK4JSAA=",
+      "alt": ""
+    },
+    "explore": {
+      "src": "/projects/ride-analytics/explore.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiwAAABXRUJQVlA4ICAAAACQAQCdASoKAAYABUB8JZQAAuWrwoAA/u3FauR0JSAAAA==",
+      "alt": ""
+    },
+    "home-scrolled": {
+      "src": "/projects/ride-analytics/home-scrolled.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoKAAYABUB8JZQAAupQkXAA/qngVIWWcM4h2LFo1p+UWT4AAAA=",
+      "alt": ""
+    },
+    "home": {
+      "src": "/projects/ride-analytics/home.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAACwAQCdASoKAAYABUB8JZQCw7EO+COAAP6pUEpES6GskqH3AP8swPZgkAFwAA==",
+      "alt": ""
+    },
+    "my-courses": {
+      "src": "/projects/ride-analytics/my-courses.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACwAQCdASoKAAYABUB8JaQAAup3Tx+AAP7xwAAAAAA=",
+      "alt": ""
+    },
+    "upload": {
+      "src": "/projects/ride-analytics/upload.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACwAQCdASoKAAYABUB8JaQAAup3Tx+AAP7xwAAAAAA=",
+      "alt": ""
+    }
+  },
+  "assist-11th": {
+    "gallery": {
+      "src": "/projects/assist-11th/gallery.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAAAwAQCdASoKAAYABUB8JaQAA3AA/u/5JyhtvOr//ewfQg6lU+srwakKUAA=",
+      "alt": ""
+    },
+    "groups": {
+      "src": "/projects/assist-11th/groups.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRioAAABXRUJQVlA4IB4AAACwAQCdASoKAAYABUB8JaQAAup3Tx+AAP7vsAAAAAA=",
+      "alt": ""
+    },
+    "home": {
+      "src": "/projects/assist-11th/home.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoKAAYABUB8JaQAAudQDBAA/u1NZvUYjlLAAAAA",
+      "alt": ""
+    },
+    "login": {
+      "src": "/projects/assist-11th/login.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiYAAABXRUJQVlA4IBoAAAAwAQCdASoKAAYABUB8JaQAA3AA/vArRVAAAA==",
+      "alt": ""
+    },
+    "lunch": {
+      "src": "/projects/assist-11th/lunch.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACQAQCdASoKAAYABUB8JZwAAuTqcsAA/thPJpdgnym3xpp+wQzhAxNRoAA=",
+      "alt": ""
+    },
+    "organization": {
+      "src": "/projects/assist-11th/organization.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRjQAAABXRUJQVlA4ICgAAACQAQCdASoKAAYABUB8JaQAAuYbMgAA/uJUcvSVcRAETLAI1W9hAAAA",
+      "alt": ""
+    },
+    "polls": {
+      "src": "/projects/assist-11th/polls.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vAvAAA=",
+      "alt": ""
+    },
+    "posts": {
+      "src": "/projects/assist-11th/posts.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vAJQAA=",
+      "alt": ""
+    },
+    "settings": {
+      "src": "/projects/assist-11th/settings.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vAnAAA=",
+      "alt": ""
+    }
+  },
+  "assist-hub": {
+    "bulletin": {
+      "src": "/projects/assist-hub/bulletin.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBn2gpgxAAA",
+      "alt": ""
+    },
+    "dashboard": {
+      "src": "/projects/assist-hub/dashboard.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vBCgAA=",
+      "alt": ""
+    },
+    "materials": {
+      "src": "/projects/assist-hub/materials.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoKAAYABUB8JaQAA3AA/vAnAAA=",
+      "alt": ""
+    },
+    "schedule": {
+      "src": "/projects/assist-hub/schedule.webp",
+      "width": 1200,
+      "height": 750,
+      "blurDataURL": "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACwAQCdASoKAAYABUB8JZwAAudmthcAAP7vwrVzPc5e7AAA",
+      "alt": ""
+    }
+  }
+}

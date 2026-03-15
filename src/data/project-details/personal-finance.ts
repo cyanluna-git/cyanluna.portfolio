@@ -13,7 +13,7 @@ export const personalFinance: ProjectDetail = {
     en: "Personal asset management and investment portfolio tracking",
     ko: "개인 자산 관리와 투자 포트폴리오 추적",
   },
-  heroImage: "/projects/personal-finance/hero.png",
+  heroImage: "/projects/personal-finance/dashboard.webp",
 
   painPoints: [
     {
@@ -105,18 +105,18 @@ export const personalFinance: ProjectDetail = {
         en: "Import credit card statements from 7 Korean banks with automatic format detection. Supports XLSX, HTML-disguised XLS, and legacy OLE formats. Auto-detects card company from filename and routes to the correct parser for seamless data ingestion.",
         ko: "자동 형식 감지로 7개 한국 은행의 신용카드 명세서를 가져옵니다. XLSX, HTML 위장 XLS, 레거시 OLE 형식을 지원합니다. 파일명에서 카드사를 자동 감지하고 올바른 파서로 라우팅하여 원활한 데이터 수집을 제공합니다.",
       },
-      image: "/projects/personal-finance/feature-aggregation.png",
+      image: "/projects/personal-finance/transactions.webp",
     },
     {
       title: {
-        en: "Investment Portfolio Tracking",
-        ko: "투자 포트폴리오 추적",
+        en: "Card Management",
+        ko: "카드 관리",
       },
       description: {
-        en: "Track investment holdings across accounts with real-time valuation. Visualize asset allocation, sector exposure, and portfolio performance over time with interactive charts and rebalancing suggestions.",
-        ko: "실시간 평가와 함께 계좌 전반의 투자 보유를 추적합니다. 인터랙티브 차트와 리밸런싱 제안으로 자산 배분, 섹터 노출, 포트폴리오 성과를 시각화합니다.",
+        en: "Register and manage credit/debit cards from 7 Korean banks. Track monthly usage per card, set spending targets, and monitor annual fees. Each transaction is automatically linked to its source card.",
+        ko: "7개 한국 은행의 신용/체크카드를 등록하고 관리합니다. 카드별 월 사용량을 추적하고, 지출 목표를 설정하며, 연회비를 모니터링합니다. 각 거래는 출처 카드에 자동으로 연결됩니다.",
       },
-      image: "/projects/personal-finance/feature-portfolio.png",
+      image: "/projects/personal-finance/cards.webp",
     },
     {
       title: {
@@ -124,21 +124,21 @@ export const personalFinance: ProjectDetail = {
         ko: "지출 분석",
       },
       description: {
-        en: "Keyword-based auto-classification maps merchants to spending categories. Dashboard shows monthly spending trends, category breakdowns, card-wise distribution, and year-over-year comparisons with drill-down capability.",
-        ko: "키워드 기반 자동 분류가 가맹점을 지출 카테고리에 매핑합니다. 대시보드가 월별 지출 추이, 카테고리 분석, 카드별 분포, 전년 대비 비교를 드릴다운 기능과 함께 보여줍니다.",
+        en: "Keyword-based auto-classification maps merchants to spending categories. Dashboard shows monthly spending trends, category breakdowns, card-wise distribution, and necessity analysis with drill-down capability.",
+        ko: "키워드 기반 자동 분류가 가맹점을 지출 카테고리에 매핑합니다. 대시보드가 월별 지출 추이, 카테고리 분석, 카드별 분포, 필수/재량/낭비 분석을 드릴다운 기능과 함께 보여줍니다.",
       },
-      image: "/projects/personal-finance/feature-analytics.png",
+      image: "/projects/personal-finance/income.webp",
     },
     {
       title: {
-        en: "Budget Planning",
-        ko: "예산 계획",
+        en: "Fixed Expenses & Loans",
+        ko: "고정 지출 & 대출 관리",
       },
       description: {
-        en: "Set monthly budgets by category and track spending against targets in real-time. Visual progress bars show budget utilization, and alerts notify when approaching or exceeding category limits.",
-        ko: "카테고리별 월 예산을 설정하고 실시간으로 목표 대비 지출을 추적합니다. 시각적 진행 바가 예산 활용도를 보여주고, 카테고리 한도에 근접하거나 초과 시 알림을 보냅니다.",
+        en: "Track recurring expenses (savings, insurance, utilities, education) with monthly equivalent calculations. Monitor loan status, repayment schedules, and link repayments to actual transactions for complete financial visibility.",
+        ko: "반복 지출(적금, 보험, 공과금, 교육)을 월환산 금액과 함께 추적합니다. 대출 현황, 상환 일정을 모니터링하고, 상환을 실제 거래에 연결하여 완전한 재정 가시성을 제공합니다.",
       },
-      image: "/projects/personal-finance/feature-budget.png",
+      image: "/projects/personal-finance/fixed-expenses.webp",
     },
   ],
 

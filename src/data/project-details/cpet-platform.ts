@@ -13,7 +13,7 @@ export const cpetPlatform: ProjectDetail = {
     en: "Digital transformation of cardiopulmonary exercise test data",
     ko: "심폐운동부하검사 데이터의 디지털 전환",
   },
-  heroImage: "/projects/cpet-platform/hero.png",
+  heroImage: "/projects/cpet-platform/subjects.webp",
 
   painPoints: [
     {
@@ -105,7 +105,7 @@ export const cpetPlatform: ProjectDetail = {
         en: "Streamlined interface for importing breath-by-breath metabolic data from COSMED K5 exports. Supports multiple test protocols (Bruce, Ramp) with automatic parameter detection and validation of physiological ranges.",
         ko: "COSMED K5 내보내기에서 호흡별 대사 데이터를 가져오기 위한 간소화된 인터페이스입니다. 다중 검사 프로토콜(Bruce, Ramp)을 지원하며 생리학적 범위의 자동 매개변수 감지 및 유효성 검증을 제공합니다.",
       },
-      image: "/projects/cpet-platform/feature-data-entry.png",
+      image: "/projects/cpet-platform/subject-tests.webp",
     },
     {
       title: {
@@ -116,7 +116,7 @@ export const cpetPlatform: ProjectDetail = {
         en: "One-click generation of comprehensive CPET reports including VO2max, ventilatory thresholds (VT1/VT2), FATMAX zone, and exercise prescription. Exports to PDF with publication-quality charts and clinical interpretation guidelines.",
         ko: "VO2max, 환기 역치(VT1/VT2), FATMAX 존, 운동 처방이 포함된 종합 CPET 리포트를 원클릭으로 생성합니다. 출판 품질의 차트와 임상 해석 가이드라인이 포함된 PDF로 내보냅니다.",
       },
-      image: "/projects/cpet-platform/feature-report.png",
+      image: "/projects/cpet-platform/admin.webp",
     },
     {
       title: {
@@ -127,7 +127,7 @@ export const cpetPlatform: ProjectDetail = {
         en: "Longitudinal visualization of patient progress across multiple CPET sessions. Track VO2max improvements, fat oxidation rate changes, and ventilatory threshold shifts over weeks and months with interactive comparison charts.",
         ko: "여러 CPET 세션에 걸친 환자 경과의 종적 시각화입니다. 인터랙티브 비교 차트로 수주 및 수개월간의 VO2max 향상, 지방 산화율 변화, 환기 역치 이동을 추적합니다.",
       },
-      image: "/projects/cpet-platform/feature-trend.png",
+      image: "/projects/cpet-platform/subject-detail.webp",
     },
     {
       title: {
@@ -138,22 +138,22 @@ export const cpetPlatform: ProjectDetail = {
         en: "Supports industry-standard exercise protocols including Bruce (staged treadmill) and Ramp (continuous incremental). Protocol-specific analysis templates ensure accurate threshold detection regardless of test methodology.",
         ko: "Bruce(단계별 트레드밀) 및 Ramp(연속 증분) 등 산업 표준 운동 프로토콜을 지원합니다. 프로토콜별 분석 템플릿으로 검사 방법에 관계없이 정확한 역치 감지를 보장합니다.",
       },
-      image: "/projects/cpet-platform/feature-protocol.png",
+      image: "/projects/cpet-platform/metabolism-patterns.webp",
     },
   ],
 
   architecture: {
     nodes: [
       { id: "browser", label: { en: "Browser", ko: "브라우저" }, type: "client", x: 50, y: 50 },
-      { id: "nextjs", label: { en: "Next.js Frontend", ko: "Next.js 프론트엔드" }, type: "client", x: 200, y: 50 },
+      { id: "react", label: { en: "React + Vite", ko: "React + Vite" }, type: "client", x: 200, y: 50 },
       { id: "fastapi", label: { en: "FastAPI", ko: "FastAPI" }, type: "server", x: 200, y: 180 },
       { id: "postgres", label: { en: "PostgreSQL + TimescaleDB", ko: "PostgreSQL + TimescaleDB" }, type: "database", x: 50, y: 180 },
       { id: "pdf", label: { en: "PDF Generation", ko: "PDF 생성" }, type: "service", x: 350, y: 180 },
       { id: "cosmed", label: { en: "COSMED K5 Data", ko: "COSMED K5 데이터" }, type: "external", x: 350, y: 310 },
     ],
     connections: [
-      { from: "browser", to: "nextjs", label: { en: "SPA", ko: "SPA" } },
-      { from: "nextjs", to: "fastapi", label: { en: "REST API", ko: "REST API" } },
+      { from: "browser", to: "react", label: { en: "SPA", ko: "SPA" } },
+      { from: "react", to: "fastapi", label: { en: "REST API", ko: "REST API" } },
       { from: "fastapi", to: "postgres", label: { en: "Time-series SQL", ko: "시계열 SQL" } },
       { from: "fastapi", to: "pdf", label: { en: "Report Export", ko: "리포트 내보내기" } },
       { from: "cosmed", to: "fastapi", label: { en: "CSV Import", ko: "CSV 가져오기" } },
