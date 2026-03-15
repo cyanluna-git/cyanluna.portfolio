@@ -90,8 +90,13 @@ sudo systemctl reload nginx
 
 ```bash
 curl -I -H "Host: oqc.cyanluna.com" http://127.0.0.1
+# Expected: HTTP/1.1 200 OK
+
 curl -I -H "Host: eob.cyanluna.com" http://127.0.0.1
+# Expected: HTTP/1.1 200 OK
+
 curl -I -H "Host: gateway.cyanluna.com" http://127.0.0.1
+# Expected: HTTP/1.1 200 OK
 ```
 
 ## Phase 3: Oracle Security Posture
@@ -123,7 +128,10 @@ Public test:
 
 ```bash
 curl -I https://cyanluna.com
+# Expected: HTTP/2 200, server: Vercel
+
 curl -I https://www.cyanluna.com
+# Expected: HTTP/2 308, location: https://cyanluna.com
 ```
 
 ## Phase 5: Canonical Redirect
@@ -134,6 +142,7 @@ Public test:
 
 ```bash
 curl -I https://www.cyanluna.com
+# Expected: HTTP/2 308, location: https://cyanluna.com
 ```
 
 ## Phase 6: Cloudflare DNS for Oracle Demos
@@ -151,8 +160,16 @@ Public test:
 
 ```bash
 curl -I https://oqc.cyanluna.com
+# Expected: HTTP/2 200, cf-ray header present (Cloudflare proxied)
+
 curl -I https://eob.cyanluna.com
+# Expected: HTTP/2 200, cf-ray header present
+
 curl -I https://gateway.cyanluna.com
+# Expected: HTTP/2 200, cf-ray header present
+
+curl -I https://demo.cyanluna.com
+# Expected: HTTP/2 200, cf-ray header present
 ```
 
 ## Phase 7: Portfolio Metadata Update
@@ -174,15 +191,27 @@ With:
 
 ## Rollback Strategy
 
-Portfolio rollback:
+### Rollback Triggers
 
-1. revert Cloudflare `@` and `www` records
-2. keep using `https://cyanlunaportfolio.vercel.app`
+Rollback if any of the following occur within 30 minutes of cutover:
 
-Demo rollback:
+- `cyanluna.com` does not return HTTP 200 from Vercel
+- `www.cyanluna.com` does not 308-redirect to the apex domain
+- any demo subdomain returns 5xx or connection refused
+- Cloudflare SSL/TLS handshake fails (ERR_SSL_PROTOCOL_ERROR)
+- DNS propagation stalls (dig shows stale records after 15 minutes)
 
-1. delete or disable `oqc`, `eob`, `gateway`, `demo` records
+### Portfolio Rollback
+
+1. revert Cloudflare `@` and `www` records to previous values (or delete them)
+2. keep using `https://cyanlunaportfolio.vercel.app` as the canonical URL
+3. revert `layout.tsx` and `sitemap.ts` URL changes, redeploy
+
+### Demo Rollback
+
+1. delete or disable `oqc`, `eob`, `gateway`, `demo` DNS records in Cloudflare
 2. keep Oracle files and Nginx config in place for later retry
+3. close Oracle port 443 in NSG if no longer needed
 
 ## Final Sign-Off Checklist
 
