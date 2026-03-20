@@ -44,6 +44,10 @@
       color: var(--muted);
       line-height: 1.6;
     }
+    .report-list {
+      display: grid;
+      gap: 14px;
+    }
     a {
       display: block;
       padding: 16px 18px;
@@ -64,10 +68,16 @@
   <main>
     <h1>CPET Report Library</h1>
     <p>Oracle demo host static reports. Share the detail URL directly for a standalone viewer.</p>
-    <a href="./geunyun-park-belgium-lactate/">
-      <strong>Geunyun Park Belgium Lactate Report</strong>
-      /cpet/report/geunyun-park-belgium-lactate/
-    </a>
+    <div class="report-list">
+      <a href="./geunyun-park-belgium-lactate/">
+        <strong>Geunyun Park Belgium Lactate Report</strong>
+        /cpet/report/geunyun-park-belgium-lactate/
+      </a>
+      <a href="./hong-changsun-belgium-lactate/">
+        <strong>Hong Changsun Belgium Lactate Report</strong>
+        /cpet/report/hong-changsun-belgium-lactate/
+      </a>
+    </div>
   </main>
 </body>
 </html>
