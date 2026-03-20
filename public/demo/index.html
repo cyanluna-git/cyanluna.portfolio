@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CyanLuna Demo Index</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #091015;
+      --panel: #122029;
+      --line: rgba(255,255,255,0.08);
+      --text: #eef2f4;
+      --muted: #9ab0bc;
+      --accent: #d9a85b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(217,168,91,0.18), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(111,212,196,0.16), transparent 28%),
+        linear-gradient(180deg, #060b0f, var(--bg));
+      color: var(--text);
+    }
+    main {
+      width: min(920px, 100%);
+      margin: 0 auto;
+      padding: 28px;
+      border-radius: 26px;
+      background: rgba(18, 32, 41, 0.84);
+      border: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+    p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 64ch;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    a {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 160ms ease, border-color 160ms ease;
+    }
+    a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.18);
+    }
+    a strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>CyanLuna Demo Host</h1>
+    <p>Standalone public demos and reports served from the Oracle static host.</p>
+    <div class="grid">
+      <a href="./cpet/report/geunyun-park-belgium-lactate/">
+        <strong>CPET Report</strong>
+        Geunyun Park Belgium Lactate Report
+      </a>
+    </div>
+  </main>
+</body>
+</html>
