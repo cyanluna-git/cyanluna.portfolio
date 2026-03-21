@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
+import { useState, useCallback } from "react";
+import { PrivateDocumentShell, type PrivateNavSection } from "@/components/private";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -190,9 +190,6 @@ function StrategyProgressBar({
   const allItems = ROADMAP_ITEMS.flatMap((g) => g.items).filter((item) =>
     item.id.startsWith(strategy.toLowerCase() + "-")
   );
-  const reviewItems = REVIEW_CHECKPOINTS.filter((item) =>
-    item.id.startsWith("rev-")
-  );
   const relevantItems = strategy === "D" ? allItems : allItems;
   const checked = relevantItems.filter((item) => checkedState[item.id]).length;
   const total = relevantItems.length || info.items;
@@ -227,11 +224,7 @@ function StrategyProgressBar({
   );
 }
 
-// ---------------------------------------------------------------------------
-// Section navigation
-// ---------------------------------------------------------------------------
-
-const SECTIONS = [
+const SECTIONS: PrivateNavSection[] = [
   { id: "sec-1", label: "1. 현재 위치" },
   { id: "sec-2", label: "2. 시장 포지셔닝" },
   { id: "sec-3", label: "3. 보완 전략" },
@@ -240,103 +233,15 @@ const SECTIONS = [
   { id: "sec-6", label: "6. 리뷰 체크포인트" },
 ];
 
-function SideNav() {
-  const [active, setActive] = useState("");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length > 0) {
-          setActive(visible[0].target.id);
-        }
-      },
-      { rootMargin: "-80px 0px -60% 0px", threshold: 0 }
-    );
-
-    SECTIONS.forEach((s) => {
-      const el = document.getElementById(s.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <nav className="hidden xl:block fixed left-[calc(50%-480px-160px)] top-1/3 w-36 print:hidden">
-      <ul className="space-y-1.5">
-        {SECTIONS.map((s) => (
-          <li key={s.id}>
-            <a
-              href={`#${s.id}`}
-              className={`block text-xs py-1 px-2 rounded transition-colors ${
-                active === s.id
-                  ? "text-blue-400 bg-blue-500/10"
-                  : "text-zinc-500 hover:text-zinc-300"
-              }`}
-            >
-              {s.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Gate component
-// ---------------------------------------------------------------------------
-
-function PrivacyGate({ onReveal }: { onReveal: () => void }) {
-  return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="text-center max-w-md">
-        <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-zinc-800 border border-zinc-700 flex items-center justify-center">
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-zinc-400"
-          >
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-          </svg>
-        </div>
-        <h1 className="text-xl font-bold tracking-tight mb-2">This page is private</h1>
-        <p className="text-sm text-zinc-400 mb-8 leading-relaxed">
-          This is a personal career assessment document.<br />
-          Not intended for public viewing.
-        </p>
-        <button
-          onClick={onReveal}
-          className="px-6 py-3 text-sm font-medium rounded-xl bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 hover:border-zinc-600 transition-all cursor-pointer"
-        >
-          I am CyanLuna
-        </button>
-      </div>
-    </div>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Main Page
 // ---------------------------------------------------------------------------
 
 export default function PrivacyPage() {
-  const [revealed, setRevealed] = useState(false);
-  const [checkedState, setCheckedState] = useState<Record<string, boolean>>({});
-  const [lastReviewed, setLastReviewed] = useState("");
-
-  useEffect(() => {
-    setCheckedState(loadCheckedState());
-    setLastReviewed(loadLastReviewed());
-  }, []);
+  const [checkedState, setCheckedState] = useState<Record<string, boolean>>(
+    () => loadCheckedState()
+  );
+  const [lastReviewed, setLastReviewed] = useState(() => loadLastReviewed());
 
   const handleCheck = useCallback((id: string, checked: boolean) => {
     setCheckedState((prev) => {
@@ -356,41 +261,21 @@ export default function PrivacyPage() {
     saveLastReviewed(now);
   }, []);
 
-  if (!revealed) {
-    return <PrivacyGate onReveal={() => setRevealed(true)} />;
-  }
-
   return (
-    <>
-      <SideNav />
-
-      <div className="max-w-[800px] mx-auto px-6 py-12 privacy-content">
-        {/* Back link */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-300 transition-colors mb-8 print:hidden"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5" />
-            <path d="m12 19-7-7 7-7" />
-          </svg>
-          Back to portfolio
-        </Link>
-
-        {/* Document header */}
-        <header className="mb-10 pb-8 border-b border-zinc-800">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">
-            Career Assessment & Strategy
-          </h1>
-          <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-            <span className="font-mono">2026년 3월</span>
-            <span className="text-zinc-700">|</span>
-            <span>AI (Claude) 기반 객관적 평가</span>
-            <span className="text-zinc-700">|</span>
-            <span>포트폴리오 26개 태스크 전수 구현 후 코드베이스 기반 분석</span>
-          </div>
-
-          {/* Last reviewed */}
+    <PrivateDocumentShell
+      title="Career Assessment & Strategy"
+      sections={SECTIONS}
+      meta={
+        <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+          <span className="font-mono">2026년 3월</span>
+          <span className="text-zinc-700">|</span>
+          <span>AI (Claude) 기반 객관적 평가</span>
+          <span className="text-zinc-700">|</span>
+          <span>포트폴리오 26개 태스크 전수 구현 후 코드베이스 기반 분석</span>
+        </div>
+      }
+      headerExtras={
+        <>
           <div className="mt-4 flex items-center gap-3">
             <span className="text-xs text-zinc-500">
               Last reviewed: {lastReviewed || "—"}
@@ -403,7 +288,6 @@ export default function PrivacyPage() {
             </button>
           </div>
 
-          {/* Strategy progress overview */}
           <div className="mt-6 p-4 rounded-xl bg-zinc-900 border border-zinc-800">
             <h3 className="text-xs font-mono text-zinc-500 uppercase tracking-widest mb-3">Strategy Progress</h3>
             <div className="space-y-2">
@@ -412,7 +296,9 @@ export default function PrivacyPage() {
               ))}
             </div>
           </div>
-        </header>
+        </>
+      }
+    >
 
         {/* ── Section 1: 현재 위치 ── */}
         <SectionHeader id="sec-1">1. 현재 위치: 솔직한 평가</SectionHeader>
@@ -737,7 +623,6 @@ export default function PrivacyPage() {
             Tip: Use your browser&apos;s Print function (Cmd+P / Ctrl+P) to export this page as a PDF.
           </p>
         </div>
-      </div>
-    </>
+    </PrivateDocumentShell>
   );
 }
