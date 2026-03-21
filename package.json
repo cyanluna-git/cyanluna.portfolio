@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
+    "test:e2e": "pnpm build && playwright test",
     "test:watch": "vitest",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:placeholders": "node scripts/generate-placeholders.mjs",
