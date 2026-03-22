@@ -55,20 +55,30 @@ export async function GET(request: Request) {
 
   try {
     const res = await fetch(apiUrl, { next: { revalidate: 300 } });
+    const text = await res.text();
+
     if (!res.ok) {
-      const text = await res.text();
       return NextResponse.json(
-        { error: "upstream_error", status: res.status, detail: text },
+        { error: `upstream ${res.status}`, detail: text.slice(0, 500) },
         { status: 502 },
       );
     }
 
-    const json = (await res.json()) as KStartupApiResponse;
-    return NextResponse.json(json);
+    let json: unknown;
+    try {
+      json = JSON.parse(text);
+    } catch {
+      return NextResponse.json(
+        { error: "invalid_json", detail: text.slice(0, 500) },
+        { status: 502 },
+      );
+    }
+
+    return NextResponse.json(json as KStartupApiResponse);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "unknown error";
     return NextResponse.json(
-      { error: "fetch_failed", message },
+      { error: "fetch_failed", detail: message },
       { status: 502 },
     );
   }

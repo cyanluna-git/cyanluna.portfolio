@@ -441,6 +441,13 @@ export default function FounderProgramsPage() {
           >
             Career assessment 보기
           </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
+            href="/privacy/announcements"
+            className="text-zinc-400 hover:text-zinc-100 transition-colors"
+          >
+            사업공고 트래커
+          </Link>
         </div>
       }
       headerExtras={

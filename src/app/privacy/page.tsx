@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useCallback } from "react";
 import { PrivateDocumentShell, type PrivateNavSection } from "@/components/private";
 
@@ -266,13 +267,29 @@ export default function PrivacyPage() {
       title="Career Assessment & Strategy"
       sections={SECTIONS}
       meta={
-        <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
-          <span className="font-mono">2026년 3월</span>
-          <span className="text-zinc-700">|</span>
-          <span>AI (Claude) 기반 객관적 평가</span>
-          <span className="text-zinc-700">|</span>
-          <span>포트폴리오 26개 태스크 전수 구현 후 코드베이스 기반 분석</span>
-        </div>
+        <>
+          <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
+            <span className="font-mono">2026년 3월</span>
+            <span className="text-zinc-700">|</span>
+            <span>AI (Claude) 기반 객관적 평가</span>
+            <span className="text-zinc-700">|</span>
+            <span>포트폴리오 26개 태스크 전수 구현 후 코드베이스 기반 분석</span>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Link
+              href="/privacy/founder-programs"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-600 hover:text-zinc-100 transition-colors"
+            >
+              Founder Programs
+            </Link>
+            <Link
+              href="/privacy/announcements"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-600 hover:text-zinc-100 transition-colors"
+            >
+              사업공고 트래커
+            </Link>
+          </div>
+        </>
       }
       headerExtras={
         <>

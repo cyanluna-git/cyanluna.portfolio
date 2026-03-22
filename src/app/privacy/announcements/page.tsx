@@ -255,9 +255,10 @@ export default function AnnouncementsPage() {
     try {
       const res = await fetch(`/api/privacy/announcements?${params.toString()}`);
       if (!res.ok) {
-        const body = await res.json().catch(() => null);
+        const body = await res.json().catch(() => null) as Record<string, unknown> | null;
+        const detail = body?.detail ? ` — ${String(body.detail).slice(0, 200)}` : "";
         throw new Error(
-          (body as Record<string, unknown>)?.error as string || `HTTP ${res.status}`,
+          `${String(body?.error ?? `HTTP ${res.status}`)}${detail}`,
         );
       }
       const json = (await res.json()) as KStartupApiResponse;
