@@ -288,6 +288,12 @@ export default function PrivacyPage() {
             >
               사업공고 트래커
             </Link>
+            <Link
+              href="/privacy/my-picks"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-violet-500/30 bg-violet-500/5 px-3 py-1.5 text-xs text-violet-300 hover:border-violet-400/40 hover:text-violet-200 transition-colors"
+            >
+              My Picks
+            </Link>
           </div>
         </>
       }

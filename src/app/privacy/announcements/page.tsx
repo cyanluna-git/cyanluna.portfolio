@@ -498,6 +498,11 @@ export default function AnnouncementsPage() {
     (item) => !readSet.has(String(item.pbanc_sn)),
   ).length;
 
+  const pickedCount = Object.keys(picks).length;
+  const planningCount = Object.values(picks).filter(
+    (p) => p.status === "planning",
+  ).length;
+
   return (
     <PrivateDocumentShell
       title="K-Startup 사업공고 트래커"
@@ -513,6 +518,13 @@ export default function AnnouncementsPage() {
             className="text-zinc-400 hover:text-zinc-100 transition-colors"
           >
             Founder programs 보기
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
+            href="/privacy/my-picks"
+            className="text-zinc-400 hover:text-zinc-100 transition-colors"
+          >
+            My Picks
           </Link>
         </div>
       }
@@ -531,11 +543,12 @@ export default function AnnouncementsPage() {
             </button>
           </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-4">
+          <div className="mt-6 grid gap-4 md:grid-cols-5">
             <SummaryCard label="모집중 전체" value={loading ? "—" : rawData.length} />
             <SummaryCard label="맞춤 필터" value={loading ? "—" : myMatched.length} />
             <SummaryCard label="Unread" value={loading ? "—" : unreadCount} />
-            <SummaryCard label="마감 임박" value={loading ? "—" : urgentItems.length} />
+            <SummaryCard label="Picked" value={pickedCount} />
+            <SummaryCard label="지원예정" value={planningCount} />
           </div>
 
           {/* Filter controls */}

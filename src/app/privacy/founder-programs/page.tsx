@@ -448,6 +448,13 @@ export default function FounderProgramsPage() {
           >
             사업공고 트래커
           </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
+            href="/privacy/my-picks"
+            className="text-zinc-400 hover:text-zinc-100 transition-colors"
+          >
+            My Picks
+          </Link>
         </div>
       }
       headerExtras={
