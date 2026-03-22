@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { PrivateDocumentShell, type PrivateNavSection } from "@/components/private";
 import type {
   KStartupAnnouncement,
   KStartupApiResponse,
-  RecruitmentFilter,
 } from "@/types/announcement";
 
 // ---------------------------------------------------------------------------
@@ -18,9 +17,43 @@ const LAST_CHECKED_KEY = "kstartup-announcements-last-checked";
 
 const SECTIONS: PrivateNavSection[] = [
   { id: "summary", label: "1. 현황" },
-  { id: "recruiting", label: "2. 모집중" },
-  { id: "all-list", label: "3. 전체 목록" },
+  { id: "matched", label: "2. 맞춤 공고" },
+  { id: "all-list", label: "3. 전체 모집중" },
 ];
+
+// ---------------------------------------------------------------------------
+// My filter config
+// ---------------------------------------------------------------------------
+
+const MY_REGIONS = ["충남", "전국", "대전", "세종", "아산"];
+
+const CATEGORY_KEYWORDS = ["AI", "DX", "AX", "디지털", "인공지능"];
+const STARTUP_KEYWORDS = ["예비창업", "예비 창업", "창업"];
+
+function matchesMyFilter(item: KStartupAnnouncement): boolean {
+  const region = item.supt_regin || "";
+  const regionMatch = MY_REGIONS.some((r) => region.includes(r));
+  if (!regionMatch) return false;
+
+  const searchText = [
+    item.biz_pbanc_nm,
+    item.supt_biz_clsfc,
+    item.pbanc_ctnt ?? "",
+  ]
+    .join(" ")
+    .toUpperCase();
+
+  const categoryMatch = CATEGORY_KEYWORDS.some((kw) =>
+    searchText.includes(kw.toUpperCase()),
+  );
+
+  const startupText = [item.biz_enyy ?? "", item.aply_trgt ?? "", item.biz_pbanc_nm].join(
+    " ",
+  );
+  const startupMatch = STARTUP_KEYWORDS.some((kw) => startupText.includes(kw));
+
+  return categoryMatch || startupMatch;
+}
 
 // ---------------------------------------------------------------------------
 // localStorage helpers
@@ -93,6 +126,20 @@ function dDayTone(endDate: string): string {
   return "text-emerald-400";
 }
 
+function matchReason(item: KStartupAnnouncement): string {
+  const parts: string[] = [];
+  const searchText = [item.biz_pbanc_nm, item.supt_biz_clsfc, item.pbanc_ctnt ?? ""]
+    .join(" ")
+    .toUpperCase();
+  const matched = CATEGORY_KEYWORDS.filter((kw) => searchText.includes(kw.toUpperCase()));
+  if (matched.length > 0) parts.push(matched.join(", "));
+
+  const startupText = [item.biz_enyy ?? "", item.aply_trgt ?? "", item.biz_pbanc_nm].join(" ");
+  if (STARTUP_KEYWORDS.some((kw) => startupText.includes(kw))) parts.push("창업지원");
+
+  return parts.join(" · ");
+}
+
 // ---------------------------------------------------------------------------
 // Components
 // ---------------------------------------------------------------------------
@@ -115,10 +162,12 @@ function AnnouncementCard({
   item,
   isRead,
   onMarkRead,
+  reason,
 }: {
   item: KStartupAnnouncement;
   isRead: boolean;
   onMarkRead: (id: string) => void;
+  reason?: string;
 }) {
   const recruiting = item.rcrt_prgs_yn === "Y";
   const dday = dDayLabel(item.pbanc_rcpt_end_dt);
@@ -142,6 +191,11 @@ function AnnouncementCard({
             {dday && (
               <span className={`text-xs font-mono font-semibold ${ddayColor}`}>
                 {dday}
+              </span>
+            )}
+            {reason && (
+              <span className="inline-flex rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 text-[11px] font-medium text-violet-300">
+                {reason}
               </span>
             )}
           </div>
@@ -181,6 +235,18 @@ function AnnouncementCard({
             <span className="text-zinc-500 shrink-0">지원대상</span>
             <span className="text-zinc-300 line-clamp-1">{item.aply_trgt || "—"}</span>
           </div>
+          {item.biz_enyy && (
+            <div className="flex gap-2">
+              <span className="text-zinc-500 shrink-0">업력</span>
+              <span className="text-zinc-300 line-clamp-1">{item.biz_enyy}</span>
+            </div>
+          )}
+          {item.supt_biz_clsfc && (
+            <div className="flex gap-2">
+              <span className="text-zinc-500 shrink-0">분야</span>
+              <span className="text-zinc-300">{item.supt_biz_clsfc}</span>
+            </div>
+          )}
         </div>
 
         {(item.detl_pg_url || item.biz_gdnc_url) && (
@@ -217,64 +283,62 @@ function SummaryCard({
   );
 }
 
+function FilterTag({ label, active }: { label: string; active?: boolean }) {
+  return (
+    <span
+      className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] ${
+        active
+          ? "border-violet-500/30 bg-violet-500/10 text-violet-300"
+          : "border-zinc-700 bg-zinc-900 text-zinc-500"
+      }`}
+    >
+      {label}
+    </span>
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Main page
 // ---------------------------------------------------------------------------
 
 export default function AnnouncementsPage() {
-  const [data, setData] = useState<KStartupAnnouncement[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const [rawData, setRawData] = useState<KStartupAnnouncement[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<RecruitmentFilter>("all");
+  const [myFilterOn, setMyFilterOn] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [readSet, setReadSet] = useState<Set<string>>(() => loadReadSet());
   const [lastChecked, setLastChecked] = useState(() => loadLastChecked());
-  const [page, setPage] = useState(1);
 
-  const perPage = 50;
-
-  const fetchAnnouncements = useCallback(async (pageNum: number, recruitFilter: RecruitmentFilter, search: string) => {
+  const fetchAnnouncements = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     const params = new URLSearchParams();
-    params.set("page", String(pageNum));
-    params.set("perPage", String(perPage));
-
-    if (recruitFilter === "recruiting") {
-      params.set("cond[rcrt_prgs_yn::EQ]", "Y");
-    } else if (recruitFilter === "closed") {
-      params.set("cond[rcrt_prgs_yn::EQ]", "N");
-    }
-
-    if (search.trim()) {
-      params.set("cond[biz_pbanc_nm::LIKE]", search.trim());
-    }
+    params.set("page", "1");
+    params.set("perPage", "200");
+    params.set("cond[rcrt_prgs_yn::EQ]", "Y");
 
     try {
       const res = await fetch(`/api/privacy/announcements?${params.toString()}`);
       if (!res.ok) {
-        const body = await res.json().catch(() => null) as Record<string, unknown> | null;
+        const body = (await res.json().catch(() => null)) as Record<string, unknown> | null;
         const detail = body?.detail ? ` — ${String(body.detail).slice(0, 200)}` : "";
-        throw new Error(
-          `${String(body?.error ?? `HTTP ${res.status}`)}${detail}`,
-        );
+        throw new Error(`${String(body?.error ?? `HTTP ${res.status}`)}${detail}`);
       }
       const json = (await res.json()) as KStartupApiResponse;
-      setData(json.data ?? []);
-      setTotalCount(json.totalCount ?? 0);
+      setRawData(json.data ?? []);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "데이터를 불러올 수 없습니다");
-      setData([]);
+      setRawData([]);
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchAnnouncements(page, filter, keyword);
-  }, [fetchAnnouncements, page, filter, keyword]);
+    fetchAnnouncements();
+  }, [fetchAnnouncements]);
 
   const handleMarkRead = useCallback((sn: string) => {
     setReadSet((prev) => {
@@ -299,22 +363,41 @@ export default function AnnouncementsPage() {
     saveLastChecked(now);
   }, []);
 
-  const handleSearch = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setPage(1);
-  }, []);
+  // ---- derived data ----
 
-  const recruitingItems = data.filter((item) => item.rcrt_prgs_yn === "Y");
-  const unreadCount = data.filter((item) => !readSet.has(String(item.pbanc_sn))).length;
+  const keywordFiltered = useMemo(() => {
+    if (!keyword.trim()) return rawData;
+    const kw = keyword.trim().toLowerCase();
+    return rawData.filter((item) =>
+      item.biz_pbanc_nm.toLowerCase().includes(kw),
+    );
+  }, [rawData, keyword]);
 
-  const urgentItems = recruitingItems
-    .filter((item) => {
-      const days = daysRemaining(item.pbanc_rcpt_end_dt);
-      return days !== null && days >= 0 && days <= 7;
-    })
-    .sort((a, b) => (daysRemaining(a.pbanc_rcpt_end_dt) ?? 99) - (daysRemaining(b.pbanc_rcpt_end_dt) ?? 99));
+  const myMatched = useMemo(
+    () => keywordFiltered.filter(matchesMyFilter),
+    [keywordFiltered],
+  );
 
-  const totalPages = Math.max(1, Math.ceil(totalCount / perPage));
+  const displayItems = myFilterOn ? myMatched : keywordFiltered;
+
+  const urgentItems = useMemo(
+    () =>
+      displayItems
+        .filter((item) => {
+          const days = daysRemaining(item.pbanc_rcpt_end_dt);
+          return days !== null && days >= 0 && days <= 7;
+        })
+        .sort(
+          (a, b) =>
+            (daysRemaining(a.pbanc_rcpt_end_dt) ?? 99) -
+            (daysRemaining(b.pbanc_rcpt_end_dt) ?? 99),
+        ),
+    [displayItems],
+  );
+
+  const unreadCount = displayItems.filter(
+    (item) => !readSet.has(String(item.pbanc_sn)),
+  ).length;
 
   return (
     <PrivateDocumentShell
@@ -324,7 +407,7 @@ export default function AnnouncementsPage() {
         <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500">
           <span className="font-mono">data.go.kr 창업진흥원 API</span>
           <span className="text-zinc-700">|</span>
-          <span>창업지원 사업공고를 놓치지 않고 추적</span>
+          <span>모집중 공고 실시간 추적</span>
           <span className="text-zinc-700">|</span>
           <Link
             href="/privacy/founder-programs"
@@ -350,49 +433,60 @@ export default function AnnouncementsPage() {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-4">
-            <SummaryCard label="Total" value={loading ? "—" : totalCount} />
-            <SummaryCard label="Recruiting" value={loading ? "—" : recruitingItems.length} />
+            <SummaryCard label="모집중 전체" value={loading ? "—" : rawData.length} />
+            <SummaryCard label="맞춤 필터" value={loading ? "—" : myMatched.length} />
             <SummaryCard label="Unread" value={loading ? "—" : unreadCount} />
-            <SummaryCard
-              label="Urgent (7일 이내)"
-              value={loading ? "—" : urgentItems.length}
-            />
+            <SummaryCard label="마감 임박" value={loading ? "—" : urgentItems.length} />
           </div>
 
-          <div className="mt-6">
-            <form onSubmit={handleSearch} className="flex flex-wrap gap-3">
+          {/* Filter controls */}
+          <div className="mt-6 space-y-3">
+            <div className="flex flex-wrap gap-3 items-center">
               <input
                 type="text"
                 value={keyword}
-                onChange={(e) => { setKeyword(e.target.value); setPage(1); }}
+                onChange={(e) => setKeyword(e.target.value)}
                 placeholder="공고명 검색..."
                 className="flex-1 min-w-[200px] rounded-xl border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm text-zinc-200 placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none"
               />
-              <div className="flex gap-2">
-                {(["all", "recruiting", "closed"] as const).map((f) => (
-                  <button
-                    key={f}
-                    type="button"
-                    onClick={() => { setFilter(f); setPage(1); }}
-                    className={`text-xs px-3 py-2 rounded-xl border transition-colors cursor-pointer ${
-                      filter === f
-                        ? "border-blue-500/40 bg-blue-500/10 text-blue-300"
-                        : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-zinc-300"
-                    }`}
-                  >
-                    {f === "all" ? "전체" : f === "recruiting" ? "모집중" : "마감"}
-                  </button>
+              <button
+                type="button"
+                onClick={() => setMyFilterOn((prev) => !prev)}
+                className={`text-xs px-3 py-2 rounded-xl border transition-colors cursor-pointer ${
+                  myFilterOn
+                    ? "border-violet-500/40 bg-violet-500/10 text-violet-300"
+                    : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-zinc-300"
+                }`}
+              >
+                {myFilterOn ? "내 맞춤 필터 ON" : "내 맞춤 필터 OFF"}
+              </button>
+            </div>
+
+            {myFilterOn && (
+              <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500">
+                <span>지역:</span>
+                {MY_REGIONS.map((r) => (
+                  <FilterTag key={r} label={r} active />
+                ))}
+                <span className="text-zinc-700 mx-1">AND</span>
+                <span>분야:</span>
+                {CATEGORY_KEYWORDS.map((k) => (
+                  <FilterTag key={k} label={k} active />
+                ))}
+                <span className="text-zinc-700">or</span>
+                {STARTUP_KEYWORDS.map((k) => (
+                  <FilterTag key={k} label={k} active />
                 ))}
               </div>
-            </form>
+            )}
           </div>
         </>
       }
     >
-      {/* Section 1: Summary / Urgent */}
+      {/* Section 1: Urgent */}
       <section id="summary" className="scroll-mt-24">
-        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-blue-500">
-          1. 마감 임박 공고
+        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-rose-500">
+          1. 마감 임박 (7일 이내)
         </h2>
         {loading ? (
           <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-8 text-center">
@@ -414,91 +508,73 @@ export default function AnnouncementsPage() {
                 item={item}
                 isRead={readSet.has(String(item.pbanc_sn))}
                 onMarkRead={handleMarkRead}
+                reason={matchReason(item)}
               />
             ))}
           </div>
         )}
       </section>
 
-      {/* Section 2: Recruiting */}
-      <section id="recruiting" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-emerald-500">
-          2. 모집중 공고
+      {/* Section 2: My matched */}
+      <section id="matched" className="mt-12 scroll-mt-24">
+        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-violet-500">
+          2. {myFilterOn ? "맞춤 공고" : "전체 모집중"}
+          <span className="ml-3 text-sm font-normal text-zinc-500">
+            {displayItems.length}건
+          </span>
         </h2>
         {loading ? (
           <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-8 text-center">
             <p className="text-sm text-zinc-500 animate-pulse">불러오는 중...</p>
           </div>
-        ) : recruitingItems.length === 0 ? (
+        ) : displayItems.length === 0 ? (
           <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-8 text-center">
-            <p className="text-sm text-zinc-500">현재 모집중인 공고가 없습니다.</p>
+            <p className="text-sm text-zinc-500">
+              {myFilterOn
+                ? "필터 조건에 맞는 모집중 공고가 없습니다."
+                : "현재 모집중인 공고가 없습니다."}
+            </p>
           </div>
         ) : (
           <div className="space-y-4">
-            {recruitingItems.map((item) => (
+            {displayItems.map((item) => (
               <AnnouncementCard
                 key={String(item.pbanc_sn)}
                 item={item}
                 isRead={readSet.has(String(item.pbanc_sn))}
                 onMarkRead={handleMarkRead}
+                reason={myFilterOn ? matchReason(item) : undefined}
               />
             ))}
           </div>
         )}
       </section>
 
-      {/* Section 3: All */}
-      <section id="all-list" className="mt-12 scroll-mt-24">
-        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-zinc-500">
-          3. 전체 목록
-        </h2>
-        {loading ? (
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-8 text-center">
-            <p className="text-sm text-zinc-500 animate-pulse">불러오는 중...</p>
+      {/* Section 3: All recruiting (only when filter is on, show count of what was filtered out) */}
+      {myFilterOn && (
+        <section id="all-list" className="mt-12 scroll-mt-24">
+          <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-zinc-500">
+            3. 필터 제외 공고
+            <span className="ml-3 text-sm font-normal text-zinc-500">
+              {keywordFiltered.length - myMatched.length}건
+            </span>
+          </h2>
+          <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-5 text-center">
+            <p className="text-sm text-zinc-400">
+              전체 모집중 {rawData.length}건 중{" "}
+              <span className="text-violet-300 font-medium">{myMatched.length}건</span>이
+              내 필터에 매칭됨
+            </p>
+            <button
+              type="button"
+              onClick={() => setMyFilterOn(false)}
+              className="mt-3 text-xs px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-zinc-200 cursor-pointer transition-colors"
+            >
+              전체 보기로 전환
+            </button>
           </div>
-        ) : data.length === 0 ? (
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-950/80 px-5 py-8 text-center">
-            <p className="text-sm text-zinc-500">검색 결과가 없습니다.</p>
-          </div>
-        ) : (
-          <>
-            <div className="space-y-4">
-              {data.map((item) => (
-                <AnnouncementCard
-                  key={String(item.pbanc_sn)}
-                  item={item}
-                  isRead={readSet.has(String(item.pbanc_sn))}
-                  onMarkRead={handleMarkRead}
-                />
-              ))}
-            </div>
-
-            {totalPages > 1 && (
-              <div className="mt-6 flex items-center justify-center gap-2">
-                <button
-                  type="button"
-                  disabled={page <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="text-xs px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-zinc-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
-                >
-                  이전
-                </button>
-                <span className="text-xs text-zinc-500 font-mono">
-                  {page} / {totalPages}
-                </span>
-                <button
-                  type="button"
-                  disabled={page >= totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  className="text-xs px-3 py-1.5 rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-400 hover:text-zinc-200 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-colors"
-                >
-                  다음
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </section>
+        </section>
+      )}
     </PrivateDocumentShell>
   );
 }

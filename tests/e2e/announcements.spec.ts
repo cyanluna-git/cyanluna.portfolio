@@ -27,39 +27,24 @@ test.describe("K-Startup announcements page", () => {
   test("shows summary cards and section headings", async ({ page }) => {
     await unlock(page, "/privacy/announcements");
 
-    await expect(page.getByText("Total")).toBeVisible();
-    await expect(page.getByText("Recruiting")).toBeVisible();
     await expect(page.getByText("Unread")).toBeVisible();
-
     await expect(
-      page.getByRole("heading", { name: "1. 마감 임박 공고" }),
+      page.getByRole("heading", { name: /마감 임박/ }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "2. 모집중 공고" }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "3. 전체 목록" }),
+      page.getByRole("heading", { name: /맞춤 공고/ }),
     ).toBeVisible();
   });
 
-  test("filter buttons toggle active state", async ({ page }) => {
+  test("my filter toggle switches between on and off", async ({ page }) => {
     await unlock(page, "/privacy/announcements");
 
-    const recruitingBtn = page.getByRole("button", { name: "모집중" });
-    const closedBtn = page.getByRole("button", { name: "마감" });
-    const allBtn = page.getByRole("button", { name: "전체" });
+    const filterBtn = page.locator("button", { hasText: "맞춤 필터" });
+    await expect(filterBtn).toBeVisible();
+    await expect(filterBtn).toContainText("ON");
 
-    await expect(allBtn).toHaveClass(/border-blue-500/);
-
-    await recruitingBtn.click();
-    await expect(recruitingBtn).toHaveClass(/border-blue-500/);
-    await expect(allBtn).not.toHaveClass(/border-blue-500/);
-
-    await closedBtn.click();
-    await expect(closedBtn).toHaveClass(/border-blue-500/);
-
-    await allBtn.click();
-    await expect(allBtn).toHaveClass(/border-blue-500/);
+    await filterBtn.click();
+    await expect(filterBtn).toContainText("OFF");
   });
 
   test("search input exists and accepts text", async ({ page }) => {
