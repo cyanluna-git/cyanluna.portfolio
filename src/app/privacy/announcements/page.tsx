@@ -4,9 +4,18 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { PrivateDocumentShell, type PrivateNavSection } from "@/components/private";
 import type {
+  ApplicationStatus,
   KStartupAnnouncement,
   KStartupApiResponse,
+  PickedAnnouncement,
 } from "@/types/announcement";
+import {
+  STATUS_COLORS,
+  STATUS_LABELS,
+  loadPicks,
+  pickAnnouncement,
+  savePicks,
+} from "@/lib/announcement-picks";
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -163,11 +172,19 @@ function AnnouncementCard({
   isRead,
   onMarkRead,
   reason,
+  isPicked,
+  currentStatus,
+  onPick,
+  onStatusChange,
 }: {
   item: KStartupAnnouncement;
   isRead: boolean;
   onMarkRead: (id: string) => void;
   reason?: string;
+  isPicked?: boolean;
+  currentStatus?: ApplicationStatus;
+  onPick?: (item: KStartupAnnouncement) => void;
+  onStatusChange?: (sn: string, status: ApplicationStatus) => void;
 }) {
   const recruiting = item.rcrt_prgs_yn === "Y";
   const dday = dDayLabel(item.pbanc_rcpt_end_dt);
@@ -176,16 +193,27 @@ function AnnouncementCard({
   return (
     <article
       className={`rounded-3xl border bg-zinc-950/85 overflow-hidden transition-colors ${
-        isRead ? "border-zinc-800/60 opacity-70" : "border-zinc-700"
+        isPicked
+          ? "border-violet-500/30"
+          : isRead
+            ? "border-zinc-800/60 opacity-70"
+            : "border-zinc-700"
       }`}
     >
       <div className="px-5 py-4 sm:px-6">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge recruiting={recruiting} />
-            {!isRead && (
+            {!isRead && !isPicked && (
               <span className="inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-2 py-0.5 text-[11px] font-medium text-blue-300">
                 NEW
+              </span>
+            )}
+            {isPicked && currentStatus && (
+              <span
+                className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] font-medium ${STATUS_COLORS[currentStatus].border} ${STATUS_COLORS[currentStatus].bg} ${STATUS_COLORS[currentStatus].text}`}
+              >
+                {STATUS_LABELS[currentStatus]}
               </span>
             )}
             {dday && (
@@ -199,18 +227,52 @@ function AnnouncementCard({
               </span>
             )}
           </div>
-          <button
-            type="button"
-            onClick={() => onMarkRead(String(item.pbanc_sn))}
-            className={`text-[11px] px-2 py-0.5 rounded border transition-colors cursor-pointer print:hidden ${
-              isRead
-                ? "border-zinc-800 bg-zinc-900 text-zinc-600"
-                : "border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-300"
-            }`}
-          >
-            {isRead ? "읽음" : "읽음 표시"}
-          </button>
+          <div className="flex items-center gap-1.5 print:hidden">
+            {onPick && (
+              <button
+                type="button"
+                onClick={() => onPick(item)}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors cursor-pointer ${
+                  isPicked
+                    ? "border-violet-500/30 bg-violet-500/15 text-violet-300"
+                    : "border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-300"
+                }`}
+              >
+                {isPicked ? "Picked" : "Pick"}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => onMarkRead(String(item.pbanc_sn))}
+              className={`text-[11px] px-2 py-0.5 rounded border transition-colors cursor-pointer ${
+                isRead
+                  ? "border-zinc-800 bg-zinc-900 text-zinc-600"
+                  : "border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-300"
+              }`}
+            >
+              {isRead ? "읽음" : "읽음 표시"}
+            </button>
+          </div>
         </div>
+
+        {isPicked && onStatusChange && (
+          <div className="flex flex-wrap gap-1.5 mb-3 print:hidden">
+            {(Object.keys(STATUS_LABELS) as ApplicationStatus[]).map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => onStatusChange(String(item.pbanc_sn), s)}
+                className={`text-[11px] px-2 py-0.5 rounded border transition-colors cursor-pointer ${
+                  currentStatus === s
+                    ? `${STATUS_COLORS[s].border} ${STATUS_COLORS[s].bg} ${STATUS_COLORS[s].text}`
+                    : "border-zinc-800 bg-zinc-900 text-zinc-600 hover:text-zinc-400"
+                }`}
+              >
+                {STATUS_LABELS[s]}
+              </button>
+            ))}
+          </div>
+        )}
 
         <h3 className="text-base font-semibold tracking-tight text-zinc-100 mb-2 leading-snug">
           {item.biz_pbanc_nm}
@@ -309,6 +371,9 @@ export default function AnnouncementsPage() {
   const [keyword, setKeyword] = useState("");
   const [readSet, setReadSet] = useState<Set<string>>(() => loadReadSet());
   const [lastChecked, setLastChecked] = useState(() => loadLastChecked());
+  const [picks, setPicks] = useState<Record<string, PickedAnnouncement>>(
+    () => loadPicks(),
+  );
 
   const fetchAnnouncements = useCallback(async () => {
     setLoading(true);
@@ -352,6 +417,40 @@ export default function AnnouncementsPage() {
       return next;
     });
   }, []);
+
+  const handlePick = useCallback((item: KStartupAnnouncement) => {
+    setPicks((prev) => {
+      const key = String(item.pbanc_sn);
+      const next = { ...prev };
+      if (next[key]) {
+        delete next[key];
+      } else {
+        next[key] = pickAnnouncement(item);
+      }
+      savePicks(next);
+      return next;
+    });
+  }, []);
+
+  const handleStatusChange = useCallback(
+    (sn: string, status: ApplicationStatus) => {
+      setPicks((prev) => {
+        const existing = prev[sn];
+        if (!existing) return prev;
+        const next = {
+          ...prev,
+          [sn]: {
+            ...existing,
+            status,
+            statusChangedAt: new Date().toISOString(),
+          },
+        };
+        savePicks(next);
+        return next;
+      });
+    },
+    [],
+  );
 
   const handleMarkChecked = useCallback(() => {
     const now = new Date().toLocaleDateString("ko-KR", {
@@ -509,6 +608,10 @@ export default function AnnouncementsPage() {
                 isRead={readSet.has(String(item.pbanc_sn))}
                 onMarkRead={handleMarkRead}
                 reason={matchReason(item)}
+                isPicked={Boolean(picks[String(item.pbanc_sn)])}
+                currentStatus={picks[String(item.pbanc_sn)]?.status}
+                onPick={handlePick}
+                onStatusChange={handleStatusChange}
               />
             ))}
           </div>
@@ -544,6 +647,10 @@ export default function AnnouncementsPage() {
                 isRead={readSet.has(String(item.pbanc_sn))}
                 onMarkRead={handleMarkRead}
                 reason={myFilterOn ? matchReason(item) : undefined}
+                isPicked={Boolean(picks[String(item.pbanc_sn)])}
+                currentStatus={picks[String(item.pbanc_sn)]?.status}
+                onPick={handlePick}
+                onStatusChange={handleStatusChange}
               />
             ))}
           </div>
