@@ -29,3 +29,25 @@ export interface KStartupApiResponse {
 }
 
 export type RecruitmentFilter = "all" | "recruiting" | "closed";
+
+export type ApplicationStatus =
+  | "picked"
+  | "planning"
+  | "applied"
+  | "accepted"
+  | "rejected";
+
+export interface PickedAnnouncement {
+  pbanc_sn: number;
+  biz_pbanc_nm: string;
+  pbanc_ntrp_nm: string;
+  supt_regin: string;
+  pbanc_rcpt_bgng_dt: string;
+  pbanc_rcpt_end_dt: string;
+  detl_pg_url: string | null;
+  supt_biz_clsfc: string;
+  status: ApplicationStatus;
+  pickedAt: string;
+  statusChangedAt: string;
+  memo?: string;
+}
