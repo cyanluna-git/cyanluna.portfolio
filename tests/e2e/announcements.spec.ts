@@ -1,0 +1,102 @@
+import { expect, test, type Page } from "@playwright/test";
+
+const VALID_KEY = "QG4udkyfg9ZDtCJZIJmg7SE5oakNuV6NaP9Jvp9oQeg=";
+
+async function unlock(page: Page, next: string) {
+  const target = `/privacy/unlock?next=${encodeURIComponent(next)}`;
+  await page.goto(target);
+  await page.getByLabel("Access Key").fill(VALID_KEY);
+  await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
+}
+
+test.describe("K-Startup announcements page", () => {
+  test("redirects unauthenticated access to unlock page", async ({ page }) => {
+    await page.goto("/privacy/announcements");
+    await expect(page).toHaveURL(/\/privacy\/unlock\?next=%2Fprivacy%2Fannouncements$/);
+  });
+
+  test("loads the announcements page after unlock", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    await expect(page).toHaveURL("/privacy/announcements");
+    await expect(
+      page.getByRole("heading", { name: "K-Startup 사업공고 트래커" }),
+    ).toBeVisible();
+  });
+
+  test("shows summary cards and section headings", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    await expect(page.getByText("Total")).toBeVisible();
+    await expect(page.getByText("Recruiting")).toBeVisible();
+    await expect(page.getByText("Unread")).toBeVisible();
+
+    await expect(
+      page.getByRole("heading", { name: "1. 마감 임박 공고" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "2. 모집중 공고" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "3. 전체 목록" }),
+    ).toBeVisible();
+  });
+
+  test("filter buttons toggle active state", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    const recruitingBtn = page.getByRole("button", { name: "모집중" });
+    const closedBtn = page.getByRole("button", { name: "마감" });
+    const allBtn = page.getByRole("button", { name: "전체" });
+
+    await expect(allBtn).toHaveClass(/border-blue-500/);
+
+    await recruitingBtn.click();
+    await expect(recruitingBtn).toHaveClass(/border-blue-500/);
+    await expect(allBtn).not.toHaveClass(/border-blue-500/);
+
+    await closedBtn.click();
+    await expect(closedBtn).toHaveClass(/border-blue-500/);
+
+    await allBtn.click();
+    await expect(allBtn).toHaveClass(/border-blue-500/);
+  });
+
+  test("search input exists and accepts text", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    const searchInput = page.getByPlaceholder("공고명 검색...");
+    await expect(searchInput).toBeVisible();
+    await searchInput.fill("테스트 검색어");
+    await expect(searchInput).toHaveValue("테스트 검색어");
+  });
+
+  test("last checked button updates timestamp", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    const lastChecked = page.getByText(/^Last checked:/);
+    await expect(lastChecked).toBeVisible();
+
+    await page.getByRole("button", { name: "오늘 확인 완료" }).click();
+    await expect(lastChecked).not.toContainText("—");
+  });
+
+  test("last checked state persists across reload", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    await page.getByRole("button", { name: "오늘 확인 완료" }).click();
+    const lastChecked = page.getByText(/^Last checked:/);
+    await expect(lastChecked).not.toContainText("—");
+
+    await page.reload();
+    await expect(lastChecked).not.toContainText("—");
+  });
+
+  test("navigation link to founder programs exists", async ({ page }) => {
+    await unlock(page, "/privacy/announcements");
+
+    const link = page.getByRole("link", { name: "Founder programs 보기" });
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", "/privacy/founder-programs");
+  });
+});
