@@ -170,7 +170,7 @@ export default function AboutSection({ lang }: { lang: Lang }) {
               {t.leadershipPoints[lang].map((item, index) => (
                 <div
                   key={item}
-                  className="rounded-xl border border-border bg-black/20 px-4 py-4"
+                  className="rounded-xl border border-border bg-surface-hover px-4 py-4"
                 >
                   <p className="text-[11px] font-mono text-muted mb-2">
                     0{index + 1}

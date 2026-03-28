@@ -48,12 +48,12 @@ export default function ContactSection({ lang }: { lang: Lang }) {
       className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden"
       style={{
         background:
-          "radial-gradient(circle at top left, rgba(15,77,129,0.12), transparent 32%), linear-gradient(180deg, #f7fafc 0%, #eef2f7 48%, #f9fafb 100%)",
+          "radial-gradient(circle at top left, var(--contact-glow), transparent 32%), linear-gradient(180deg, var(--contact-start) 0%, var(--contact-mid) 48%, var(--contact-end) 100%)",
       }}
     >
       {/* Subtle top/bottom borders */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0f4d81]/20 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#0f4d81]/10 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-soft-border-strong)] to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-soft-border)] to-transparent" />
 
       <div className="max-w-6xl mx-auto text-center">
         <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-4 scroll-fade ${inView ? "in-view" : ""}`}>
@@ -68,7 +68,7 @@ export default function ContactSection({ lang }: { lang: Lang }) {
         <div className={`mb-6 sm:mb-8 scroll-fade stagger-3 ${inView ? "in-view" : ""}`}>
           <a
             href="mailto:contact@cyanluna.dev"
-            className="inline-flex items-center gap-2.5 px-6 py-3 text-sm font-medium rounded-xl border border-[#0f4d81]/20 bg-[#e6f0f8] text-[#0f4d81] hover:bg-[#dbeaf7] hover:border-[#0f4d81]/35 transition-all duration-300 min-h-[44px]"
+            className="accent-button inline-flex items-center gap-2.5 px-6 py-3 text-sm font-medium rounded-xl border transition-all duration-300 min-h-[44px]"
           >
             <MailIcon />
             {t.email[lang]}

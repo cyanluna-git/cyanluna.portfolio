@@ -264,7 +264,7 @@ export default function IntersectionSection({ lang }: { lang: Lang }) {
             </h3>
             <div className="mt-4 space-y-3">
               {(["now", "m365", "sap"] as const).map((key) => (
-                <div key={key} className="rounded-xl border border-border bg-black/20 px-4 py-4">
+                <div key={key} className="rounded-xl border border-border bg-surface-hover px-4 py-4">
                   <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
                     {roadmapItems[key].label[lang]}
                   </p>
