@@ -1,23 +1,8 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const VALID_KEY = "QG4udkyfg9ZDtCJZIJmg7SE5oakNuV6NaP9Jvp9oQeg=";
-
-async function unlock(page: Page, next: string) {
-  const target = `/privacy/unlock?next=${encodeURIComponent(next)}`;
-  await page.goto(target);
-  await page.getByLabel("Access Key").fill(VALID_KEY);
-  await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
-}
-
 test.describe("My Picks page", () => {
-  test("redirects unauthenticated access to unlock page", async ({ page }) => {
-    await page.goto("/privacy/my-picks");
-    await expect(page).toHaveURL(/\/privacy\/unlock\?next=%2Fprivacy%2Fmy-picks$/);
-  });
-
   test("loads page and shows empty state when no picks", async ({ page }) => {
-    await unlock(page, "/privacy/my-picks");
-
+    await page.goto("/privacy/my-picks");
     await expect(page).toHaveURL("/privacy/my-picks");
     await expect(
       page.getByRole("heading", { name: "내 지원 현황" }),
@@ -29,7 +14,7 @@ test.describe("My Picks page", () => {
   });
 
   test("shows summary cards with zero counts", async ({ page }) => {
-    await unlock(page, "/privacy/my-picks");
+    await page.goto("/privacy/my-picks");
 
     await expect(page.getByRole("heading", { name: /현황 요약/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /지원예정/ })).toBeVisible();
@@ -41,7 +26,7 @@ test.describe("My Picks page", () => {
   test("navigation links to announcements and founder programs", async ({
     page,
   }) => {
-    await unlock(page, "/privacy/my-picks");
+    await page.goto("/privacy/my-picks");
 
     const announcementsLink = page.getByRole("link", { name: "사업공고 트래커", exact: true });
     await expect(announcementsLink).toBeVisible();
@@ -55,14 +40,14 @@ test.describe("My Picks page", () => {
 
 test.describe("Pick flow: announcements → my-picks", () => {
   test("pick button appears on announcement cards", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const pickButtons = page.locator("button", { hasText: "Pick" });
     await expect(pickButtons.first()).toBeVisible();
   });
 
   test("pick button toggles between Pick and Picked", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const firstPickBtn = page.locator("button", { hasText: "Pick" }).first();
     await expect(firstPickBtn).toBeVisible();
@@ -76,7 +61,7 @@ test.describe("Pick flow: announcements → my-picks", () => {
   });
 
   test("picked card shows status selector buttons", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const firstPickBtn = page.locator("button", { hasText: "Pick" }).first();
     await firstPickBtn.click();
@@ -87,7 +72,7 @@ test.describe("Pick flow: announcements → my-picks", () => {
   });
 
   test("pick state persists across reload", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const firstPickBtn = page.locator("button", { hasText: "Pick" }).first();
     await firstPickBtn.click();

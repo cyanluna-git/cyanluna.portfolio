@@ -1,23 +1,8 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const VALID_KEY = "QG4udkyfg9ZDtCJZIJmg7SE5oakNuV6NaP9Jvp9oQeg=";
-
-async function unlock(page: Page, next: string) {
-  const target = `/privacy/unlock?next=${encodeURIComponent(next)}`;
-  await page.goto(target);
-  await page.getByLabel("Access Key").fill(VALID_KEY);
-  await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
-}
-
 test.describe("K-Startup announcements page", () => {
-  test("redirects unauthenticated access to unlock page", async ({ page }) => {
+  test("loads the announcements page directly", async ({ page }) => {
     await page.goto("/privacy/announcements");
-    await expect(page).toHaveURL(/\/privacy\/unlock\?next=%2Fprivacy%2Fannouncements$/);
-  });
-
-  test("loads the announcements page after unlock", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
-
     await expect(page).toHaveURL("/privacy/announcements");
     await expect(
       page.getByRole("heading", { name: "K-Startup 사업공고 트래커" }),
@@ -25,7 +10,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("shows summary cards and section headings", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     await expect(page.getByText("Unread")).toBeVisible();
     await expect(
@@ -37,7 +22,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("my filter toggle switches between on and off", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const filterBtn = page.locator("button", { hasText: "맞춤 필터" });
     await expect(filterBtn).toBeVisible();
@@ -48,7 +33,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("search input exists and accepts text", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const searchInput = page.getByPlaceholder("공고명 검색...");
     await expect(searchInput).toBeVisible();
@@ -57,7 +42,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("last checked button updates timestamp", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const lastChecked = page.getByText(/^Last checked:/);
     await expect(lastChecked).toBeVisible();
@@ -67,7 +52,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("last checked state persists across reload", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     await page.getByRole("button", { name: "오늘 확인 완료" }).click();
     const lastChecked = page.getByText(/^Last checked:/);
@@ -78,7 +63,7 @@ test.describe("K-Startup announcements page", () => {
   });
 
   test("navigation link to founder programs exists", async ({ page }) => {
-    await unlock(page, "/privacy/announcements");
+    await page.goto("/privacy/announcements");
 
     const link = page.getByRole("link", { name: "Founder programs 보기" });
     await expect(link).toBeVisible();

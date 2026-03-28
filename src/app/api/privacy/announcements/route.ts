@@ -1,9 +1,4 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import {
-  PRIVACY_ACCESS_COOKIE,
-  isValidPrivacySessionToken,
-} from "@/lib/privacy-access";
 import type { KStartupApiResponse } from "@/types/announcement";
 
 const API_BASE =
@@ -22,12 +17,6 @@ const ALLOWED_PARAMS = new Set([
 ]);
 
 export async function GET(request: Request) {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get(PRIVACY_ACCESS_COOKIE)?.value;
-  if (!(await isValidPrivacySessionToken(sessionToken))) {
-    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-  }
-
   const serviceKey = process.env.DATA_GO_KR;
   if (!serviceKey) {
     return NextResponse.json(

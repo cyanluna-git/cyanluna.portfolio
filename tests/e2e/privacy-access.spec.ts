@@ -1,36 +1,18 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const VALID_KEY = "QG4udkyfg9ZDtCJZIJmg7SE5oakNuV6NaP9Jvp9oQeg=";
-const INVALID_KEY = "ZmFrZS1rZXk=";
-
-async function unlock(page: Page, next?: string) {
-  const target = next ? `/privacy/unlock?next=${encodeURIComponent(next)}` : "/privacy/unlock";
-  await page.goto(target);
-  await page.getByLabel("Access Key").fill(VALID_KEY);
-  await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
-}
-
 test.describe("privacy workspace access", () => {
-  test("redirects deep links to unlock and rejects an invalid key", async ({ page }) => {
-    await page.goto("/privacy/founder-programs");
-
-    await expect(page).toHaveURL(/\/privacy\/unlock\?next=%2Fprivacy%2Ffounder-programs$/);
+  test("loads the privacy landing page directly", async ({ page }) => {
+    await page.goto("/privacy");
+    await expect(page).toHaveURL("/privacy");
     await expect(
-      page.getByRole("heading", { name: "Base64 key required" }),
+      page.getByRole("heading", { name: "Career Assessment & Strategy" }),
     ).toBeVisible();
-
-    await page.getByLabel("Access Key").fill(INVALID_KEY);
-    await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
-
-    await expect(page.getByText("Base64 access key가 일치하지 않습니다.")).toBeVisible();
-    await expect(page).toHaveURL(/\/privacy\/unlock/);
   });
 
-  test("unlocks the founder workspace, persists state, and relocks on logout", async ({
+  test("loads the founder workspace directly and persists state", async ({
     page,
   }) => {
-    await unlock(page, "/privacy/founder-programs");
-
+    await page.goto("/privacy/founder-programs");
     await expect(page).toHaveURL("/privacy/founder-programs");
     await expect(
       page.getByRole("heading", { name: "Founder Program Strategy Workspace" }),
@@ -49,14 +31,5 @@ test.describe("privacy workspace access", () => {
     await expect(page).toHaveURL("/privacy/founder-programs");
     await expect(templateCheckbox).toBeChecked();
     await expect(page.getByText(/^Last reviewed:/)).not.toContainText("—");
-
-    await page.goto("/privacy");
-    await expect(page).toHaveURL("/privacy");
-
-    await page.getByRole("button", { name: "Lock workspace" }).click();
-    await expect(page).toHaveURL("/privacy/unlock");
-
-    await page.goto("/privacy/founder-programs");
-    await expect(page).toHaveURL(/\/privacy\/unlock\?next=%2Fprivacy%2Ffounder-programs$/);
   });
 });

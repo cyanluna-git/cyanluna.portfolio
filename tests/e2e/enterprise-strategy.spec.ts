@@ -1,25 +1,13 @@
 import { expect, test, type Page } from "@playwright/test";
 
-const VALID_KEY = "QG4udkyfg9ZDtCJZIJmg7SE5oakNuV6NaP9Jvp9oQeg=";
-
-async function unlock(page: Page, next: string) {
-  const target = `/privacy/unlock?next=${encodeURIComponent(next)}`;
-  await page.goto(target);
-  await page.getByLabel("Access Key").fill(VALID_KEY);
-  await page.getByRole("button", { name: "Unlock privacy workspace" }).click();
-}
-
 test.describe("Enterprise strategy workspace", () => {
-  test("redirects unauthenticated access to unlock page", async ({ page }) => {
+  test("loads directly without unlock", async ({ page }) => {
     await page.goto("/privacy/enterprise_strategy");
-    await expect(page).toHaveURL(
-      /\/privacy\/unlock\?next=%2Fprivacy%2Fenterprise_strategy$/,
-    );
+    await expect(page).toHaveURL("/privacy/enterprise_strategy");
   });
 
-  test("unlocks and renders the main strategy sections", async ({ page }) => {
-    await unlock(page, "/privacy/enterprise_strategy");
-
+  test("renders the main strategy sections", async ({ page }) => {
+    await page.goto("/privacy/enterprise_strategy");
     await expect(page).toHaveURL("/privacy/enterprise_strategy");
     await expect(
       page.getByRole("heading", { name: "Enterprise Strategy Workspace" }),
@@ -36,7 +24,7 @@ test.describe("Enterprise strategy workspace", () => {
   });
 
   test("persists review checklist state across reload", async ({ page }) => {
-    await unlock(page, "/privacy/enterprise_strategy");
+    await page.goto("/privacy/enterprise_strategy");
 
     const checkbox = page.getByRole("checkbox").first();
     await checkbox.check();
@@ -52,7 +40,7 @@ test.describe("Enterprise strategy workspace", () => {
   });
 
   test("shows related navigation links", async ({ page }) => {
-    await unlock(page, "/privacy/enterprise_strategy");
+    await page.goto("/privacy/enterprise_strategy");
 
     await expect(
       page.getByRole("link", { name: "Founder programs" }),

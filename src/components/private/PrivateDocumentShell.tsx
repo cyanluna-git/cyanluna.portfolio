@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import PrivateLogoutButton from "./PrivateLogoutButton";
 import PrivateSideNav, { type PrivateNavSection } from "./PrivateSideNav";
 
 export default function PrivateDocumentShell({
@@ -41,8 +40,6 @@ export default function PrivateDocumentShell({
             </svg>
             Back to portfolio
           </Link>
-
-          <PrivateLogoutButton />
         </div>
 
         <header className="mb-10 pb-8 border-b border-zinc-800">
