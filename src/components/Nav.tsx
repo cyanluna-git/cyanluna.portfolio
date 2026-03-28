@@ -93,18 +93,18 @@ function HamburgerIcon({ open }: { open: boolean }) {
 
 export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-theme");
-    setTheme(current === "light" ? "light" : "dark");
+    setTheme(current === "dark" ? "dark" : "light");
   }, []);
 
   const toggleTheme = useCallback(() => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
+    const next: Theme = theme === "light" ? "dark" : "light";
     setTheme(next);
-    if (next === "light") {
-      document.documentElement.setAttribute("data-theme", "light");
+    if (next === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }

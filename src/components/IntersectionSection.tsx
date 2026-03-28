@@ -190,7 +190,7 @@ function VennDiagramSVG() {
           fill={COLORS.manufacturing}
           fontSize="13"
           fontWeight="500"
-          fontFamily="var(--font-geist-sans), system-ui, sans-serif"
+          fontFamily="var(--font-ui), system-ui, sans-serif"
         >
           Manufacturing
         </text>
@@ -201,7 +201,7 @@ function VennDiagramSVG() {
           fill={COLORS.ainative}
           fontSize="13"
           fontWeight="500"
-          fontFamily="var(--font-geist-sans), system-ui, sans-serif"
+          fontFamily="var(--font-ui), system-ui, sans-serif"
         >
           AI-Native
         </text>
@@ -212,7 +212,7 @@ function VennDiagramSVG() {
           fill={COLORS.fullstack}
           fontSize="13"
           fontWeight="500"
-          fontFamily="var(--font-geist-sans), system-ui, sans-serif"
+          fontFamily="var(--font-ui), system-ui, sans-serif"
         >
           Full-Stack
         </text>
