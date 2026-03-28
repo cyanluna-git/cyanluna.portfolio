@@ -389,6 +389,13 @@ export default function MyPicksPage() {
           </Link>
           <span className="text-zinc-700">|</span>
           <Link
+            href="/privacy/enterprise_strategy"
+            className="text-zinc-400 hover:text-zinc-100 transition-colors"
+          >
+            Enterprise strategy
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
             href="/privacy/founder-programs"
             className="text-zinc-400 hover:text-zinc-100 transition-colors"
           >

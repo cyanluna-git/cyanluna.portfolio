@@ -277,6 +277,12 @@ export default function PrivacyPage() {
           </div>
           <div className="mt-3 flex flex-wrap gap-3">
             <Link
+              href="/privacy/enterprise_strategy"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-500/5 px-3 py-1.5 text-xs text-sky-200 hover:border-sky-400/40 hover:text-sky-100 transition-colors"
+            >
+              Enterprise Strategy
+            </Link>
+            <Link
               href="/privacy/founder-programs"
               className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/80 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-600 hover:text-zinc-100 transition-colors"
             >

@@ -443,6 +443,13 @@ export default function FounderProgramsPage() {
           </Link>
           <span className="text-zinc-700">|</span>
           <Link
+            href="/privacy/enterprise_strategy"
+            className="text-zinc-400 hover:text-zinc-100 transition-colors"
+          >
+            Enterprise strategy
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
             href="/privacy/announcements"
             className="text-zinc-400 hover:text-zinc-100 transition-colors"
           >
