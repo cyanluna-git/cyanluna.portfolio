@@ -10,16 +10,16 @@ test.describe("Enterprise strategy workspace", () => {
     await page.goto("/privacy/enterprise_strategy");
     await expect(page).toHaveURL("/privacy/enterprise_strategy");
     await expect(
-      page.getByRole("heading", { name: "Enterprise Strategy Workspace" }),
+      page.getByRole("heading", { name: "엔터프라이즈 전략 워크스페이스" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "2. Current proof vs strategy claims" }),
+      page.getByRole("heading", { name: "2. 현재 근거와 전략 주장" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "3. Enterprise architecture framing" }),
+      page.getByRole("heading", { name: "3. 엔터프라이즈 구조 프레이밍" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "6. Review checklist" }),
+      page.getByRole("heading", { name: "6. 검토 체크리스트" }),
     ).toBeVisible();
   });
 
@@ -30,23 +30,23 @@ test.describe("Enterprise strategy workspace", () => {
     await checkbox.check();
     await expect(checkbox).toBeChecked();
 
-    await page.getByRole("button", { name: "Mark as reviewed today" }).click();
-    await expect(page.getByText(/^Last reviewed:/)).not.toContainText("—");
+    await page.getByRole("button", { name: "오늘 검토 완료" }).click();
+    await expect(page.getByText(/^마지막 검토:/)).not.toContainText("—");
 
     await page.reload();
     await expect(page).toHaveURL("/privacy/enterprise_strategy");
     await expect(page.getByRole("checkbox").first()).toBeChecked();
-    await expect(page.getByText(/^Last reviewed:/)).not.toContainText("—");
+    await expect(page.getByText(/^마지막 검토:/)).not.toContainText("—");
   });
 
   test("shows related navigation links", async ({ page }) => {
     await page.goto("/privacy/enterprise_strategy");
 
     await expect(
-      page.getByRole("link", { name: "Founder programs" }),
+      page.getByRole("link", { name: "창업 프로그램" }),
     ).toHaveAttribute("href", "/privacy/founder-programs");
     await expect(
-      page.getByRole("link", { name: "Career assessment" }),
+      page.getByRole("link", { name: "커리어 진단" }),
     ).toHaveAttribute("href", "/privacy");
     await expect(
       page.getByRole("link", { name: "Smart Factory QC" }).first(),
