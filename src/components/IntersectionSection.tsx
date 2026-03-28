@@ -7,17 +7,37 @@ type Lang = "en" | "ko";
 
 const t = {
   sectionTitle: {
-    en: "Three Worlds, One Engineer",
-    ko: "\uc138 \uac1c\uc758 \uc138\uacc4, \ud55c \uba85\uc758 \uc5d4\uc9c0\ub2c8\uc5b4",
+    en: "From Three Worlds to One Strategy",
+    ko: "\uc138 \uac1c\uc758 \uc138\uacc4\ub97c \ud558\ub098\uc758 \uc804\ub7b5\uc73c\ub85c",
+  },
+  strategyLabel: {
+    en: "Strategic thesis",
+    ko: "\uc804\ub7b5 \ud14c\uc81c",
+  },
+  strategyTitle: {
+    en: "The value is not just the apps. It is the operating system behind them.",
+    ko: "\uac00\uce58\ub294 \uc571 \uc790\uccb4\ubcf4\ub2e4, \uadf8 \ub4a4\uc758 \uc6b4\uc601 \uc2dc\uc2a4\ud15c\uc5d0 \uc788\uc2b5\ub2c8\ub2e4.",
+  },
+  strategyBody: {
+    en: "My strongest position sits at the intersection of manufacturing DX, full-stack product delivery, and AI-native tooling. I go deep on the real operational problem, make the data legible, and build the missing software layer fast enough for the team to use it immediately.",
+    ko: "\uc81c \uac00\uc7a5 \uac15\ud55c \ud3ec\uc9c0\uc158\uc740 \uc81c\uc870 DX, \ud480\uc2a4\ud0dd \uc81c\ud488 \uad6c\ud604, AI Native \ub3c4\uad6c\uc758 \uad50\ucc28\uc810\uc5d0 \uc788\uc2b5\ub2c8\ub2e4. \uc2e4\uc81c \uc6b4\uc601 \ubb38\uc81c\ub97c \uae4a\uc774 \ud30c\uace0\ub4e4\uc5b4 \ub370\uc774\ud130\ub97c \ubcf4\uc774\uac8c \ub9cc\ub4e4\uace0, \ud300\uc774 \ubc14\ub85c \uc4f8 \uc218 \uc788\ub294 \uc18c\ud504\ud2b8\uc6e8\uc5b4 \ub808\uc774\uc5b4\ub97c \ube60\ub974\uac8c \uad6c\ucd95\ud569\ub2c8\ub2e4.",
+  },
+  strategyNote: {
+    en: "Solo build-and-deploy experience became enterprise leverage because it gave me a working map for OQC, EOB, and the next integration surface.",
+    ko: "\ud63c\uc790 \ub9cc\ub4e4\uace0 \ubc30\ud3ec\ud574 \ubcf8 \uacbd\ud5d8\uc740 OQC, EOB, \uadf8\ub9ac\uace0 \ub2e4\uc74c \ud1b5\ud569 \ud45c\uba74\uc744 \uadf8\ub824\ub0bc \uc218 \uc788\ub294 \uc791\ub3d9 \uc9c0\ub3c4\uac00 \ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
+  },
+  roadmapTitle: {
+    en: "Enterprise direction",
+    ko: "\uc5d4\ud130\ud504\ub77c\uc774\uc988 \ubc29\ud5a5",
+  },
+  roadmapNote: {
+    en: "Microsoft 365 and SAP are planned integration targets, not yet shipped public features.",
+    ko: "Microsoft 365\uc640 SAP\ub294 \uad6c\ucd95 \uc608\uc815 \ud1b5\ud569 \ub300\uc0c1\uc774\uba70, \uc544\uc9c1 \uacf5\uac1c \uc6b4\uc601 \uae30\ub2a5\uc740 \uc544\ub2d9\ub2c8\ub2e4.",
   },
   categories: {
     manufacturing: { en: "Manufacturing DX", ko: "\uc81c\uc870 DX" },
     fullstack: { en: "Full-Stack Product", ko: "\ud480\uc2a4\ud0dd \ud504\ub85c\ub355\ud2b8" },
     ainative: { en: "AI-Native Tooling", ko: "AI \ub124\uc774\ud2f0\ube0c \ub3c4\uad6c" },
-  },
-  quote: {
-    en: "Most engineers live in one world. I ship products that span from PLC registers to Vercel deployments.",
-    ko: "\ub300\ubd80\ubd84\uc758 \uc5d4\uc9c0\ub2c8\uc5b4\ub294 \ud558\ub098\uc758 \uc138\uacc4\uc5d0 \uc0b4\uc544\uc694. \uc800\ub294 PLC \ub808\uc9c0\uc2a4\ud130\ubd80\ud130 Vercel \ubc30\ud3ec\uae4c\uc9c0 \ud558\ub098\uc758 \uc81c\ud488\uc73c\ub85c \uad00\ud1b5\ud569\ub2c8\ub2e4.",
   },
 };
 
@@ -73,6 +93,30 @@ const impactNumbers = [
   { end: 6, suffix: "", label: { en: "AI Agents", ko: "AI \uc5d0\uc774\uc804\ud2b8" } },
   { end: 30, suffix: "+", label: { en: "Dev Skills Built", ko: "\uac1c\ubc1c \uc2a4\ud0ac \uad6c\ucd95" } },
 ];
+
+const roadmapItems = {
+  now: {
+    label: { en: "Now", ko: "\ud604\uc7ac" },
+    body: {
+      en: "OQC and EOB are being shaped as connected operating surfaces for quality and execution.",
+      ko: "OQC\uc640 EOB\ub294 \ud488\uc9c8\uacfc \uc2e4\ud589\uc744 \uc5f0\uacb0\ud558\ub294 \uc6b4\uc601 \ud45c\uba74\uc73c\ub85c \uad6c\uc131\ub418\uace0 \uc788\uc2b5\ub2c8\ub2e4.",
+    },
+  },
+  m365: {
+    label: { en: "Planned", ko: "\uad6c\ucd95 \uc608\uc815" },
+    body: {
+      en: "Microsoft 365 workflow links for coordination, approvals, reporting, and operational follow-through.",
+      ko: "\uc870\uc728, \uc2b9\uc778, \ubcf4\uace0, \uc6b4\uc601 \ud6c4\uc18d \ud750\ub984\uc744 \uc704\ud55c Microsoft 365 \uc6cc\ud06c\ud50c\ub85c\uc6b0 \uc5f0\uacc4.",
+    },
+  },
+  sap: {
+    label: { en: "Planned", ko: "\uad6c\ucd95 \uc608\uc815" },
+    body: {
+      en: "SAP connectivity for enterprise records, handoffs, and operational continuity.",
+      ko: "\uc5d4\ud130\ud504\ub77c\uc774\uc988 \uae30\ub85d, \ud578\ub4dc\uc624\ud504, \uc6b4\uc601 \uc5f0\uc18d\uc131\uc744 \uc704\ud55c SAP \uc5f0\uacc4.",
+    },
+  },
+};
 
 function ImpactCounter({
   end,
@@ -194,8 +238,50 @@ export default function IntersectionSection({ lang }: { lang: Lang }) {
           {t.sectionTitle[lang]}
         </h2>
 
+        <div className="grid gap-4 mb-8 sm:mb-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div
+            className={`rounded-2xl border border-border bg-surface p-5 sm:p-6 scroll-fade stagger-2 ${inView ? "in-view" : ""}`}
+          >
+            <p className="mb-3 text-[11px] font-mono uppercase tracking-[0.22em] text-muted">
+              {t.strategyLabel[lang]}
+            </p>
+            <h3 className="max-w-2xl text-lg font-semibold tracking-tight sm:text-2xl">
+              {t.strategyTitle[lang]}
+            </h3>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
+              {t.strategyBody[lang]}
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-400">
+              {t.strategyNote[lang]}
+            </p>
+          </div>
+
+          <div
+            className={`rounded-2xl border border-border bg-surface p-5 sm:p-6 scroll-fade stagger-3 ${inView ? "in-view" : ""}`}
+          >
+            <h3 className="text-sm font-semibold tracking-tight sm:text-base">
+              {t.roadmapTitle[lang]}
+            </h3>
+            <div className="mt-4 space-y-3">
+              {(["now", "m365", "sap"] as const).map((key) => (
+                <div key={key} className="rounded-xl border border-border bg-black/20 px-4 py-4">
+                  <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
+                    {roadmapItems[key].label[lang]}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/88">
+                    {roadmapItems[key].body[lang]}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-xs leading-relaxed text-zinc-400">
+              {t.roadmapNote[lang]}
+            </p>
+          </div>
+        </div>
+
         {/* Venn Diagram */}
-        <div className={`scroll-fade stagger-2 ${inView ? "in-view" : ""}`}>
+        <div className={`scroll-fade stagger-4 ${inView ? "in-view" : ""}`}>
           <VennDiagramSVG />
         </div>
 
@@ -239,17 +325,6 @@ export default function IntersectionSection({ lang }: { lang: Lang }) {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Quote */}
-        <div
-          className={`text-center mb-8 sm:mb-12 scroll-fade stagger-5 ${inView ? "in-view" : ""}`}
-        >
-          <blockquote className="max-w-2xl mx-auto">
-            <p className="text-base sm:text-lg italic text-muted leading-relaxed">
-              &ldquo;{t.quote[lang]}&rdquo;
-            </p>
-          </blockquote>
         </div>
 
         {/* Impact numbers */}

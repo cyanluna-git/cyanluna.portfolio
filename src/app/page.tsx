@@ -15,13 +15,35 @@ type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
 
 const t = {
+  heroBadge: {
+    en: "AI-Native Problem Solver",
+    ko: "AI Native 문제 해결자",
+  },
   hero: {
-    en: "I build software that works\nin factories, on bikes, and in terminals.",
-    ko: "공장에서, 자전거 위에서, 터미널에서\n작동하는 소프트웨어를 만듭니다.",
+    en: "I turn messy operations,\ndata bottlenecks, and industrial constraints\ninto working systems.",
+    ko: "복잡한 운영 문제와 데이터 병목,\n산업 현장의 제약을\n작동하는 시스템으로 바꿉니다.",
   },
   sub: {
-    en: "Full-stack engineer shipping across manufacturing automation, health tech, consumer apps, and AI-native developer tools.",
-    ko: "제조 자동화, 헬스 테크, 컨슈머 앱, AI 네이티브 개발 도구를 아우르는 풀스택 엔지니어.",
+    en: "AI-native full-stack engineer and strategic program solver building manufacturing DX, internal operating tools, and decision systems that teams can use immediately.",
+    ko: "제조 DX, 내부 운영 도구, 의사결정 시스템을 빠르게 제품화하는 AI Native 풀스택 엔지니어이자 전략적 프로그램 솔버입니다.",
+  },
+  support: {
+    en: "I go deep on the real constraint first, then build the analysis, visualization, and management layer the team needs next.",
+    ko: "문제의 표면이 아니라 실제 제약을 먼저 파고든 뒤, 팀에 필요한 분석·시각화·관리 레이어를 바로 만들어냅니다.",
+  },
+  pills: {
+    manufacturing: {
+      en: "Manufacturing DX systems",
+      ko: "제조 DX 시스템",
+    },
+    tooling: {
+      en: "Rapid data and ops tooling",
+      ko: "빠른 데이터·운영 도구 제작",
+    },
+    roadmap: {
+      en: "OQC-EOB → Microsoft 365 / SAP (planned)",
+      ko: "OQC-EOB → Microsoft 365 / SAP (구축 예정)",
+    },
   },
   statsLabel: {
     projects: { en: "Projects", ko: "프로젝트" },
@@ -324,14 +346,32 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-24 pb-12 sm:pt-32 sm:pb-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-muted animate-fade-up">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            {t.heroBadge[lang]}
+          </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] whitespace-pre-line animate-fade-up">
             {t.hero[lang]}
           </h1>
-          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-1">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-muted max-w-3xl leading-relaxed animate-fade-up delay-1">
             {t.sub[lang]}
           </p>
+          <p className="mt-3 text-sm sm:text-base text-zinc-400 max-w-3xl leading-relaxed animate-fade-up delay-1">
+            {t.support[lang]}
+          </p>
 
-          <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl animate-fade-up delay-2">
+          <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
+            {(["manufacturing", "tooling", "roadmap"] as const).map((key) => (
+              <span
+                key={key}
+                className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300"
+              >
+                {t.pills[key][lang]}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-8 sm:mt-12 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-2xl animate-fade-up delay-3">
             {(Object.entries(stats) as [keyof typeof stats, number][]).map(([key, val]) => (
               <HeroStatCard key={key} label={t.statsLabel[key][lang]} end={val} />
             ))}

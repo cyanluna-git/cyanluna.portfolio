@@ -8,8 +8,36 @@ type Lang = "en" | "ko";
 const t = {
   sectionTitle: { en: "About", ko: "About" },
   bio: {
-    en: "I'm a full-stack engineer who ships across domains\u2014from factory floors to fitness labs to developer terminals. I don't pick a lane; I pick problems worth solving, then build the software end-to-end.",
-    ko: "\uC800\uB294 \uACF5\uC7A5 \uD604\uC7A5\uBD80\uD130 \uD53C\uD2B8\uB2C8\uC2A4 \uB7A9, \uAC1C\uBC1C\uC790 \uD130\uBBF8\uB110\uAE4C\uC9C0 \uB3C4\uBA54\uC778\uC744 \uB118\uB098\uB4DC\uB294 \uD480\uC2A4\uD0DD \uC5D4\uC9C0\uB2C8\uC5B4\uC785\uB2C8\uB2E4. \uD2B9\uC815 \uBD84\uC57C\uC5D0 \uBA38\uBB34\uB974\uC9C0 \uC54A\uACE0, \uD480 \uAC00\uCE58\uAC00 \uC788\uB294 \uBB38\uC81C\uB97C \uACE8\uB77C \uC18C\uD504\uD2B8\uC6E8\uC5B4\uB97C \uCC98\uC74C\uBD80\uD130 \uB05D\uAE4C\uC9C0 \uB9CC\uB4ED\uB2C8\uB2E4.",
+    en: "I work where operational ambiguity, data friction, and execution pressure meet. My strongest position is not generic SaaS. It is turning manufacturing workflows, data systems, and internal operations into software teams can actually use.",
+    ko: "저는 운영의 불확실성, 데이터의 마찰, 실행 압박이 만나는 지점에서 일합니다. 제 강점은 범용 SaaS가 아니라, 제조 워크플로우와 데이터 시스템, 내부 운영을 실제로 쓰이는 소프트웨어로 바꾸는 데 있습니다.",
+  },
+  bioSupport: {
+    en: "I am most effective when the problem is still blurry. I dig until the real bottleneck becomes visible, then build the analysis, visualization, and management layer that lets the team move faster.",
+    ko: "문제가 아직 흐릿할 때 가장 강합니다. 진짜 병목이 드러날 때까지 파고든 뒤, 팀이 더 빨리 움직일 수 있도록 분석·시각화·관리 레이어를 직접 만듭니다.",
+  },
+  leadershipLabel: {
+    en: "Operating signal",
+    ko: "작동 방식",
+  },
+  leadershipTitle: {
+    en: "AI-native problem solving that scales into team change",
+    ko: "AI Native 문제 해결을 팀의 변화로 연결",
+  },
+  leadershipBody: {
+    en: "As a team lead, I use solo end-to-end deployment work as a proving ground for enterprise decisions. Managed services taught me how to move fast, translate modern stacks into enterprise constraints, and propose the next operating layer instead of waiting for it to appear.",
+    ko: "팀장으로 일하면서, 혼자 끝까지 배포해 본 경험을 엔터프라이즈 의사결정을 위한 실전 검증장으로 사용하고 있습니다. 매니지드 서비스 경험은 빠르게 실행하고, 모던 스택을 기업 제약으로 번역하며, 필요한 운영 레이어를 기다리지 않고 먼저 제안하게 만들었습니다.",
+  },
+  leadershipPoints: {
+    en: [
+      "Find the real constraint first, not just the visible symptom.",
+      "When the tool is missing, build the data analysis, visualization, or management layer immediately.",
+      "Translate working systems into enterprise-ready direction, including OQC-EOB and planned Microsoft 365 / SAP links.",
+    ],
+    ko: [
+      "눈에 보이는 증상보다 실제 제약을 먼저 찾습니다.",
+      "필요한 도구가 없으면 분석·시각화·관리 레이어를 바로 만듭니다.",
+      "작동하는 시스템을 OQC-EOB와 향후 Microsoft 365 / SAP 연계 방향까지 번역합니다.",
+    ],
   },
 };
 
@@ -99,6 +127,9 @@ export default function AboutSection({ lang }: { lang: Lang }) {
           <p className="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">
             {t.bio[lang]}
           </p>
+          <p className="mt-4 text-sm sm:text-base text-zinc-400 leading-relaxed max-w-3xl">
+            {t.bioSupport[lang]}
+          </p>
           <div className="flex items-center gap-3 mt-5 sm:mt-6">
             <a
               href="https://github.com/cyanluna"
@@ -118,6 +149,38 @@ export default function AboutSection({ lang }: { lang: Lang }) {
             >
               <LinkedInIcon />
             </a>
+          </div>
+        </div>
+
+        <div className={`mb-8 sm:mb-12 scroll-fade stagger-3 ${inView ? "in-view" : ""}`}>
+          <div className="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+            <div className="max-w-3xl">
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-muted mb-3">
+                {t.leadershipLabel[lang]}
+              </p>
+              <h3 className="text-lg sm:text-xl font-semibold tracking-tight mb-3">
+                {t.leadershipTitle[lang]}
+              </h3>
+              <p className="text-sm sm:text-base text-muted leading-relaxed">
+                {t.leadershipBody[lang]}
+              </p>
+            </div>
+
+            <div className="grid gap-3 mt-5 sm:grid-cols-3">
+              {t.leadershipPoints[lang].map((item, index) => (
+                <div
+                  key={item}
+                  className="rounded-xl border border-border bg-black/20 px-4 py-4"
+                >
+                  <p className="text-[11px] font-mono text-muted mb-2">
+                    0{index + 1}
+                  </p>
+                  <p className="text-sm leading-relaxed text-foreground/88">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

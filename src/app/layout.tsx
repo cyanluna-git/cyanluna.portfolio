@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_URL = "https://cyanluna.com";
-const TITLE = "CyanLuna — Engineering Portfolio";
+const TITLE = "CyanLuna — AI-Native Problem Solver";
 const DESCRIPTION =
-  "Full-stack engineer building manufacturing automation, health tech, and AI-native developer tools.";
+  "AI-native full-stack engineer building manufacturing DX, operational data systems, and fast internal tools through deep problem discovery and rapid solution delivery.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -25,9 +25,13 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
+    "AI-native problem solver",
     "full-stack engineer",
+    "manufacturing DX",
     "manufacturing automation",
-    "health tech",
+    "operational tooling",
+    "data visualization",
+    "internal tools",
     "AI developer tools",
     "React",
     "Next.js",
@@ -91,12 +95,14 @@ export default function RootLayout({
                 "@type": "Person",
                 name: "CyanLuna",
                 url: SITE_URL,
-                jobTitle: "Full-Stack Engineer",
+                jobTitle: "AI-Native Full-Stack Engineer",
                 description: DESCRIPTION,
                 knowsAbout: [
-                  "Manufacturing Automation",
-                  "Health Tech",
-                  "AI Developer Tools",
+                  "Manufacturing DX",
+                  "Operational Data Systems",
+                  "AI-Native Tooling",
+                  "Data Visualization",
+                  "Internal Tools",
                   "React",
                   "Next.js",
                   "FastAPI",
