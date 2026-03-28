@@ -19,11 +19,12 @@ const LAST_REVIEWED_KEY = "enterprise-strategy-last-reviewed";
 
 const SECTIONS: PrivateNavSection[] = [
   { id: "overview", label: "1. 개요" },
-  { id: "evidence", label: "2. 근거와 주장" },
-  { id: "architecture", label: "3. 구조 프레임" },
-  { id: "roadmap", label: "4. 전환 로드맵" },
-  { id: "paths", label: "5. 전략 분기" },
-  { id: "review", label: "6. 검토 체크" },
+  { id: "assessment", label: "2. 포지셔닝 평가" },
+  { id: "evidence", label: "3. 근거와 주장" },
+  { id: "architecture", label: "4. 구조 프레임" },
+  { id: "roadmap", label: "5. 전환 로드맵" },
+  { id: "paths", label: "6. 전략 분기" },
+  { id: "review", label: "7. 검토 체크" },
 ];
 
 function loadChecklist(): Record<string, boolean> {
@@ -364,9 +365,67 @@ export default function EnterpriseStrategyPage() {
         </div>
       </section>
 
+      <section id="assessment" className="mt-12 scroll-mt-24">
+        <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-cyan-500">
+          2. 포지셔닝 평가
+        </h2>
+        <div className="rounded-[30px] border border-zinc-800 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.12),transparent_34%),linear-gradient(180deg,rgba(24,24,27,0.94),rgba(9,9,11,0.94))] px-5 py-5">
+          <p className="text-lg font-semibold tracking-tight text-zinc-100">
+            {enterpriseStrategyWorkspaceData.assessment.title}
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-300">
+            {enterpriseStrategyWorkspaceData.assessment.summary}
+          </p>
+
+          <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <article className="rounded-[26px] border border-emerald-500/15 bg-emerald-500/5 px-4 py-4">
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-emerald-300/80 mb-3">
+                강점
+              </p>
+              <ul className="space-y-2">
+                {enterpriseStrategyWorkspaceData.assessment.strengths.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-zinc-300">
+                    <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-[26px] border border-amber-500/15 bg-amber-500/5 px-4 py-4">
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-amber-300/80 mb-3">
+                보완 포인트
+              </p>
+              <ul className="space-y-2">
+                {enterpriseStrategyWorkspaceData.assessment.gaps.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-zinc-300">
+                    <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="rounded-[26px] border border-cyan-500/15 bg-cyan-500/5 px-4 py-4">
+              <p className="text-[11px] font-mono uppercase tracking-[0.22em] text-cyan-300/80 mb-3">
+                권장 포지셔닝
+              </p>
+              <ul className="space-y-2">
+                {enterpriseStrategyWorkspaceData.assessment.positioning.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm leading-relaxed text-zinc-300">
+                    <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section id="evidence" className="mt-12 scroll-mt-24">
         <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-blue-500">
-          2. 현재 근거와 전략 주장
+          3. 현재 근거와 전략 주장
         </h2>
         <div className="space-y-4">
           {enterpriseStrategyWorkspaceData.evidenceItems.map((item) => (
@@ -377,7 +436,7 @@ export default function EnterpriseStrategyPage() {
 
       <section id="architecture" className="mt-12 scroll-mt-24">
         <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-sky-500">
-          3. 엔터프라이즈 구조 프레이밍
+          4. 엔터프라이즈 구조 프레이밍
         </h2>
         <div className="grid gap-4 lg:grid-cols-3">
           {enterpriseStrategyWorkspaceData.architectureLayers.map((layer) => (
@@ -388,7 +447,7 @@ export default function EnterpriseStrategyPage() {
 
       <section id="roadmap" className="mt-12 scroll-mt-24">
         <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-amber-500">
-          4. 전환 로드맵
+          5. 전환 로드맵
         </h2>
         <div className="grid gap-4 lg:grid-cols-3">
           {enterpriseStrategyWorkspaceData.roadmap.map((phase) => (
@@ -399,7 +458,7 @@ export default function EnterpriseStrategyPage() {
 
       <section id="paths" className="mt-12 scroll-mt-24">
         <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-violet-500">
-          5. 전략 분기
+          6. 전략 분기
         </h2>
         <div className="grid gap-4 lg:grid-cols-2">
           {enterpriseStrategyWorkspaceData.pathOptions.map((option) => (
@@ -410,7 +469,7 @@ export default function EnterpriseStrategyPage() {
 
       <section id="review" className="mt-12 scroll-mt-24">
         <h2 className="text-xl font-bold tracking-tight mb-5 pl-4 border-l-4 border-emerald-500">
-          6. 검토 체크리스트
+          7. 검토 체크리스트
         </h2>
         <div className="grid gap-5 lg:grid-cols-[1fr_0.92fr]">
           <div className="rounded-[30px] border border-zinc-800 bg-zinc-950/85 px-5 py-5">

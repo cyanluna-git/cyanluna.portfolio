@@ -13,13 +13,13 @@ test.describe("Enterprise strategy workspace", () => {
       page.getByRole("heading", { name: "엔터프라이즈 전략 워크스페이스" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "2. 현재 근거와 전략 주장" }),
+      page.getByRole("heading", { name: "2. 포지셔닝 평가" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "3. 엔터프라이즈 구조 프레이밍" }),
+      page.getByRole("heading", { name: "4. 엔터프라이즈 구조 프레이밍" }),
     ).toBeVisible();
     await expect(
-      page.getByRole("heading", { name: "6. 검토 체크리스트" }),
+      page.getByRole("heading", { name: "7. 검토 체크리스트" }),
     ).toBeVisible();
   });
 

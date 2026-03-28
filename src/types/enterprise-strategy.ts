@@ -22,6 +22,14 @@ export interface StrategyNarrative {
   body: string;
 }
 
+export interface StrategyAssessmentSection {
+  title: string;
+  summary: string;
+  strengths: string[];
+  gaps: string[];
+  positioning: string[];
+}
+
 export interface StrategyEvidenceItem {
   id: string;
   title: string;
@@ -63,6 +71,7 @@ export interface EnterpriseStrategyWorkspaceData {
   note: string;
   summaryCards: StrategySummaryCard[];
   narratives: StrategyNarrative[];
+  assessment: StrategyAssessmentSection;
   evidenceItems: StrategyEvidenceItem[];
   architectureLayers: StrategyArchitectureLayer[];
   roadmap: StrategyRoadmapPhase[];
