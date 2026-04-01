@@ -125,8 +125,8 @@ export default function ArchSection({
             <div
               className="grid items-center"
               style={{
-                gridTemplateColumns: getGridTrack(sortedX.length, "minmax(230px, 230px)", "72px"),
-                gridTemplateRows: getGridTrack(sortedY.length, "132px", "72px"),
+                gridTemplateColumns: getGridTrack(sortedX.length, "minmax(270px, 270px)", "88px"),
+                gridTemplateRows: getGridTrack(sortedY.length, "156px", "88px"),
               }}
             >
               {connections.map((connection, index) => {
@@ -154,7 +154,7 @@ export default function ArchSection({
                       gridColumn,
                       gridRow,
                       minWidth: isHorizontal ? "72px" : "100%",
-                      minHeight: isHorizontal ? "100%" : "72px",
+                      minHeight: isHorizontal ? "100%" : "88px",
                     }}
                   >
                     <div
@@ -181,7 +181,7 @@ export default function ArchSection({
                       </div>
                     ) : null}
                     <div
-                      className="relative z-10 inline-grid h-14 w-14 place-items-center rounded-full border text-[1.55rem] font-semibold"
+                      className="relative z-10 inline-grid h-16 w-16 place-items-center rounded-full border text-[1.7rem] font-semibold"
                       style={{
                         background:
                           "linear-gradient(135deg, rgba(209,138,88,0.14), rgba(94,142,160,0.1)), rgba(255,255,255,0.03)",
@@ -205,7 +205,7 @@ export default function ArchSection({
                 return (
                   <article
                     key={node.id}
-                    className="relative z-10 grid gap-2 rounded-[1.55rem] border px-6 py-5"
+                    className="relative z-10 grid gap-3 rounded-[1.7rem] border px-7 py-6"
                     style={{
                       gridColumn: `${position.col * 2 + 1}`,
                       gridRow: `${position.row * 2 + 1}`,
@@ -216,11 +216,11 @@ export default function ArchSection({
                     }}
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <span className="text-[0.78rem] font-mono uppercase tracking-[0.22em] text-white/42">
+                      <span className="text-[0.8rem] font-mono uppercase tracking-[0.22em] text-white/42">
                         {legendT[node.type][lang]}
                       </span>
                       <span
-                        className="inline-grid min-w-14 place-items-center rounded-full border px-3 py-1 text-[0.72rem] font-bold tracking-[0.08em] text-white/82"
+                      className="inline-grid min-w-16 place-items-center rounded-full border px-3 py-1 text-[0.74rem] font-bold tracking-[0.08em] text-white/82"
                         style={{
                           borderColor: "rgba(255,255,255,0.08)",
                           background: "rgba(8,12,17,0.36)",
@@ -231,7 +231,7 @@ export default function ArchSection({
                       </span>
                     </div>
                     <strong
-                      className="font-mono text-[1.15rem] leading-tight sm:text-[1.25rem]"
+                      className="font-mono text-[1.45rem] leading-tight sm:text-[1.65rem]"
                       style={{ color: meta.text }}
                     >
                       {node.label[lang]}
