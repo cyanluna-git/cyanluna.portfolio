@@ -37,6 +37,42 @@ export interface Metric {
   description?: BiText;
 }
 
+export interface IntroPillar {
+  label: BiText;
+  title: BiText;
+  description: BiText;
+  stat?: BiText;
+}
+
+export interface IntroLayerItem {
+  title: BiText;
+  description: BiText;
+  meta?: BiText;
+}
+
+export interface IntroLayer {
+  label: BiText;
+  description?: BiText;
+  items: IntroLayerItem[];
+}
+
+export interface IntroRoadmapPhase {
+  label: BiText;
+  title: BiText;
+  description: BiText;
+  status: "active" | "planned" | "future";
+}
+
+export interface ProjectIntroduction {
+  badge?: BiText;
+  title: BiText;
+  subtitle: BiText;
+  pillars: IntroPillar[];
+  layers: IntroLayer[];
+  capabilities: Feature[];
+  roadmap: IntroRoadmapPhase[];
+}
+
 export interface ProjectDetail {
   slug: string;
   vertical: "industrial" | "health" | "consumer" | "devtools";
@@ -54,6 +90,7 @@ export interface ProjectDetail {
     description: BiText;
   };
 
+  introduction?: ProjectIntroduction;
   features: Feature[];
 
   architecture: {

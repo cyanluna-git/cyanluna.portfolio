@@ -2,6 +2,7 @@ export { default as Breadcrumb } from "./Breadcrumb";
 export { default as BrowserFrame } from "./BrowserFrame";
 export { default as ProjectHero } from "./ProjectHero";
 export { default as ProblemSection } from "./ProblemSection";
+export { default as IntroductionSection } from "./IntroductionSection";
 export { default as ApproachSection } from "./ApproachSection";
 export { default as FeatureShowcase } from "./FeatureShowcase";
 export { default as ArchSection } from "./ArchSection";

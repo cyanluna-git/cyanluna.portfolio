@@ -83,8 +83,8 @@ describe("smartFactoryQc sample data", () => {
     expect(smartFactoryQc.architecture.nodes).toHaveLength(7);
   });
 
-  it("has 6 architecture connections", () => {
-    expect(smartFactoryQc.architecture.connections).toHaveLength(6);
+  it("has 7 architecture connections", () => {
+    expect(smartFactoryQc.architecture.connections).toHaveLength(7);
   });
 
   it("all connection from/to ids exist in nodes", () => {

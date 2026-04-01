@@ -106,6 +106,282 @@ export const resourceBoard: ProjectDetail = {
     },
   },
 
+  introduction: {
+    badge: {
+      en: "Generalized from the live Engineering Operation Board introduction",
+      ko: "실제 Engineering Operation Board 소개 흐름을 일반화한 버전",
+    },
+    title: {
+      en: "An operating layer for engineering planning and execution",
+      ko: "엔지니어링 계획과 실행을 잇는 운영 레이어",
+    },
+    subtitle: {
+      en: "This project reframed resource planning as an operating-system problem: connect worklogs, FTE planning, project visibility, and reporting so managers can move from file reconstruction to real operational judgment.",
+      ko: "이 프로젝트는 리소스 플래닝을 단순한 관리 화면이 아니라 운영체계 문제로 다시 정의했습니다. 워크로그, FTE 계획, 프로젝트 가시성, 리포팅을 연결해 매니저가 파일 재구성 대신 실제 운영 판단을 할 수 있게 만드는 것이 핵심이었습니다.",
+    },
+    pillars: [
+      {
+        label: { en: "Why 01", ko: "Why 01" },
+        title: {
+          en: "Engineering data was scattered across tools",
+          ko: "엔지니어링 데이터가 도구별로 흩어져 있었다",
+        },
+        description: {
+          en: "Daily worklogs, resource plans, milestone status, and cost context all lived in different systems. Even simple reporting required collecting fragments from SharePoint, Excel, and mail threads before any decision could begin.",
+          ko: "일일 워크로그, 리소스 계획, 마일스톤 상태, 비용 맥락이 서로 다른 시스템에 흩어져 있었습니다. 간단한 보고조차 SharePoint, Excel, 메일 스레드의 조각을 다시 모아야 비로소 판단을 시작할 수 있었습니다.",
+        },
+        stat: {
+          en: "SharePoint + Excel + email",
+          ko: "SharePoint + Excel + 이메일",
+        },
+      },
+      {
+        label: { en: "Why 02", ko: "Why 02" },
+        title: {
+          en: "Managers spent energy rebuilding context",
+          ko: "매니저들은 판단보다 맥락 재구성에 에너지를 썼다",
+        },
+        description: {
+          en: "The real pain was not only manual entry. It was the repeated work of rebuilding plan-versus-actual context every month, with no stable runtime view of capacity, allocation, or delivery risk.",
+          ko: "진짜 문제는 단순 입력 수고만이 아니었습니다. 매달 계획 대비 실적의 맥락을 다시 조립해야 했고, 용량과 배정, 납기 리스크를 안정적으로 보는 실행 화면이 없었다는 점이 더 컸습니다.",
+        },
+        stat: {
+          en: "Reporting delayed operational decisions",
+          ko: "리포팅이 운영 판단을 늦췄다",
+        },
+      },
+      {
+        label: { en: "Why 03", ko: "Why 03" },
+        title: {
+          en: "A single screen was not enough",
+          ko: "단일 화면 하나만으로는 풀리지 않았다",
+        },
+        description: {
+          en: "The solution needed to behave like an operating layer, not just a dashboard. Inputs had to become structured records, planning had to become a shared matrix, and reporting had to turn into a live management signal.",
+          ko: "해결책은 단순 대시보드가 아니라 운영 레이어처럼 작동해야 했습니다. 입력은 구조화된 기록이 되고, 계획은 공유 가능한 매트릭스가 되며, 보고는 실시간 관리 신호로 바뀌어야 했습니다.",
+        },
+        stat: {
+          en: "Input → plan → execution → report",
+          ko: "입력 → 계획 → 실행 → 리포트",
+        },
+      },
+    ],
+    layers: [
+      {
+        label: { en: "Presentation Layer", ko: "프레젠테이션 레이어" },
+        description: {
+          en: "The product separates personal action surfaces from management visibility so the same system serves individual contributors and decision makers without turning into one overloaded screen.",
+          ko: "이 제품은 개인 실행 화면과 관리 가시성 화면을 분리해, 하나의 시스템이 실무자와 의사결정자를 모두 지원하되 과도하게 무거운 단일 화면이 되지 않도록 했습니다.",
+        },
+        items: [
+          {
+            title: { en: "Personal work surface", ko: "개인 작업 화면" },
+            description: {
+              en: "Engineers log work quickly, review their allocations, and keep execution records close to the actual workday.",
+              ko: "엔지니어는 빠르게 작업을 기록하고 배정을 확인하며, 실행 기록을 실제 업무 흐름 가까이에 유지합니다.",
+            },
+            meta: { en: "Input", ko: "Input" },
+          },
+          {
+            title: { en: "Management dashboard", ko: "관리 대시보드" },
+            description: {
+              en: "Managers read capacity, project pressure, and reporting signals from a shared operating view rather than from stitched spreadsheets.",
+              ko: "매니저는 짜깁기된 스프레드시트 대신 공유된 운영 뷰에서 용량과 프로젝트 압력, 리포트 신호를 읽습니다.",
+            },
+            meta: { en: "Visibility", ko: "Visibility" },
+          },
+        ],
+      },
+      {
+        label: { en: "Application Layer", ko: "애플리케이션 레이어" },
+        description: {
+          en: "Business logic ties together worklogs, FTE allocation, project lifecycle, and financial classification so planning and execution do not drift into separate systems.",
+          ko: "비즈니스 로직은 워크로그, FTE 배정, 프로젝트 수명주기, 재무 분류를 하나로 묶어 계획과 실행이 서로 다른 시스템으로 흩어지지 않게 합니다.",
+        },
+        items: [
+          {
+            title: { en: "Operations API", ko: "운영 API" },
+            description: {
+              en: "Handles user flows, permissions, planning rules, and reporting endpoints as one coherent runtime.",
+              ko: "사용자 흐름, 권한, 계획 규칙, 리포팅 엔드포인트를 하나의 런타임으로 묶어 처리합니다.",
+            },
+            meta: { en: "FastAPI", ko: "FastAPI" },
+          },
+          {
+            title: { en: "Classification services", ko: "분류 서비스" },
+            description: {
+              en: "Transforms raw work inputs into structured operational data that can support reporting, recharge, and planning decisions.",
+              ko: "원시 업무 입력을 리포팅, 리차지, 계획 판단에 활용할 수 있는 구조화된 운영 데이터로 변환합니다.",
+            },
+            meta: { en: "Rules + AI", ko: "Rules + AI" },
+          },
+        ],
+      },
+      {
+        label: { en: "Data Layer", ko: "데이터 레이어" },
+        description: {
+          en: "The data model keeps organization hierarchy, project hierarchy, allocations, worklogs, and financial dimensions in one place so analysis does not require export-and-merge cycles.",
+          ko: "데이터 모델은 조직 계층, 프로젝트 계층, 배정, 워크로그, 재무 차원을 한곳에 유지해 분석이 내보내기와 수동 병합에 의존하지 않도록 합니다.",
+        },
+        items: [
+          {
+            title: { en: "Unified planning store", ko: "통합 계획 저장소" },
+            description: {
+              en: "FTE plans, TBD positions, and actual work records stay comparable over time instead of living in disconnected monthly files.",
+              ko: "FTE 계획, TBD 포지션, 실제 작업 기록이 서로 다른 월별 파일이 아니라 시간축 위에서 비교 가능한 상태로 유지됩니다.",
+            },
+            meta: { en: "PostgreSQL", ko: "PostgreSQL" },
+          },
+          {
+            title: { en: "Reporting-ready dimensions", ko: "리포트 지향 차원 모델" },
+            description: {
+              en: "Funding, IO, activity, and cost context are attached early so operational records can flow into management and finance conversations.",
+              ko: "펀딩, IO, 활동, 비용 맥락을 초기에 붙여 운영 기록이 관리와 재무 대화로 자연스럽게 이어지게 했습니다.",
+            },
+            meta: { en: "Dimensions", ko: "Dimensions" },
+          },
+        ],
+      },
+      {
+        label: { en: "Expansion Layer", ko: "확장 레이어" },
+        description: {
+          en: "The platform is shaped to become a broader operating surface rather than a closed internal tracker, leaving room for adjacent systems and enterprise integrations.",
+          ko: "이 플랫폼은 닫힌 내부 트래커가 아니라 더 넓은 운영 표면으로 확장될 수 있도록 설계돼, 인접 시스템과 엔터프라이즈 연동을 수용할 여지를 남겨두었습니다.",
+        },
+        items: [
+          {
+            title: { en: "Connected operations surface", ko: "연결형 운영 표면" },
+            description: {
+              en: "Designed to sit alongside OQC and other execution systems as one shared operating map for planning and delivery.",
+              ko: "OQC와 다른 실행 시스템 옆에서 계획과 납기를 위한 공유 운영 지도 역할을 하도록 구성했습니다.",
+            },
+            meta: { en: "OQC-EOB", ko: "OQC-EOB" },
+          },
+          {
+            title: { en: "Enterprise-ready interfaces", ko: "엔터프라이즈 대응 인터페이스" },
+            description: {
+              en: "Prepared for future links with Microsoft 365, SAP, and other enterprise systems once the operational model proves stable.",
+              ko: "운영 모델이 안정화되면 Microsoft 365, SAP, 기타 엔터프라이즈 시스템과 이어질 수 있도록 준비했습니다.",
+            },
+            meta: { en: "Planned", ko: "Planned" },
+          },
+        ],
+      },
+    ],
+    capabilities: [
+      {
+        title: {
+          en: "Structured worklog intake",
+          ko: "구조화된 워크로그 입력",
+        },
+        description: {
+          en: "Natural-language work entries become reusable operational records instead of dead-end text, reducing input friction without sacrificing downstream reporting value.",
+          ko: "자연어 작업 입력을 막다른 텍스트가 아니라 재사용 가능한 운영 기록으로 바꿔, 입력 부담은 줄이면서도 후속 리포팅 가치는 유지합니다.",
+        },
+      },
+      {
+        title: {
+          en: "Shared FTE planning matrix",
+          ko: "공유형 FTE 계획 매트릭스",
+        },
+        description: {
+          en: "Capacity planning, vacancies, and future allocation scenarios can be discussed in one matrix instead of scattered team-specific spreadsheets.",
+          ko: "용량 계획과 공석, 향후 배정 시나리오를 팀별로 흩어진 시트가 아니라 하나의 매트릭스에서 논의할 수 있습니다.",
+        },
+      },
+      {
+        title: {
+          en: "Project and milestone visibility",
+          ko: "프로젝트와 마일스톤 가시성",
+        },
+        description: {
+          en: "Project lifecycle and execution pressure become visible in the same operating context as resource allocation.",
+          ko: "프로젝트 수명주기와 실행 압력이 리소스 배정과 같은 운영 맥락 안에서 함께 보이도록 했습니다.",
+        },
+      },
+      {
+        title: {
+          en: "Plan-versus-actual analytics",
+          ko: "계획 대비 실적 분석",
+        },
+        description: {
+          en: "Managers can move from raw entries to actionable variance signals across department, project, and individual levels.",
+          ko: "매니저는 원시 기록에서 출발해 부서, 프로젝트, 개인 수준의 실행 차이 신호까지 바로 볼 수 있습니다.",
+        },
+      },
+      {
+        title: {
+          en: "Operational reporting loop",
+          ko: "운영 리포팅 루프",
+        },
+        description: {
+          en: "Reporting is generated from live operational data, which shortens the path between what happened and what leaders can decide next.",
+          ko: "리포트가 살아있는 운영 데이터에서 바로 생성되어, 실제 발생한 일과 다음 판단 사이의 거리를 줄입니다.",
+        },
+      },
+      {
+        title: {
+          en: "Enterprise translation path",
+          ko: "엔터프라이즈 번역 경로",
+        },
+        description: {
+          en: "The same operating model can expand toward Microsoft 365, SAP, and adjacent enterprise environments without rebuilding the product story from scratch.",
+          ko: "같은 운영 모델을 기반으로 Microsoft 365, SAP, 인접 엔터프라이즈 환경까지 확장할 수 있어 제품 서사를 처음부터 다시 만들 필요가 없습니다.",
+        },
+      },
+    ],
+    roadmap: [
+      {
+        label: { en: "Phase 1", ko: "Phase 1" },
+        title: {
+          en: "Replace fragmented team trackers",
+          ko: "파편화된 팀 트래커 대체",
+        },
+        description: {
+          en: "Start with the highest-friction planning and reporting workflows so the value of a shared operational base is immediately visible.",
+          ko: "마찰이 가장 큰 계획과 리포팅 흐름부터 대체해, 공유 운영 기반의 가치가 즉시 드러나도록 하는 단계입니다.",
+        },
+        status: "active",
+      },
+      {
+        label: { en: "Phase 2", ko: "Phase 2" },
+        title: {
+          en: "Deepen analytics and management signals",
+          ko: "분석과 관리 신호 심화",
+        },
+        description: {
+          en: "Turn the platform from a tracker into a stronger decision surface with trend analysis, variance drill-downs, and capacity signals.",
+          ko: "추세 분석과 차이 드릴다운, 용량 신호를 붙여 단순 트래커를 더 강한 의사결정 표면으로 전환합니다.",
+        },
+        status: "planned",
+      },
+      {
+        label: { en: "Phase 3", ko: "Phase 3" },
+        title: {
+          en: "Connect adjacent operating systems",
+          ko: "인접 운영 시스템 연결",
+        },
+        description: {
+          en: "Shape the board as part of a broader execution map alongside quality and delivery systems such as OQC.",
+          ko: "이 보드를 OQC 같은 품질·실행 시스템과 나란히 놓이는 더 큰 실행 지도 일부로 확장합니다.",
+        },
+        status: "planned",
+      },
+      {
+        label: { en: "Phase 4", ko: "Phase 4" },
+        title: {
+          en: "Expand into enterprise integrations",
+          ko: "엔터프라이즈 연동으로 확장",
+        },
+        description: {
+          en: "Prepare the operating model to connect with Microsoft 365, SAP, and other enterprise systems once adoption and governance mature.",
+          ko: "도입과 거버넌스가 안정되면 Microsoft 365, SAP, 기타 엔터프라이즈 시스템과 연결될 수 있도록 운영 모델을 확장합니다.",
+        },
+        status: "future",
+      },
+    ],
+  },
+
   features: [
     {
       title: {

@@ -7,6 +7,7 @@ import {
   Breadcrumb,
   ProjectHero,
   ProblemSection,
+  IntroductionSection,
   ApproachSection,
   FeatureShowcase,
   ArchSection,
@@ -64,6 +65,14 @@ export default function ProjectDetailClient({
         verticalColor={project.verticalColor}
         lang={lang}
       />
+
+      {project.introduction ? (
+        <IntroductionSection
+          introduction={project.introduction}
+          verticalColor={project.verticalColor}
+          lang={lang}
+        />
+      ) : null}
 
       <ApproachSection
         approach={project.approach}
