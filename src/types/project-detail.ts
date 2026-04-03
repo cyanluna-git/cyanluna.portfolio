@@ -70,6 +70,7 @@ export interface ProjectIntroduction {
   pillars: IntroPillar[];
   layers: IntroLayer[];
   capabilities: Feature[];
+  screenshots?: Feature[];
   roadmap: IntroRoadmapPhase[];
 }
 

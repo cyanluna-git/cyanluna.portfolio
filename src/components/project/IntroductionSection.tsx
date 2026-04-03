@@ -2,6 +2,7 @@ import type {
   Feature,
   ProjectIntroduction,
 } from "@/types/project-detail";
+import BrowserFrame from "@/components/project/BrowserFrame";
 
 type Lang = "en" | "ko";
 
@@ -10,10 +11,12 @@ const sectionT = {
   why: { en: "Why It Exists", ko: "왜 만들었는가" },
   what: { en: "System Overview", ko: "시스템 개요" },
   how: { en: "Core Capabilities", ko: "핵심 기능" },
+  screens: { en: "Live Screens", ko: "실제 화면" },
   next: { en: "Rollout Direction", ko: "확장 방향" },
   problemFrames: { en: "Problem frames", ko: "문제 프레임" },
   systemLayers: { en: "System layers", ko: "시스템 레이어" },
   capability: { en: "Capability", ko: "기능" },
+  actualScreen: { en: "Actual screen", ko: "실제 화면" },
   layer: { en: "Layer", ko: "레이어" },
 };
 
@@ -218,6 +221,52 @@ export default function IntroductionSection({
               ))}
             </div>
           </div>
+
+          {introduction.screenshots?.length ? (
+            <div className="mt-12">
+              <div className="mb-5 flex items-center gap-3">
+                <div
+                  className="h-px flex-1"
+                  style={{ background: `linear-gradient(90deg, ${verticalColor}40, transparent)` }}
+                />
+                <span className="text-[11px] font-mono uppercase tracking-[0.24em] text-muted">
+                  {sectionT.screens[lang]}
+                </span>
+              </div>
+              <div className="grid gap-5 md:grid-cols-2">
+                {introduction.screenshots.map((screen) => (
+                  <article
+                    key={screen.title.en}
+                    className="rounded-[1.75rem] border border-border bg-surface p-4 shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
+                  >
+                    <BrowserFrame
+                      title={screen.title[lang]}
+                      accentColor={verticalColor}
+                      imageSrc={screen.image}
+                    />
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <h4 className="text-base font-semibold tracking-tight">
+                        {screen.title[lang]}
+                      </h4>
+                      <span
+                        className="inline-flex rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em]"
+                        style={{
+                          borderColor: `${verticalColor}24`,
+                          color: verticalColor,
+                          backgroundColor: `${verticalColor}10`,
+                        }}
+                      >
+                        {sectionT.actualScreen[lang]}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm leading-7 text-muted">
+                      {screen.description[lang]}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           <div className="mt-12">
             <div className="mb-5 flex items-center gap-3">

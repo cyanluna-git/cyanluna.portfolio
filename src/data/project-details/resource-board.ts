@@ -330,6 +330,63 @@ export const resourceBoard: ProjectDetail = {
         },
       },
     ],
+    screenshots: [
+      {
+        title: {
+          en: "Dashboard Overview",
+          ko: "대시보드 개요",
+        },
+        description: {
+          en: "Managers can read weekly worklog signals, allocation summaries, and AI summaries from a single shared dashboard.",
+          ko: "주간 워크로그 신호, 배정 요약, AI 요약을 하나의 공유 대시보드에서 바로 읽을 수 있습니다.",
+        },
+        image: "/projects/resource-board/introduction/dashboard.png",
+      },
+      {
+        title: {
+          en: "Worklog Entry",
+          ko: "워크로그 입력",
+        },
+        description: {
+          en: "Daily execution records stay close to the actual workday instead of disappearing into end-of-month spreadsheet updates.",
+          ko: "일일 실행 기록을 월말 스프레드시트 취합이 아니라 실제 업무 흐름 가까이에서 유지합니다.",
+        },
+        image: "/projects/resource-board/introduction/worklogs.png",
+      },
+      {
+        title: {
+          en: "Team Capacity",
+          ko: "팀 캐파시티",
+        },
+        description: {
+          en: "Available FTE, absence impact, and hiring assumptions are visible in one capacity view for faster planning decisions.",
+          ko: "가용 FTE와 부재 영향, 채용 가정을 하나의 용량 뷰에서 확인해 계획 판단을 더 빠르게 내릴 수 있습니다.",
+        },
+        image: "/projects/resource-board/introduction/team-capacity.png",
+      },
+      {
+        title: {
+          en: "Project Management",
+          ko: "프로젝트 관리",
+        },
+        description: {
+          en: "Project lifecycle and gate progress live inside the same operating context as resource and execution data.",
+          ko: "프로젝트 수명주기와 게이트 진행이 리소스 및 실행 데이터와 같은 운영 맥락 안에 놓입니다.",
+        },
+        image: "/projects/resource-board/introduction/projects.png",
+      },
+      {
+        title: {
+          en: "Plan vs Actual Reports",
+          ko: "계획 대비 실적 리포트",
+        },
+        description: {
+          en: "Variance reporting is generated from live operational data rather than reconstructed from disconnected monthly files.",
+          ko: "차이 리포트가 분리된 월별 파일 재구성이 아니라 살아있는 운영 데이터에서 바로 생성됩니다.",
+        },
+        image: "/projects/resource-board/introduction/reports.png",
+      },
+    ],
     roadmap: [
       {
         label: { en: "Phase 1", ko: "Phase 1" },

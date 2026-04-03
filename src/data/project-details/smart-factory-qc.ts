@@ -309,6 +309,52 @@ export const smartFactoryQc: ProjectDetail = {
         },
       },
     ],
+    screenshots: [
+      {
+        title: {
+          en: "Dashboard Overview",
+          ko: "대시보드 개요",
+        },
+        description: {
+          en: "The control surface summarizes KPI signals, execution progress, and current system health in one place.",
+          ko: "단일 제어 화면에서 KPI 신호, 실행 진행률, 현재 시스템 상태를 함께 읽을 수 있습니다.",
+        },
+        image: "/projects/smart-factory-qc/introduction/dashboard.png",
+      },
+      {
+        title: {
+          en: "Product Catalog",
+          ko: "제품 카탈로그",
+        },
+        description: {
+          en: "Business unit, generation, and product-line structures are managed as an inspection catalog rather than scattered configuration files.",
+          ko: "사업부, 세대, 제품 라인 구조를 흩어진 설정 파일이 아니라 검사 카탈로그로 관리합니다.",
+        },
+        image: "/projects/smart-factory-qc/introduction/products.png",
+      },
+      {
+        title: {
+          en: "Fleet Monitoring",
+          ko: "플릿 모니터링",
+        },
+        description: {
+          en: "Edge PC status, synchronization health, and evidence integrity are tracked centrally instead of staying hidden on local test machines.",
+          ko: "엣지 PC 상태와 동기화 건전성, 증빙 무결성을 로컬 테스트 PC에 숨겨두지 않고 중앙에서 추적합니다.",
+        },
+        image: "/projects/smart-factory-qc/introduction/fleet.png",
+      },
+      {
+        title: {
+          en: "User Management",
+          ko: "사용자 관리",
+        },
+        description: {
+          en: "Role-based accounts and operator permissions are governed from the same system that runs inspection workflows.",
+          ko: "검사 워크플로우를 실행하는 동일한 시스템에서 역할 기반 계정과 작업자 권한을 관리합니다.",
+        },
+        image: "/projects/smart-factory-qc/introduction/users.png",
+      },
+    ],
     roadmap: [
       {
         label: { en: "Phase 1", ko: "Phase 1" },
