@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -215,9 +215,24 @@ function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: 
 
 function ProjectMediaArea({ project }: { project: Project }) {
   const vColor = verticals[project.vertical].color;
+  const [frameIndex, setFrameIndex] = useState(0);
+  const media = project.media;
+  const frames = media?.type === "sequence" ? media.frames : undefined;
 
-  if (project.media) {
-    const { type, src, poster } = project.media;
+  useEffect(() => {
+    if (!frames || frames.length < 2) {
+      return;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setFrameIndex((current) => (current + 1) % frames.length);
+    }, 1000);
+
+    return () => window.clearInterval(intervalId);
+  }, [frames]);
+
+  if (media) {
+    const { type, src, poster } = media;
 
     if (type === "video") {
       return (
@@ -229,10 +244,28 @@ function ProjectMediaArea({ project }: { project: Project }) {
       );
     }
 
+    if (type === "sequence" && frames && frames.length > 0) {
+      return (
+        <div className="relative aspect-video overflow-hidden bg-black">
+          {frames.map((frame, index) => (
+            <Image
+              key={frame}
+              src={frame}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              loading={index === 0 ? "eager" : "lazy"}
+              className={`object-cover transition-opacity duration-500 ${index === frameIndex ? "opacity-100" : "opacity-0"}`}
+            />
+          ))}
+        </div>
+      );
+    }
+
     return (
       <div className="aspect-video overflow-hidden bg-black">
         <Image
-          src={src}
+          src={src!}
           alt=""
           width={640}
           height={360}

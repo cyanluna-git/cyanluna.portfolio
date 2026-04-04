@@ -1,6 +1,7 @@
 export type ProjectMedia = {
-  type: "gif" | "video" | "image";
-  src: string;
+  type: "gif" | "video" | "image" | "sequence";
+  src?: string;
+  frames?: string[];
   poster?: string;
 };
 
@@ -258,7 +259,15 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["React 19", "FastAPI", "Supabase", "Groq/Gemini LLM", "Vercel"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/ai-cycling-coach/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/ai-cycling-coach/landing.webp",
+        "/projects/ai-cycling-coach/workout-generator.webp",
+        "/projects/ai-cycling-coach/weekly-plan.webp",
+        "/projects/ai-cycling-coach/fitness-card.webp",
+      ],
+    },
     highlights: {
       en: [
         "Omakase pattern: validated modules → AI selection → ZWO output",
@@ -306,7 +315,15 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["React", "FastAPI", "PostgreSQL", "TimescaleDB", "Recharts"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/cpet-platform/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/cpet-platform/metabolism.webp",
+        "/projects/cpet-platform/cohort.webp",
+        "/projects/cpet-platform/subject-detail.webp",
+        "/projects/cpet-platform/test-view.webp",
+      ],
+    },
     highlights: {
       en: [
         "Breath-by-breath metabolic data processing",
@@ -354,7 +371,15 @@ export const projects: Project[] = [
     vertical: "health",
     stack: ["Next.js 15", "React 19", "Supabase", "Kakao Maps SDK", "Recharts"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/ride-analytics/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/ride-analytics/home.webp",
+        "/projects/ride-analytics/explore.webp",
+        "/projects/ride-analytics/course-detail.webp",
+        "/projects/ride-analytics/upload.webp",
+      ],
+    },
     highlights: {
       en: [
         "4-stage data pipeline: stage → match → fingerprint → curate",
@@ -403,7 +428,15 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Ruby on Rails 8", "SQLite", "Tailwind CSS", "Stimulus", "Kakao OAuth"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/today-bike/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/today-bike/home.webp",
+        "/projects/today-bike/admin-dashboard.webp",
+        "/projects/today-bike/admin-kanban.webp",
+        "/projects/today-bike/service-overhaul.webp",
+      ],
+    },
     highlights: {
       en: [
         "Service workflow: intake → diagnosis → repair → delivery",
@@ -450,7 +483,15 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Next.js 15", "Drizzle ORM", "SQLite", "Tailwind CSS"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/personal-finance/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/personal-finance/dashboard.webp",
+        "/projects/personal-finance/cards.webp",
+        "/projects/personal-finance/transactions.webp",
+        "/projects/personal-finance/trips.webp",
+      ],
+    },
     highlights: {
       en: [
         "7 bank parsers handling 3 different file format families",
@@ -498,7 +539,15 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Next.js 16", "Prisma", "SQLite", "Google APIs", "Tailwind CSS"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/assist-hub/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/assist-hub/dashboard.webp",
+        "/projects/assist-hub/bulletin.webp",
+        "/projects/assist-hub/materials.webp",
+        "/projects/assist-hub/schedule.webp",
+      ],
+    },
     highlights: {
       en: [
         "3-in-1 bulletin: SMS + Gmail + RSS aggregation",
@@ -545,7 +594,15 @@ export const projects: Project[] = [
     vertical: "consumer",
     stack: ["Next.js 15", "Drizzle ORM", "Neon PostgreSQL", "AWS S3", "Kakao Maps"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/assist-11th/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/assist-11th/home.webp",
+        "/projects/assist-11th/posts.webp",
+        "/projects/assist-11th/gallery.webp",
+        "/projects/assist-11th/lunch.webp",
+      ],
+    },
     highlights: {
       en: [
         "PWA: installable on mobile without app store",
@@ -594,7 +651,15 @@ export const projects: Project[] = [
     vertical: "devtools",
     stack: ["Neon PostgreSQL", "Claude Code", "REST API", "Multi-agent"],
     hasDetailPage: true,
-    media: { type: "gif", src: "/projects/kanban-pipeline/thumbnail.gif" },
+    media: {
+      type: "sequence",
+      frames: [
+        "/projects/kanban-pipeline/board.webp",
+        "/projects/kanban-pipeline/task-detail.webp",
+        "/projects/kanban-pipeline/list-view.webp",
+        "/projects/kanban-pipeline/chronicle.webp",
+      ],
+    },
     highlights: {
       en: [
         "6 agents: Planner → Critic → Builder → Shield → Inspector → Ranger",
