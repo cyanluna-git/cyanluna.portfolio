@@ -4,6 +4,41 @@ export type ProjectMedia = {
   poster?: string;
 };
 
+export const curationTracks = {
+  enterprise: {
+    label: { en: "Enterprise Systems", ko: "엔터프라이즈 시스템" },
+    description: {
+      en: "Operational systems that connect teams, equipment, and internal decision flows.",
+      ko: "팀, 장비, 내부 의사결정 흐름을 연결하는 운영 시스템입니다.",
+    },
+  },
+  ai: {
+    label: { en: "AI Tooling", ko: "AI 툴링" },
+    description: {
+      en: "AI-native products and workflows that automate planning, review, and output generation.",
+      ko: "계획, 리뷰, 산출물 생성을 자동화하는 AI 네이티브 제품과 워크플로우입니다.",
+    },
+  },
+  data: {
+    label: { en: "Data Products", ko: "데이터 제품" },
+    description: {
+      en: "Analytics-heavy products that turn messy inputs into usable insight.",
+      ko: "복잡한 입력을 사용 가능한 인사이트로 바꾸는 분석 중심 제품입니다.",
+    },
+  },
+  product: {
+    label: { en: "Consumer Products", ko: "컨슈머 제품" },
+    description: {
+      en: "User-facing products built around concrete, repeated real-world workflows.",
+      ko: "반복되는 실제 사용자 워크플로우를 중심으로 만든 사용자 대상 제품입니다.",
+    },
+  },
+} as const;
+
+export type CurationTrack = keyof typeof curationTracks;
+export type ProjectAudience = "leadership" | "ops" | "engineering" | "product";
+export type ProjectProof = "system" | "automation" | "analytics" | "agentic";
+
 export type Project = {
   id: string;
   title: { en: string; ko: string };
@@ -17,6 +52,14 @@ export type Project = {
   media?: ProjectMedia;
   url?: string;
   repo?: string;
+  curation: {
+    featuredRank?: number;
+    track: CurationTrack;
+    audience: ProjectAudience[];
+    proof: ProjectProof;
+    quickPitch: { en: string; ko: string };
+    whyStartHere: { en: string; ko: string };
+  };
 };
 
 export const verticals = {
@@ -88,6 +131,20 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      featuredRank: 1,
+      track: "enterprise",
+      audience: ["leadership", "ops", "engineering"],
+      proof: "system",
+      quickPitch: {
+        en: "Industrial QC execution platform connecting UI, APIs, identity, and device protocols.",
+        ko: "UI, API, 인증, 장비 프로토콜을 연결한 산업용 QC 실행 플랫폼입니다.",
+      },
+      whyStartHere: {
+        en: "Best first proof if you want to see enterprise-grade system design in a manufacturing context.",
+        ko: "제조 맥락에서 엔터프라이즈급 시스템 설계를 보려면 가장 먼저 볼 만한 프로젝트입니다.",
+      },
+    },
   },
   {
     id: "equipment-gateway",
@@ -121,6 +178,19 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "enterprise",
+      audience: ["ops", "engineering"],
+      proof: "automation",
+      quickPitch: {
+        en: "Protocol-heavy gateway that turns raw equipment registers into usable APIs and topology views.",
+        ko: "원시 장비 레지스터를 API와 토폴로지 뷰로 바꾸는 프로토콜 중심 게이트웨이입니다.",
+      },
+      whyStartHere: {
+        en: "Shows how I work at the protocol and polling layer instead of stopping at dashboards.",
+        ko: "대시보드 단계에서 멈추지 않고 프로토콜과 폴링 레이어까지 다루는 방식을 보여줍니다.",
+      },
+    },
   },
   {
     id: "resource-board",
@@ -154,6 +224,20 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      featuredRank: 4,
+      track: "enterprise",
+      audience: ["leadership", "ops", "product"],
+      proof: "system",
+      quickPitch: {
+        en: "Internal operating system for engineering capacity, milestones, worklogs, and planning.",
+        ko: "엔지니어링 캐파시티, 마일스톤, 워크로그, 계획을 묶는 내부 운영 시스템입니다.",
+      },
+      whyStartHere: {
+        en: "A strong entry if you want to see my internal tools and enterprise operations thinking.",
+        ko: "내부 도구와 엔터프라이즈 운영 관점을 보고 싶을 때 좋은 시작점입니다.",
+      },
+    },
   },
 
   // ── Health & Fitness ──
@@ -190,6 +274,20 @@ export const projects: Project[] = [
       ],
     },
     status: "live",
+    curation: {
+      featuredRank: 2,
+      track: "ai",
+      audience: ["product", "engineering"],
+      proof: "agentic",
+      quickPitch: {
+        en: "Production AI coach that converts training context into ride-ready workouts.",
+        ko: "훈련 컨텍스트를 바로 라이딩 가능한 운동으로 바꾸는 프로덕션 AI 코치입니다.",
+      },
+      whyStartHere: {
+        en: "Best health-side proof for AI orchestration, managed deployment, and real output generation.",
+        ko: "AI 오케스트레이션, 매니지드 배포, 실제 산출물 생성을 함께 보여주는 헬스 도메인 대표 사례입니다.",
+      },
+    },
   },
   {
     id: "cpet-platform",
@@ -224,6 +322,20 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      featuredRank: 5,
+      track: "data",
+      audience: ["engineering", "product"],
+      proof: "analytics",
+      quickPitch: {
+        en: "Physiology analytics platform handling dense time-series signals from real CPET equipment.",
+        ko: "실제 CPET 장비의 고밀도 시계열 신호를 다루는 생리학 분석 플랫폼입니다.",
+      },
+      whyStartHere: {
+        en: "A strong example of how I turn scientific raw data into usable analysis and visualization.",
+        ko: "과학적 원시 데이터를 분석과 시각화로 바꾸는 방식을 보여주는 좋은 사례입니다.",
+      },
+    },
   },
   {
     id: "ride-analytics",
@@ -258,6 +370,19 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "data",
+      audience: ["product", "engineering"],
+      proof: "analytics",
+      quickPitch: {
+        en: "Route and ride analytics product built on a multi-stage data curation pipeline.",
+        ko: "다단계 데이터 큐레이션 파이프라인 위에 구축한 경로·라이드 분석 제품입니다.",
+      },
+      whyStartHere: {
+        en: "Useful if you want to see end-user mapping UX built on top of a careful data pipeline.",
+        ko: "정교한 데이터 파이프라인 위에 얹힌 사용자용 맵 UX를 보고 싶을 때 적합합니다.",
+      },
+    },
   },
 
   // ── Consumer ──
@@ -294,6 +419,19 @@ export const projects: Project[] = [
       ],
     },
     status: "beta",
+    curation: {
+      track: "product",
+      audience: ["ops", "product"],
+      proof: "system",
+      quickPitch: {
+        en: "Service operations product for bicycle-shop workflows from intake to delivery.",
+        ko: "자전거 매장 운영 흐름을 접수부터 출고까지 다루는 서비스 운영 제품입니다.",
+      },
+      whyStartHere: {
+        en: "Shows I can package dense real-world workflows into a clean consumer-facing product.",
+        ko: "복잡한 실제 워크플로우를 사용자용 제품으로 정리하는 능력을 보여줍니다.",
+      },
+    },
   },
   {
     id: "personal-finance",
@@ -328,6 +466,19 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "data",
+      audience: ["product", "leadership"],
+      proof: "analytics",
+      quickPitch: {
+        en: "Parser-driven finance dashboard built from messy multi-bank statement inputs.",
+        ko: "여러 카드사 명세서를 정리해 만든 파서 중심 금융 대시보드입니다.",
+      },
+      whyStartHere: {
+        en: "Good proof if you want to see format normalization and practical analytics instead of polished marketing UI only.",
+        ko: "겉보기보다 포맷 정규화와 실용 분석 문제 해결을 보고 싶을 때 적합합니다.",
+      },
+    },
   },
 
   {
@@ -363,6 +514,19 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "product",
+      audience: ["product", "ops"],
+      proof: "system",
+      quickPitch: {
+        en: "Personal operating workspace that unifies class materials, notifications, and schedules.",
+        ko: "수업 자료, 알림, 일정을 하나로 묶는 개인 운영 워크스페이스입니다.",
+      },
+      whyStartHere: {
+        en: "Useful for seeing how I compress fragmented information into one practical interface.",
+        ko: "흩어진 정보를 하나의 실용 인터페이스로 압축하는 방식을 보여줍니다.",
+      },
+    },
   },
   {
     id: "assist-11th",
@@ -397,6 +561,19 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "product",
+      audience: ["product", "leadership"],
+      proof: "system",
+      quickPitch: {
+        en: "Feature-dense cohort community product built as a mobile-first PWA.",
+        ko: "모바일 우선 PWA로 구축한 기능 밀도 높은 코호트 커뮤니티 제품입니다.",
+      },
+      whyStartHere: {
+        en: "Shows product-range breadth when you want to see community, operations, and content tools in one build.",
+        ko: "커뮤니티, 운영, 콘텐츠 도구가 한 제품에 어떻게 묶이는지 보고 싶을 때 적합합니다.",
+      },
+    },
   },
 
   // ── Developer Tools ──
@@ -433,6 +610,20 @@ export const projects: Project[] = [
       ],
     },
     status: "live",
+    curation: {
+      featuredRank: 3,
+      track: "ai",
+      audience: ["leadership", "engineering"],
+      proof: "agentic",
+      quickPitch: {
+        en: "Multi-agent delivery system that plans, implements, reviews, and tests code changes.",
+        ko: "코드 변경을 계획, 구현, 리뷰, 테스트까지 이어주는 멀티에이전트 전달 시스템입니다.",
+      },
+      whyStartHere: {
+        en: "Best proof if you want to understand my AI-native engineering workflow and orchestration style.",
+        ko: "AI 네이티브 엔지니어링 워크플로우와 오케스트레이션 스타일을 보기에 가장 좋은 사례입니다.",
+      },
+    },
   },
   {
     id: "code-review-suite",
@@ -466,6 +657,19 @@ export const projects: Project[] = [
       ],
     },
     status: "live",
+    curation: {
+      track: "ai",
+      audience: ["engineering", "leadership"],
+      proof: "automation",
+      quickPitch: {
+        en: "Domain-aware PR review automation across backend, frontend, and PLC codebases.",
+        ko: "백엔드, 프론트엔드, PLC 코드를 가로지르는 도메인 인식 PR 리뷰 자동화입니다.",
+      },
+      whyStartHere: {
+        en: "Shows practical AI application in a real engineering feedback loop, not just a demo agent.",
+        ko: "데모용 에이전트가 아니라 실제 엔지니어링 피드백 루프에 AI를 적용한 사례입니다.",
+      },
+    },
   },
   {
     id: "javis",
@@ -499,8 +703,25 @@ export const projects: Project[] = [
       ],
     },
     status: "active",
+    curation: {
+      track: "ai",
+      audience: ["leadership", "product", "engineering"],
+      proof: "agentic",
+      quickPitch: {
+        en: "AI PM bridge that turns Jira and Confluence data into a local-first operating workflow.",
+        ko: "Jira와 Confluence 데이터를 로컬 우선 운영 흐름으로 바꾸는 AI PM 브리지입니다.",
+      },
+      whyStartHere: {
+        en: "A good bridge case if you want to see enterprise coordination problems translated into AI tooling.",
+        ko: "엔터프라이즈 협업 문제를 AI 툴링으로 번역한 사례를 보고 싶을 때 적합합니다.",
+      },
+    },
   },
 ];
+
+export const featuredProjects = [...projects]
+  .filter((project) => typeof project.curation.featuredRank === "number")
+  .sort((a, b) => (a.curation.featuredRank ?? Number.MAX_SAFE_INTEGER) - (b.curation.featuredRank ?? Number.MAX_SAFE_INTEGER));
 
 export const stats = {
   projects: 14,

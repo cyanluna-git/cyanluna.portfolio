@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("Refreshed homepage narrative", () => {
-  test("loads the updated positioning and metadata", async ({ page }) => {
+test.describe("Curated homepage discovery", () => {
+  test("loads the updated positioning and curated entry", async ({ page }) => {
     await page.goto("/");
 
     await expect(page).toHaveTitle(/AI-Native Problem Solver/);
@@ -11,43 +11,34 @@ test.describe("Refreshed homepage narrative", () => {
         name: /I turn messy operations, data bottlenecks, and industrial constraints into working systems\./,
       }),
     ).toBeVisible();
-    await expect(
-      page.getByText("OQC-EOB → Microsoft 365 / SAP (planned)"),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Pick the lens that matches what you want to validate first\./ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Three projects that explain the portfolio faster than a long bio\./ })).toBeVisible();
   });
 
-  test("keeps about and section navigation working", async ({ page }) => {
+  test("guides users into featured work and browse filters", async ({ page }) => {
     await page.goto("/");
 
-    await page.getByRole("link", { name: "About" }).click();
-    await expect(page).toHaveURL(/#about$/);
-    await expect(
-      page.getByText("AI-native problem solving that scales into team change"),
-    ).toBeVisible();
+    await page.getByTestId("guided-path-enterprise").getByRole("button", { name: "Focus on enterprise systems" }).click();
+    await expect(page.getByRole("heading", { name: "Browse All Work" })).toBeVisible();
+    await expect(page.getByText("Current track: Enterprise Systems")).toBeVisible();
 
-    await page.getByRole("link", { name: "Projects" }).click();
-    await expect(page).toHaveURL(/#projects$/);
-    await expect(
-      page.getByRole("heading", { name: "Projects" }),
-    ).toBeVisible();
+    await page.getByTestId("featured-project-smart-factory-qc").click();
+    await expect(page).toHaveURL(/\/projects\/smart-factory-qc$/);
 
-    await expect(
-      page.getByRole("heading", { name: "From Three Worlds to One Strategy" }),
-    ).toBeVisible();
+    await page.goto("/");
+    await page.getByTestId("track-filter-ai").click();
+    await expect(page.getByText("Current track: AI Tooling")).toBeVisible();
+    await expect(page.getByRole("link", { name: /AI Tooling Agentic AI Kanban Pipeline/ })).toBeVisible();
   });
 
-  test("renders the new narrative blocks on mobile", async ({ page }) => {
+  test("keeps navigation and curated sections readable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
     await expect(page.getByText("AI-Native Problem Solver")).toBeVisible();
-
-    await page
-      .getByRole("heading", { name: "From Three Worlds to One Strategy" })
-      .scrollIntoViewIfNeeded();
-    await expect(
-      page.getByRole("heading", { name: "From Three Worlds to One Strategy" }),
-    ).toBeVisible();
-    await expect(page.getByText("Enterprise direction")).toBeVisible();
+    await page.getByRole("heading", { name: /Pick the lens that matches what you want to validate first\./ }).scrollIntoViewIfNeeded();
+    await expect(page.getByTestId("guided-path-ai")).toBeVisible();
+    await page.getByRole("heading", { name: "Browse All Work" }).scrollIntoViewIfNeeded();
+    await expect(page.getByRole("heading", { name: "Browse All Work" })).toBeVisible();
   });
 });
