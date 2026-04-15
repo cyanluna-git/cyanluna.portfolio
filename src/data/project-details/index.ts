@@ -1,4 +1,5 @@
 import type { ProjectDetail } from "@/types/project-detail";
+import { moru } from "./moru";
 import { smartFactoryQc } from "./smart-factory-qc";
 import { equipmentGateway } from "./equipment-gateway";
 import { resourceBoard } from "./resource-board";
@@ -14,6 +15,7 @@ import { assist11th } from "./assist-11th";
 import { javis } from "./javis";
 
 export const projectDetails: Record<string, ProjectDetail> = {
+  "moru": moru,
   "smart-factory-qc": smartFactoryQc,
   "equipment-gateway": equipmentGateway,
   "resource-board": resourceBoard,

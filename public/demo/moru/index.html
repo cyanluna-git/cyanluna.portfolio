@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moru — 모두의 창업 기획서 | AI-Driven IIoT Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0:#050810;--bg-1:#0a0f1c;--bg-2:#111827;--bg-3:#1f2937;
+      --line:rgba(56,189,248,0.15);--line-strong:rgba(56,189,248,0.35);
+      --cyan:#06b6d4;--cyan-bright:#22d3ee;--blue:#3b82f6;--violet:#8b5cf6;
+      --amber:#f59e0b;--emerald:#10b981;--rose:#f43f5e;
+      --text-0:#f8fafc;--text-1:#cbd5e1;--text-2:#94a3b8;--text-3:#64748b;
+    }
+    *{-webkit-font-smoothing:antialiased;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-0);color:var(--text-0);overflow-x:hidden;}
+    .font-mono{font-family:'JetBrains Mono',monospace;}
+    .font-display{font-family:'Orbitron',sans-serif;letter-spacing:0.02em;}
+    .bg-grid{background-color:var(--bg-0);background-image:radial-gradient(circle at 50% 0%,rgba(6,182,212,0.08) 0%,transparent 40%),radial-gradient(circle at 100% 100%,rgba(139,92,246,0.06) 0%,transparent 40%),linear-gradient(rgba(56,189,248,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,0.03) 1px,transparent 1px);background-size:100% 100%,100% 100%,48px 48px,48px 48px;}
+    .scanlines::before{content:'';position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,0.015) 0px,rgba(255,255,255,0.015) 1px,transparent 1px,transparent 3px);z-index:100;}
+    .text-gradient{background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 50%,#8b5cf6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .text-gradient-cyan{background:linear-gradient(135deg,#22d3ee 0%,#3b82f6 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .card{background:linear-gradient(135deg,rgba(17,24,39,0.8) 0%,rgba(17,24,39,0.5) 100%);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(12px);transition:border-color 0.3s,transform 0.3s;}
+    .card:hover{border-color:var(--line-strong);}
+    .card-glow{position:relative;overflow:hidden;}
+    .card-glow::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(6,182,212,0.1) 0%,transparent 50%);opacity:0;transition:opacity 0.3s;pointer-events:none;}
+    .card-glow:hover::before{opacity:1;}
+    .metric-number{font-family:'Orbitron',sans-serif;font-weight:900;background:linear-gradient(180deg,#f8fafc 0%,#22d3ee 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 32px rgba(34,211,238,0.2);}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;font-size:0.75rem;font-weight:500;border:1px solid;}
+    .badge-cyan{color:var(--cyan-bright);border-color:rgba(34,211,238,0.4);background:rgba(34,211,238,0.08);}
+    .badge-amber{color:var(--amber);border-color:rgba(245,158,11,0.4);background:rgba(245,158,11,0.08);}
+    .badge-emerald{color:var(--emerald);border-color:rgba(16,185,129,0.4);background:rgba(16,185,129,0.08);}
+    .badge-violet{color:var(--violet);border-color:rgba(139,92,246,0.4);background:rgba(139,92,246,0.08);}
+    .badge-rose{color:var(--rose);border-color:rgba(244,63,94,0.4);background:rgba(244,63,94,0.08);}
+    .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor;}
+    nav.main-nav{background:rgba(5,8,16,0.75);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--line);}
+    .nav-link{color:var(--text-2);font-size:0.875rem;font-weight:500;transition:color 0.2s;position:relative;padding:4px 0;}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width 0.3s;}
+    .nav-link:hover,.nav-link.active{color:var(--text-0);}
+    .nav-link:hover::after,.nav-link.active::after{width:100%;}
+    .section-label{display:inline-flex;align-items:center;gap:10px;color:var(--cyan-bright);font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:16px;}
+    .section-label::before{content:'';width:32px;height:1px;background:var(--cyan);}
+    .section-title{font-size:clamp(1.75rem,4vw,3rem);font-weight:800;line-height:1.15;margin-bottom:20px;}
+    .defense-item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:rgba(17,24,39,0.5);}
+    .defense-item[open]{border-color:var(--cyan);background:rgba(6,182,212,0.03);}
+    .defense-item summary{list-style:none;cursor:pointer;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .defense-item summary::-webkit-details-marker{display:none;}
+    .defense-item summary::after{content:'↓';font-family:'JetBrains Mono',monospace;color:var(--cyan);transition:transform 0.3s;font-size:1.25rem;}
+    .defense-item[open] summary::after{transform:rotate(180deg);}
+    .defense-body{padding:0 24px 24px;border-top:1px solid var(--line);padding-top:20px;}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.8s,transform 0.8s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    table.data-table{width:100%;border-collapse:collapse;font-size:0.875rem;}
+    table.data-table thead{background:rgba(6,182,212,0.05);}
+    table.data-table th{padding:14px 16px;text-align:left;font-weight:500;color:var(--cyan-bright);font-family:'JetBrains Mono',monospace;font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;border-bottom:1px solid var(--line-strong);}
+    table.data-table td{padding:14px 16px;border-bottom:1px solid var(--line);color:var(--text-1);}
+    table.data-table tr:hover td{background:rgba(6,182,212,0.02);}
+    @keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(16,185,129,0.7);}50%{opacity:0.6;box-shadow:0 0 0 8px rgba(16,185,129,0);}}
+    .pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--emerald);animation:pulse-dot 2s ease-in-out infinite;}
+    ::-webkit-scrollbar{width:10px;height:10px;}
+    ::-webkit-scrollbar-track{background:var(--bg-1);}
+    ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--cyan),var(--blue));border-radius:10px;}
+    .chart-container{position:relative;height:320px;width:100%;}
+    .callout{border-radius:12px;padding:20px 24px;margin:16px 0;}
+    .callout-cyan{background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.25);}
+    .callout-emerald{background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.25);}
+    .callout-amber{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);}
+    .callout-rose{background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.25);}
+    .callout-violet{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.25);}
+    .pricing-box{background:linear-gradient(135deg,rgba(6,182,212,0.08),rgba(139,92,246,0.05));border:1px solid var(--line-strong);border-radius:16px;padding:28px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;line-height:1.8;color:var(--text-1);}
+    .timeline{position:relative;padding-left:40px;}
+    .timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cyan) 0%,var(--blue) 50%,var(--violet) 100%);opacity:0.4;}
+    .timeline-item{position:relative;padding-bottom:32px;}
+    .timeline-item::before{content:'';position:absolute;left:-32px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg-0);border:2px solid var(--cyan);box-shadow:0 0 0 4px rgba(6,182,212,0.2),0 0 16px rgba(6,182,212,0.4);}
+    .timeline-item.done::before{background:var(--cyan);}
+    .arch-box{background:rgba(6,182,212,0.04);border:1px solid var(--line);border-radius:10px;padding:14px 18px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-1);text-align:center;transition:border-color 0.3s;}
+    .arch-box:hover{border-color:var(--cyan);}
+    .arch-arrow{color:var(--cyan);font-size:1.5rem;text-align:center;line-height:1;}
+    .step-number{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.875rem;flex-shrink:0;}
+    .code-inline{font-family:'JetBrains Mono',monospace;font-size:0.8em;background:rgba(6,182,212,0.1);color:#22d3ee;padding:2px 8px;border-radius:4px;}
+    @media(max-width:768px){.timeline{padding-left:32px;}.timeline::before{left:11px;}.timeline-item::before{left:-28px;}}
+  </style>
+</head>
+<body class="bg-grid scanlines">
+
+<!-- NAV -->
+<nav class="main-nav sticky top-0 z-50 w-full">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3">
+      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
+        <rect width="256" height="256" fill="#0f172a"/>
+        <path d="M 80 140 L 110 100 L 170 100 L 170 140 Q 170 160 150 160 L 100 160 Q 80 160 80 140 Z" fill="#f8fafc"/>
+        <path d="M 90 130 Q 70 125 65 110 Q 63 100 75 95 L 85 115 Z" fill="#f8fafc"/>
+        <path d="M 160 130 Q 180 125 185 110 Q 187 100 175 95 L 165 115 Z" fill="#f8fafc"/>
+        <rect x="95" y="155" width="70" height="20" fill="#f8fafc"/>
+        <rect x="90" y="172" width="80" height="8" fill="#cbd5e1"/>
+        <circle cx="105" cy="115" r="6" fill="#06b6d4"/>
+        <circle cx="128" cy="115" r="6" fill="#06b6d4"/>
+        <circle cx="151" cy="115" r="6" fill="#06b6d4"/>
+        <circle cx="116" cy="145" r="6" fill="#06b6d4"/>
+        <circle cx="140" cy="145" r="6" fill="#06b6d4"/>
+      </svg>
+      <div class="flex flex-col leading-tight">
+        <span class="font-display text-base font-bold">MORU</span>
+        <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">AI-Driven IIoT</span>
+      </div>
+    </a>
+    <div class="hidden lg:flex items-center gap-7">
+      <a href="#qa" class="nav-link">Q&A</a>
+      <a href="#redteam" class="nav-link">Red Team</a>
+      <a href="#arch" class="nav-link">Architecture</a>
+      <a href="#market" class="nav-link">Market</a>
+      <a href="#gap" class="nav-link">Gap Analysis</a>
+      <a href="#policy" class="nav-link">Policy</a>
+      <a href="#biz" class="nav-link">Biz Model</a>
+      <a href="#critique" class="nav-link">Self-Critique</a>
+      <a href="#team" class="nav-link">Team</a>
+    </div>
+    <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+      <span class="pulse-dot"></span>
+      <span>DIGITAL TWIN PROVEN</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top" class="relative pt-20 pb-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="max-w-4xl">
+      <div class="section-label reveal">PROPOSAL / 2026.04.15 / 모두의 창업 — 딥테크 트랙</div>
+      <h1 class="font-extrabold leading-[1.05] tracking-tight reveal" style="font-size:clamp(2.5rem,6vw,5rem);">
+        AI에게 말하면<br/>
+        <span class="text-gradient">제어기가 완성된다</span>
+      </h1>
+      <p class="mt-8 text-lg md:text-xl text-slate-300 leading-relaxed max-w-3xl reveal">
+        고가 전용 PLC 없이 범용 RevPi 한 대로 제어기·Web HMI·게이트웨이를
+        <strong class="text-white">Rust 네이티브 런타임</strong>에 통합하고,
+        <strong class="text-cyan-400">검증된 Infrastructure Framework 위에서 AI가 제어 로직을 조립</strong>하여
+        클라우드 디지털 트윈에서 가상 시운전까지 —
+        이미 1회 풀스택 구축·운영을 완료한 엔지니어가 zero-base로 독립 재구축합니다.
+      </p>
+      <p class="mt-4 text-base text-slate-400 leading-relaxed max-w-3xl reveal">
+        스마트팜·IIoT·로보틱스 시장을 1차 타겟으로 — 신기술에 개방적이고 인증 부담이 낮은 그린필드 고객에게, 수주가 걸리던 제어 로직 개발을 <strong class="text-cyan-400">수일로 단축</strong>하는 AI 엔지니어링 시스템. "만들 수 있을지"가 아닌 <strong class="text-white">"이미 만들어 본 것"</strong>에서 출발합니다.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3 reveal">
+        <span class="badge badge-cyan"><span class="dot"></span>Smart Farm</span>
+        <span class="badge badge-violet"><span class="dot"></span>IIoT / Robotics</span>
+        <span class="badge badge-emerald"><span class="dot"></span>B2B SaaS</span>
+        <span class="badge badge-amber"><span class="dot"></span>TIPS 8억</span>
+        <span class="badge badge-rose"><span class="dot"></span>제조 AI 870억</span>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="card card-glow p-6 reveal">
+        <div class="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Smart Farm 2030</div>
+        <div class="metric-number text-4xl md:text-5xl" data-count="470" data-suffix="억">$0억</div>
+        <div class="mt-3 text-sm text-slate-400">스마트팜 글로벌 시장 규모 (달러)</div>
+      </div>
+      <div class="card card-glow p-6 reveal">
+        <div class="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Cobot CAGR</div>
+        <div class="metric-number text-4xl md:text-5xl" data-count="43" data-suffix="%">0%</div>
+        <div class="mt-3 text-sm text-slate-400">협동 로봇 시장 연평균 성장률</div>
+      </div>
+      <div class="card card-glow p-6 reveal">
+        <div class="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">TIPS R&D</div>
+        <div class="metric-number text-4xl md:text-5xl" data-count="8" data-suffix="억">0억</div>
+        <div class="mt-3 text-sm text-slate-400">2026 딥테크 TIPS 최대 지원금</div>
+      </div>
+      <div class="card card-glow p-6 reveal">
+        <div class="text-xs font-mono text-slate-400 mb-2 uppercase tracking-wider">Safety Net</div>
+        <div class="metric-number text-4xl md:text-5xl" data-count="5" data-suffix="중">0중</div>
+        <div class="mt-3 text-sm text-slate-400">Infrastructure + Rust + Kanban + Twin + Human 안전망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- Q&A -->
+<!-- ============================================================ -->
+<section id="qa" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Startup Proposal Q&A</div>
+      <h2 class="section-title">네 개의 질문,<br/><span class="text-gradient-cyan">하나의 실물 답변</span></h2>
+    </div>
+
+    <!-- Q1 -->
+    <div class="card p-8 mt-12 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="font-display font-bold text-cyan-400 text-2xl">Q1</span>
+        <h3 class="text-xl font-bold text-white">아이디어를 한 줄로 소개해주세요</h3>
+      </div>
+      <p class="text-slate-300 text-lg leading-relaxed"><strong class="text-white">AI에게 동작 로직을 말하면 → 시퀀스 동작을 구현하고 → 동작의 테스트까지 보장하는 AI Driven 제어기.</strong></p>
+      <p class="text-slate-400 mt-4 leading-relaxed">고가의 전용 하드웨어 없이 범용 라즈베리파이 하나로 제어기(PLC), Web HMI, 산업용 통신 게이트웨이를 모두 구동하고, AI가 장비 연동을 자동화하는 <strong class="text-cyan-400">'올인원 오픈 아키텍처 IIoT 플랫폼'</strong>입니다.</p>
+      <div class="grid md:grid-cols-3 gap-4 mt-6">
+        <div class="callout callout-cyan">
+          <div class="text-cyan-400 font-bold text-sm mb-1">PLC Runtime</div>
+          <p class="text-slate-400 text-xs">Rust 네이티브 소프트 RT 제어 루프. Infrastructure Framework 위에서 AI가 제어 모듈 조립.</p>
+        </div>
+        <div class="callout callout-emerald">
+          <div class="text-emerald-400 font-bold text-sm mb-1">Web HMI</div>
+          <p class="text-slate-400 text-xs">axum 기반 실시간 웹 모니터링. Screen Editor로 노코드 화면 구성.</p>
+        </div>
+        <div class="callout callout-violet">
+          <div class="text-violet-400 font-bold text-sm mb-1">AI Agent</div>
+          <p class="text-slate-400 text-xs">자연어 → Rust 제어 로직 자동 생성 → 컴파일 하네스 → 디지털 트윈 검증.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="card p-8 mt-6 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="font-display font-bold text-blue-400 text-2xl">Q2</span>
+        <h3 class="text-xl font-bold text-white">아이디어를 떠올린 배경</h3>
+      </div>
+      <p class="text-slate-400 leading-relaxed">스마트팩토리 도입의 가장 큰 장벽은 <strong class="text-white">최하단 장비(L0) 영역의 폐쇄성</strong>입니다. 현재 제조 현장은 특정 벤더의 고가 전용 하드웨어와 무거운 레거시 소프트웨어에 종속되어 있습니다. 현장 엔지니어들은 새로운 장비를 연동할 때마다 <strong class="text-rose-400">수천 개의 메모리 주소를 엑셀로 일일이 매핑</strong>하고 수동 코딩하는 소모적인 작업을 반복해야 합니다.</p>
+      <p class="text-slate-400 leading-relaxed mt-4">이러한 막대한 도입 비용과 개발 시간의 낭비를 보며, <strong class="text-white">"오픈 소스 하드웨어(라즈베리파이) 위에 제어 로직, 최신 웹 기반 모니터링(HMI), 그리고 모든 산업용 프로토콜을 변환하는 게이트웨이를 하나의 소프트웨어로 통합"</strong>한다면 중소·중견 제조기업의 디지털 전환(DX) 진입 장벽을 완전히 허물 수 있다고 확신했습니다.</p>
+      <div class="callout callout-amber mt-4">
+  <p class="text-sm text-slate-300"><strong class="text-amber-400">핵심 인사이트:</strong> Moru의 초기 타겟(스마트팜·IIoT·로보틱스)은 기성 벤더가 장악하지 않은 그린필드 시장입니다. <strong class="text-white">전환할 레거시가 없고, 신기술에 개방적이며, 인증 부담이 낮은</strong> 이 세 시장에서 레퍼런스를 빠르게 쌓은 뒤, 기술 성숙도에 따라 상위 시장으로 확장하는 Land & Expand 전략입니다.</p>
+</div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="card p-8 mt-6 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="font-display font-bold text-violet-400 text-2xl">Q3</span>
+        <h3 class="text-xl font-bold text-white">누구의 어떤 문제를 해결하나요?</h3>
+      </div>
+      <p class="text-slate-400 text-sm mb-6">초기 타겟은 <strong class="text-white">신기술에 개방적이고 인증 부담이 낮은 성장 시장</strong>입니다. 기성 벤더(Siemens/Rockwell)가 장악한 석유화학·중공업은 초기 타겟에서 제외하며, 그린필드 고객을 먼저 공략합니다.</p>
+      <div class="grid md:grid-cols-3 gap-6 mt-4">
+        <div class="callout callout-emerald">
+          <h4 class="font-bold text-emerald-400 mb-3">🌱 스마트팜 / 수직 농장</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">토양 수분·pH·조도·양액 제어 등 복잡한 센서-액추에이터 연동이 필요하지만 전담 제어 엔지니어가 없습니다. Infrastructure Framework의 농업용 모듈을 조립하여 AI가 즉시 제어 로직을 생성하면 비엔지니어도 빠르게 자동화를 구현합니다.</p>
+          <ul class="text-slate-500 text-xs mt-3 space-y-1">
+            <li>• 글로벌 시장 $245B → $470B (CAGR 13.8%)</li>
+            <li>• 오픈 하드웨어 수요 급증, KC/CE 인증으로 충분</li>
+            <li>• 전담 엔지니어 없는 운영자가 주 고객</li>
+          </ul>
+        </div>
+        <div class="callout callout-cyan">
+          <h4 class="font-bold text-cyan-400 mb-3">📡 IIoT / 경량 산업 자동화</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">레거시 PLC 없이 처음부터 오픈 아키텍처로 구성하는 그린필드 프로젝트. 고가 전용 제어기 대신 라즈베리파이 엣지 + Moru AI로 개발 기간과 비용을 대폭 단축합니다.</p>
+          <ul class="text-slate-500 text-xs mt-3 space-y-1">
+            <li>• IIoT 게이트웨이 시장 $62.5B (CAGR 11%+)</li>
+            <li>• 스마트 빌딩·물류·환경 모니터링 도메인</li>
+            <li>• Soft RT로 충분한 도메인, 빠른 PoC 가능</li>
+          </ul>
+        </div>
+        <div class="callout callout-violet">
+          <h4 class="font-bold text-violet-400 mb-3">🤖 로보틱스 / 중소 설비 제조사</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">자체 제품에 제어 로직을 탑재해야 하는 OEM 장비 제조사. 매번 처음부터 임베디드 코드를 작성하는 대신 Infrastructure Framework 위에서 AI가 요구사항을 조립해 검증된 Rust 모듈을 생성합니다.</p>
+          <ul class="text-slate-500 text-xs mt-3 space-y-1">
+            <li>• 협동 로봇 시장 CAGR 43% (2030년까지)</li>
+            <li>• 개발 사이클 수주 → 수일로 단축</li>
+            <li>• AI 자동화에 가장 개방적인 집단</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="card p-8 mt-6 reveal">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="font-display font-bold text-amber-400 text-2xl">Q4</span>
+        <h3 class="text-xl font-bold text-white">어떻게 실현하고 싶으신가요?</h3>
+      </div>
+
+      <!-- Q4-1 -->
+      <h4 class="text-lg font-bold text-white mt-2 mb-3">(1) 이미 한 번 완성한 엔지니어링 실적 — "만들 수 있을지"가 아닌 "이미 만들어 본 것"</h4>
+      <p class="text-slate-400 leading-relaxed">Moru가 주장하는 "클라우드 기반 풀스택 디지털 트윈"은 제안자가 <strong class="text-cyan-400">이미 1회 완성·운영해 본 엔지니어링 실적</strong>입니다. 컨테이너 기반으로 아래 모든 컴포넌트를 Nginx 리버스 프록시로 묶어 <strong class="text-white">단일 브라우저 URL에서 풀스택 가상 공장</strong>이 동작하도록 구축·운영했습니다.</p>
+
+      <!-- Digital Twin Container Stack -->
+      <div class="mt-6 mb-6">
+        <h5 class="font-mono text-xs text-cyan-400 uppercase tracking-wider mb-4">1회차 클라우드 디지털 트윈 — 컨테이너 스택</h5>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="arch-box"><div class="text-cyan-400 font-bold text-xs mb-1">PLC Runtime</div><span class="text-slate-500 text-[10px]">소프트웨어 PLC</span></div>
+          <div class="arch-box"><div class="text-blue-400 font-bold text-xs mb-1">Mock Fieldbus</div><span class="text-slate-500 text-[10px]">시뮬레이터</span></div>
+          <div class="arch-box"><div class="text-violet-400 font-bold text-xs mb-1">API Gateway</div><span class="text-slate-500 text-[10px]">FastAPI</span></div>
+          <div class="arch-box"><div class="text-emerald-400 font-bold text-xs mb-1">React HMI</div><span class="text-slate-500 text-[10px]">웹 모니터링</span></div>
+          <div class="arch-box"><div class="text-amber-400 font-bold text-xs mb-1">Screen Editor</div><span class="text-slate-500 text-[10px]">노코드 UI</span></div>
+          <div class="arch-box"><div class="text-rose-400 font-bold text-xs mb-1">InfluxDB</div><span class="text-slate-500 text-[10px]">시계열 DB</span></div>
+          <div class="arch-box"><div class="text-cyan-400 font-bold text-xs mb-1">Monitoring</div><span class="text-slate-500 text-[10px]">대시보드</span></div>
+          <div class="arch-box"><div class="text-blue-400 font-bold text-xs mb-1">Nginx</div><span class="text-slate-500 text-[10px]">리버스 프록시</span></div>
+        </div>
+        <p class="text-slate-500 text-xs mt-3 text-center">실물 PLC·센서·액추에이터 0개 — 브라우저에서 가상 밸브 제어, 트렌드 그래프, 30일치 시계열 메트릭 조회까지 가능</p>
+      </div>
+
+      <!-- sim/prod toggle -->
+      <div class="grid md:grid-cols-2 gap-4 mt-4">
+        <div class="callout callout-cyan">
+          <h5 class="font-mono text-xs text-cyan-400 mb-2">SIM ↔ PROD TOGGLE</h5>
+          <p class="text-slate-400 text-sm"><span class="code-inline">GATEWAY_ENV=mock ↔ prod</span> 환경변수 하나로 동일 코드가 시뮬레이터와 실 장비 사이를 <strong class="text-white">투명하게 전환</strong>합니다. AI가 생성한 제어 로직이 먼저 <code class="code-inline">mock</code> 모드에서 <strong class="text-white">요구사항 기반 BDD e2e 테스트로 Verification</strong>된 후, 엔지니어 승인을 거쳐 <code class="code-inline">prod</code>로 전환되는 <strong class="text-white">구조적 배포 게이트</strong>.</p>
+        </div>
+        <div class="callout callout-amber">
+          <h5 class="font-mono text-xs text-amber-400 mb-2">AIRGAP DEPLOYMENT</h5>
+          <p class="text-slate-400 text-sm"><span class="code-inline">docker save | ssh docker load</span> 파이프라인으로 외부 인터넷이 완전 차단된 <strong class="text-white">에어갭 환경</strong>에서도 이미지 전송·배포 자동화까지 완성. 폐쇄망 공장 환경 배포 요구사항을 <strong class="text-white">이미 해결해 본 경험</strong> 보유.</p>
+        </div>
+      </div>
+
+      <!-- IP Framing -->
+      <div class="callout callout-rose mt-6">
+        <h5 class="font-bold text-rose-400 mb-2">IP 분리 — 실력은 사람에게, 자산은 조직에</h5>
+        <p class="text-slate-400 text-sm leading-relaxed">1회차 자산(코드·이미지·인프라 스크립트·도메인·자격 증명)은 전부 기존 조직 소유. 스타트업 코드베이스에 <strong class="text-white">이동하지 않습니다</strong>. Moru 창업팀이 가져오는 것은 오직 <strong class="text-white">"이 아키텍처를 zero-base에서 완성할 수 있는 엔지니어링 숙련도"</strong>이며, 이는 사람에 귀속되는 자산입니다.</p>
+        <p class="text-slate-400 text-sm leading-relaxed mt-2">이것은 "사내 자산 무단 사용"이 아니라 <strong class="text-white">"실전에서 한 번 성공시킨 엔지니어가 독립 스타트업에서 재구축하는 정상 창업 루트"</strong>입니다. 2회차 구축은 실패 경로(컨테이너 간 DNS 해석, 에어갭 이미지 로드, sim/prod 전환 검증 등)를 모두 알고 있고, CODESYS 의존성까지 제거하므로 <strong class="text-cyan-400">오히려 더 슬림</strong>합니다.</p>
+      </div>
+
+      <!-- Q4-2 -->
+      <h4 class="text-lg font-bold text-white mt-10 mb-3">(2) 엔진 교체 + 아키텍처 슬림화 — 두 가지 모드</h4>
+      <p class="text-slate-400 leading-relaxed mb-4">창업 지원을 통해 검증된 아키텍처의 제어 엔진을 <strong class="text-white">Rust 기반 런타임(moru-runtime)</strong>으로 교체하고, 전체 통합 소프트웨어를 <strong class="text-white">RevPi 기반 '플러그 앤 플레이형 엣지 어플라이언스'</strong>로 패키징합니다. 단순한 엔진 교체를 넘어 <strong class="text-cyan-400">Rust 네이티브 스택의 장점을 살려 레이어를 의도적으로 단순화</strong>합니다:</p>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="callout callout-emerald">
+          <h4 class="font-bold text-emerald-400 mb-2 text-sm uppercase tracking-wider font-mono">모드 A — Rust Native / MQTT-first [기본값]</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">Rust 런타임이 <span class="code-inline">rumqttc</span> 크레이트로 MQTT 브로커와 직접 통신. Python FastAPI 게이트웨이 레이어가 <strong class="text-white">불필요하게 제거</strong>되어 지연(latency), 메모리 풋프린트, 배포 복잡도가 모두 감소합니다. 현대 IIoT 장비에 바로 붙는 <strong class="text-white">가장 슬림한 경로</strong>.</p>
+          <div class="mt-3 font-mono text-xs text-slate-500">
+            RevPi → rumqttc → MQTT Broker → Cloud/HMI
+          </div>
+        </div>
+        <div class="callout callout-amber">
+          <h4 class="font-bold text-amber-400 mb-2 text-sm uppercase tracking-wider font-mono">모드 B — Legacy Bridge / Universal Adapter [옵션]</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">Modbus TCP, Hostlink(OMRON), EtherCAT, Profinet, OPC-UA 같은 레거시 프로토콜만 지원하는 구형 PLC가 있을 때 Gateway가 <strong class="text-white">Universal Adapter</strong>로 전환. 여러 레거시 프로토콜을 MQTT로 정규화합니다. <span class="code-inline">axum</span> 기반 Rust 구현의 <strong class="text-white">선택적(optional) 컨테이너</strong>.</p>
+          <div class="mt-3 font-mono text-xs text-slate-500">
+            Legacy PLC → axum Bridge → MQTT → Cloud/HMI
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-cyan mt-4">
+        <p class="text-sm text-slate-300"><strong class="text-cyan-400">Land & Expand:</strong> 이 두 모드 구조는 "벤더 종속성 파괴"라는 핵심 가치와 정확히 정합합니다. 고객사는 먼저 <strong class="text-white">레거시 장비에 Bridge 모드(B)로 진입</strong>하여 데이터 수집·모니터링에서 신뢰를 쌓고, 이후 신규 라인 증설 시 <strong class="text-white">Native 모드(A)로 이행</strong>하는 자연스러운 확장 경로가 기술 구조상 보장됩니다.</p>
+      </div>
+
+      <!-- Q4-3 -->
+      <h4 class="text-lg font-bold text-white mt-10 mb-3">(3) 5중 안전망 — AI 코드가 현장에서 안전하게 동작하는 근거</h4>
+      <div class="grid md:grid-cols-3 gap-4 mt-4">
+        <div class="card p-6">
+          <div class="step-number bg-cyan-950 text-cyan-400 mb-3">01</div>
+          <h5 class="font-bold text-white mb-2">Rust 컴파일 하네스</h5>
+          <p class="text-slate-400 text-sm leading-relaxed">Rust의 소유권(Ownership)·대여 검사기(Borrow Checker)·수명(Lifetime) 규칙을 컴파일 단계에서 강제하여 <strong class="text-white">메모리 누수, 데이터 레이스, 널 포인터 역참조</strong> 같은 시스템 레벨 결함을 원천 차단합니다. "컴파일을 통과하면 메모리/동시성 측면에서는 현장에서도 무조건 동작한다"는 강력한 보증.</p>
+        </div>
+        <div class="card p-6">
+          <div class="step-number bg-blue-950 text-blue-400 mb-3">02</div>
+          <h5 class="font-bold text-white mb-2">BDD 기반 e2e Verification</h5>
+          <p class="text-slate-400 text-sm leading-relaxed">Rust 컴파일러가 시스템 결함을 차단하더라도 <strong class="text-rose-400">"닫아야 할 밸브를 열라고 지시"</strong>하는 논리적 결함(Logic Error)은 잡아내지 못합니다. <strong class="text-white">요구사항에서 자동 도출한 BDD 시나리오</strong>로 가상 환경에서 e2e 테스트를 실행하여, 시스템의 기대 거동과 실제 거동 일치를 구조적으로 Verification합니다.</p>
+        </div>
+        <div class="card p-6">
+          <div class="step-number bg-violet-950 text-violet-400 mb-3">03</div>
+          <h5 class="font-bold text-white mb-2">Human-in-the-Loop 최종 승인</h5>
+          <p class="text-slate-400 text-sm leading-relaxed">현장 엔지니어가 <strong class="text-white">웹 HMI에서 직접 Verification 결과를 확인</strong>하고 승인한 경우에만 실 하드웨어에 배포됩니다. AI가 아무리 자신감을 가져도, <strong class="text-white">최종 게이트키퍼는 사람</strong>입니다. 이 철학은 플랫폼 아키텍처에 내장되어 우회 불가.</p>
+        </div>
+      </div>
+      <div class="callout callout-emerald mt-4">
+        <p class="text-sm text-slate-300"><strong class="text-emerald-400">요약:</strong> <strong class="text-white">"Infrastructure 조립 범위 제한 + Rust 컴파일 + Kanban Self-Healing + BDD e2e Verification + Human Approval"</strong> — 5중 안전망이 LLM 환각의 논리적 결함까지 구조적으로 차단합니다.</p>
+      </div>
+
+      <!-- IR Demo Flow -->
+      <h5 class="font-bold text-white mt-8 mb-4">심사·IR 라이브 시연 흐름 — 10분 안에 끝나는 4단계</h5>
+      <div class="grid md:grid-cols-4 gap-3">
+        <div class="card p-5 text-center">
+          <div class="step-number bg-cyan-950 text-cyan-400 mx-auto mb-3">1</div>
+          <h6 class="font-bold text-white text-sm mb-1">디지털 트윈 접속</h6>
+          <p class="text-slate-500 text-xs">독립 클라우드 URL 접속 → HMI 실시간 조작</p>
+        </div>
+        <div class="card p-5 text-center">
+          <div class="step-number bg-blue-950 text-blue-400 mx-auto mb-3">2</div>
+          <h6 class="font-bold text-white text-sm mb-1">AI 코드 생성</h6>
+          <p class="text-slate-500 text-xs">자연어로 제어 로직 요청 → cargo build 통과</p>
+        </div>
+        <div class="card p-5 text-center">
+          <div class="step-number bg-violet-950 text-violet-400 mx-auto mb-3">3</div>
+          <h6 class="font-bold text-white text-sm mb-1">BDD Verification</h6>
+          <p class="text-slate-500 text-xs">BDD 시나리오 자동 실행 → e2e 검증 결과 확인</p>
+        </div>
+        <div class="card p-5 text-center">
+          <div class="step-number bg-emerald-950 text-emerald-400 mx-auto mb-3">4</div>
+          <h6 class="font-bold text-white text-sm mb-1">HIL 배포</h6>
+          <p class="text-slate-500 text-xs">Human Approval → 실 하드웨어(HIL 키트) 배포</p>
+        </div>
+      </div>
+
+      <!-- Q4-4 -->
+      <h4 class="text-lg font-bold text-white mt-10 mb-3">(4) 최종 비전</h4>
+      <p class="text-slate-400 leading-relaxed"><strong class="text-white">"요구사항만 말하면 즉시 동작하는 제어기"</strong> → 누구나 쉽고 저렴하게 공장을 스마트화할 수 있는 <strong class="text-cyan-400">'구독형(SaaS) 스마트팩토리 인프라 표준'</strong>으로 스케일업. 고가의 전용 PLC 시스템(라인당 $150K–$500K)을 라즈베리파이 어플라이언스 + SaaS 구독 모델로 대체하고, 단순 1회성 구축(SI)의 한계를 넘어 <strong class="text-white">글로벌 B2B 솔루션</strong>으로 성장합니다.</p>
+      <p class="text-slate-400 leading-relaxed mt-3">시연 자산이 이미 브라우저 URL로 가동 중이라는 점은, <strong class="text-white">창업 지원 심사 → 초기 고객 PoC → Pre-A 투자 IR</strong>까지 이어지는 모든 단계에서 "개념 제안"이 아닌 <strong class="text-cyan-400">"실물 데모"</strong>로 승부할 수 있는 결정적 차별점이 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- RED TEAM -->
+<!-- ============================================================ -->
+<section id="redteam" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Red Team Defense</div>
+      <h2 class="section-title">심사위원의 공격을<br/><span class="text-gradient">미리 파훼한다</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">보수적인 제조 현장의 현실을 고려할 때 심사위원으로부터 받을 수 있는 치명적 공격 포인트 4가지와, 각각에 대한 구조적 방어 논리입니다.</p>
+    </div>
+
+    <div class="space-y-6 mt-12">
+      <!-- Attack 1 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-amber-400 text-lg">01</span>
+            <div>
+              <h4 class="font-bold text-white">"라즈베리파이요? 공장 현장을 너무 우습게 보시는 거 아닙니까?"</h4>
+              <p class="text-slate-400 text-sm mt-1">극한 환경에서 수천만 원짜리 전용 PLC를 쓰는 이유는 '신뢰성' — 장난감 같은 보드로 공장을 돌린다고?</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <div class="grid md:grid-cols-2 gap-4 mb-4">
+            <div class="callout callout-cyan">
+              <h5 class="font-bold text-cyan-400 mb-2 text-sm">산업용 인증 RevPi 폼팩터</h5>
+              <p class="text-slate-400 text-sm">일반 라즈베리파이가 아닌 <strong class="text-white">산업용 인증(KC, CE, EN 61131-2) 딘레일 마운트 폼팩터</strong>인 RevPi(KUNBUS) 사용. RevPi Connect 5(CM5)는 2.4GHz 쿼드코어 + PCIe Gen 3 + 산업용 온도 범위를 지원하는 <strong class="text-white">진짜 산업용 엣지 PC</strong>.</p>
+            </div>
+            <div class="callout callout-emerald">
+              <h5 class="font-bold text-emerald-400 mb-2 text-sm">소프트웨어가 핵심 경쟁력</h5>
+              <p class="text-slate-400 text-sm">핵심 경쟁력은 하드웨어 제조가 아니라 <strong class="text-white">'오픈 아키텍처 위에 올라가는 소프트웨어와 AI 최적화'</strong>에 있음. 하드웨어는 교체 가능한 범용 레이어, 지적재산은 소프트웨어 스택에 집중.</p>
+            </div>
+          </div>
+          <div class="callout callout-violet">
+            <p class="text-sm text-slate-300"><strong class="text-violet-400">파훼 한줄:</strong> "라즈베리파이는 장난감이다"는 2018년식 반론. 2026년의 <strong class="text-white">CM5 + 메인라인 PREEMPT_RT + Rust(GC-free)</strong> 3층 결정론적 스택 앞에서 더 이상 유효하지 않습니다.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Attack 2 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">02</span>
+            <div>
+              <h4 class="font-bold text-white">"AI가 밸브를 반대로 열면? 사람이 다치면 누가 책임집니까?"</h4>
+              <p class="text-slate-400 text-sm mt-1">Rust가 메모리 에러는 잡지만 논리적 결함까지는? 미션 크리티컬 제어에 AI 코드를 바로 꽂는 건 위험.</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <h5 class="font-bold text-cyan-400 mb-3">1단계 진입 전략 — 스코프 한정</h5>
+          <p class="text-slate-400 text-sm mb-4">초기에는 메인 설비(L0) 제어에 바로 개입하지 않고, <strong class="text-white">리스크가 적은 데이터 수집(Gateway) 및 모니터링(HMI), 서브 팹 보조 설비 제어</strong>부터 적용합니다. 레거시 PLC 시장의 "오버킬 화이트스페이스"에서 먼저 가치를 증명합니다.</p>
+          <h5 class="font-bold text-cyan-400 mb-3">3중 안전망 — 구조적 방어</h5>
+          <div class="grid md:grid-cols-3 gap-3 mb-4">
+            <div class="card p-4"><h6 class="text-xs font-mono text-cyan-400 mb-1">LAYER 1: COMPILE</h6><p class="text-slate-400 text-xs">Rust Ownership + Borrow Checker → 메모리/동시성 결함 컴파일 단계 원천 차단</p></div>
+            <div class="card p-4"><h6 class="text-xs font-mono text-blue-400 mb-1">LAYER 2: TWIN</h6><p class="text-slate-400 text-xs">수천 가상 시나리오 자동 시운전 → 논리적 결함 사전 검출</p></div>
+            <div class="card p-4"><h6 class="text-xs font-mono text-violet-400 mb-1">LAYER 3: HUMAN</h6><p class="text-slate-400 text-xs">엔지니어 웹 HMI 승인 → AI 우회 불가, 최종 게이트키퍼는 사람</p></div>
+          </div>
+          <h5 class="font-bold text-violet-400 mb-3">Ferrocene SIL 4 — 규제 기관 공식 인증</h5>
+          <p class="text-slate-400 text-sm mb-2">"규제 기관이 인정하는 공식 인증이 있습니까?"라는 마지막 질문에 대한 답: <strong class="text-white">"예, Rust 툴체인 자체가 산업 안전 최고 등급 인증을 이미 보유하고 있습니다."</strong></p>
+          <div class="grid md:grid-cols-3 gap-3">
+            <div class="card p-4 text-center"><div class="text-emerald-400 font-display font-bold text-sm">ISO 26262</div><p class="text-slate-500 text-xs mt-1">ASIL D (자동차)</p></div>
+            <div class="card p-4 text-center"><div class="text-emerald-400 font-display font-bold text-sm">IEC 61508</div><p class="text-slate-500 text-xs mt-1">SIL 4 (산업 기능 안전)</p></div>
+            <div class="card p-4 text-center"><div class="text-emerald-400 font-display font-bold text-sm">IEC 62304</div><p class="text-slate-500 text-xs mt-1">Class C (의료기기)</p></div>
+          </div>
+          <div class="callout callout-emerald mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-emerald-400">Agents4PLC (2026 학계 정합):</strong> LLM 에이전트가 IEC 61131-3 ST를 자동 생성하고 정형 검증과 결합하는 연구 트렌드와 <strong class="text-white">Moru 파이프라인 방향 정확히 일치</strong>. 학계가 ST 생성 단계의 정형 검증에 머물러 있을 때, Moru는 <strong class="text-white">컴파일 레벨 + 런타임 트윈 검증</strong>을 이미 실물 인프라로 결합 운영 중.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Attack 3 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-emerald-400 text-lg">03</span>
+            <div>
+              <h4 class="font-bold text-white">"고객이 보수적이라 스타트업 제품 안 씁니다" — <span class="text-emerald-400">타겟 재설정으로 구조적 해결</span></h4>
+              <p class="text-slate-400 text-sm mt-1">이 공격은 석유화학·중공업에는 유효하지만, Moru의 초기 타겟에는 해당하지 않습니다.</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <h5 class="font-bold text-emerald-400 mb-3">타겟 시장 자체가 그린필드 — 전환 비용이 존재하지 않는다</h5>
+          <p class="text-slate-400 text-sm mb-4">Moru의 초기 타겟은 교체할 레거시가 없습니다. <strong class="text-white">기성 벤더의 진입장벽이 낮고 신기술 채택 속도가 빠른</strong> 세 시장을 선택함으로써 이 공격 포인트를 구조적으로 무력화했습니다.</p>
+          <div class="grid md:grid-cols-3 gap-4 mb-4">
+            <div class="card p-4">
+              <h6 class="text-emerald-400 font-bold text-xs mb-2">🌱 스마트팜 신규 설치</h6>
+              <p class="text-slate-400 text-xs">처음부터 오픈 하드웨어로 구성하는 그린필드 — 뜯어낼 레거시 PLC가 없습니다. 오히려 저렴하고 빠른 솔루션을 환영합니다.</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="text-cyan-400 font-bold text-xs mb-2">📡 IIoT 스타트업</h6>
+              <p class="text-slate-400 text-xs">새 프로젝트를 빠르게 구현해야 하는 팀 — Moru 같은 AI 개발 도구를 적극 환영합니다. "보수적 공장장"이 아닌 "개발 속도에 민감한 CTO"가 의사결정자입니다.</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="text-violet-400 font-bold text-xs mb-2">🤖 로보틱스 기업</h6>
+              <p class="text-slate-400 text-xs">자체 제어 로직 개발에 공수가 많이 들어 AI 자동화에 가장 개방적인 집단. 개발 사이클 단축이 곧 시장 경쟁력.</p>
+            </div>
+          </div>
+          <div class="callout callout-emerald">
+            <p class="text-sm text-slate-300"><strong class="text-emerald-400">결론:</strong> 보수적 대형 공장(석유화학·중공업)은 Moru의 <strong class="text-white">초기 영업 대상이 아닙니다</strong>. M18+ 이후 레퍼런스를 충분히 쌓은 뒤 상위 시장으로 확장하는 단계적 접근입니다.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Attack 4 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-cyan-400 text-lg">04</span>
+            <div>
+              <h4 class="font-bold text-white">"결국 이것도 공장마다 다 맞춰줘야 하는 SI(용역) 아닙니까?"</h4>
+              <p class="text-slate-400 text-sm mt-1">공장마다 장비·프로토콜·UI가 다 다른데, 결국 상주 세팅이면 스케일업 불가능한 고급 외주.</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <h5 class="font-bold text-cyan-400 mb-3">Plug & Play 표준화 — 80%+ 자동 세팅</h5>
+          <p class="text-slate-400 text-sm mb-4">스타트업 직원이 공장에 상주하지 않아도, <strong class="text-white">고객사 엔지니어가 직접 스펙 문서를 업로드</strong>하거나 <strong class="text-white">노코드/로우코드 UI에서 몇 번의 클릭만으로 80% 이상의 세팅(매핑)이 자동 완료</strong>되는 구조입니다.</p>
+          <div class="grid md:grid-cols-3 gap-3 mb-4">
+            <div class="card p-4">
+              <h6 class="text-xs font-mono text-cyan-400 mb-1">STEP 1</h6>
+              <p class="text-slate-400 text-xs">장비 스펙 문서 업로드 → AI Agent가 통신 맵·제어 로직 자동 생성</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="text-xs font-mono text-blue-400 mb-1">STEP 2</h6>
+              <p class="text-slate-400 text-xs">Screen Editor 노코드 UI에서 HMI 화면 구성 → 드래그 앤 드롭</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="text-xs font-mono text-violet-400 mb-1">STEP 3</h6>
+              <p class="text-slate-400 text-xs">디지털 트윈 시운전 → 승인 → 원클릭 배포. 원격 완료.</p>
+            </div>
+          </div>
+          <div class="callout callout-emerald">
+            <p class="text-sm text-slate-300"><strong class="text-emerald-400">SI vs SaaS 분기점:</strong> "우리가 가서 세팅해드립니다" = SI. <strong class="text-white">"AI가 세팅하고 트윈에서 검증한 뒤 고객이 승인합니다"</strong> = SaaS. PoC 라이브 시연에서 이 차이를 10분 안에 증명합니다.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- ARCHITECTURE -->
+<!-- ============================================================ -->
+<section id="arch" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Architecture & Tech Stack</div>
+      <h2 class="section-title">경량 AI 기반<br/><span class="text-gradient-cyan">Rust 제어 엔지니어링 플랫폼</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">자연어 요구사항을 입력하면 AI가 검증된 제어 모듈을 조립하고, BDD 기반 e2e 검증까지 자동화하는 엔지니어링 플랫폼입니다. Rust 네이티브 런타임으로 메모리 안전성과 결정론적 동작을 보장합니다.</p>
+    </div>
+
+    <!-- Module Architecture -->
+    <div class="mt-12 reveal">
+      <h4 class="font-mono text-sm text-slate-400 mb-6 uppercase tracking-wider">모듈 아키텍처 — 4개 레이어</h4>
+      <div class="grid md:grid-cols-4 gap-4">
+
+        <!-- Layer 1 -->
+        <div class="card p-6" style="border-top:2px solid var(--amber);">
+          <div class="text-amber-400 font-mono text-xs mb-2 uppercase tracking-wider">① Infrastructure</div>
+          <h5 class="font-bold text-white text-sm mb-3">재사용 제어 모듈</h5>
+          <div class="space-y-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400/60 flex-shrink-0"></span>SFC 시퀀스 엔진</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400/60 flex-shrink-0"></span>I/O 추상화 레이어</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400/60 flex-shrink-0"></span>알람 / 이벤트 관리</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400/60 flex-shrink-0"></span>태그 기반 메모리</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-400/60 flex-shrink-0"></span>센서·액추에이터 드라이버</div>
+          </div>
+          <div class="mt-3 text-amber-400/60 text-[10px] font-mono">LLM이 조립할 레고 블록</div>
+        </div>
+
+        <!-- Layer 2 -->
+        <div class="card p-6" style="border-top:2px solid var(--cyan);">
+          <div class="text-cyan-400 font-mono text-xs mb-2 uppercase tracking-wider">② Runtime</div>
+          <h5 class="font-bold text-white text-sm mb-3">제어 실행 엔진</h5>
+          <div class="space-y-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400/60 flex-shrink-0"></span>Rust async 제어 루프</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400/60 flex-shrink-0"></span>MQTT Native 통신</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400/60 flex-shrink-0"></span>Modbus / Protocol Bridge</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400/60 flex-shrink-0"></span>Sim ↔ Real 투명 전환</div>
+          </div>
+          <div class="mt-3 text-cyan-400/60 text-[10px] font-mono">GC-free 결정론적 실행</div>
+        </div>
+
+        <!-- Layer 3 -->
+        <div class="card p-6" style="border-top:2px solid var(--violet);">
+          <div class="text-violet-400 font-mono text-xs mb-2 uppercase tracking-wider">③ AI Agent</div>
+          <h5 class="font-bold text-white text-sm mb-3">Kanban Harness</h5>
+          <div class="space-y-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-400/60 flex-shrink-0"></span>LLM → Rust 코드 생성</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-400/60 flex-shrink-0"></span>Kanban 상태 머신</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-400/60 flex-shrink-0"></span>cargo build 자동 루프</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-violet-400/60 flex-shrink-0"></span>Self-Healing 재시도</div>
+          </div>
+          <div class="mt-3 text-violet-400/60 text-[10px] font-mono">LLM Vendor 독립 오케스트레이션</div>
+        </div>
+
+        <!-- Layer 4 -->
+        <div class="card p-6" style="border-top:2px solid var(--emerald);">
+          <div class="text-emerald-400 font-mono text-xs mb-2 uppercase tracking-wider">④ Verification</div>
+          <h5 class="font-bold text-white text-sm mb-3">Cloud Digital Twin</h5>
+          <div class="space-y-2 text-xs text-slate-400">
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400/60 flex-shrink-0"></span>BDD 기반 e2e 테스트</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400/60 flex-shrink-0"></span>요구사항 → 시나리오 자동 도출</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400/60 flex-shrink-0"></span>가상 환경 Verification</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400/60 flex-shrink-0"></span>Web HMI 실시간 모니터링</div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400/60 flex-shrink-0"></span>Human Approval 게이트</div>
+          </div>
+          <div class="mt-3 text-emerald-400/60 text-[10px] font-mono">배포 전 논리 검증 완료</div>
+        </div>
+
+      </div>
+
+      <!-- Flow Arrow -->
+      <div class="flex items-center justify-center gap-2 mt-6 text-slate-500 text-xs font-mono">
+        <span class="text-amber-400">Infrastructure 조립</span>
+        <span>→</span>
+        <span class="text-violet-400">AI 코드 생성</span>
+        <span>→</span>
+        <span class="text-cyan-400">Runtime 컴파일</span>
+        <span>→</span>
+        <span class="text-emerald-400">BDD Verification</span>
+        <span>→</span>
+        <span class="text-white">Human Approval</span>
+        <span>→</span>
+        <span class="text-slate-300">실 배포</span>
+      </div>
+    </div>
+
+    <!-- MVP Roadmap -->
+    <div class="card p-8 mt-8 reveal">
+      <h4 class="font-bold text-white mb-6">개발 로드맵</h4>
+      <table class="data-table">
+        <thead><tr><th>마일스톤</th><th>내용</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-mono text-cyan-400">MVP1</td>
+            <td>WaterSystem 1개 모듈 + 103개 테스트 + axum Web HMI + SimulatedConnector</td>
+            <td><span class="badge badge-emerald"><span class="dot"></span>Complete</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-blue-400">MVP2</td>
+            <td>Modbus TCP 실 연결 → 메타데이터 기반 266 엔티티 → 34개 모듈 포팅 → RPi 배포</td>
+            <td><span class="badge badge-amber"><span class="dot"></span>In Progress</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-violet-400">MVP3</td>
+            <td>AI Agent 모듈 + 자연어 → Rust 코드 생성 파이프라인 + 디지털 트윈 자동 시운전</td>
+            <td><span class="badge badge-cyan"><span class="dot"></span>Planned</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-rose-400">MVP4</td>
+            <td>northstar.ui 직접 바인딩 + HIL 데모 키트 + 독립 클라우드 디지털 트윈 인프라</td>
+            <td><span class="badge badge-cyan"><span class="dot"></span>Planned</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SimulatedConnector -->
+    <div class="callout callout-cyan mt-6 reveal">
+      <p class="text-sm text-slate-300"><strong class="text-cyan-400">SimulatedConnector:</strong> 실물 하드웨어 없이 개발/테스트 가능한 <strong class="text-white">소프트웨어 시뮬레이션 레이어</strong>. <span class="code-inline">SimulatedConnector</span>가 실제 Modbus 장비의 거동을 모방하여 로컬 개발 환경에서 103개 테스트가 CI/CD 없이 즉시 실행됩니다.</p>
+    </div>
+
+    <!-- LLM + Kanban Harness AI Agent Architecture -->
+    <div class="mt-16 reveal">
+      <div class="section-label">AI Agent Layer</div>
+      <h3 class="text-2xl font-bold text-white mb-2">LLM + Kanban Harness <span class="text-gradient-cyan">AI 엔지니어링 시스템</span></h3>
+      <p class="text-slate-400 text-sm max-w-3xl">Moru의 핵심 IP는 LLM 자체가 아닙니다. LLM을 Worker로, Kanban Board를 실행 State Machine으로 분리한 <strong class="text-white">오케스트레이션 레이어(Kanban Harness)</strong>가 진짜 차별점입니다.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 mt-8">
+      <!-- Role Table -->
+      <div class="card p-8 reveal">
+        <h4 class="font-mono text-sm text-cyan-400 mb-5 uppercase tracking-wider">역할 분리 구조</h4>
+        <table class="data-table">
+          <thead><tr><th>구성 요소</th><th>역할</th><th>비유</th></tr></thead>
+          <tbody>
+            <tr><td class="font-bold text-amber-400">Infrastructure<br/>Framework</td><td class="text-slate-400 text-xs">검증된 모듈 라이브러리 — LLM이 조립할 재료 제공</td><td class="text-slate-500 text-xs">레고 블록 창고</td></tr>
+            <tr><td class="font-bold text-cyan-400">LLM</td><td class="text-slate-400 text-xs">Rust 제어 코드 생성 (Worker)</td><td class="text-slate-500 text-xs">블록을 조립하는 설계자</td></tr>
+            <tr><td class="font-bold text-violet-400">Kanban Board</td><td class="text-slate-400 text-xs">Task State Machine (TODO→VERIFY→DONE)</td><td class="text-slate-500 text-xs">작업 지시서 + 결과 검수</td></tr>
+            <tr><td class="font-bold text-emerald-400">Rust Harness</td><td class="text-slate-400 text-xs">cargo build 실행·검증·루프 제어</td><td class="text-slate-500 text-xs">품질 관리 시스템</td></tr>
+            <tr><td class="font-bold text-rose-400">Cloud Digital Twin</td><td class="text-slate-400 text-xs">BDD 기반 e2e Verification — 요구사항 → 시나리오 자동 도출 → 가상 검증</td><td class="text-slate-500 text-xs">가상 검증 환경</td></tr>
+            <tr><td class="font-bold text-white">Human</td><td class="text-slate-400 text-xs">최종 승인 (Human-in-the-Loop)</td><td class="text-slate-500 text-xs">최종 의사결정자</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- State Machine Flow -->
+      <div class="card p-8 reveal">
+        <h4 class="font-mono text-sm text-violet-400 mb-5 uppercase tracking-wider">Kanban 상태 머신</h4>
+        <div class="font-mono text-xs text-slate-400 bg-black/30 rounded-lg p-4 leading-relaxed">
+          <span class="text-white">[ 자연어 요구사항 입력 ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Design Review<br/>
+          <span class="text-amber-400">[ 사용 도구·상태·입출력 설계 → Human Approval ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Task Decomposition<br/>
+          <span class="text-cyan-400">[ Kanban Board: TODO 생성 ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
+          <span class="text-blue-400">[ DOING: LLM → Rust 코드 생성 ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
+          <span class="text-violet-400">[ VERIFY: cargo build ]</span><br/>
+          &nbsp;&nbsp;↙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘<br/>
+          <span class="text-emerald-400">[ DONE ]</span>&nbsp;&nbsp;&nbsp;<span class="text-rose-400">[ FAIL ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-amber-400">[ 오류 분석 Task 자동 생성 ]</span><br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Self-Healing Loop<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">[ LLM 수정 재생성 → RETRY ]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5-Layer Safety Net -->
+    <div class="card p-8 mt-8 reveal">
+      <h4 class="font-bold text-white mb-6">5중 안전망 — LLM 환각을 구조적으로 차단하는 신뢰성 프레임워크</h4>
+      <div class="grid md:grid-cols-5 gap-3">
+        <div class="card p-4" style="border-top:2px solid var(--amber);">
+          <div class="text-amber-400 font-display font-bold text-base mb-1">Layer ①</div>
+          <h5 class="font-bold text-white text-xs mb-2">Infrastructure Framework</h5>
+          <p class="text-slate-400 text-xs leading-relaxed">검증된 센서·액추에이터 모듈 위에서만 조립. LLM의 환각 범위를 구조적으로 제한.</p>
+          <div class="text-amber-400 text-xs mt-2 font-mono">솔루션 공간 제한</div>
+        </div>
+        <div class="card p-4" style="border-top:2px solid var(--rose);">
+          <div class="text-rose-400 font-display font-bold text-base mb-1">Layer ②</div>
+          <h5 class="font-bold text-white text-xs mb-2">Rust Compile Harness</h5>
+          <p class="text-slate-400 text-xs leading-relaxed">타입 시스템이 컴파일 타임에 메모리·동시성 버그를 완전 차단. cargo build 통과 없이 실행 불가.</p>
+          <div class="text-rose-400 text-xs mt-2 font-mono">시스템 안전</div>
+        </div>
+        <div class="card p-4" style="border-top:2px solid var(--cyan);">
+          <div class="text-cyan-400 font-display font-bold text-base mb-1">Layer ③</div>
+          <h5 class="font-bold text-white text-xs mb-2">Kanban Harness</h5>
+          <p class="text-slate-400 text-xs leading-relaxed">FAIL → 자동 분석 Task → LLM 재생성 → 재검증. Self-Healing Loop으로 AI 오류 자가 복구.</p>
+          <div class="text-cyan-400 text-xs mt-2 font-mono">AI 프로세스 안전</div>
+        </div>
+        <div class="card p-4" style="border-top:2px solid var(--violet);">
+          <div class="text-violet-400 font-display font-bold text-base mb-1">Layer ④</div>
+          <h5 class="font-bold text-white text-xs mb-2">BDD e2e Verification</h5>
+          <p class="text-slate-400 text-xs leading-relaxed">요구사항에서 자동 도출한 BDD 시나리오로 가상 환경 e2e 테스트 실행. 논리 결함을 배포 전 구조적으로 검출.</p>
+          <div class="text-violet-400 text-xs mt-2 font-mono">로직 안전</div>
+        </div>
+        <div class="card p-4" style="border-top:2px solid var(--emerald);">
+          <div class="text-emerald-400 font-display font-bold text-base mb-1">Layer ⑤</div>
+          <h5 class="font-bold text-white text-xs mb-2">Human-in-the-Loop</h5>
+          <p class="text-slate-400 text-xs leading-relaxed">엔지니어가 Web HMI에서 시뮬레이션 결과 확인 후 명시적 승인 시에만 실 배포. AI 우회 불가.</p>
+          <div class="text-emerald-400 text-xs mt-2 font-mono">의사결정 안전</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kanban Harness Key Advantages -->
+    <div class="grid md:grid-cols-3 gap-4 mt-8">
+      <div class="card card-glow p-6 reveal">
+        <div class="text-cyan-400 text-2xl mb-2">↻</div>
+        <h5 class="font-bold text-white text-sm mb-2">자동 자가 복구</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">LLM이 틀린 코드를 생성해도 Kanban Harness가 오류를 분석하고 재시도. 24시간 무인 엔지니어링 사이클 가능.</p>
+      </div>
+      <div class="card card-glow p-6 reveal">
+        <div class="text-violet-400 text-2xl mb-2">📋</div>
+        <h5 class="font-bold text-white text-sm mb-2">완전 감사 추적</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">모든 Task에 prompt, 생성 코드, 실패 원인, 재시도 횟수가 로깅됨. 고객사 내부 품질 감사·버그 추적에 즉시 활용. 향후 협동 로봇 안전 인증 진출 시에도 추적 가능한 AI 개발 이력을 자동 확보.</p>
+      </div>
+      <div class="card card-glow p-6 reveal">
+        <div class="text-emerald-400 text-2xl mb-2">🔄</div>
+        <h5 class="font-bold text-white text-sm mb-2">LLM Vendor 독립</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">Claude API, GPT-4, 로컬 LLM 모두 Worker로 교체 가능. Moru의 핵심 IP는 Harness Orchestration — LLM이 아님.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MARKET -->
+<!-- ============================================================ -->
+<section id="market" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Market & Competitiveness</div>
+      <h2 class="section-title">폭발적 교집합 시장<br/><span class="text-gradient-cyan">스마트팜·IIoT·로보틱스 진입 시장</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">신기술에 개방적이고 기성 벤더 점유율이 낮은 세 개의 성장 시장이 교차하는 지점에 Moru가 위치합니다. 석유화학·중공업 헤비 PLC 시장은 초기 타겟에서 제외하고, 인증 부담 없이 빠르게 PoC를 실증할 수 있는 그린필드 고객을 먼저 공략합니다.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 mt-12">
+      <div class="card p-8 reveal">
+        <h4 class="font-bold text-white mb-4">시장 규모</h4>
+        <div class="chart-container"><canvas id="marketChart"></canvas></div>
+      </div>
+      <div class="space-y-6 reveal">
+        <div class="card p-6">
+          <h4 class="font-bold text-emerald-400 mb-2">🌱 스마트팜 시장</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">글로벌 스마트팜 시장 <strong class="text-white">$245B (2025) → $470B (2030)</strong>, CAGR 13.8%. 핵심 수요는 '저렴하고 빠르게 배포 가능한 센서-액추에이터 제어 자동화'. 기성 PLC 벤더가 아닌 오픈 하드웨어 기반 솔루션 수요가 급증 중.</p>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-cyan-400 mb-2">📡 IIoT 게이트웨이 & 엣지 제어</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">IIoT 게이트웨이 시장 <strong class="text-white">$62.5B (2026)</strong>, CAGR 11%+. 스마트 빌딩·물류·환경 모니터링·수처리 등 Soft RT 영역에서 오픈 아키텍처 엣지 디바이스 수요 폭발적 증가 중.</p>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-violet-400 mb-2">🤖 협동 로봇 & 설비 OEM</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">협동 로봇(Cobot) 시장 CAGR <strong class="text-white">43%</strong> (2030년까지). 소규모 로보틱스 기업과 설비 제조사는 제어 로직 개발에 막대한 공수를 투입 중 — AI 기반 자동화 개발 도구 수요 명확.</p>
+        </div>
+        <div class="card p-6">
+          <h4 class="font-bold text-amber-400 mb-2">인증 부담 최소화 전략</h4>
+          <p class="text-slate-400 text-sm leading-relaxed">초기 타겟 시장의 요구 인증은 <strong class="text-white">KC/CE/FCC 수준</strong> — RevPi 플랫폼이 이미 충족. IEC 61508 SIL 기능안전 인증은 초기 진입 요건이 아니며, M18+ 상위 시장 진출 카드로 보유.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitive Comparison -->
+    <div class="card p-8 mt-8 reveal">
+      <h4 class="font-bold text-white mb-6">경쟁 구도 비교</h4>
+      <table class="data-table">
+        <thead><tr><th>비교 항목</th><th>Node-RED<br/>+ RPi</th><th>OpenPLC<br/>/ Beremiz</th><th>LLM<br/>코드 생성</th><th class="text-cyan-400">Moru</th></tr></thead>
+        <tbody>
+          <tr><td class="font-bold text-white">AI 제어 로직 생성</td><td>❌</td><td>❌</td><td>✅ (검증 없음)</td><td class="text-cyan-400">✅ + 5중 안전망</td></tr>
+          <tr><td class="font-bold text-white">Infrastructure Framework</td><td>❌</td><td>❌</td><td>❌</td><td class="text-cyan-400">✅ 검증된 모듈 조립</td></tr>
+          <tr><td class="font-bold text-white">디지털 트윈 검증</td><td>❌</td><td>❌</td><td>❌</td><td class="text-cyan-400">✅ 내장</td></tr>
+          <tr><td class="font-bold text-white">Self-Healing Loop</td><td>❌</td><td>❌</td><td>❌</td><td class="text-cyan-400">✅ Kanban Harness</td></tr>
+          <tr><td class="font-bold text-white">Rust 메모리 안전</td><td>❌ JS/Python</td><td>❌ C</td><td>가변적</td><td class="text-cyan-400">✅ 컴파일 타임 보증</td></tr>
+          <tr><td class="font-bold text-white">산업용 하드웨어</td><td>소비자급</td><td>가변적</td><td>N/A</td><td class="text-cyan-400">RevPi (KC/CE 인증)</td></tr>
+          <tr><td class="font-bold text-white">과금 모델</td><td>오픈소스 무료</td><td>오픈소스 무료</td><td>API 종량제</td><td class="text-cyan-400">SaaS 구독 + Outcome</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- GAP ANALYSIS -->
+<!-- ============================================================ -->
+<section id="gap" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Gap Analysis — 3 Barriers</div>
+      <h2 class="section-title">3대 장벽,<br/><span class="text-gradient">이미 준비된 파훼법</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">Moru의 비전이 실현되려면 넘어야 할 기술적·시장적·인증 장벽 3가지와, 각각에 대해 이미 확보한 파훼법입니다.</p>
+    </div>
+
+    <div class="space-y-6 mt-12">
+      <!-- Barrier 1 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-amber-400 text-lg">01</span>
+            <div>
+              <h4 class="font-bold text-white">범용 OS의 하드 리얼타임 한계</h4>
+              <p class="text-slate-400 text-sm mt-1">리눅스는 결정론적 타이밍 보장 불가 — 서보/모션 제어는 어떻게?</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <h5 class="font-bold text-cyan-400 mb-3">(A) 스코프 분리 — 초기 타겟 = 소프트 RT 화이트스페이스</h5>
+          <p class="text-slate-400 text-sm mb-4">초기 타겟은 <strong class="text-white">소프트 리얼타임 영역</strong>입니다. 펌프·밸브 제어, 데이터 수집, 감독 제어(Supervisory Control) 등 200ms 주기로 충분한 영역은 현재 레거시 PLC 시장에서 하드 RT로 오버킬되고 있는 <strong class="text-white">거대한 화이트스페이스</strong>입니다. 이 영역에서 먼저 가치를 증명한 후, 하드 RT가 필요한 서보/모션 제어로 확장합니다.</p>
+          <h5 class="font-bold text-cyan-400 mb-3">(B) CM5 + 메인라인 PREEMPT_RT — 하드 RT 확장 경로</h5>
+          <ul class="text-slate-400 text-sm space-y-3">
+            <li>• <strong class="text-white">Linux 커널 6.x 메인라인 PREEMPT_RT 공식 병합</strong> — 20년간 유지된 PREEMPT_RT 패치가 드디어 리눅스 메인라인에 공식 병합. 실험적 패치가 아닌 <strong class="text-white">공식 커널 기능</strong>으로 µs-레벨 최악 지연(worst-case latency) 보장.</li>
+            <li>• <strong class="text-white">RevPi Connect 5 (CM5)</strong> — Raspberry Pi Compute Module 5 기반 산업용 컨트롤러. 2.4GHz 쿼드코어 + PCIe Gen 3 + <strong class="text-white">EN 61131-2 산업용 인증</strong>. 기존 RevPi 대비 CPU 성능 3배, I/O 대역폭 대폭 향상.</li>
+            <li>• <strong class="text-white">CM5 + PREEMPT_RT + Rust(GC-free)</strong> = 3층 결정론적 스택. 하드웨어(산업 인증) + OS(메인라인 RT) + 언어(가비지 콜렉터 없는 제로코스트 추상화)가 모두 결정론적 타이밍을 지원.</li>
+          </ul>
+          <div class="callout callout-violet mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-violet-400">IR 포지셔닝:</strong> "소프트 RT에서 먼저 검증하고, CM5 + PREEMPT_RT로 하드 RT까지 확장합니다. 이미 하드웨어(EN 61131-2)와 커널(메인라인 RT)과 언어(Rust GC-free)가 모두 준비되어 있습니다. <strong class="text-white">기술 리스크가 아닌 실행 리스크</strong>만 남아 있고, 실행은 이미 1회 검증했습니다."</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Barrier 2 -->
+      <details class="defense-item reveal" open>
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">02</span>
+            <div>
+              <h4 class="font-bold text-white">AI 로직 에러 — 책임 소재 & 기능 안전 인증</h4>
+              <p class="text-slate-400 text-sm mt-1">Rust가 메모리 에러는 막지만 논리적 결함까지는? IEC 61508 인증은?</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm mb-6">이 장벽에 대한 방어는 <strong class="text-white">7단계 구조적 방어</strong>로 구성됩니다:</p>
+
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="step-number bg-cyan-950 text-cyan-400 mt-1">1</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">디지털 트윈 아키텍처 — 이미 1회 완성</h6>
+                <p class="text-slate-400 text-sm mt-1">8개 컨테이너 풀스택 가상 공장을 단일 URL에서 운영해 본 실적. AI 코드가 실물 배포 전 수천 시나리오에서 자동 검증되는 구조.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-cyan-950 text-cyan-400 mt-1">2</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">SIM ↔ PROD 토글 — 아키텍처 레벨 배포 게이트</h6>
+                <p class="text-slate-400 text-sm mt-1"><span class="code-inline">GATEWAY_ENV=mock↔prod</span> 환경변수로 시뮬레이터/실 장비 투명 전환. 검증 없이 실 배포는 구조적으로 불가능.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-cyan-950 text-cyan-400 mt-1">3</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">에어갭 배포 자동화 — 폐쇄망 완성</h6>
+                <p class="text-slate-400 text-sm mt-1"><span class="code-inline">docker save | ssh docker load</span> 스트리밍 파이프라인. 디스크 임시 파일 없이 폐쇄망 이미지 전송 완성.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-blue-950 text-blue-400 mt-1">4</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">Rust 마이그레이션 — Mode A/B</h6>
+                <p class="text-slate-400 text-sm mt-1">CODESYS 상용 의존성 제거 → Rust 네이티브. Mode A(MQTT-first) 기본, Mode B(Legacy Bridge) 선택적.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-blue-950 text-blue-400 mt-1">5</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">IR 라이브 데모 전략 — 10분 4단계</h6>
+                <p class="text-slate-400 text-sm mt-1">트윈 접속 → AI 코드 생성 → 가상 시운전 → HIL 배포. 노트북 브라우저 하나로 실시간 시연.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-violet-950 text-violet-400 mt-1">6</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">IP 분리 전략 — Zero-base 독립 재구축</h6>
+                <p class="text-slate-400 text-sm mt-1">"실력은 사람, 자산은 조직." 스타트업 전용 독립 클라우드에 재구축. 법적·기술적 완전 분리.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="step-number bg-emerald-950 text-emerald-400 mt-1">7</div>
+              <div>
+                <h6 class="font-bold text-white text-sm">Ferrocene SIL 4 + Agents4PLC — 규제·학계 정합</h6>
+                <p class="text-slate-400 text-sm mt-1">Rust 컴파일러 툴체인 Ferrocene이 <strong class="text-white">IEC 61508 SIL 4, ISO 26262 ASIL D, IEC 62304 Class C</strong> 인증 획득. 규제 기관이 인정한 언어.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout callout-emerald mt-6">
+            <p class="text-sm text-slate-300"><strong class="text-emerald-400">심사·IR 포지셔닝:</strong> "Moru의 3중 안전망은 임의로 만든 방어 논리가 아닙니다. 첫째, Ferrocene은 <strong class="text-white">SIL 4·ASIL D 공식 인증을 이미 보유한 규제 기관이 인정한 언어</strong>. 둘째, 자동 시운전 파이프라인은 <strong class="text-white">Agents4PLC로 대표되는 2026년 학계 최전선 연구와 정확히 일치</strong>. 셋째, 이 모두를 엮은 풀스택 실물을 <strong class="text-white">이미 1회 구축·운영해 본 엔지니어</strong>가 창업팀 리더. 세 번째가 처음 두 개를 '이론'에서 '실물'로 바꿔놓습니다."</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Barrier 3 -->
+      <details class="defense-item reveal">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-violet-400 text-lg">03</span>
+            <div>
+              <h4 class="font-bold text-white">'Rip and Replace' — 현장의 극단적 거부감</h4>
+              <p class="text-slate-400 text-sm mt-1">검증 안 된 스타트업 제어기를 공장에 꽂는 모험? 공장장이 허락할 리가 없다.</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm mb-3"><strong class="text-cyan-400">비침투적 트로이 목마 전략</strong> — 기존 PLC를 건드리지 않고 IIoT 엣지 게이트웨이로 먼저 침투(Retrofitting)합니다. 아무리 SaaS 모델이 저렴해도, 24시간 돌아가야 하는 공장은 기존에 잘 돌아가는 지멘스나 미쓰비시 PLC를 뜯어내고 검증되지 않은 스타트업의 제어기를 메인으로 꽂는 모험을 절대 하지 않습니다. <strong class="text-white">이것을 전제로 설계된 GTM 전략</strong>입니다.</p>
+          <div class="timeline mt-6">
+            <div class="timeline-item done">
+              <h5 class="font-bold text-white text-sm">Phase 1: 데이터 브릿지 (Retrofitting)</h5>
+              <p class="text-slate-400 text-xs mt-1 leading-relaxed">기존 제어 로직을 건드리지 않고, 공장 내의 <strong class="text-white">고립된 데이터를 수집해 대시보드(HMI)에 띄워주는 가벼운 브릿지</strong> 역할로 들어갑니다. 공장장의 신뢰를 얻는 것이 첫 번째 목표. Gateway Mode B(Universal Adapter)가 이 단계의 기술 기반.</p>
+            </div>
+            <div class="timeline-item">
+              <h5 class="font-bold text-white text-sm">Phase 2: 보조 설비 제어 (Expand)</h5>
+              <p class="text-slate-400 text-xs mt-1 leading-relaxed">신뢰 축적 후 <strong class="text-white">리스크 적은 보조 라인</strong>(냉각수 펌프, HVAC, 유틸리티 밸브 등)부터 Moru 런타임으로 제어 영역 확장. 메인 생산 설비의 기존 PLC는 그대로 유지하면서 보조 설비만 대체.</p>
+            </div>
+            <div class="timeline-item">
+              <h5 class="font-bold text-white text-sm">Phase 3: 신규 라인 메인 L0 (Replace)</h5>
+              <p class="text-slate-400 text-xs mt-1 leading-relaxed">신규 증설 라인에 Moru를 <strong class="text-white">메인 제어기로 도입</strong>. Gateway Mode A(Rust Native/MQTT-first)로 레거시 의존성 zero. Greenfield 라인에서 완전 대체를 달성하는 최종 단계.</p>
+            </div>
+          </div>
+          <div class="callout callout-amber mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-amber-400">핵심 전환 심리:</strong> "기존 시스템을 뜯어내세요" (X) → <strong class="text-white">"기존 시스템은 그대로 두고, 막혀있던 데이터부터 뽑아드리겠습니다"</strong> (O). 이 한 문장이 공장장의 첫 번째 "예"를 이끌어내는 트리거.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- POLICY -->
+<!-- ============================================================ -->
+<section id="policy" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">2026 Policy Alignment</div>
+      <h2 class="section-title">정책이 열어놓은<br/><span class="text-gradient-cyan">자금 조달 레일</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">Moru는 2026년 한국 창업·제조 혁신 정책 지형이 <strong class="text-white">가장 유리하게 열려 있는 시점</strong>에 출발합니다. 딥테크 창업 생태계와 제조 AI 지원 사업이 Moru의 포지셔닝과 정확히 맞물립니다.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-12">
+      <!-- TIPS -->
+      <div class="card p-8 reveal" style="border-top:3px solid var(--cyan);">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="font-display text-4xl font-bold text-cyan-400">8억</span>
+          <span class="text-slate-400 text-sm">딥테크 TIPS R&D</span>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed">2026년 개편된 팁스(TIPS) 제도는 딥테크 트랙의 최대 R&D 지원금을 <strong class="text-white">기존 5억 → 8억으로 대폭 상향</strong>했습니다. 하드웨어·AI 융합형 딥테크 스타트업에게 극도로 유리한 변화.</p>
+        <div class="mt-4 space-y-2">
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-cyan-400 mt-0.5">•</span>
+            <span class="text-slate-400"><strong class="text-white">운영사 선투자 2억</strong> (비수도권 1억) → 더 확실한 실증(PoC) 지표·시연 요구</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-cyan-400 mt-0.5">•</span>
+            <span class="text-slate-400"><strong class="text-white">Moru 공략 각도:</strong> "만들겠습니다"가 아닌 <strong class="text-cyan-400">"지금 URL 열어드리겠습니다"</strong>로 운영사 심사 통과</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-cyan-400 mt-0.5">•</span>
+            <span class="text-slate-400">1회차 실적 증거(아키텍처 문서, 운영 로그) + 2회차 독립 인프라(라이브 데모)의 <strong class="text-white">이중 증명 구조</strong></span>
+          </div>
+        </div>
+      </div>
+      <!-- 870억 -->
+      <div class="card p-8 reveal" style="border-top:3px solid var(--violet);">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="font-display text-4xl font-bold text-violet-400">870억</span>
+          <span class="text-slate-400 text-sm">스마트 제조혁신 3.0</span>
+        </div>
+        <p class="text-slate-400 text-sm leading-relaxed">중소벤처기업부가 2026년 신설한 <strong class="text-white">'스마트 제조혁신 3.0'</strong> — 공장 현장에 즉시 적용 가능한 '제조 AI' 상용화에 <strong class="text-white">2년간 870억 원</strong> 투입.</p>
+        <div class="mt-4 space-y-2">
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-violet-400 mt-0.5">•</span>
+            <span class="text-slate-400"><strong class="text-white">현장 하단(L0/L1) 밀착형 AI</strong> 우선 지원 — 고공 클라우드 플랫폼(MES/ERP/BI)이 아닌 현장 직접 솔루션</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-violet-400 mt-0.5">•</span>
+            <span class="text-slate-400"><strong class="text-white">Moru 포지셔닝 정합:</strong> 엣지 어플라이언스가 공장 네트워크 내부에 설치 → 데이터 주권 확보</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm">
+            <span class="text-violet-400 mt-0.5">•</span>
+            <span class="text-slate-400">에어갭 배포 자동화 → 폐쇄망 요구사항 충족. AI가 L0 장비를 <strong class="text-white">직접 제어</strong> (모니터링에 그치지 않음)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roadmap Table -->
+    <div class="card p-8 mt-8 reveal">
+      <h4 class="font-bold text-white mb-6">정책 레일 활용 로드맵 (Year 1~2)</h4>
+      <p class="text-slate-400 text-sm mb-6">각 단계의 지원금 규모와 Moru의 기술 성숙도가 정확히 매칭되도록 설계. 각 단계의 승인 요건(실증 지표, 현장 적용성, 기술 혁신성)에 대해 Moru가 이미 보유한 자산으로 대응 가능합니다.</p>
+      <table class="data-table">
+        <thead><tr><th>단계</th><th>지원 레일</th><th>목표</th><th>Moru 무기</th><th>준비 상태</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-mono text-cyan-400">M 0–3</td>
+            <td>모두의 창업 (본 기획서)</td>
+            <td>초기 자본 + 창업 트랙 진입</td>
+            <td class="text-slate-300 text-xs">기획서 + 디지털 트윈 실적</td>
+            <td><span class="badge badge-emerald"><span class="dot"></span>Ready</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-blue-400">M 3–9</td>
+            <td>스마트 제조혁신 3.0</td>
+            <td>PoC 자금 + 파일럿 고객 확보</td>
+            <td class="text-slate-300 text-xs">현장 밀착 L0 포지셔닝 정합</td>
+            <td><span class="badge badge-emerald"><span class="dot"></span>Ready</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-violet-400">M 9–18</td>
+            <td>딥테크 TIPS (R&D 8억)</td>
+            <td>AI Agent 고도화 + Rust 런타임 완성</td>
+            <td class="text-slate-300 text-xs">실물 라이브 시연 + SIL 4 인증</td>
+            <td><span class="badge badge-emerald"><span class="dot"></span>Ready</span></td>
+          </tr>
+          <tr>
+            <td class="font-mono text-amber-400">M 18+</td>
+            <td>Pre-A 투자 유치</td>
+            <td>시장 확장 + 운영팀 확보</td>
+            <td class="text-slate-300 text-xs">정부 지원금 3건 + 초기 레퍼런스</td>
+            <td><span class="badge badge-cyan"><span class="dot"></span>Planned</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- BIZ MODEL -->
+<!-- ============================================================ -->
+<section id="biz" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Business Model</div>
+      <h2 class="section-title">Hybrid SaaS<br/><span class="text-gradient">Base + Outcome</span></h2>
+    </div>
+
+    <!-- Market Context -->
+    <div class="callout callout-amber mt-4 reveal">
+      <h5 class="font-bold text-amber-400 mb-2">왜 순수 성과 기반 모델이 아닌가?</h5>
+      <p class="text-slate-400 text-sm leading-relaxed">순수 성과 기반(Pure Outcome-Based) 과금은 매력적이지만, 초기 스타트업에 <strong class="text-white">심각한 현금 흐름 불안정성</strong>을 초래합니다 — 고객사 공정 특성, 측정 기준, 정산 주기 협상에 따라 매월 수익 편차가 5배 이상 벌어질 수 있고, 투자자의 재무 모델 예측이 거의 불가능해집니다.</p>
+    </div>
+
+    <p class="text-slate-400 mt-6 max-w-3xl reveal">가트너 전망: 2026년 엔터프라이즈 SaaS의 <strong class="text-white">~40%</strong>가 성과 기반 요소 포함, <strong class="text-white">43%</strong>가 하이브리드 모델 채택. 순수 성과형은 현금 흐름 불안정 — Moru는 <strong class="text-white">Base + Variable</strong> 하이브리드 채택으로 2026년 엔터프라이즈 SaaS 메인스트림에 이미 편입된 상태로 출발합니다.</p>
+
+    <!-- Pricing Structure -->
+    <div class="pricing-box mt-8 reveal">
+      <div class="text-cyan-400 font-bold mb-4">Moru Enterprise — Hybrid SaaS Pricing</div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <div class="text-emerald-400 font-bold mb-2">(A) Base Subscription [고정, 예측 가능]</div>
+          <div class="text-slate-300 space-y-1">
+            <div>• 플랫폼 사용료: 엣지 디바이스 단위 월 구독</div>
+            <div>• Rust 런타임 + AI Agent 라이선스</div>
+            <div>• 디지털 트윈 가상 시운전 환경</div>
+            <div>• HMI · Screen Editor · 대시보드</div>
+            <div>• 보안 패치 · 커널 업데이트 · 기술 지원</div>
+          </div>
+          <div class="text-slate-500 text-xs mt-3 italic">→ 투자자의 ARR(연간 반복 매출)로 인식되는 핵심 레이어</div>
+        </div>
+        <div>
+          <div class="text-amber-400 font-bold mb-2">(B) Outcome Variable Fee [업사이드]</div>
+          <div class="text-slate-300 space-y-1">
+            <div>• 다운타임 절감 가치의 일정 비율 공유</div>
+            <div>• 측정 기준: 고객사 기존 baseline 대비 감소분</div>
+            <div>• 분기별 정산 (baseline 재조정 가능)</div>
+            <div>• 상한/하한 캡으로 양측 리스크 헤지</div>
+          </div>
+          <div class="text-slate-500 text-xs mt-3 italic">→ 기술이 가치를 만들수록 매출이 따라 성장하는 인센티브 구조</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tier Table -->
+    <div class="card p-8 mt-8 reveal">
+      <h4 class="font-bold text-white mb-6">요금제 3단 — Starter / Growth / Enterprise</h4>
+      <table class="data-table">
+        <thead><tr><th>플랜</th><th>타겟</th><th>Base</th><th>Variable</th><th>전략적 역할</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="font-bold text-emerald-400">Starter</td>
+            <td>스마트팜·소규모 IIoT (엣지 1–5대)</td>
+            <td>저렴 월 구독</td>
+            <td class="text-slate-500">없음</td>
+            <td class="text-slate-300 text-xs">진입 장벽 최소화 → <strong>레퍼런스 축적 (Land)</strong></td>
+          </tr>
+          <tr>
+            <td class="font-bold text-blue-400">Growth</td>
+            <td>IIoT 스타트업·로보틱스 기업 (엣지 6–50대)</td>
+            <td>중간 월 구독</td>
+            <td class="text-emerald-400">선택형</td>
+            <td class="text-slate-300 text-xs">효과 증명 후 업사이드 공유 <strong>(Expand)</strong></td>
+          </tr>
+          <tr>
+            <td class="font-bold text-violet-400">Enterprise</td>
+            <td>설비 OEM·대형 스마트팜 (엣지 50대+)</td>
+            <td>엔터프라이즈</td>
+            <td class="text-emerald-400">기본 활성</td>
+            <td class="text-slate-300 text-xs">전담 SLA + Variable Fee → <strong>매출 상한 해제</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Financial Impact -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div class="card p-6 reveal">
+        <h5 class="font-bold text-cyan-400 mb-2 text-sm">예측 가능한 ARR</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">Base 고정 매출 → Pre-A/Series A 투자자가 가장 중시하는 Revenue Predictability 확보</p>
+      </div>
+      <div class="card p-6 reveal">
+        <h5 class="font-bold text-violet-400 mb-2 text-sm">Incentive Alignment</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">기술이 가치를 만들수록 Variable 매출도 성장 — 고객과 Moru의 이해관계 완벽 정렬</p>
+      </div>
+      <div class="card p-6 reveal">
+        <h5 class="font-bold text-emerald-400 mb-2 text-sm">고객 리스크 감소</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">"효과 있을 때만 더 낸다" 구조 → 보수적 공장장의 진입 저항을 구조적으로 완화</p>
+      </div>
+      <div class="card p-6 reveal">
+        <h5 class="font-bold text-amber-400 mb-2 text-sm">2026 SaaS 정합</h5>
+        <p class="text-slate-400 text-xs leading-relaxed">가트너 예측 방향에 이미 편입. "또 다른 구독료"가 아닌 "가치 공유" 포지셔닝</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SELF-CRITIQUE -->
+<!-- ============================================================ -->
+<section id="critique" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Honest Self-Assessment</div>
+      <h2 class="section-title">냉정한 자기 평가<br/><span class="text-gradient" style="background:linear-gradient(135deg,#f43f5e,#f59e0b,#f43f5e);-webkit-background-clip:text;background-clip:text;">기획서가 덮고 있는 것들</span></h2>
+      <p class="text-slate-400 mt-2 max-w-3xl">기획서가 좋은 것과 사업이 되는 것은 다른 문제입니다. 심사위원이 지적하기 전에 제안자가 먼저 인지하고 있음을 보여주기 위한 <strong class="text-white">비판적 자기 평가</strong>입니다.</p>
+    </div>
+
+    <!-- Strengths -->
+    <div class="card p-8 mt-12 reveal" style="border-left:3px solid var(--emerald);">
+      <h4 class="font-bold text-emerald-400 text-lg mb-4">강한 점 — 진짜 차별화가 있는 부분</h4>
+      <div class="space-y-4">
+        <div class="flex gap-3">
+          <span class="text-emerald-400 mt-1 text-lg">+</span>
+          <div><strong class="text-white">"이미 만들어 봤다"는 압도적 장점.</strong><span class="text-slate-400 text-sm"> "만들겠습니다"와 "이미 만들어봤고, 이번엔 더 슬림하게 다시 만듭니다" 사이의 간극은 크다. 8개 컨테이너 풀스택 디지털 트윈 구축·운영 경험은 대부분의 예비 창업자가 갖지 못한 자산.</span></div>
+        </div>
+        <div class="flex gap-3">
+          <span class="text-emerald-400 mt-1 text-lg">+</span>
+          <div><strong class="text-white">타이밍이 좋다.</strong><span class="text-slate-400 text-sm"> PREEMPT_RT 메인라인 병합, Ferrocene SIL 4, CM5, TIPS 8억, 870억 제조 AI — 다섯 가지가 2026년에 동시에 열린 건 실제로 창이 열린 것. 2년 전이었으면 이 기획서는 성립하지 않았다.</span></div>
+        </div>
+        <div class="flex gap-3">
+          <span class="text-emerald-400 mt-1 text-lg">+</span>
+          <div><strong class="text-white">IP 프레이밍이 깔끔하다.</strong><span class="text-slate-400 text-sm"> "실력은 사람, 자산은 조직, zero-base 재구축"은 심사위원이 찌를 수 있는 핵심 포인트를 선제적으로 정리한 좋은 논리.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weaknesses -->
+    <div class="space-y-6 mt-8">
+
+      <!-- Risk 1 -->
+      <details class="defense-item reveal" style="border-left:3px solid var(--amber);" open>
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-amber-400 text-lg">01</span>
+            <div>
+              <h4 class="font-bold text-white">가장 차별화된 부분 — 아키텍처 설계 완료, E2E 데모 진행 중</h4>
+              <p class="text-slate-400 text-sm mt-1">LLM + Kanban Harness 아키텍처 완성 / Kanban Harness MVP 구현 M0~2 최우선 과제</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm leading-relaxed">기획서의 핵심 약속은 <strong class="text-white">"AI에게 말하면 제어기가 완성된다"</strong>인데, 현재 moru_repo에 <strong class="text-amber-400">AI Agent 구현체가 미완성 상태</strong>입니다. Rust 런타임은 인상적이지만, AI 코드 생성 파이프라인이 없는 Moru는 Beremiz나 OpenPLC와 본질적 차별점이 약해집니다.</p>
+
+          <div class="callout callout-cyan mt-4">
+            <p class="text-sm font-bold text-cyan-400 mb-2">아키텍처 응답: LLM + Kanban Harness</p>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">이 약점에 대한 설계 응답으로 <strong class="text-white">LLM + Kanban Harness 아키텍처</strong>를 완성했습니다. LLM은 코드 생성 Worker, Kanban Board는 실행을 통제하는 State Machine — 두 역할을 분리하는 구조입니다.</p>
+            <div class="font-mono text-xs text-slate-400 bg-black/30 rounded-lg p-4 leading-relaxed">
+              [자연어 요구사항]<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;↓ Task Decomposition<br/>
+              [Kanban Board: TODO → DOING → VERIFY → DONE]<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ FAIL<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[오류 분석 Task 자동 생성 → LLM 수정 재생성 → 재시도]<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;↓ LLM Worker: Rust 제어 코드 생성<br/>
+              [cargo build] → FAIL 시 → Self-Healing Loop<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
+              [Digital Twin 시뮬레이션] → [Human Approval] → 실 배포
+            </div>
+            <div class="grid md:grid-cols-3 gap-2 mt-3">
+              <div class="card p-3 text-center">
+                <p class="text-xs text-cyan-400 font-bold">Self-Healing Loop</p>
+                <p class="text-xs text-slate-400 mt-1">컴파일 실패 → 자동 재분석 → LLM 재생성</p>
+              </div>
+              <div class="card p-3 text-center">
+                <p class="text-xs text-violet-400 font-bold">Traceability</p>
+                <p class="text-xs text-slate-400 mt-1">모든 Task에 prompt·코드·실패 원인 로깅</p>
+              </div>
+              <div class="card p-3 text-center">
+                <p class="text-xs text-emerald-400 font-bold">LLM 교체 가능</p>
+                <p class="text-xs text-slate-400 mt-1">Claude / GPT / Local LLM 모두 Worker로 연결 가능</p>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-rose mt-3">
+            <p class="text-sm text-slate-300"><strong class="text-rose-400">여전한 리스크:</strong> 심사위원이 "돌아가는 거 보여주세요" 하면 현재는 설계도와 PoC까지. <strong class="text-white">E2E 데모가 없다는 점은 리스크</strong> — Action Item #1에서 M0~2 일정 확보.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Risk 2 -->
+      <details class="defense-item reveal" style="border-left:3px solid var(--rose);">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">02</span>
+            <div>
+              <h4 class="font-bold text-white">1인 창업자 리스크</h4>
+              <p class="text-slate-400 text-sm mt-1">3~5명 팀의 일을 혼자 감당 — 투자자가 가장 꺼리는 구조</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm leading-relaxed">Rust 런타임 + AI Agent + 디지털 트윈 인프라 + 웹 HMI + 영업 + 고객 지원 + 투자 유치. 이건 최소 <strong class="text-white">3~5명 팀의 일</strong>입니다. TIPS 심사에서도 "팀 구성"은 주요 평가 항목이고, 1인 창업자에 대한 <strong class="text-rose-400">리스크 할인은 현실적으로 큽니다</strong>.</p>
+          <p class="text-slate-400 text-sm leading-relaxed mt-2">기술력이 아무리 뛰어나도 한 사람이 burn out 하면 회사가 끝나는 구조는 투자자가 가장 꺼리는 형태.</p>
+          <div class="callout callout-cyan mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-cyan-400">대응:</strong> <strong class="text-white">제조업 영업/BD 경험이 있는 공동 창업자</strong> 확보. 기술은 충분하니 부족한 건 "팔아본 경험".</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Risk 3 -->
+      <details class="defense-item reveal" style="border-left:3px solid var(--rose);">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">03</span>
+            <div>
+              <h4 class="font-bold text-white">"사내에서 만들어 봤다" ≠ "고객에게 팔아봤다"</h4>
+              <p class="text-slate-400 text-sm mt-1">"만들 수 있다"는 검증됐지만, "팔 수 있다"는 전혀 검증되지 않았다</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm leading-relaxed">1회차 디지털 트윈은 본인이 요구사항을 깊이 이해하는 <strong class="text-white">자기 조직 안에서 만든 것</strong>입니다. 외부 고객에게 팔아본 적은 없습니다. 제조업 B2B 영업 사이클은 <strong class="text-rose-400">6~18개월</strong>이고, 공장장 한 명 설득하는 데 수십 번의 미팅과 PoC가 필요합니다.</p>
+          <p class="text-slate-400 text-sm leading-relaxed mt-2"><strong class="text-white">"만들 수 있다"</strong>는 검증됐지만, <strong class="text-rose-400">"팔 수 있다"는 전혀 검증되지 않았습니다.</strong> 이 간극이 스타트업의 사망 원인 1위입니다.</p>
+          <div class="callout callout-cyan mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-cyan-400">대응:</strong> 모두의 창업 단계에서 <strong class="text-white">무료 PoC 1건이라도 확보</strong>. 아는 공장, 전 직장 네트워크 어디든. "고객이 있다"는 한 줄이 기획서 전체보다 강력합니다.</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- Risk 4 -->
+      <details class="defense-item reveal" style="border-left:3px solid var(--rose);">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">04</span>
+            <div>
+              <h4 class="font-bold text-white">경쟁사가 가만히 있지 않는다</h4>
+              <p class="text-slate-400 text-sm mt-1">Siemens Industrial Edge, Beckhoff TwinCAT, CODESYS — 무한한 자금과 고객 관계</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">기획서에서 경쟁 구도를 "레거시 PLC vs CODESYS vs Moru"로 그렸는데, 현실의 경쟁 환경은 더 복잡합니다:</p>
+          <table class="data-table">
+            <thead><tr><th>경쟁자</th><th>위협 수준</th><th>이유</th></tr></thead>
+            <tbody>
+              <tr><td class="font-bold text-rose-400">Siemens Industrial Edge</td><td><span class="badge badge-rose"><span class="dot"></span>매우 높음</span></td><td class="text-slate-400 text-xs">이미 SDA를 자체 생태계에서 구현 중</td></tr>
+              <tr><td class="font-bold text-amber-400">Beckhoff TwinCAT</td><td><span class="badge badge-amber"><span class="dot"></span>높음</span></td><td class="text-slate-400 text-xs">PC 기반 제어 + EtherCAT 표준, 시장 검증 완료</td></tr>
+              <tr><td class="font-bold text-violet-400">CODESYS + Cloud</td><td><span class="badge badge-violet"><span class="dot"></span>중간</span></td><td class="text-slate-400 text-xs">기존 IEC 61131-3 위에 AI/클라우드 연동 추가 중</td></tr>
+              <tr><td class="font-bold text-blue-400">중국 오픈 PLC</td><td><span class="badge badge-cyan"><span class="dot"></span>중간</span></td><td class="text-slate-400 text-xs">가격 파괴 경쟁</td></tr>
+            </tbody>
+          </table>
+          <p class="text-slate-400 text-sm leading-relaxed mt-4">이들은 무한히 많은 자금, 기존 고객 관계, 인증, 레퍼런스를 보유. <strong class="text-white">"Rust가 더 안전하다"</strong>는 기술적으로 맞지만, 현장 엔지니어에게 "지멘스 대신 Rust 쓰세요"라고 하면 <strong class="text-rose-400">"그게 뭔데?"</strong>가 대부분의 반응.</p>
+        </div>
+      </details>
+
+      <!-- Risk 5 -->
+      <details class="defense-item reveal" style="border-left:3px solid var(--rose);">
+        <summary>
+          <div class="flex items-center gap-4">
+            <span class="font-display font-bold text-rose-400 text-lg">05</span>
+            <div>
+              <h4 class="font-bold text-white">수익화까지의 캐시번</h4>
+              <p class="text-slate-400 text-sm mt-1">정부 지원금 3건 순차 의존 — 하나라도 빠지면 캐시플로우 단절</p>
+            </div>
+          </div>
+        </summary>
+        <div class="defense-body">
+          <div class="grid md:grid-cols-3 gap-3 mb-4">
+            <div class="card p-4">
+              <h6 class="font-mono text-xs text-cyan-400 mb-1">M0–3</h6>
+              <p class="text-slate-400 text-xs">모두의 창업 (소액)</p>
+              <p class="text-amber-400 text-xs mt-1">선정 불확실</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="font-mono text-xs text-violet-400 mb-1">M3–9</h6>
+              <p class="text-slate-400 text-xs">870억 사업 신청</p>
+              <p class="text-amber-400 text-xs mt-1">선정 불확실</p>
+            </div>
+            <div class="card p-4">
+              <h6 class="font-mono text-xs text-rose-400 mb-1">M9–18</h6>
+              <p class="text-slate-400 text-xs">TIPS 신청 (8억)</p>
+              <p class="text-amber-400 text-xs mt-1">선정 불확실</p>
+            </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed">3건 모두 <strong class="text-rose-400">"선정되면"이라는 조건부</strong>. 하나라도 빠지면 캐시플로우 단절. 정부 지원금으로 제품을 완성해도 실제 유료 고객이 붙기까지 또 6~12개월. <strong class="text-white">최소 2~3년의 수익 공백을 버틸 자금 계획이 보이지 않습니다.</strong></p>
+          <div class="callout callout-cyan mt-4">
+            <p class="text-sm text-slate-300"><strong class="text-cyan-400">대응:</strong> 정부 지원금 순차 의존 구조를 깨고, <strong class="text-white">최소 1건은 민간 투자 또는 자비 운영</strong>으로 버틸 수 있는 구조 필요.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- Score Card -->
+    <div class="card p-8 mt-10 reveal">
+      <h4 class="font-bold text-white mb-6">종합 자기 평가 스코어카드</h4>
+      <table class="data-table">
+        <thead><tr><th>항목</th><th>평가</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td class="font-bold text-white">기술 비전</td><td><span class="font-display font-bold text-emerald-400 text-lg">A</span></td><td class="text-slate-400 text-xs">방향 정확, 타이밍 정합, SDA + RT + AI 교차점</td></tr>
+          <tr><td class="font-bold text-white">개인 역량</td><td><span class="font-display font-bold text-emerald-400 text-lg">A-</span></td><td class="text-slate-400 text-xs">1회 구축 실적은 상위 5%, Rust 구현체 보유</td></tr>
+          <tr><td class="font-bold text-white">제품 완성도</td><td><span class="font-display font-bold text-blue-400 text-lg">B-</span></td><td class="text-slate-400 text-xs">Kanban Harness 아키텍처 설계 완료, E2E 데모 미완성</td></tr>
+          <tr><td class="font-bold text-white">팀 구성</td><td><span class="font-display font-bold text-rose-400 text-lg">D</span></td><td class="text-slate-400 text-xs">1인, TIPS 심사에서 불리</td></tr>
+          <tr><td class="font-bold text-white">시장 검증</td><td><span class="font-display font-bold text-rose-400 text-lg">D</span></td><td class="text-slate-400 text-xs">유료 고객 zero, 외부 PoC zero</td></tr>
+          <tr><td class="font-bold text-white">자금 계획</td><td><span class="font-display font-bold text-amber-400 text-lg">C</span></td><td class="text-slate-400 text-xs">정부 지원금 의존도 과다</td></tr>
+          <tr><td class="font-bold text-white">경쟁 방어력</td><td><span class="font-display font-bold text-amber-400 text-lg">C+</span></td><td class="text-slate-400 text-xs">Rust moat 존재하나 실행 우위 부족</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Action Items -->
+    <div class="card p-8 mt-6 reveal" style="border-top:3px solid var(--cyan);">
+      <h4 class="font-bold text-white mb-6">우선 대응 과제 (Action Items)</h4>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="callout callout-cyan">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="step-number bg-cyan-950 text-cyan-400" style="width:28px;height:28px;font-size:0.75rem;">1</div>
+            <h5 class="font-bold text-cyan-400 text-sm">Kanban Harness MVP 데모 — M0~2 최우선</h5>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed mb-2">LLM + Kanban Harness 기반 E2E 파이프라인 시연:</p>
+          <ul class="text-slate-400 text-xs space-y-1 pl-2">
+            <li>• Kanban 상태 머신 (TODO→DOING→VERIFY→DONE/FAIL) Rust 구현</li>
+            <li>• Claude API 또는 로컬 LLM 연동 → Rust 제어 코드 생성</li>
+            <li>• FAIL 시 Self-Healing Loop 1회 시연 (자동 재시도)</li>
+          </ul>
+          <p class="text-cyan-400 text-xs mt-2 font-bold">이 데모 없이는 기획서의 핵심 약속이 공허.</p>
+        </div>
+        <div class="callout callout-emerald">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="step-number bg-emerald-950 text-emerald-400" style="width:28px;height:28px;font-size:0.75rem;">2</div>
+            <h5 class="font-bold text-emerald-400 text-sm">공동 창업자 확보</h5>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">제조업 영업/BD 경험자가 이상적. 기술은 충분 — 부족한 건 "팔아본 경험"과 "팀 리스크 분산".</p>
+        </div>
+        <div class="callout callout-violet">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="step-number bg-violet-950 text-violet-400" style="width:28px;height:28px;font-size:0.75rem;">3</div>
+            <h5 class="font-bold text-violet-400 text-sm">무료 PoC 1건 확보</h5>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">아는 공장, 전 직장 네트워크 어디든. <strong class="text-white">"고객이 있다"는 한 줄</strong>이 기획서 전체보다 강력.</p>
+        </div>
+        <div class="callout callout-amber">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="step-number bg-amber-950 text-amber-400" style="width:28px;height:28px;font-size:0.75rem;">4</div>
+            <h5 class="font-bold text-amber-400 text-sm">자금 계획 다변화</h5>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">정부 지원금 3건 순차 의존 탈피. 최소 1건은 민간 투자 또는 자비 운영으로 버틸 수 있는 구조.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- TEAM -->
+<!-- ============================================================ -->
+<section id="team" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="reveal">
+      <div class="section-label">Founder Profile</div>
+      <h2 class="section-title">실적이 곧<br/><span class="text-gradient-cyan">신뢰의 증거</span></h2>
+    </div>
+
+    <div class="card p-8 mt-12 reveal">
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex-1">
+          <h4 class="font-bold text-white text-xl mb-4">제안자 역량 프로파일</h4>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">반도체/산업 설비 자동화 현장에서 <strong class="text-white">디지털 트윈 풀스택 아키텍처를 실제로 설계·구축·운영</strong>해 본 엔지니어. 아래 역량은 모두 <strong class="text-cyan-400">실물 인프라에서 검증된 실적</strong>이며, 스타트업 버전에서는 이 경험을 기반으로 zero-base 독립 재구축합니다.</p>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <h5 class="font-mono text-xs text-cyan-400 mb-3 uppercase tracking-wider">구축 실적</h5>
+              <ul class="text-slate-400 text-sm space-y-2">
+                <li>• 클라우드 디지털 트윈 8개 컨테이너 풀스택 구축·운영</li>
+                <li>• CODESYS 소프트웨어 PLC + Mock Modbus 시뮬레이터</li>
+                <li>• React HMI + Screen Editor + InfluxDB 시계열</li>
+                <li>• Nginx 리버스 프록시 + 에어갭 배포 자동화</li>
+                <li>• sim↔prod 환경 전환 아키텍처</li>
+              </ul>
+            </div>
+            <div>
+              <h5 class="font-mono text-xs text-violet-400 mb-3 uppercase tracking-wider">스타트업 추가 역량</h5>
+              <ul class="text-slate-400 text-sm space-y-2">
+                <li>• Rust 2021 네이티브 제어 런타임 개발 (103 테스트 통과)</li>
+                <li>• Cargo Workspace 아키텍처 설계 (infra/app 분리)</li>
+                <li>• tokio 비동기 + axum Web HMI</li>
+                <li>• Modbus TCP / MQTT / SFC 엔진 구현</li>
+                <li>• SimulatedConnector 하드웨어 추상화</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-violet mt-6">
+        <p class="text-sm text-slate-300"><strong class="text-violet-400">왜 이 사람인가:</strong> "디지털 트윈을 한 번도 만들어보지 않은 사람"과 "이미 1회 완성·운영하고, 거기서 배운 교훈으로 더 슬림하게 재구축하는 사람"의 차이는 <strong class="text-white">실패 경로에 대한 사전 지식</strong>입니다. 컨테이너 간 DNS 해석, 에어갭 이미지 로드, sim/prod 전환 검증, InfluxDB 리텐션 정책 — 이 모든 엣지 케이스를 이미 디버깅해 본 경험이 2회차 구축의 <strong class="text-white">리스크를 구조적으로 낮춥니다</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="py-16 px-6 border-t border-slate-800">
+  <div class="max-w-7xl mx-auto text-center">
+    <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 mx-auto mb-4 rounded-xl overflow-hidden">
+      <rect width="256" height="256" fill="#0f172a"/>
+      <path d="M 80 140 L 110 100 L 170 100 L 170 140 Q 170 160 150 160 L 100 160 Q 80 160 80 140 Z" fill="#f8fafc"/>
+      <path d="M 90 130 Q 70 125 65 110 Q 63 100 75 95 L 85 115 Z" fill="#f8fafc"/>
+      <path d="M 160 130 Q 180 125 185 110 Q 187 100 175 95 L 165 115 Z" fill="#f8fafc"/>
+      <rect x="95" y="155" width="70" height="20" fill="#f8fafc"/>
+      <rect x="90" y="172" width="80" height="8" fill="#cbd5e1"/>
+      <circle cx="105" cy="115" r="6" fill="#06b6d4"/>
+      <circle cx="128" cy="115" r="6" fill="#06b6d4"/>
+      <circle cx="151" cy="115" r="6" fill="#06b6d4"/>
+      <circle cx="116" cy="145" r="6" fill="#06b6d4"/>
+      <circle cx="140" cy="145" r="6" fill="#06b6d4"/>
+    </svg>
+    <p class="text-slate-400 text-sm">AI-Driven Open Architecture IIoT Platform</p>
+    <p class="text-slate-500 text-xs mt-2">모두의 창업 기획서 — 내부 마스터 문서 | Last Updated 2026-04-12</p>
+    <p class="text-slate-600 text-xs mt-1">종합 전략 보고서: <a href="moru_interactive_report.html" class="text-cyan-400 hover:underline">moru_interactive_report.html</a></p>
+  </div>
+</section>
+
+<!-- SCRIPTS -->
+<script>
+// Reveal on scroll
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Animated counters
+document.querySelectorAll('[data-count]').forEach(el => {
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    io.unobserve(el);
+    const target = parseFloat(el.dataset.count);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const isFloat = String(target).includes('.');
+    const duration = 1500;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = eased * target;
+      el.textContent = prefix + (isFloat ? val.toFixed(1) : Math.round(val)) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }, { threshold: 0.5 });
+  io.observe(el);
+});
+
+// Card glow
+document.querySelectorAll('.card-glow').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+// Active nav
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => navObs.observe(s));
+
+// Market Chart
+new Chart(document.getElementById('marketChart'), {
+  type: 'bar',
+  data: {
+    labels: ['스마트팜 2025', '스마트팜 2030', 'IIoT 게이트웨이 2026', '협동 로봇 2026', '협동 로봇 2030'],
+    datasets: [{
+      label: '시장 규모 ($B)',
+      data: [245, 470, 62.5, 8, 34],
+      backgroundColor: [
+        'rgba(16, 185, 129, 0.6)',
+        'rgba(16, 185, 129, 0.9)',
+        'rgba(34, 211, 238, 0.7)',
+        'rgba(139, 92, 246, 0.6)',
+        'rgba(139, 92, 246, 0.9)',
+      ],
+      borderColor: ['#10b981','#10b981','#22d3ee','#8b5cf6','#8b5cf6'],
+      borderWidth: 1,
+      borderRadius: 8,
+    }],
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: 'rgba(10,15,28,0.95)',
+        borderColor: '#22d3ee',
+        borderWidth: 1,
+        padding: 12,
+        callbacks: { label: ctx => `$${ctx.raw}B` },
+      },
+    },
+    scales: {
+      x: { ticks: { color: '#94a3b8', font: { family: 'Pretendard', size: 11 } }, grid: { display: false } },
+      y: { ticks: { color: '#64748b', callback: v => '$' + v + 'B' }, grid: { color: 'rgba(56,189,248,0.08)' } },
+    },
+  },
+});
+</script>
+</body>
+</html>

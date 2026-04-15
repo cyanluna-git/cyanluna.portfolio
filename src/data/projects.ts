@@ -101,6 +101,54 @@ export const verticals = {
 export const projects: Project[] = [
   // ── Industrial ──
   {
+    id: "moru",
+    title: {
+      en: "Moru — LLM Control Engineering Agent",
+      ko: "모루 — LLM 제어 엔지니어링 에이전트",
+    },
+    tagline: {
+      en: "AI agent that writes, tests, and self-heals industrial control logic",
+      ko: "산업용 제어 로직을 작성·검증·자동복구하는 AI 에이전트",
+    },
+    description: {
+      en: "LLM-powered agent that turns natural language requirements into verified, hardware-ready control logic. A 5-layer safety net — pre-validated Rust module library, compiler harness, Kanban self-healing loop, BDD e2e verification in a Cloud Digital Twin, and Human-in-the-Loop approval — replaces months of manual PLC programming with hours of AI-assisted specification.",
+      ko: "자연어 요구사항을 검증된 하드웨어 제어 로직으로 변환하는 LLM 에이전트. 사전 검증된 Rust 모듈 라이브러리, 컴파일 하네스, 칸반 자기복구 루프, Cloud Digital Twin BDD e2e 검증, Human-in-the-Loop 승인의 5중 안전망으로 수개월의 수동 PLC 프로그래밍을 수시간의 AI 보조 사양 작성으로 대체합니다.",
+    },
+    vertical: "industrial",
+    stack: ["Rust", "LLM (Claude)", "BDD/Gherkin", "Docker", "Next.js"],
+    hasDetailPage: true,
+    highlights: {
+      en: [
+        "5-layer safety net: Infrastructure → Compile → Kanban → BDD e2e → Human-in-the-Loop",
+        "Pre-validated Rust module library constrains LLM solution space",
+        "Cloud Digital Twin for zero-hardware BDD verification before deployment",
+        "Kanban self-healing loop: auto-analysis and retry on FAIL state",
+      ],
+      ko: [
+        "5중 안전망: 인프라 → 컴파일 → 칸반 → BDD e2e → Human-in-the-Loop",
+        "사전 검증된 Rust 모듈 라이브러리로 LLM 솔루션 공간 제약",
+        "배포 전 하드웨어 없이 BDD 검증하는 Cloud Digital Twin",
+        "FAIL 상태 자동 분석 및 재시도하는 칸반 자기복구 루프",
+      ],
+    },
+    status: "active",
+    url: "/demo/moru/",
+    curation: {
+      featuredRank: 1,
+      track: "ai",
+      audience: ["leadership", "engineering"],
+      proof: "agentic",
+      quickPitch: {
+        en: "AI agent replacing months of PLC programming with hours — 5-layer safety net included.",
+        ko: "5중 안전망으로 수개월의 PLC 프로그래밍을 수시간으로 단축하는 AI 에이전트입니다.",
+      },
+      whyStartHere: {
+        en: "Shows how I combine LLM agents with industrial safety constraints — not just prompt engineering.",
+        ko: "LLM 에이전트와 산업용 안전 제약을 결합하는 방식을 보여줍니다 — 단순 프롬프트 엔지니어링을 넘어서.",
+      },
+    },
+  },
+  {
     id: "smart-factory-qc",
     title: {
       en: "Smart Factory QC Platform",
@@ -133,7 +181,7 @@ export const projects: Project[] = [
     },
     status: "active",
     curation: {
-      featuredRank: 1,
+      featuredRank: 2,
       track: "enterprise",
       audience: ["leadership", "ops", "engineering"],
       proof: "system",
@@ -226,7 +274,7 @@ export const projects: Project[] = [
     },
     status: "active",
     curation: {
-      featuredRank: 4,
+      featuredRank: 5,
       track: "enterprise",
       audience: ["leadership", "ops", "product"],
       proof: "system",
@@ -284,7 +332,7 @@ export const projects: Project[] = [
     },
     status: "live",
     curation: {
-      featuredRank: 2,
+      featuredRank: 3,
       track: "ai",
       audience: ["product", "engineering"],
       proof: "agentic",
@@ -340,7 +388,7 @@ export const projects: Project[] = [
     },
     status: "active",
     curation: {
-      featuredRank: 5,
+      featuredRank: 6,
       track: "data",
       audience: ["engineering", "product"],
       proof: "analytics",
@@ -676,7 +724,7 @@ export const projects: Project[] = [
     },
     status: "live",
     curation: {
-      featuredRank: 3,
+      featuredRank: 4,
       track: "ai",
       audience: ["leadership", "engineering"],
       proof: "agentic",
@@ -789,7 +837,7 @@ export const featuredProjects = [...projects]
   .sort((a, b) => (a.curation.featuredRank ?? Number.MAX_SAFE_INTEGER) - (b.curation.featuredRank ?? Number.MAX_SAFE_INTEGER));
 
 export const stats = {
-  projects: 14,
+  projects: 15,
   techStacks: 15,
   domains: 4,
   agents: 6,
