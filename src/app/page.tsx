@@ -183,7 +183,7 @@ function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }
     beta: "bg-amber-500/15 text-amber-400 border-amber-500/20",
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full border ${colors[status]}`}>
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full border whitespace-nowrap ${colors[status]}`}>
       {status === "live" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
       {t.status[status][lang]}
     </span>
@@ -277,14 +277,7 @@ function ProjectMediaArea({ project }: { project: Project }) {
     );
   }
 
-  return (
-    <div
-      className="aspect-video"
-      style={{
-        background: `linear-gradient(135deg, ${vColor}22, ${vColor}08 55%, transparent)`,
-      }}
-    />
-  );
+  return null;
 }
 
 function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
