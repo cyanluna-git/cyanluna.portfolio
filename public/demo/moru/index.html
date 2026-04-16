@@ -688,22 +688,147 @@
       <!-- State Machine Flow -->
       <div class="card p-8 reveal">
         <h4 class="font-mono text-sm text-violet-400 mb-5 uppercase tracking-wider">Kanban 상태 머신</h4>
-        <div class="font-mono text-xs text-slate-400 bg-black/30 rounded-lg p-4 leading-relaxed">
-          <span class="text-white">[ 자연어 요구사항 입력 ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Design Review<br/>
-          <span class="text-amber-400">[ 사용 도구·상태·입출력 설계 → Human Approval ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Task Decomposition<br/>
-          <span class="text-cyan-400">[ Kanban Board: TODO 생성 ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
-          <span class="text-blue-400">[ DOING: LLM → Rust 코드 생성 ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
-          <span class="text-violet-400">[ VERIFY: cargo build ]</span><br/>
-          &nbsp;&nbsp;↙&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↘<br/>
-          <span class="text-emerald-400">[ DONE ]</span>&nbsp;&nbsp;&nbsp;<span class="text-rose-400">[ FAIL ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-amber-400">[ 오류 분석 Task 자동 생성 ]</span><br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ Self-Healing Loop<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">[ LLM 수정 재생성 → RETRY ]</span>
+        <div class="mt-2 rounded-xl overflow-hidden" style="border:1px solid rgba(59,130,246,0.2);background:#06060f;">
+          <svg viewBox="0 0 820 1088" style="width:100%;height:auto;display:block;font-family:'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',system-ui,sans-serif;">
+            <defs>
+              <marker id="wf-arr-c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#00d4ff"/></marker>
+              <marker id="wf-arr-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#ef4444"/></marker>
+              <marker id="wf-arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#22c55e"/></marker>
+              <marker id="wf-arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#a78bfa"/></marker>
+              <marker id="wf-arr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#f59e0b"/></marker>
+              <filter id="wf-gc" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0  0 0 0 0 0.83  0 0 0 0 1  0 0 0 0.55 0" result="col"/><feMerge><feMergeNode in="col"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="wf-gg" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="4" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.77  0 0 0 0 0.37  0 0 0 0.5 0" result="col"/><feMerge><feMergeNode in="col"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="wf-gr" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0.94  0 0 0 0 0.27  0 0 0 0 0.27  0 0 0 0.45 0" result="col"/><feMerge><feMergeNode in="col"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <filter id="wf-ga" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 0.96  0 0 0 0 0.62  0 0 0 0 0.04  0 0 0 0.4 0" result="col"/><feMerge><feMergeNode in="col"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <linearGradient id="wf-gd-node" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#141428"/><stop offset="100%" stop-color="#0c0c1e"/></linearGradient>
+              <linearGradient id="wf-gd-kan" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#111827"/><stop offset="100%" stop-color="#0b1120"/></linearGradient>
+              <linearGradient id="wf-gd-sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#200a0a"/><stop offset="100%" stop-color="#150505"/></linearGradient>
+              <linearGradient id="wf-gd-dep" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#052015"/><stop offset="100%" stop-color="#031409"/></linearGradient>
+              <linearGradient id="wf-gd-apv" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1c1005"/><stop offset="100%" stop-color="#120b02"/></linearGradient>
+              <linearGradient id="wf-gd-review" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1508"/><stop offset="100%" stop-color="#100d04"/></linearGradient>
+              <linearGradient id="wf-gd-shi" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2a0f0f"/><stop offset="100%" stop-color="#1e0808"/></linearGradient>
+            </defs>
+
+            <rect width="820" height="1088" fill="#06060f"/>
+
+            <!-- ① 자연어 요구사항 -->
+            <g filter="url(#wf-gc)"><rect x="190" y="48" width="310" height="64" rx="10" fill="url(#wf-gd-node)" stroke="#00d4ff" stroke-width="1.5"/></g>
+            <text x="345" y="76" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="700">자연어 요구사항</text>
+            <text x="345" y="96" text-anchor="middle" fill="#7dd3fc" font-size="10.5">"온도 60°C 초과 시 냉각 팬을 작동시켜"</text>
+            <line x1="345" y1="112" x2="345" y2="158" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+            <text x="358" y="138" fill="#7dd3fc" font-size="9.5">설계서 초안 작성</text>
+
+            <!-- ② 설계서 작성 -->
+            <g filter="url(#wf-gc)"><rect x="190" y="158" width="310" height="64" rx="10" fill="url(#wf-gd-node)" stroke="#00d4ff" stroke-width="1.5"/></g>
+            <text x="345" y="186" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="700">설계서 작성</text>
+            <text x="345" y="206" text-anchor="middle" fill="#7dd3fc" font-size="10.5">AI 기반 요구사항 분석 · 아키텍처 설계 문서화</text>
+            <line x1="345" y1="222" x2="345" y2="242" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#wf-arr-a)"/>
+
+            <!-- ③ Human Review & Approval ◇ -->
+            <g filter="url(#wf-ga)"><polygon points="345,242 425,282 345,322 265,282" fill="url(#wf-gd-review)" stroke="#f59e0b" stroke-width="1.5"/></g>
+            <text x="345" y="276" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">Human Review</text>
+            <text x="345" y="292" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">&amp; Approval</text>
+            <path d="M265,282 L138,282 L138,190 L190,190" fill="none" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#wf-arr-a)"/>
+            <text x="126" y="238" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="600" transform="rotate(-90 126 238)">수정 요청</text>
+            <line x1="345" y1="322" x2="345" y2="344" stroke="#22c55e" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+            <text x="358" y="335" fill="#22c55e" font-size="9.5" font-weight="600">승인</text>
+
+            <!-- ④ Kanban Harness -->
+            <rect x="50" y="344" width="590" height="90" rx="10" fill="url(#wf-gd-kan)" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="345" y="365" text-anchor="middle" fill="#93c5fd" font-size="10.5" font-weight="700" letter-spacing="1">KANBAN HARNESS</text>
+            <rect x="70" y="374" width="97" height="28" rx="14" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+            <text x="118" y="392" text-anchor="middle" fill="#94a3b8" font-size="10.5" font-weight="600">TODO</text>
+            <path d="M167,388 H180" stroke="#475569" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+            <rect x="182" y="374" width="101" height="28" rx="14" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+            <text x="232" y="392" text-anchor="middle" fill="#60a5fa" font-size="10.5" font-weight="600">DOING</text>
+            <path d="M283,388 H297" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+            <rect x="299" y="374" width="101" height="28" rx="14" fill="#2d1b69" stroke="#7c3aed" stroke-width="1.5"/>
+            <text x="349" y="392" text-anchor="middle" fill="#a78bfa" font-size="10.5" font-weight="600">VERIFY</text>
+            <path d="M400,388 H414" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+            <rect x="416" y="374" width="97" height="28" rx="14" fill="#052e16" stroke="#22c55e" stroke-width="1.5"/>
+            <text x="464" y="392" text-anchor="middle" fill="#4ade80" font-size="10.5" font-weight="600">DONE ✓</text>
+            <line x1="345" y1="434" x2="345" y2="476" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+            <!-- FAIL F1: Kanban → SH top -->
+            <path d="M640,389 H700 V450 H690 V468" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#wf-arr-r)"/>
+            <text x="650" y="382" fill="#ef4444" font-size="9.5" font-weight="700">FAIL</text>
+
+            <!-- ⑤ LLM Worker -->
+            <g filter="url(#wf-gc)"><rect x="190" y="476" width="310" height="64" rx="10" fill="url(#wf-gd-node)" stroke="#00d4ff" stroke-width="1.5"/></g>
+            <text x="345" y="504" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="700">LLM Worker</text>
+            <text x="345" y="523" text-anchor="middle" fill="#7dd3fc" font-size="10.5">Infrastructure 모듈 조립 · Rust 코드 생성</text>
+            <line x1="345" y1="540" x2="345" y2="580" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+
+            <!-- ⑥ cargo build -->
+            <rect x="190" y="580" width="310" height="64" rx="10" fill="url(#wf-gd-node)" stroke="#8b5cf6" stroke-width="1.5"/>
+            <text x="345" y="608" text-anchor="middle" fill="#a78bfa" font-size="13" font-weight="700">cargo build</text>
+            <text x="345" y="627" text-anchor="middle" fill="#c4b5fd" font-size="10.5">타입 안전성 · 메모리 안전성 · 컴파일 검증</text>
+            <!-- FAIL F2: CargoBuild → SH top -->
+            <path d="M500,612 H510 V450 H670 V468" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#wf-arr-r)"/>
+            <text x="506" y="604" fill="#ef4444" font-size="9.5" font-weight="700">FAIL</text>
+            <line x1="345" y1="644" x2="345" y2="696" stroke="#22c55e" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+            <text x="358" y="673" fill="#22c55e" font-size="10" font-weight="600">BUILD OK</text>
+
+            <!-- ⑦ Cloud Digital Twin -->
+            <g filter="url(#wf-gc)"><rect x="190" y="696" width="310" height="64" rx="10" fill="url(#wf-gd-node)" stroke="#06b6d4" stroke-width="1.5"/></g>
+            <text x="345" y="724" text-anchor="middle" fill="#22d3ee" font-size="13" font-weight="700">Cloud Digital Twin</text>
+            <text x="345" y="743" text-anchor="middle" fill="#7dd3fc" font-size="10.5">BDD e2e 시뮬레이션 · Verification 자동화</text>
+            <line x1="345" y1="760" x2="345" y2="772" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#wf-arr-a)"/>
+
+            <!-- ⑧ Human Approval ◇ -->
+            <g filter="url(#wf-ga)"><polygon points="345,772 437,822 345,872 253,822" fill="url(#wf-gd-apv)" stroke="#f59e0b" stroke-width="1.5"/></g>
+            <text x="345" y="816" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">Human</text>
+            <text x="345" y="833" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">Approval</text>
+            <path d="M253,822 L138,822 L138,508 L190,508" fill="none" stroke="#f59e0b" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#wf-arr-a)"/>
+            <text x="126" y="665" text-anchor="middle" fill="#f59e0b" font-size="9" font-weight="600" transform="rotate(-90 126 665)">반려 · 재검토</text>
+            <line x1="345" y1="872" x2="345" y2="892" stroke="#22c55e" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+            <text x="358" y="884" fill="#22c55e" font-size="9.5" font-weight="600">승인</text>
+
+            <!-- ⑨ 실 배포 -->
+            <g filter="url(#wf-gg)"><rect x="190" y="892" width="310" height="64" rx="10" fill="url(#wf-gd-dep)" stroke="#22c55e" stroke-width="2"/></g>
+            <text x="345" y="920" text-anchor="middle" fill="#22c55e" font-size="14" font-weight="700">🚀  실 배포</text>
+            <text x="345" y="940" text-anchor="middle" fill="#86efac" font-size="10.5">RevPi Edge · MQTT · Web HMI</text>
+
+            <!-- Self-Healing Box -->
+            <g filter="url(#wf-gr)"><rect x="575" y="468" width="198" height="232" rx="14" fill="url(#wf-gd-sh)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="7,3"/></g>
+            <text x="674" y="490" text-anchor="middle" fill="#ef4444" font-size="10.5" font-weight="700" letter-spacing="0.5">⚡ Self-Healing Loop</text>
+            <rect x="591" y="498" width="164" height="48" rx="7" fill="url(#wf-gd-shi)" stroke="#ef4444" stroke-width="1" opacity="0.95"/>
+            <text x="673" y="518" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="600">① 오류 분석 Task</text>
+            <text x="673" y="534" text-anchor="middle" fill="#fca5a5" font-size="9">자동 생성 · 실패 컨텍스트 주입</text>
+            <line x1="673" y1="546" x2="673" y2="558" stroke="#ef4444" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+            <rect x="591" y="560" width="164" height="48" rx="7" fill="url(#wf-gd-shi)" stroke="#ef4444" stroke-width="1" opacity="0.95"/>
+            <text x="673" y="580" text-anchor="middle" fill="#fca5a5" font-size="10" font-weight="600">② LLM 수정 재생성</text>
+            <text x="673" y="596" text-anchor="middle" fill="#fca5a5" font-size="9">오류 분석 결과로 코드 재생성</text>
+            <line x1="673" y1="608" x2="673" y2="620" stroke="#ef4444" stroke-width="1.5" marker-end="url(#wf-arr-r)"/>
+            <rect x="591" y="622" width="164" height="48" rx="7" fill="#181040" stroke="#a78bfa" stroke-width="1.5"/>
+            <text x="673" y="642" text-anchor="middle" fill="#c4b5fd" font-size="10" font-weight="600">③ 재시도</text>
+            <text x="673" y="658" text-anchor="middle" fill="#c4b5fd" font-size="9">LLM Worker로 복귀</text>
+            <!-- Retry -->
+            <path d="M575,646 H520 V476 H500" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#wf-arr-p)"/>
+            <text x="531" y="561" text-anchor="middle" fill="#a78bfa" font-size="9.5" font-weight="600" transform="rotate(-90 531 561)">재시도</text>
+
+            <!-- Phase labels -->
+            <rect x="14" y="48" width="24" height="238" rx="4" fill="none" stroke="#00d4ff" stroke-width="0.5" opacity="0.3"/>
+            <text x="26" y="168" text-anchor="middle" fill="#00d4ff" font-size="9" opacity="0.6" font-weight="600" transform="rotate(-90 26 168)">설계 단계</text>
+            <rect x="14" y="344" width="24" height="316" rx="4" fill="none" stroke="#a78bfa" stroke-width="0.5" opacity="0.3"/>
+            <text x="26" y="502" text-anchor="middle" fill="#a78bfa" font-size="9" opacity="0.6" font-weight="600" transform="rotate(-90 26 502)">실행 단계</text>
+            <rect x="14" y="696" width="24" height="176" rx="4" fill="none" stroke="#22c55e" stroke-width="0.5" opacity="0.3"/>
+            <text x="26" y="784" text-anchor="middle" fill="#22c55e" font-size="9" opacity="0.6" font-weight="600" transform="rotate(-90 26 784)">검증 단계</text>
+
+            <!-- Legend -->
+            <rect x="48" y="998" width="724" height="74" rx="8" fill="#0c0c1e" stroke="#1e1e3a" stroke-width="1"/>
+            <line x1="74" y1="1020" x2="106" y2="1020" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#wf-arr-c)"/>
+            <text x="114" y="1024" fill="#7dd3fc" font-size="9.5">정상 흐름</text>
+            <line x1="210" y1="1020" x2="242" y2="1020" stroke="#22c55e" stroke-width="1.5" marker-end="url(#wf-arr-g)"/>
+            <text x="250" y="1024" fill="#86efac" font-size="9.5">성공 · 승인</text>
+            <line x1="346" y1="1020" x2="378" y2="1020" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#wf-arr-r)"/>
+            <text x="386" y="1024" fill="#fca5a5" font-size="9.5">FAIL → Self-Healing</text>
+            <line x1="528" y1="1020" x2="560" y2="1020" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#wf-arr-p)"/>
+            <text x="568" y="1024" fill="#c4b5fd" font-size="9.5">Self-Healing 재시도</text>
+            <line x1="74" y1="1050" x2="106" y2="1050" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#wf-arr-a)"/>
+            <text x="114" y="1054" fill="#fbbf24" font-size="9.5">Human Approval (수정 요청 · 반려)</text>
+            <polygon points="480,1044 504,1052 480,1060 456,1052" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="512" y="1056" fill="#fbbf24" font-size="9.5">Human Approval 노드</text>
+          </svg>
         </div>
       </div>
     </div>
@@ -1214,17 +1339,7 @@
           <div class="callout callout-cyan mt-4">
             <p class="text-sm font-bold text-cyan-400 mb-2">아키텍처 응답: LLM + Kanban Harness</p>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">이 약점에 대한 설계 응답으로 <strong class="text-white">LLM + Kanban Harness 아키텍처</strong>를 완성했습니다. LLM은 코드 생성 Worker, Kanban Board는 실행을 통제하는 State Machine — 두 역할을 분리하는 구조입니다.</p>
-            <div class="font-mono text-xs text-slate-400 bg-black/30 rounded-lg p-4 leading-relaxed">
-              [자연어 요구사항]<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;↓ Task Decomposition<br/>
-              [Kanban Board: TODO → DOING → VERIFY → DONE]<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓ FAIL<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[오류 분석 Task 자동 생성 → LLM 수정 재생성 → 재시도]<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;↓ LLM Worker: Rust 제어 코드 생성<br/>
-              [cargo build] → FAIL 시 → Self-Healing Loop<br/>
-              &nbsp;&nbsp;&nbsp;&nbsp;↓<br/>
-              [Digital Twin 시뮬레이션] → [Human Approval] → 실 배포
-            </div>
+            <p class="text-xs text-slate-500 mt-2 italic">↑ 위 워크플로우 다이어그램 참조 — 설계서 작성 → Human Review → Kanban Self-Healing → Digital Twin → Human Approval → 실 배포</p>
             <div class="grid md:grid-cols-3 gap-2 mt-3">
               <div class="card p-3 text-center">
                 <p class="text-xs text-cyan-400 font-bold">Self-Healing Loop</p>
