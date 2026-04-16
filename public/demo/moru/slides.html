@@ -593,6 +593,18 @@
                     text-transform: uppercase;
                 "
             ></div>
+            <button id="lang-btn" onclick="toggleLang()" style="
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 0.68rem;
+              letter-spacing: 0.1em;
+              padding: 4px 10px;
+              border-radius: 4px;
+              border: 1px solid rgba(34,211,238,0.35);
+              background: rgba(34,211,238,0.07);
+              color: #22d3ee;
+              cursor: pointer;
+              transition: all 0.2s;
+            ">KO</button>
             <div class="fm" style="font-size: 0.72rem; color: #64748b">
                 <span id="hcur" style="color: var(--cb)">1</span> / 11
             </div>
@@ -603,7 +615,7 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 01 — COVER
 ══════════════════════════════════════════════ -->
-            <div class="slide act" data-title="Cover">
+            <div class="slide act" data-title="Cover" data-title-key="s01.title">
                 <div
                     class="si"
                     style="justify-content: center; position: relative"
@@ -611,7 +623,7 @@
                     <div
                         style="max-width: 780px; position: relative; z-index: 1"
                     >
-                        <div class="sl" style="margin-bottom: 18px">
+                        <div class="sl" style="margin-bottom: 18px" data-i18n="s01.label">
                             PROPOSAL / 2026.04 / 모두의 창업 — 딥테크 트랙
                         </div>
                         <h1
@@ -622,6 +634,7 @@
                                 line-height: 1.05;
                                 margin-bottom: 20px;
                             "
+                            data-i18n-html="s01.h1"
                         >
                             AI에게 말하면<br /><span class="tg"
                                 >제어기가 완성된다</span
@@ -635,6 +648,7 @@
                                 max-width: 640px;
                                 margin-bottom: 22px;
                             "
+                            data-i18n-html="s01.body"
                         >
                             고가 전용 PLC 없이 범용 RasberryPi) 한 대로
                             제어기·Web HMI·게이트웨이를
@@ -682,6 +696,7 @@
                             <span
                                 class="fm"
                                 style="font-size: 0.72rem; color: #64748b"
+                                data-i18n="s01.status"
                                 >DIGITAL TWIN PROVEN — MVP1 COMPLETE — 103 TESTS
                                 PASSING</span
                             >
@@ -745,7 +760,7 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 02 — PROBLEM
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Problem">
+            <div class="slide" data-title="Problem" data-title-key="s02.title">
                 <div class="si">
                     <div
                         style="
@@ -758,8 +773,8 @@
                     >
                         <!-- Left -->
                         <div>
-                            <div class="sl">Problem / 문제</div>
-                            <h2 class="sh">
+                            <div class="sl" data-i18n="s02.label">Problem / 문제</div>
+                            <h2 class="sh" data-i18n-html="s02.h2">
                                 제어기 하나 만드는 데<br /><span class="tga"
                                     >수 주가 걸린다</span
                                 >
@@ -771,6 +786,7 @@
                                     line-height: 1.75;
                                     margin-bottom: 16px;
                                 "
+                                data-i18n-html="s02.body"
                             >
                                 스마트팩토리 도입의 가장 큰 장벽은<br />
                                 <strong style="color: #fff"
@@ -786,7 +802,7 @@
                                 >하는 작업을 반복합니다.
                             </p>
                             <div class="am">
-                                <p style="font-size: 0.8rem; color: #cbd5e1">
+                                <p style="font-size: 0.8rem; color: #cbd5e1" data-i18n-html="s02.insight">
                                     <strong style="color: var(--amber)"
                                         >핵심 인사이트:</strong
                                     >
@@ -834,6 +850,7 @@
                                                 font-size: 0.88rem;
                                                 margin-bottom: 4px;
                                             "
+                                            data-i18n="s02.p1.title"
                                         >
                                             벤더 종속
                                         </div>
@@ -843,6 +860,7 @@
                                                 font-size: 0.78rem;
                                                 line-height: 1.6;
                                             "
+                                            data-i18n="s02.p1.body"
                                         >
                                             고가 전용 PLC + 무거운 레거시 SW.
                                             특정 벤더 없이는 유지보수조차
@@ -882,6 +900,7 @@
                                                 font-size: 0.88rem;
                                                 margin-bottom: 4px;
                                             "
+                                            data-i18n="s02.p2.title"
                                         >
                                             수동 매핑 지옥
                                         </div>
@@ -891,6 +910,7 @@
                                                 font-size: 0.78rem;
                                                 line-height: 1.6;
                                             "
+                                            data-i18n="s02.p2.body"
                                         >
                                             수천 개의 메모리 주소를 엑셀로
                                             일일이 매핑. 새 장비마다 소모적인
@@ -930,6 +950,7 @@
                                                 font-size: 0.88rem;
                                                 margin-bottom: 4px;
                                             "
+                                            data-i18n="s02.p3.title"
                                         >
                                             긴 개발 주기
                                         </div>
@@ -939,6 +960,7 @@
                                                 font-size: 0.78rem;
                                                 line-height: 1.6;
                                             "
+                                            data-i18n-html="s02.p3.body"
                                         >
                                             제어 로직 개발에
                                             <strong style="color: #fff"
@@ -956,10 +978,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 03 — TARGET MARKET
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Target Market">
+            <div class="slide" data-title="Target Market" data-title-key="s03.title">
                 <div class="si">
-                    <div class="sl">Target Market / 타겟 고객</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s03.label">Target Market / 타겟 고객</div>
+                    <h2 class="sh" data-i18n-html="s03.h2">
                         기성 벤더가 장악하지 않은<br /><span class="tgc"
                             >그린필드 3개 시장</span
                         >
@@ -990,6 +1012,7 @@
                                     margin-bottom: 8px;
                                     font-size: 0.9rem;
                                 "
+                                data-i18n="s03.m1.title"
                             >
                                 스마트팜 / 수직 농장
                             </div>
@@ -1000,6 +1023,7 @@
                                     line-height: 1.6;
                                     margin-bottom: 12px;
                                 "
+                                data-i18n="s03.m1.body"
                             >
                                 복잡한 센서-액추에이터 연동이 필요하지만 전담
                                 제어 엔지니어가 없는 운영자 시장.
@@ -1026,7 +1050,7 @@
                                         >13.8%</strong
                                     >
                                 </div>
-                                <div>• KC/CE 인증으로 충분</div>
+                                <div data-i18n="s03.m1.b3">• KC/CE 인증으로 충분</div>
                             </div>
                         </div>
                         <!-- IIoT -->
@@ -1047,6 +1071,7 @@
                                     margin-bottom: 8px;
                                     font-size: 0.9rem;
                                 "
+                                data-i18n="s03.m2.title"
                             >
                                 IIoT / 경량 산업 자동화
                             </div>
@@ -1057,6 +1082,7 @@
                                     line-height: 1.6;
                                     margin-bottom: 12px;
                                 "
+                                data-i18n="s03.m2.body"
                             >
                                 레거시 없이 처음부터 오픈 아키텍처를 구성하는
                                 그린필드. 스마트 빌딩·물류·환경 모니터링.
@@ -1071,7 +1097,7 @@
                                 "
                             >
                                 <div>
-                                    • 게이트웨이 시장
+                                    • <span data-i18n="s03.m2.b1">게이트웨이 시장</span>
                                     <strong style="color: #f8fafc"
                                         >$62.5B</strong
                                     >
@@ -1082,7 +1108,7 @@
                                         >11%+</strong
                                     >
                                 </div>
-                                <div>• Soft RT로 충분, 빠른 PoC</div>
+                                <div data-i18n="s03.m2.b3">• Soft RT로 충분, 빠른 PoC</div>
                             </div>
                         </div>
                         <!-- Robotics -->
@@ -1103,6 +1129,7 @@
                                     margin-bottom: 8px;
                                     font-size: 0.9rem;
                                 "
+                                data-i18n="s03.m3.title"
                             >
                                 로보틱스 / 설비 OEM
                             </div>
@@ -1113,6 +1140,7 @@
                                     line-height: 1.6;
                                     margin-bottom: 12px;
                                 "
+                                data-i18n="s03.m3.body"
                             >
                                 자체 제품에 제어 로직 탑재가 필요한 설비 제조사.
                                 AI가 요구사항을 즉시 모듈로 조립.
@@ -1130,21 +1158,21 @@
                                     • 협동 로봇 CAGR
                                     <strong style="color: #a78bfa">43%</strong>
                                 </div>
-                                <div>
+                                <div data-i18n-html="s03.m3.b2">
                                     • 개발 사이클 수주 →
                                     <strong style="color: #f8fafc">수일</strong>
                                 </div>
-                                <div>• AI 자동화에 가장 개방적</div>
+                                <div data-i18n="s03.m3.b3">• AI 자동화에 가장 개방적</div>
                             </div>
                         </div>
                     </div>
                     <div class="cy">
-                        <p style="font-size: 0.78rem; color: #cbd5e1">
+                        <p style="font-size: 0.78rem; color: #cbd5e1" data-i18n-html="s03.strategy">
                             <strong style="color: var(--cb)">전략:</strong>
                             신기술에 개방적 + 인증 부담 낮음 + 전환 레거시 없음.
                             석유화학·중공업 헤비 PLC 시장은 초기 타겟 제외.
                             그린필드 레퍼런스 축적 →
-                            <strong style="color: #fff">Land & Expand</strong>.
+                            <strong style="color: #fff">Land &amp; Expand</strong>.
                         </p>
                     </div>
                 </div>
@@ -1153,9 +1181,9 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 04 — SOLUTION
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Solution">
+            <div class="slide" data-title="Solution" data-title-key="s04.title">
                 <div class="si">
-                    <div class="sl">Solution / 솔루션</div>
+                    <div class="sl" data-i18n="s04.label">Solution / 솔루션</div>
                     <div
                         class="cy"
                         style="
@@ -1171,6 +1199,7 @@
                                 color: #fff;
                                 line-height: 1.6;
                             "
+                            data-i18n-html="s04.tagline"
                         >
                             <span style="color: var(--cb)"
                                 >AI에게 동작 로직을 말하면</span
@@ -1212,6 +1241,7 @@
                                     font-size: 0.76rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s04.plc.body"
                             >
                                 Rust 네이티브 소프트 RT 제어 루프.
                                 Infrastructure Framework 위에서 AI가 제어 모듈
@@ -1236,6 +1266,7 @@
                                     font-size: 0.76rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s04.hmi.body"
                             >
                                 axum 기반 실시간 웹 모니터링. Screen Editor로
                                 노코드 화면 구성. 에어갭 배포 지원.
@@ -1259,6 +1290,7 @@
                                     font-size: 0.76rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s04.ai.body"
                             >
                                 자연어 → Rust 제어 로직 자동 생성 → 컴파일
                                 하네스 → 디지털 트윈 검증.
@@ -1282,6 +1314,7 @@
                                     text-transform: uppercase;
                                     margin-bottom: 6px;
                                 "
+                                data-i18n-html="s04.modeA.label"
                             >
                                 모드 A — Rust Native / MQTT-first
                                 <span style="color: #475569">[기본값]</span>
@@ -1292,6 +1325,7 @@
                                     font-size: 0.75rem;
                                     line-height: 1.55;
                                 "
+                                data-i18n="s04.modeA.body"
                             >
                                 RevPi → rumqttc → MQTT Broker → Cloud/HMI.
                                 Python 레이어 제거 → 가장 슬림한 경로.
@@ -1306,6 +1340,7 @@
                                     text-transform: uppercase;
                                     margin-bottom: 6px;
                                 "
+                                data-i18n-html="s04.modeB.label"
                             >
                                 모드 B — Legacy Bridge
                                 <span style="color: #475569">[옵션]</span>
@@ -1316,6 +1351,7 @@
                                     font-size: 0.75rem;
                                     line-height: 1.55;
                                 "
+                                data-i18n="s04.modeB.body"
                             >
                                 Legacy PLC → axum Bridge → MQTT.
                                 Modbus·EtherCAT·OPC-UA 등 레거시 프로토콜
@@ -1324,7 +1360,7 @@
                         </div>
                     </div>
                     <div class="vi">
-                        <p style="font-size: 0.78rem; color: #cbd5e1">
+                        <p style="font-size: 0.78rem; color: #cbd5e1" data-i18n-html="s04.proven">
                             <strong style="color: var(--violet)"
                                 >이미 검증된 실적:</strong
                             >
@@ -1342,10 +1378,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 05 — ARCHITECTURE
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Architecture">
+            <div class="slide" data-title="Architecture" data-title-key="s05.title">
                 <div class="si">
-                    <div class="sl">Architecture / 기술 아키텍처</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s05.label">Architecture / 기술 아키텍처</div>
+                    <h2 class="sh" data-i18n-html="s05.h2">
                         경량 AI 기반
                         <span class="tgc">Rust 제어 엔지니어링 플랫폼</span>
                     </h2>
@@ -1380,6 +1416,7 @@
                                     font-size: 0.82rem;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s05.l1.title"
                             >
                                 재사용 제어 모듈
                             </div>
@@ -1409,7 +1446,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >SFC 시퀀스 엔진
+                                    ><span data-i18n="s05.l1.b1">SFC 시퀀스 엔진</span>
                                 </div>
                                 <div
                                     style="
@@ -1428,7 +1465,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >I/O 추상화 레이어
+                                    ><span data-i18n="s05.l1.b2">I/O 추상화 레이어</span>
                                 </div>
                                 <div
                                     style="
@@ -1447,7 +1484,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >알람 / 이벤트 관리
+                                    ><span data-i18n="s05.l1.b3">알람 / 이벤트 관리</span>
                                 </div>
                                 <div
                                     style="
@@ -1466,7 +1503,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >태그 기반 메모리
+                                    ><span data-i18n="s05.l1.b4">태그 기반 메모리</span>
                                 </div>
                                 <div
                                     style="
@@ -1485,7 +1522,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >센서·액추에이터 드라이버
+                                    ><span data-i18n="s05.l1.b5">센서·액추에이터 드라이버</span>
                                 </div>
                             </div>
                             <div
@@ -1495,6 +1532,7 @@
                                     color: rgba(245, 158, 11, 0.5);
                                     margin-top: 10px;
                                 "
+                                data-i18n="s05.l1.foot"
                             >
                                 LLM이 조립할 레고 블록
                             </div>
@@ -1522,6 +1560,7 @@
                                     font-size: 0.82rem;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s05.l2.title"
                             >
                                 제어 실행 엔진
                             </div>
@@ -1551,7 +1590,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >Rust async 제어 루프
+                                    ><span data-i18n="s05.l2.b1">Rust async 제어 루프</span>
                                 </div>
                                 <div
                                     style="
@@ -1608,7 +1647,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >Sim ↔ Real 투명 전환
+                                    ><span data-i18n="s05.l2.b2">Sim ↔ Real 투명 전환</span>
                                 </div>
                             </div>
                             <div
@@ -1618,6 +1657,7 @@
                                     color: rgba(6, 182, 212, 0.5);
                                     margin-top: 10px;
                                 "
+                                data-i18n="s05.l2.foot"
                             >
                                 GC-free 결정론적 실행
                             </div>
@@ -1645,6 +1685,7 @@
                                     font-size: 0.82rem;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s05.l3.title"
                             >
                                 Kanban Harness
                             </div>
@@ -1674,7 +1715,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >LLM → Rust 코드 생성
+                                    ><span data-i18n="s05.l3.b1">LLM → Rust 코드 생성</span>
                                 </div>
                                 <div
                                     style="
@@ -1693,7 +1734,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >Kanban 상태 머신
+                                    ><span data-i18n="s05.l3.b2">Kanban 상태 머신</span>
                                 </div>
                                 <div
                                     style="
@@ -1712,7 +1753,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >cargo build 자동 루프
+                                    ><span data-i18n="s05.l3.b3">cargo build 자동 루프</span>
                                 </div>
                                 <div
                                     style="
@@ -1731,7 +1772,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >Self-Healing 재시도
+                                    ><span data-i18n="s05.l3.b4">Self-Healing 재시도</span>
                                 </div>
                             </div>
                             <div
@@ -1741,6 +1782,7 @@
                                     color: rgba(139, 92, 246, 0.5);
                                     margin-top: 10px;
                                 "
+                                data-i18n="s05.l3.foot"
                             >
                                 LLM Vendor 독립 오케스트레이션
                             </div>
@@ -1765,6 +1807,7 @@
                                     font-size: 0.82rem;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s05.l4.title"
                             >
                                 Cloud Digital Twin
                             </div>
@@ -1794,7 +1837,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >BDD 기반 e2e 테스트
+                                    ><span data-i18n="s05.l4.b1">BDD 기반 e2e 테스트</span>
                                 </div>
                                 <div
                                     style="
@@ -1813,7 +1856,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >요구사항 → 시나리오 자동 도출
+                                    ><span data-i18n="s05.l4.b2">요구사항 → 시나리오 자동 도출</span>
                                 </div>
                                 <div
                                     style="
@@ -1832,7 +1875,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >가상 환경 Verification
+                                    ><span data-i18n="s05.l4.b3">가상 환경 Verification</span>
                                 </div>
                                 <div
                                     style="
@@ -1851,7 +1894,7 @@
                                             margin-top: 5px;
                                         "
                                     ></span
-                                    >Human Approval 게이트
+                                    ><span data-i18n="s05.l4.b4">Human Approval 게이트</span>
                                 </div>
                             </div>
                             <div
@@ -1861,6 +1904,7 @@
                                     color: rgba(16, 185, 129, 0.5);
                                     margin-top: 10px;
                                 "
+                                data-i18n="s05.l4.foot"
                             >
                                 배포 전 논리 검증 완료
                             </div>
@@ -1878,18 +1922,18 @@
                         "
                         class="fm"
                     >
-                        <span style="color: var(--amber)"
+                        <span style="color: var(--amber)" data-i18n="s05.flow1"
                             >Infrastructure 조립</span
                         ><span style="color: #334155">→</span>
-                        <span style="color: var(--violet)">AI 코드 생성</span
+                        <span style="color: var(--violet)" data-i18n="s05.flow2">AI 코드 생성</span
                         ><span style="color: #334155">→</span>
-                        <span style="color: var(--cyan)">Runtime 컴파일</span
+                        <span style="color: var(--cyan)" data-i18n="s05.flow3">Runtime 컴파일</span
                         ><span style="color: #334155">→</span>
                         <span style="color: var(--em)">BDD Verification</span
                         ><span style="color: #334155">→</span>
                         <span style="color: #fff">Human Approval</span
                         ><span style="color: #334155">→</span>
-                        <span style="color: #94a3b8">실 배포 🚀</span>
+                        <span style="color: #94a3b8" data-i18n="s05.flow5">실 배포 🚀</span>
                     </div>
                 </div>
             </div>
@@ -1897,7 +1941,7 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 06 — WORKFLOW
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Workflow">
+            <div class="slide" data-title="Workflow" data-title-key="s06.title">
                 <div class="si" style="padding: 0 36px">
                     <div
                         style="
@@ -1918,10 +1962,11 @@
                                 height: 100%;
                             "
                         >
-                            <div class="sl">AI Engineering Workflow</div>
+                            <div class="sl" data-i18n="s06.label">AI Engineering Workflow</div>
                             <h2
                                 class="sh"
                                 style="font-size: clamp(1.2rem, 2.2vw, 1.8rem)"
+                                data-i18n-html="s06.h2"
                             >
                                 LLM + Kanban Harness<br /><span class="tgc"
                                     >AI 엔지니어링 시스템</span
@@ -1934,6 +1979,7 @@
                                     line-height: 1.65;
                                     margin-bottom: 14px;
                                 "
+                                data-i18n-html="s06.body"
                             >
                                 Moru의 핵심 IP는 LLM 자체가 아닙니다.<br />LLM을
                                 Worker로, Kanban을 State Machine으로 분리한<br /><strong
@@ -1970,6 +2016,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step1"
                                     >
                                         <strong style="color: #fff"
                                             >자연어 요구사항</strong
@@ -1999,6 +2046,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step2"
                                     >
                                         <strong style="color: #fff"
                                             >설계서 작성</strong
@@ -2028,6 +2076,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step3"
                                     >
                                         <strong style="color: #fff"
                                             >Human Review &amp; Approval
@@ -2058,6 +2107,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step4"
                                     >
                                         <strong style="color: #fff"
                                             >Kanban Harness</strong
@@ -2087,6 +2137,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step5"
                                     >
                                         <strong style="color: #fff"
                                             >LLM Worker</strong
@@ -2117,6 +2168,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step6"
                                     >
                                         <strong style="color: #fff"
                                             >cargo build</strong
@@ -2146,6 +2198,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step7"
                                     >
                                         <strong style="color: #f87171"
                                             >Self-Healing Loop</strong
@@ -2175,6 +2228,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step8"
                                     >
                                         <strong style="color: #fff"
                                             >Cloud Digital Twin</strong
@@ -2204,6 +2258,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step9"
                                     >
                                         <strong style="color: #fff"
                                             >Human Approval ◇</strong
@@ -2233,6 +2288,7 @@
                                             font-size: 0.74rem;
                                             color: #94a3b8;
                                         "
+                                        data-i18n-html="s06.step10"
                                     >
                                         <strong style="color: #fff"
                                             >실 배포</strong
@@ -3300,10 +3356,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 07 — 5중 안전망
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="5중 안전망">
+            <div class="slide" data-title="5중 안전망" data-title-key="s07.title">
                 <div class="si">
-                    <div class="sl">Safety Net / 안전망</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s07.label">Safety Net / 안전망</div>
+                    <h2 class="sh" data-i18n-html="s07.h2">
                         AI 코드가 현장에서 안전한<br /><span class="tgc"
                             >5가지 구조적 근거</span
                         >
@@ -3349,6 +3405,7 @@
                                     font-size: 0.7rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s07.c1.body"
                             >
                                 LLM이 조립할 범위를 사전 검증된 모듈로 제한.
                                 환각이 나타날 공간 자체를 구조적으로 좁힘.
@@ -3378,6 +3435,7 @@
                                     font-size: 0.78rem;
                                     margin-bottom: 7px;
                                 "
+                                data-i18n-html="s07.c2.title"
                             >
                                 Rust 컴파일<br />하네스
                             </div>
@@ -3387,6 +3445,7 @@
                                     font-size: 0.7rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s07.c2.body"
                             >
                                 소유권·Borrow Checker·Lifetime으로 메모리
                                 누수·데이터 레이스·Null 역참조를 컴파일 타임에
@@ -3426,6 +3485,7 @@
                                     font-size: 0.7rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s07.c3.body"
                             >
                                 빌드/테스트 실패 시 TODO로 되돌아가는 자동
                                 재시도 루프. 루프 이탈 조건만 Human이 설정.
@@ -3464,6 +3524,7 @@
                                     font-size: 0.7rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s07.c4.body"
                             >
                                 요구사항에서 자동 도출한 시나리오로 Cloud
                                 Digital Twin에서 논리적 결함(Logic Error) 검증.
@@ -3502,6 +3563,7 @@
                                     font-size: 0.7rem;
                                     line-height: 1.6;
                                 "
+                                data-i18n="s07.c5.body"
                             >
                                 웹 HMI에서 엔지니어가 Verification 결과 확인 후
                                 승인해야만 실 하드웨어 배포 가능. 우회 불가.
@@ -3509,7 +3571,7 @@
                         </div>
                     </div>
                     <div class="em">
-                        <p style="font-size: 0.8rem; color: #cbd5e1">
+                        <p style="font-size: 0.8rem; color: #cbd5e1" data-i18n-html="s07.summary">
                             <strong style="color: var(--em)">요약:</strong>
                             Rust가 메모리 에러를 잡아도 "닫아야 할 밸브를 열라고
                             지시"하는 논리적 결함은 잡지 못합니다.
@@ -3526,10 +3588,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 08 — MARKET SIZE
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Market Size">
+            <div class="slide" data-title="Market Size" data-title-key="s08.title">
                 <div class="si">
-                    <div class="sl">Market Size / 시장 규모</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s08.label">Market Size / 시장 규모</div>
+                    <h2 class="sh" data-i18n-html="s08.h2">
                         폭발적 교집합 시장<br /><span class="tgc"
                             >스마트팜·IIoT·로보틱스 진입 시장</span
                         >
@@ -3608,7 +3670,7 @@
                                     margin-top: 8px;
                                 "
                             >
-                                스마트 빌딩·물류·환경·수처리
+                                <span data-i18n="s08.m2.sub">스마트 빌딩·물류·환경·수처리</span>
                             </div>
                             <div style="margin-top: 10px">
                                 <span class="bdg bcy">CAGR 11%+</span>
@@ -3644,10 +3706,10 @@
                                     margin-top: 8px;
                                 "
                             >
-                                협동 로봇 CAGR (2030년까지)
+                                <span data-i18n="s08.m3.sub">협동 로봇 CAGR (2030년까지)</span>
                             </div>
                             <div style="margin-top: 10px">
-                                <span class="bdg bvi">고속 성장 중</span>
+                                <span class="bdg bvi" data-i18n="s08.m3.badge">고속 성장 중</span>
                             </div>
                         </div>
                     </div>
@@ -3659,7 +3721,7 @@
                         "
                     >
                         <div class="cy">
-                            <p style="font-size: 0.78rem; color: #cbd5e1">
+                            <p style="font-size: 0.78rem; color: #cbd5e1" data-i18n-html="s08.strategy">
                                 <strong style="color: var(--cb)"
                                     >초기 타겟 전략:</strong
                                 >
@@ -3672,7 +3734,7 @@
                             </p>
                         </div>
                         <div class="am">
-                            <p style="font-size: 0.78rem; color: #cbd5e1">
+                            <p style="font-size: 0.78rem; color: #cbd5e1" data-i18n-html="s08.expand">
                                 <strong style="color: var(--amber)"
                                     >Land &amp; Expand:</strong
                                 >
@@ -3690,10 +3752,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 09 — COMPETITION
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Competitive Moats">
+            <div class="slide" data-title="Competitive Moats" data-title-key="s09.title">
                 <div class="si">
-                    <div class="sl">Competitive Moats / 경쟁 우위</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s09.label">Competitive Moats / 경쟁 우위</div>
+                    <h2 class="sh" data-i18n-html="s09.h2">
                         3대 기술 해자,<br /><span class="tg"
                             >이미 준비된 파훼법</span
                         >
@@ -3711,7 +3773,7 @@
                             <table class="dt">
                                 <thead>
                                     <tr>
-                                        <th>비교 항목</th>
+                                        <th data-i18n="s09.th1">비교 항목</th>
                                         <th>Node-RED</th>
                                         <th>OpenPLC</th>
                                         <th>LLM 직접</th>
@@ -3725,13 +3787,14 @@
                                                 color: #f8fafc;
                                                 font-weight: 600;
                                             "
+                                            data-i18n="s09.row1.label"
                                         >
                                             AI 제어 로직 생성
                                         </td>
                                         <td>❌</td>
                                         <td>❌</td>
-                                        <td>✅ 검증無</td>
-                                        <td style="color: var(--cb)">
+                                        <td data-i18n="s09.row1.c3">✅ 검증無</td>
+                                        <td style="color: var(--cb)" data-i18n="s09.row1.moru">
                                             ✅ 5중 안전망
                                         </td>
                                     </tr>
@@ -3741,13 +3804,14 @@
                                                 color: #f8fafc;
                                                 font-weight: 600;
                                             "
+                                            data-i18n="s09.row2.label"
                                         >
                                             Infrastructure FW
                                         </td>
                                         <td>❌</td>
                                         <td>❌</td>
                                         <td>❌</td>
-                                        <td style="color: var(--cb)">
+                                        <td style="color: var(--cb)" data-i18n="s09.row2.moru">
                                             ✅ 검증 모듈
                                         </td>
                                     </tr>
@@ -3757,13 +3821,14 @@
                                                 color: #f8fafc;
                                                 font-weight: 600;
                                             "
+                                            data-i18n="s09.row3.label"
                                         >
                                             디지털 트윈 검증
                                         </td>
                                         <td>❌</td>
                                         <td>❌</td>
                                         <td>❌</td>
-                                        <td style="color: var(--cb)">
+                                        <td style="color: var(--cb)" data-i18n="s09.row3.moru">
                                             ✅ 내장
                                         </td>
                                     </tr>
@@ -3789,13 +3854,14 @@
                                                 color: #f8fafc;
                                                 font-weight: 600;
                                             "
+                                            data-i18n="s09.row5.label"
                                         >
                                             Rust 메모리 안전
                                         </td>
                                         <td>❌ JS</td>
                                         <td>❌ C</td>
-                                        <td>가변</td>
-                                        <td style="color: var(--cb)">
+                                        <td data-i18n="s09.row5.c3">가변</td>
+                                        <td style="color: var(--cb)" data-i18n="s09.row5.moru">
                                             ✅ 컴파일 타임
                                         </td>
                                     </tr>
@@ -3805,11 +3871,12 @@
                                                 color: #f8fafc;
                                                 font-weight: 600;
                                             "
+                                            data-i18n="s09.row6.label"
                                         >
                                             산업용 HW 인증
                                         </td>
-                                        <td>소비자급</td>
-                                        <td>가변</td>
+                                        <td data-i18n="s09.row6.c1">소비자급</td>
+                                        <td data-i18n="s09.row6.c2">가변</td>
                                         <td>N/A</td>
                                         <td style="color: var(--cb)">
                                             RevPi KC/CE
@@ -3834,6 +3901,7 @@
                                         font-size: 0.78rem;
                                         margin-bottom: 4px;
                                     "
+                                    data-i18n="s09.moat1.title"
                                 >
                                     해자 ① — 결정론적 스택
                                 </div>
@@ -3843,6 +3911,7 @@
                                         color: #94a3b8;
                                         line-height: 1.55;
                                     "
+                                    data-i18n="s09.moat1.body"
                                 >
                                     CM5 + 메인라인 PREEMPT_RT + Rust(GC-free) =
                                     3층 결정론적 스택. 하드웨어·OS·언어 모두
@@ -3857,6 +3926,7 @@
                                         font-size: 0.78rem;
                                         margin-bottom: 4px;
                                     "
+                                    data-i18n="s09.moat2.title"
                                 >
                                     해자 ② — 5중 안전망
                                 </div>
@@ -3866,6 +3936,7 @@
                                         color: #94a3b8;
                                         line-height: 1.55;
                                     "
+                                    data-i18n="s09.moat2.body"
                                 >
                                     Infrastructure 범위 제한 + Rust 컴파일 +
                                     Kanban Self-Healing + BDD e2e +
@@ -3880,6 +3951,7 @@
                                         font-size: 0.78rem;
                                         margin-bottom: 4px;
                                     "
+                                    data-i18n="s09.moat3.title"
                                 >
                                     해자 ③ — 트로이 목마 GTM
                                 </div>
@@ -3889,6 +3961,7 @@
                                         color: #94a3b8;
                                         line-height: 1.55;
                                     "
+                                    data-i18n-html="s09.moat3.body"
                                 >
                                     기존 PLC는 그대로 두고
                                     <strong style="color: #fff"
@@ -3904,10 +3977,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 10 — ROADMAP
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Roadmap">
+            <div class="slide" data-title="Roadmap" data-title-key="s10.title">
                 <div class="si">
-                    <div class="sl">Roadmap / 개발 로드맵</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s10.label">Roadmap / 개발 로드맵</div>
+                    <h2 class="sh" data-i18n-html="s10.h2">
                         MVP1 완료에서 시작하는<br /><span class="tgc"
                             >실행 로드맵</span
                         >
@@ -3915,9 +3988,9 @@
                     <table class="dt" style="margin-bottom: 14px">
                         <thead>
                             <tr>
-                                <th>마일스톤</th>
-                                <th>내용</th>
-                                <th>상태</th>
+                                <th data-i18n="s10.th1">마일스톤</th>
+                                <th data-i18n="s10.th2">내용</th>
+                                <th data-i18n="s10.th3">상태</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -3952,8 +4025,8 @@
                                     MVP2
                                 </td>
                                 <td>
-                                    Modbus TCP 실 연결 → 메타데이터 기반 266
-                                    엔티티 → 34개 모듈 포팅 → RPi 배포
+                                    <span data-i18n="s10.mvp2.content">Modbus TCP 실 연결 → 메타데이터 기반 266
+                                    엔티티 → 34개 모듈 포팅 → RPi 배포</span>
                                 </td>
                                 <td>
                                     <span class="bdg bam"
@@ -3973,8 +4046,8 @@
                                     MVP3
                                 </td>
                                 <td>
-                                    AI Agent 모듈 + 자연어 → Rust 코드 생성
-                                    파이프라인 + 디지털 트윈 자동 시운전
+                                    <span data-i18n="s10.mvp3.content">AI Agent 모듈 + 자연어 → Rust 코드 생성
+                                    파이프라인 + 디지털 트윈 자동 시운전</span>
                                 </td>
                                 <td>
                                     <span class="bdg bcy"
@@ -3993,8 +4066,8 @@
                                     MVP4
                                 </td>
                                 <td>
-                                    northstar.ui 직접 바인딩 + HIL 데모 키트 +
-                                    독립 클라우드 디지털 트윈 인프라
+                                    <span data-i18n="s10.mvp4.content">northstar.ui 직접 바인딩 + HIL 데모 키트 +
+                                    독립 클라우드 디지털 트윈 인프라</span>
                                 </td>
                                 <td>
                                     <span class="bdg bcy"
@@ -4013,7 +4086,7 @@
                             margin-bottom: 10px;
                         "
                     >
-                        심사·IR 라이브 시연 흐름 — 10분 안에 끝나는 4단계
+                        <span data-i18n="s10.demo.title">심사·IR 라이브 시연 흐름 — 10분 안에 끝나는 4단계</span>
                     </div>
                     <div
                         style="
@@ -4043,10 +4116,11 @@
                                     font-size: 0.78rem;
                                     margin-bottom: 4px;
                                 "
+                                data-i18n="s10.d1.title"
                             >
                                 디지털 트윈 접속
                             </div>
-                            <p style="color: #64748b; font-size: 0.7rem">
+                            <p style="color: #64748b; font-size: 0.7rem" data-i18n="s10.d1.body">
                                 독립 클라우드 URL → HMI 실시간 조작
                             </p>
                         </div>
@@ -4071,10 +4145,11 @@
                                     font-size: 0.78rem;
                                     margin-bottom: 4px;
                                 "
+                                data-i18n="s10.d2.title"
                             >
                                 AI 코드 생성
                             </div>
-                            <p style="color: #64748b; font-size: 0.7rem">
+                            <p style="color: #64748b; font-size: 0.7rem" data-i18n="s10.d2.body">
                                 자연어로 제어 로직 요청 → cargo build 통과
                             </p>
                         </div>
@@ -4102,7 +4177,7 @@
                             >
                                 BDD Verification
                             </div>
-                            <p style="color: #64748b; font-size: 0.7rem">
+                            <p style="color: #64748b; font-size: 0.7rem" data-i18n="s10.d3.body">
                                 시나리오 자동 실행 → e2e 검증 결과 확인
                             </p>
                         </div>
@@ -4127,10 +4202,11 @@
                                     font-size: 0.78rem;
                                     margin-bottom: 4px;
                                 "
+                                data-i18n="s10.d4.title"
                             >
                                 HIL 배포
                             </div>
-                            <p style="color: #64748b; font-size: 0.7rem">
+                            <p style="color: #64748b; font-size: 0.7rem" data-i18n="s10.d4.body">
                                 Human Approval → 실 하드웨어(HIL 키트) 배포
                             </p>
                         </div>
@@ -4141,10 +4217,10 @@
             <!-- ══════════════════════════════════════════════
      SLIDE 11 — TEAM
 ══════════════════════════════════════════════ -->
-            <div class="slide" data-title="Team">
+            <div class="slide" data-title="Team" data-title-key="s11.title">
                 <div class="si">
-                    <div class="sl">Founder / 창업자</div>
-                    <h2 class="sh">
+                    <div class="sl" data-i18n="s11.label">Founder / 창업자</div>
+                    <h2 class="sh" data-i18n-html="s11.h2">
                         실적이 곧<br /><span class="tgc">신뢰의 증거</span>
                     </h2>
                     <div
@@ -4167,6 +4243,7 @@
                                     font-size: 0.88rem;
                                     margin-bottom: 8px;
                                 "
+                                data-i18n="s11.profile.title"
                             >
                                 제안자 역량 프로파일
                             </div>
@@ -4176,6 +4253,7 @@
                                     font-size: 0.75rem;
                                     line-height: 1.65;
                                 "
+                                data-i18n-html="s11.profile.body"
                             >
                                 반도체/산업 설비 자동화 현장에서
                                 <strong style="color: #fff"
@@ -4203,6 +4281,7 @@
                                     text-transform: uppercase;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s11.track.label"
                             >
                                 구축 실적 (1회차)
                             </div>
@@ -4215,22 +4294,22 @@
                                     color: #94a3b8;
                                 "
                             >
-                                <div>
+                                <div data-i18n="s11.track.b1">
                                     • 클라우드 디지털 트윈 8개 컨테이너
                                     구축·운영
                                 </div>
-                                <div>
+                                <div data-i18n="s11.track.b2">
                                     • CODESYS 소프트웨어 PLC + Mock Modbus
                                     시뮬레이터
                                 </div>
-                                <div>
+                                <div data-i18n="s11.track.b3">
                                     • React HMI + Screen Editor + InfluxDB
                                     시계열
                                 </div>
-                                <div>
+                                <div data-i18n="s11.track.b4">
                                     • Nginx 리버스 프록시 + 에어갭 배포 자동화
                                 </div>
-                                <div>• Sim ↔ Prod 환경 전환 아키텍처</div>
+                                <div data-i18n="s11.track.b5">• Sim ↔ Prod 환경 전환 아키텍처</div>
                             </div>
                         </div>
                         <!-- 스타트업 역량 -->
@@ -4249,6 +4328,7 @@
                                     text-transform: uppercase;
                                     margin-bottom: 10px;
                                 "
+                                data-i18n="s11.startup.label"
                             >
                                 스타트업 추가 역량
                             </div>
@@ -4261,16 +4341,16 @@
                                     color: #94a3b8;
                                 "
                             >
-                                <div>
+                                <div data-i18n="s11.startup.b1">
                                     • Rust 2021 네이티브 제어 런타임 (103
                                     테스트)
                                 </div>
-                                <div>
+                                <div data-i18n="s11.startup.b2">
                                     • Cargo Workspace 아키텍처 (infra/app 분리)
                                 </div>
-                                <div>• tokio 비동기 + axum Web HMI</div>
-                                <div>• Modbus TCP / MQTT / SFC 엔진 구현</div>
-                                <div>• SimulatedConnector 하드웨어 추상화</div>
+                                <div data-i18n="s11.startup.b3">• tokio 비동기 + axum Web HMI</div>
+                                <div data-i18n="s11.startup.b4">• Modbus TCP / MQTT / SFC 엔진 구현</div>
+                                <div data-i18n="s11.startup.b5">• SimulatedConnector 하드웨어 추상화</div>
                             </div>
                         </div>
                     </div>
@@ -4281,6 +4361,7 @@
                                 color: #cbd5e1;
                                 line-height: 1.6;
                             "
+                            data-i18n-html="s11.why"
                         >
                             <strong style="color: var(--violet)"
                                 >왜 이 사람인가:</strong
@@ -4309,9 +4390,392 @@
         <div id="dots"></div>
 
         <!-- Keyboard hint -->
-        <div id="kh">← → 또는 Space</div>
+        <div id="kh" data-i18n="kh">← → 또는 Space</div>
 
         <script>
+            // ── i18n ──────────────────────────────────────────────
+            let lang = localStorage.getItem('moru-lang') || (navigator.language.startsWith('ko') ? 'ko' : 'en');
+
+            const T = {
+                ko: {
+                    // Slide titles (used by updateHeaderTitle)
+                    's01.title': 'Cover',
+                    's02.title': '문제',
+                    's03.title': '타겟 시장',
+                    's04.title': '솔루션',
+                    's05.title': '아키텍처',
+                    's06.title': 'AI 워크플로우',
+                    's07.title': '5중 안전망',
+                    's08.title': '시장 규모',
+                    's09.title': '경쟁 우위',
+                    's10.title': '로드맵',
+                    's11.title': '팀',
+                    // Slide 01
+                    's01.label': 'PROPOSAL / 2026.04 / 모두의 창업 — 딥테크 트랙',
+                    's01.h1': 'AI에게 말하면<br /><span class="tg">제어기가 완성된다</span>',
+                    's01.body': '고가 전용 PLC 없이 범용 RasberryPi) 한 대로 제어기·Web HMI·게이트웨이를 <strong style="color:#fff">Rust 네이티브 런타임</strong>에 통합하고, <strong style="color:#22d3ee">검증된 Infrastructure Framework 위에서 AI가 제어 로직을 조립</strong>하여 클라우드 디지털 트윈에서 가상 시운전까지.',
+                    's01.status': 'DIGITAL TWIN PROVEN — MVP1 COMPLETE — 103 TESTS PASSING',
+                    // Slide 02
+                    's02.label': 'Problem / 문제',
+                    's02.h2': '제어기 하나 만드는 데<br /><span class="tga">수 주가 걸린다</span>',
+                    's02.body': '스마트팩토리 도입의 가장 큰 장벽은<br /> <strong style="color:#fff">최하단 장비(L0) 영역의 폐쇄성</strong>입니다.<br /> 현장 엔지니어들은 특정 벤더의 고가 전용 하드웨어와<br /> 무거운 레거시 소프트웨어에 종속되어,<br /> 새 장비마다 <strong style="color:#f87171">수천 개의 메모리 주소를<br />엑셀로 일일이 매핑</strong>하는 작업을 반복합니다.',
+                    's02.insight': '<strong style="color:var(--amber)">핵심 인사이트:</strong> 오픈 아키텍처 위에서 AI가 제어 로직을 조립하면 DX 진입 장벽을 완전히 허물 수 있다.',
+                    's02.p1.title': '벤더 종속',
+                    's02.p1.body': '고가 전용 PLC + 무거운 레거시 SW. 특정 벤더 없이는 유지보수조차 불가능한 구조.',
+                    's02.p2.title': '수동 매핑 지옥',
+                    's02.p2.body': '수천 개의 메모리 주소를 엑셀로 일일이 매핑. 새 장비마다 소모적인 반복 작업 반복.',
+                    's02.p3.title': '긴 개발 주기',
+                    's02.p3.body': '제어 로직 개발에 <strong style="color:#fff">수주~수개월</strong>. 수주 기회를 잃는 엔지니어링 병목.',
+                    // Slide 03
+                    's03.label': 'Target Market / 타겟 고객',
+                    's03.h2': '기성 벤더가 장악하지 않은<br /><span class="tgc">그린필드 3개 시장</span>',
+                    's03.m1.title': '스마트팜 / 수직 농장',
+                    's03.m1.body': '복잡한 센서-액추에이터 연동이 필요하지만 전담 제어 엔지니어가 없는 운영자 시장.',
+                    's03.m1.b3': '• KC/CE 인증으로 충분',
+                    's03.m2.title': 'IIoT / 경량 산업 자동화',
+                    's03.m2.body': '레거시 없이 처음부터 오픈 아키텍처를 구성하는 그린필드. 스마트 빌딩·물류·환경 모니터링.',
+                    's03.m2.b1': '게이트웨이 시장',
+                    's03.m2.b3': '• Soft RT로 충분, 빠른 PoC',
+                    's03.m3.title': '로보틱스 / 설비 OEM',
+                    's03.m3.body': '자체 제품에 제어 로직 탑재가 필요한 설비 제조사. AI가 요구사항을 즉시 모듈로 조립.',
+                    's03.m3.b2': '• 개발 사이클 수주 → <strong style="color:#f8fafc">수일</strong>',
+                    's03.m3.b3': '• AI 자동화에 가장 개방적',
+                    's03.strategy': '<strong style="color:var(--cb)">전략:</strong> 신기술에 개방적 + 인증 부담 낮음 + 전환 레거시 없음. 석유화학·중공업 헤비 PLC 시장은 초기 타겟 제외. 그린필드 레퍼런스 축적 → <strong style="color:#fff">Land &amp; Expand</strong>.',
+                    // Slide 04
+                    's04.label': 'Solution / 솔루션',
+                    's04.tagline': '<span style="color:var(--cb)">AI에게 동작 로직을 말하면</span> <span style="color:#64748b"> → </span> <span style="color:#93c5fd">시퀀스 동작을 구현하고</span> <span style="color:#64748b"> → </span> <span style="color:#34d399">동작의 테스트까지 보장하는</span> <span> AI Driven 제어기.</span>',
+                    's04.plc.body': 'Rust 네이티브 소프트 RT 제어 루프. Infrastructure Framework 위에서 AI가 제어 모듈 조립.',
+                    's04.hmi.body': 'axum 기반 실시간 웹 모니터링. Screen Editor로 노코드 화면 구성. 에어갭 배포 지원.',
+                    's04.ai.body': '자연어 → Rust 제어 로직 자동 생성 → 컴파일 하네스 → 디지털 트윈 검증.',
+                    's04.modeA.label': '모드 A — Rust Native / MQTT-first <span style="color:#475569">[기본값]</span>',
+                    's04.modeA.body': 'RevPi → rumqttc → MQTT Broker → Cloud/HMI. Python 레이어 제거 → 가장 슬림한 경로.',
+                    's04.modeB.label': '모드 B — Legacy Bridge <span style="color:#475569">[옵션]</span>',
+                    's04.modeB.body': 'Legacy PLC → axum Bridge → MQTT. Modbus·EtherCAT·OPC-UA 등 레거시 프로토콜 정규화.',
+                    's04.proven': '<strong style="color:var(--violet)">이미 검증된 실적:</strong> 클라우드 기반 풀스택 디지털 트윈(8개 컨테이너)을 <strong style="color:#fff">1회 완성·운영</strong>. "만들 수 있을지"가 아닌 <strong style="color:#fff">"이미 만들어 본 것"</strong>에서 출발.',
+                    // Slide 05
+                    's05.label': 'Architecture / 기술 아키텍처',
+                    's05.h2': '경량 AI 기반 <span class="tgc">Rust 제어 엔지니어링 플랫폼</span>',
+                    's05.l1.title': '재사용 제어 모듈',
+                    's05.l1.b1': 'SFC 시퀀스 엔진',
+                    's05.l1.b2': 'I/O 추상화 레이어',
+                    's05.l1.b3': '알람 / 이벤트 관리',
+                    's05.l1.b4': '태그 기반 메모리',
+                    's05.l1.b5': '센서·액추에이터 드라이버',
+                    's05.l1.foot': 'LLM이 조립할 레고 블록',
+                    's05.l2.title': '제어 실행 엔진',
+                    's05.l2.b1': 'Rust async 제어 루프',
+                    's05.l2.b2': 'Sim ↔ Real 투명 전환',
+                    's05.l2.foot': 'GC-free 결정론적 실행',
+                    's05.l3.title': 'Kanban Harness',
+                    's05.l3.b1': 'LLM → Rust 코드 생성',
+                    's05.l3.b2': 'Kanban 상태 머신',
+                    's05.l3.b3': 'cargo build 자동 루프',
+                    's05.l3.b4': 'Self-Healing 재시도',
+                    's05.l3.foot': 'LLM Vendor 독립 오케스트레이션',
+                    's05.l4.title': 'Cloud Digital Twin',
+                    's05.l4.b1': 'BDD 기반 e2e 테스트',
+                    's05.l4.b2': '요구사항 → 시나리오 자동 도출',
+                    's05.l4.b3': '가상 환경 Verification',
+                    's05.l4.b4': 'Human Approval 게이트',
+                    's05.l4.foot': '배포 전 논리 검증 완료',
+                    's05.flow1': 'Infrastructure 조립',
+                    's05.flow2': 'AI 코드 생성',
+                    's05.flow3': 'Runtime 컴파일',
+                    's05.flow5': '실 배포 🚀',
+                    // Slide 06
+                    's06.label': 'AI Engineering Workflow',
+                    's06.h2': 'LLM + Kanban Harness<br /><span class="tgc">AI 엔지니어링 시스템</span>',
+                    's06.body': 'Moru의 핵심 IP는 LLM 자체가 아닙니다.<br />LLM을 Worker로, Kanban을 State Machine으로 분리한<br /><strong style="color:#fff">오케스트레이션 레이어</strong>가 진짜 차별점입니다.',
+                    's06.step1': '<strong style="color:#fff">자연어 요구사항</strong> — 설계서 초안 자동 생성',
+                    's06.step2': '<strong style="color:#fff">설계서 작성</strong> — AI 기반 요구사항 분석·문서화',
+                    's06.step3': '<strong style="color:#fff">Human Review &amp; Approval ◇</strong> — 수정 요청 루프',
+                    's06.step4': '<strong style="color:#fff">Kanban Harness</strong> — TODO→DOING→VERIFY→DONE/FAIL',
+                    's06.step5': '<strong style="color:#fff">LLM Worker</strong> — Infrastructure 모듈 조립·Rust 코드 생성',
+                    's06.step6': '<strong style="color:#fff">cargo build</strong> — 컴파일 타임 메모리·타입 안전성 강제',
+                    's06.step7': '<strong style="color:#f87171">Self-Healing Loop</strong> — FAIL 시 자동 오류 분석·재시도',
+                    's06.step8': '<strong style="color:#fff">Cloud Digital Twin</strong> — BDD e2e Verification 자동화',
+                    's06.step9': '<strong style="color:#fff">Human Approval ◇</strong> — 최종 게이트키퍼',
+                    's06.step10': '<strong style="color:#fff">실 배포</strong> — RevPi Edge · MQTT · Web HMI',
+                    // Slide 07
+                    's07.label': 'Safety Net / 안전망',
+                    's07.h2': 'AI 코드가 현장에서 안전한<br /><span class="tgc">5가지 구조적 근거</span>',
+                    's07.c1.body': 'LLM이 조립할 범위를 사전 검증된 모듈로 제한. 환각이 나타날 공간 자체를 구조적으로 좁힘.',
+                    's07.c2.title': 'Rust 컴파일<br />하네스',
+                    's07.c2.body': '소유권·Borrow Checker·Lifetime으로 메모리 누수·데이터 레이스·Null 역참조를 컴파일 타임에 원천 차단.',
+                    's07.c3.body': '빌드/테스트 실패 시 TODO로 되돌아가는 자동 재시도 루프. 루프 이탈 조건만 Human이 설정.',
+                    's07.c4.body': '요구사항에서 자동 도출한 시나리오로 Cloud Digital Twin에서 논리적 결함(Logic Error) 검증.',
+                    's07.c5.body': '웹 HMI에서 엔지니어가 Verification 결과 확인 후 승인해야만 실 하드웨어 배포 가능. 우회 불가.',
+                    's07.summary': '<strong style="color:var(--em)">요약:</strong> Rust가 메모리 에러를 잡아도 "닫아야 할 밸브를 열라고 지시"하는 논리적 결함은 잡지 못합니다. <strong style="color:#fff">BDD e2e + Human Approval이 이 나머지를 커버</strong> — 5중 안전망이 LLM 환각까지 구조적으로 차단합니다.',
+                    // Slide 08
+                    's08.label': 'Market Size / 시장 규모',
+                    's08.h2': '폭발적 교집합 시장<br /><span class="tgc">스마트팜·IIoT·로보틱스 진입 시장</span>',
+                    's08.m2.sub': '스마트 빌딩·물류·환경·수처리',
+                    's08.m3.sub': '협동 로봇 CAGR (2030년까지)',
+                    's08.m3.badge': '고속 성장 중',
+                    's08.strategy': '<strong style="color:var(--cb)">초기 타겟 전략:</strong> 기성 벤더(Siemens/Rockwell)가 장악한 석유화학·중공업은 초기 타겟 제외. 인증 부담 없이 빠르게 PoC를 실증할 수 있는 <strong style="color:#fff">그린필드 고객 먼저 공략.</strong>',
+                    's08.expand': '<strong style="color:var(--amber)">Land &amp; Expand:</strong> 초기 인증 요건 KC/CE/FCC — RevPi가 이미 충족. IEC 61508 SIL 기능안전 인증은 <strong style="color:#fff">M18+ 상위 시장 확장 카드</strong>로 보유.',
+                    // Slide 09
+                    's09.label': 'Competitive Moats / 경쟁 우위',
+                    's09.h2': '3대 기술 해자,<br /><span class="tg">이미 준비된 파훼법</span>',
+                    's09.th1': '비교 항목',
+                    's09.row1.label': 'AI 제어 로직 생성',
+                    's09.row1.c3': '✅ 검증無',
+                    's09.row1.moru': '✅ 5중 안전망',
+                    's09.row2.label': 'Infrastructure FW',
+                    's09.row2.moru': '✅ 검증 모듈',
+                    's09.row3.label': '디지털 트윈 검증',
+                    's09.row3.moru': '✅ 내장',
+                    's09.row5.label': 'Rust 메모리 안전',
+                    's09.row5.c3': '가변',
+                    's09.row5.moru': '✅ 컴파일 타임',
+                    's09.row6.label': '산업용 HW 인증',
+                    's09.row6.c1': '소비자급',
+                    's09.row6.c2': '가변',
+                    's09.moat1.title': '해자 ① — 결정론적 스택',
+                    's09.moat1.body': 'CM5 + 메인라인 PREEMPT_RT + Rust(GC-free) = 3층 결정론적 스택. 하드웨어·OS·언어 모두 결정론적 타이밍 보장.',
+                    's09.moat2.title': '해자 ② — 5중 안전망',
+                    's09.moat2.body': 'Infrastructure 범위 제한 + Rust 컴파일 + Kanban Self-Healing + BDD e2e + Human-in-the-Loop. 구조적 차단.',
+                    's09.moat3.title': '해자 ③ — 트로이 목마 GTM',
+                    's09.moat3.body': '기존 PLC는 그대로 두고 <strong style="color:#fff">"데이터부터 뽑아드리겠습니다"</strong>로 진입. Phase 1→2→3 점진적 신뢰 축적.',
+                    // Slide 10
+                    's10.label': 'Roadmap / 개발 로드맵',
+                    's10.h2': 'MVP1 완료에서 시작하는<br /><span class="tgc">실행 로드맵</span>',
+                    's10.th1': '마일스톤',
+                    's10.th2': '내용',
+                    's10.th3': '상태',
+                    's10.mvp2.content': 'Modbus TCP 실 연결 → 메타데이터 기반 266 엔티티 → 34개 모듈 포팅 → RPi 배포',
+                    's10.mvp3.content': 'AI Agent 모듈 + 자연어 → Rust 코드 생성 파이프라인 + 디지털 트윈 자동 시운전',
+                    's10.mvp4.content': 'northstar.ui 직접 바인딩 + HIL 데모 키트 + 독립 클라우드 디지털 트윈 인프라',
+                    's10.demo.title': '심사·IR 라이브 시연 흐름 — 10분 안에 끝나는 4단계',
+                    's10.d1.title': '디지털 트윈 접속',
+                    's10.d1.body': '독립 클라우드 URL → HMI 실시간 조작',
+                    's10.d2.title': 'AI 코드 생성',
+                    's10.d2.body': '자연어로 제어 로직 요청 → cargo build 통과',
+                    's10.d3.body': '시나리오 자동 실행 → e2e 검증 결과 확인',
+                    's10.d4.title': 'HIL 배포',
+                    's10.d4.body': 'Human Approval → 실 하드웨어(HIL 키트) 배포',
+                    // Slide 11
+                    's11.label': 'Founder / 창업자',
+                    's11.h2': '실적이 곧<br /><span class="tgc">신뢰의 증거</span>',
+                    's11.profile.title': '제안자 역량 프로파일',
+                    's11.profile.body': '반도체/산업 설비 자동화 현장에서 <strong style="color:#fff">디지털 트윈 풀스택 아키텍처를 실제로 설계·구축·운영</strong>해 본 엔지니어. 아래 역량은 모두 <strong style="color:var(--cb)">실물 인프라에서 검증된 실적</strong>.',
+                    's11.track.label': '구축 실적 (1회차)',
+                    's11.track.b1': '• 클라우드 디지털 트윈 8개 컨테이너 구축·운영',
+                    's11.track.b2': '• CODESYS 소프트웨어 PLC + Mock Modbus 시뮬레이터',
+                    's11.track.b3': '• React HMI + Screen Editor + InfluxDB 시계열',
+                    's11.track.b4': '• Nginx 리버스 프록시 + 에어갭 배포 자동화',
+                    's11.track.b5': '• Sim ↔ Prod 환경 전환 아키텍처',
+                    's11.startup.label': '스타트업 추가 역량',
+                    's11.startup.b1': '• Rust 2021 네이티브 제어 런타임 (103 테스트)',
+                    's11.startup.b2': '• Cargo Workspace 아키텍처 (infra/app 분리)',
+                    's11.startup.b3': '• tokio 비동기 + axum Web HMI',
+                    's11.startup.b4': '• Modbus TCP / MQTT / SFC 엔진 구현',
+                    's11.startup.b5': '• SimulatedConnector 하드웨어 추상화',
+                    's11.why': '<strong style="color:var(--violet)">왜 이 사람인가:</strong> "한 번도 만들어보지 않은 사람"과 "이미 1회 완성·운영하고, 거기서 배운 교훈으로 더 슬림하게 재구축하는 사람"의 차이는 <strong style="color:#fff">실패 경로에 대한 사전 지식</strong>입니다. 컨테이너 간 DNS 해석, 에어갭 이미지 로드, sim/prod 전환 검증 — 이 모든 엣지 케이스를 이미 디버깅해 본 경험이 2회차 구축의 리스크를 구조적으로 낮춥니다.',
+                    // UI
+                    'kh': '← → 또는 Space',
+                },
+                en: {
+                    // Slide titles
+                    's01.title': 'Cover',
+                    's02.title': 'Problem',
+                    's03.title': 'Target Market',
+                    's04.title': 'Solution',
+                    's05.title': 'Architecture',
+                    's06.title': 'AI Workflow',
+                    's07.title': 'Safety Net',
+                    's08.title': 'Market Size',
+                    's09.title': 'Competitive Moats',
+                    's10.title': 'Roadmap',
+                    's11.title': 'Team',
+                    // Slide 01
+                    's01.label': 'PROPOSAL / 2026.04 / Modoo Startup — Deep Tech Track',
+                    's01.h1': 'Tell the AI,<br /><span class="tg">your controller is built</span>',
+                    's01.body': 'One general-purpose Raspberry Pi replaces costly proprietary PLCs — integrating controller, Web HMI, and gateway into a <strong style="color:#fff">Rust native runtime</strong>, with <strong style="color:#22d3ee">AI assembling control logic on a proven Infrastructure Framework</strong> — from cloud digital twin to virtual commissioning.',
+                    's01.status': 'DIGITAL TWIN PROVEN — MVP1 COMPLETE — 103 TESTS PASSING',
+                    // Slide 02
+                    's02.label': 'Problem',
+                    's02.h2': 'Building one controller<br /><span class="tga">takes weeks</span>',
+                    's02.body': 'The biggest barrier to smart factory adoption is<br /> <strong style="color:#fff">the closed nature of the lowest device layer (L0)</strong>.<br /> Field engineers are locked into expensive proprietary hardware<br /> and heavy legacy software from specific vendors,<br /> forced to repeatedly <strong style="color:#f87171">map thousands of memory addresses<br />one by one in Excel</strong> for every new device.',
+                    's02.insight': '<strong style="color:var(--amber)">Key Insight:</strong> If AI assembles control logic on an open architecture, the DX entry barrier can be completely eliminated.',
+                    's02.p1.title': 'Vendor Lock-in',
+                    's02.p1.body': 'Expensive proprietary PLC + heavy legacy SW. Impossible to maintain without a specific vendor.',
+                    's02.p2.title': 'Manual Mapping Hell',
+                    's02.p2.body': 'Thousands of memory addresses mapped one by one in Excel. Exhausting repetitive work for every new device.',
+                    's02.p3.title': 'Long Dev Cycle',
+                    's02.p3.body': 'Control logic development takes <strong style="color:#fff">weeks to months</strong>. An engineering bottleneck that costs sales opportunities.',
+                    // Slide 03
+                    's03.label': 'Target Market',
+                    's03.h2': '3 Greenfield Markets<br /><span class="tgc">free from legacy vendors</span>',
+                    's03.m1.title': 'Smart Farm / Vertical Farming',
+                    's03.m1.body': 'Operator market needing complex sensor-actuator integration but lacking dedicated control engineers.',
+                    's03.m1.b3': '• KC/CE certification sufficient',
+                    's03.m2.title': 'IIoT / Light Industrial Automation',
+                    's03.m2.body': 'Greenfield building open architecture from scratch — no legacy. Smart buildings, logistics, environmental monitoring.',
+                    's03.m2.b1': 'Gateway market',
+                    's03.m2.b3': '• Soft RT sufficient, fast PoC',
+                    's03.m3.title': 'Robotics / Equipment OEM',
+                    's03.m3.body': 'Equipment manufacturers needing embedded control logic. AI assembles requirements into modules immediately.',
+                    's03.m3.b2': '• Dev cycle: weeks → <strong style="color:#f8fafc">days</strong>',
+                    's03.m3.b3': '• Most open to AI automation',
+                    's03.strategy': '<strong style="color:var(--cb)">Strategy:</strong> Open to new tech + low certification burden + no legacy to migrate. Heavy PLC markets (petrochemical, heavy industry) excluded from initial target. Build greenfield references → <strong style="color:#fff">Land &amp; Expand</strong>.',
+                    // Slide 04
+                    's04.label': 'Solution',
+                    's04.tagline': '<span style="color:var(--cb)">Tell AI the behavior logic</span> <span style="color:#64748b"> → </span> <span style="color:#93c5fd">it implements the sequence</span> <span style="color:#64748b"> → </span> <span style="color:#34d399">and guarantees the tests</span> <span> — AI Driven controller.</span>',
+                    's04.plc.body': 'Rust native soft RT control loop. AI assembles control modules on the Infrastructure Framework.',
+                    's04.hmi.body': 'axum-based real-time web monitoring. No-code screen layout via Screen Editor. Air-gap deployment supported.',
+                    's04.ai.body': 'Natural language → Rust control logic auto-generation → compile harness → digital twin verification.',
+                    's04.modeA.label': 'Mode A — Rust Native / MQTT-first <span style="color:#475569">[default]</span>',
+                    's04.modeA.body': 'RevPi → rumqttc → MQTT Broker → Cloud/HMI. Python layer removed → slimmest path.',
+                    's04.modeB.label': 'Mode B — Legacy Bridge <span style="color:#475569">[option]</span>',
+                    's04.modeB.body': 'Legacy PLC → axum Bridge → MQTT. Normalizes legacy protocols: Modbus, EtherCAT, OPC-UA.',
+                    's04.proven': '<strong style="color:var(--violet)">Already proven:</strong> A cloud-based full-stack digital twin (8 containers) <strong style="color:#fff">built and operated once</strong>. Starting not from "can we build it" but from <strong style="color:#fff">"we already built it"</strong>.',
+                    // Slide 05
+                    's05.label': 'Architecture',
+                    's05.h2': 'Lightweight AI-based <span class="tgc">Rust Control Engineering Platform</span>',
+                    's05.l1.title': 'Reusable Control Modules',
+                    's05.l1.b1': 'SFC Sequence Engine',
+                    's05.l1.b2': 'I/O Abstraction Layer',
+                    's05.l1.b3': 'Alarm / Event Management',
+                    's05.l1.b4': 'Tag-based Memory',
+                    's05.l1.b5': 'Sensor·Actuator Drivers',
+                    's05.l1.foot': 'LEGO blocks for LLM assembly',
+                    's05.l2.title': 'Control Execution Engine',
+                    's05.l2.b1': 'Rust async control loop',
+                    's05.l2.b2': 'Sim ↔ Real transparent switching',
+                    's05.l2.foot': 'GC-free deterministic execution',
+                    's05.l3.title': 'Kanban Harness',
+                    's05.l3.b1': 'LLM → Rust code generation',
+                    's05.l3.b2': 'Kanban state machine',
+                    's05.l3.b3': 'cargo build auto loop',
+                    's05.l3.b4': 'Self-Healing retry',
+                    's05.l3.foot': 'LLM vendor-agnostic orchestration',
+                    's05.l4.title': 'Cloud Digital Twin',
+                    's05.l4.b1': 'BDD-based e2e testing',
+                    's05.l4.b2': 'Requirements → scenario auto-derivation',
+                    's05.l4.b3': 'Virtual environment Verification',
+                    's05.l4.b4': 'Human Approval gate',
+                    's05.l4.foot': 'Logic verified before deployment',
+                    's05.flow1': 'Infrastructure assembly',
+                    's05.flow2': 'AI code generation',
+                    's05.flow3': 'Runtime compilation',
+                    's05.flow5': 'Deploy 🚀',
+                    // Slide 06
+                    's06.label': 'AI Engineering Workflow',
+                    's06.h2': 'LLM + Kanban Harness<br /><span class="tgc">AI Engineering System</span>',
+                    's06.body': "Moru's core IP is not the LLM itself.<br />The real differentiator is the <strong style=\"color:#fff\">orchestration layer</strong> that separates LLM as Worker and Kanban as State Machine.",
+                    's06.step1': '<strong style="color:#fff">Natural language requirements</strong> — auto-generate design draft',
+                    's06.step2': '<strong style="color:#fff">Design document</strong> — AI-driven requirements analysis &amp; documentation',
+                    's06.step3': '<strong style="color:#fff">Human Review &amp; Approval ◇</strong> — revision request loop',
+                    's06.step4': '<strong style="color:#fff">Kanban Harness</strong> — TODO→DOING→VERIFY→DONE/FAIL',
+                    's06.step5': '<strong style="color:#fff">LLM Worker</strong> — assemble Infrastructure modules &amp; generate Rust code',
+                    's06.step6': '<strong style="color:#fff">cargo build</strong> — enforce memory &amp; type safety at compile time',
+                    's06.step7': '<strong style="color:#f87171">Self-Healing Loop</strong> — auto error analysis &amp; retry on FAIL',
+                    's06.step8': '<strong style="color:#fff">Cloud Digital Twin</strong> — BDD e2e Verification automation',
+                    's06.step9': '<strong style="color:#fff">Human Approval ◇</strong> — final gatekeeper',
+                    's06.step10': '<strong style="color:#fff">Deploy</strong> — RevPi Edge · MQTT · Web HMI',
+                    // Slide 07
+                    's07.label': 'Safety Net',
+                    's07.h2': '5 Structural Reasons<br /><span class="tgc">AI Code is Safe in the Field</span>',
+                    's07.c1.body': 'Limits the scope LLM can assemble to pre-verified modules. Structurally narrows the space where hallucination can occur.',
+                    's07.c2.title': 'Rust Compile<br />Harness',
+                    's07.c2.body': 'Ownership, Borrow Checker, and Lifetime block memory leaks, data races, and null dereferences at compile time.',
+                    's07.c3.body': 'Auto-retry loop that reverts to TODO on build/test failure. Only humans set the loop exit condition.',
+                    's07.c4.body': 'Verifies logic errors in Cloud Digital Twin using scenarios auto-derived from requirements.',
+                    's07.c5.body': 'Engineers must review Verification results in Web HMI and approve before real hardware deployment. No bypass.',
+                    's07.summary': '<strong style="color:var(--em)">Summary:</strong> Even if Rust catches memory errors, it cannot catch logic faults like "open the valve that should be closed." <strong style="color:#fff">BDD e2e + Human Approval covers the rest</strong> — the 5-layer safety net structurally blocks LLM hallucination.',
+                    // Slide 08
+                    's08.label': 'Market Size',
+                    's08.h2': 'Explosive Intersection Markets<br /><span class="tgc">Smart Farm · IIoT · Robotics Entry Markets</span>',
+                    's08.m2.sub': 'Smart buildings · Logistics · Environment · Water',
+                    's08.m3.sub': 'Cobot CAGR (through 2030)',
+                    's08.m3.badge': 'High-growth',
+                    's08.strategy': '<strong style="color:var(--cb)">Initial Target Strategy:</strong> Exclude petrochemical and heavy industry dominated by legacy vendors (Siemens/Rockwell). <strong style="color:#fff">Target greenfield customers first</strong> where PoC can be proven quickly without certification burden.',
+                    's08.expand': '<strong style="color:var(--amber)">Land &amp; Expand:</strong> Initial certification requirements KC/CE/FCC — already met by RevPi. IEC 61508 SIL functional safety certification held as <strong style="color:#fff">M18+ upper market expansion card</strong>.',
+                    // Slide 09
+                    's09.label': 'Competitive Moats',
+                    's09.h2': '3 Technical Moats,<br /><span class="tg">Countermeasures Already Ready</span>',
+                    's09.th1': 'Comparison',
+                    's09.row1.label': 'AI control logic gen',
+                    's09.row1.c3': '✅ unverified',
+                    's09.row1.moru': '✅ 5-layer safety',
+                    's09.row2.label': 'Infrastructure FW',
+                    's09.row2.moru': '✅ verified modules',
+                    's09.row3.label': 'Digital twin verification',
+                    's09.row3.moru': '✅ built-in',
+                    's09.row5.label': 'Rust memory safety',
+                    's09.row5.c3': 'varies',
+                    's09.row5.moru': '✅ compile time',
+                    's09.row6.label': 'Industrial HW cert',
+                    's09.row6.c1': 'consumer grade',
+                    's09.row6.c2': 'varies',
+                    's09.moat1.title': 'Moat ① — Deterministic Stack',
+                    's09.moat1.body': 'CM5 + mainline PREEMPT_RT + Rust(GC-free) = 3-layer deterministic stack. Hardware, OS, and language all guarantee deterministic timing.',
+                    's09.moat2.title': 'Moat ② — 5-Layer Safety Net',
+                    's09.moat2.body': 'Infrastructure scope limit + Rust compile + Kanban Self-Healing + BDD e2e + Human-in-the-Loop. Structural blocking.',
+                    's09.moat3.title': 'Moat ③ — Trojan Horse GTM',
+                    's09.moat3.body': 'Leave existing PLCs in place, enter with <strong style="color:#fff">"let us extract the data first"</strong>. Phase 1→2→3 gradual trust building.',
+                    // Slide 10
+                    's10.label': 'Roadmap',
+                    's10.h2': 'Execution Roadmap<br /><span class="tgc">Starting from MVP1 Complete</span>',
+                    's10.th1': 'Milestone',
+                    's10.th2': 'Deliverable',
+                    's10.th3': 'Status',
+                    's10.mvp2.content': 'Modbus TCP real connection → metadata-based 266 entities → port 34 modules → RPi deployment',
+                    's10.mvp3.content': 'AI Agent module + natural language → Rust code generation pipeline + digital twin auto commissioning',
+                    's10.mvp4.content': 'northstar.ui direct binding + HIL demo kit + independent cloud digital twin infrastructure',
+                    's10.demo.title': 'Review / IR Live Demo Flow — 4 Steps in 10 Minutes',
+                    's10.d1.title': 'Digital Twin Access',
+                    's10.d1.body': 'Standalone cloud URL → HMI real-time control',
+                    's10.d2.title': 'AI Code Generation',
+                    's10.d2.body': 'Request control logic in natural language → cargo build passes',
+                    's10.d3.body': 'Auto-run scenarios → verify e2e results',
+                    's10.d4.title': 'HIL Deployment',
+                    's10.d4.body': 'Human Approval → deploy to real hardware (HIL kit)',
+                    // Slide 11
+                    's11.label': 'Founder',
+                    's11.h2': 'Track Record<br /><span class="tgc">is the Proof of Trust</span>',
+                    's11.profile.title': 'Founder Capability Profile',
+                    's11.profile.body': 'An engineer who has actually <strong style="color:#fff">designed, built, and operated a full-stack digital twin architecture</strong> in semiconductor/industrial automation environments. All capabilities below are <strong style="color:var(--cb)">verified track records in real infrastructure</strong>.',
+                    's11.track.label': 'Track Record (Round 1)',
+                    's11.track.b1': '• Cloud digital twin: 8 containers built &amp; operated',
+                    's11.track.b2': '• CODESYS software PLC + Mock Modbus simulator',
+                    's11.track.b3': '• React HMI + Screen Editor + InfluxDB time-series',
+                    's11.track.b4': '• Nginx reverse proxy + air-gap deployment automation',
+                    's11.track.b5': '• Sim ↔ Prod environment switching architecture',
+                    's11.startup.label': 'Additional Startup Capabilities',
+                    's11.startup.b1': '• Rust 2021 native control runtime (103 tests)',
+                    's11.startup.b2': '• Cargo Workspace architecture (infra/app separated)',
+                    's11.startup.b3': '• tokio async + axum Web HMI',
+                    's11.startup.b4': '• Modbus TCP / MQTT / SFC engine implementation',
+                    's11.startup.b5': '• SimulatedConnector hardware abstraction',
+                    's11.why': '<strong style="color:var(--violet)">Why this person:</strong> The difference between "someone who has never built it" and "someone who built and operated it once, and is rebuilding leaner with lessons learned" is <strong style="color:#fff">prior knowledge of failure paths</strong>. Container DNS resolution, air-gap image loading, sim/prod switchover verification — having already debugged all these edge cases structurally reduces the risk of the second build.',
+                    // UI
+                    'kh': '← → or Space',
+                },
+            };
+
+            function applyLang() {
+                document.documentElement.lang = lang;
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+                });
+                document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                    const key = el.dataset.i18nHtml;
+                    if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+                });
+                document.getElementById('lang-btn').textContent = lang.toUpperCase();
+                updateHeaderTitle();
+            }
+
+            function toggleLang() {
+                lang = lang === 'ko' ? 'en' : 'ko';
+                localStorage.setItem('moru-lang', lang);
+                applyLang();
+            }
+            // ─────────────────────────────────────────────────────
+
             const slides = document.querySelectorAll(".slide");
             const N = slides.length;
             let cur = 0;
@@ -4356,9 +4820,8 @@
                 const pct = (((cur + 1) / N) * 100).toFixed(2);
                 document.getElementById("prog").style.width = pct + "%";
 
-                // Header title
-                document.getElementById("htitle").textContent =
-                    slides[cur].dataset.title || "";
+                // Header title (i18n-aware)
+                updateHeaderTitle();
 
                 // Header counter
                 document.getElementById("hcur").textContent = cur + 1;
@@ -4403,8 +4866,16 @@
                 { passive: true },
             );
 
+            function updateHeaderTitle() {
+                const slide = slides[cur];
+                const titleKey = slide.dataset.titleKey;
+                document.getElementById("htitle").textContent =
+                    titleKey && T[lang][titleKey] ? T[lang][titleKey] : (slide.dataset.title || "");
+            }
+
             // Init
             updateUI();
+            applyLang();
         </script>
     </body>
 </html>
