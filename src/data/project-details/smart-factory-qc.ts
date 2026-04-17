@@ -6,14 +6,13 @@ export const smartFactoryQc: ProjectDetail = {
   verticalColor: "#3B82F6",
   status: "active",
   title: {
-    en: "Smart Factory QC Platform",
-    ko: "스마트 팩토리 QC 플랫폼",
+    en: "ActiveQC Platform",
+    ko: "ActiveQC 플랫폼",
   },
   tagline: {
-    en: "From paper checklists to automated quality control",
-    ko: "종이 체크리스트를 자동화된 품질 관리로",
+    en: "Edge-native active test execution that replaces paper FAT/SAT in high-end manufacturing",
+    ko: "하이엔드 제조 현장의 종이 FAT/SAT를 대체하는 엣지 네이티브 능동적 테스트 실행 플랫폼",
   },
-  heroImage: "/projects/smart-factory-qc/hero.png",
 
   painPoints: [
     {
@@ -87,8 +86,8 @@ export const smartFactoryQc: ProjectDetail = {
 
   introduction: {
     badge: {
-      en: "Generalized from a production OQC introduction flow",
-      ko: "실제 OQC 소개 페이지 흐름을 일반화한 버전",
+      en: "Active Execution — not passive recording",
+      ko: "수동 기록이 아닌 능동적 실행",
     },
     title: {
       en: "A digital inspection stack for commissioning and quality control",
@@ -417,7 +416,6 @@ export const smartFactoryQc: ProjectDetail = {
         en: "Write test procedures in plain Gherkin language (Given/When/Then). Non-technical QC engineers can author and review test scenarios without coding. The system auto-generates step definitions that map to equipment control commands, reducing scenario setup time from hours to minutes.",
         ko: "Gherkin 언어(Given/When/Then)로 테스트 절차를 작성합니다. 비기술 QC 엔지니어도 코딩 없이 테스트 시나리오를 작성하고 검토할 수 있습니다. 시스템이 장비 제어 명령에 매핑되는 스텝 정의를 자동 생성하여 시나리오 설정 시간을 수시간에서 수분으로 단축합니다.",
       },
-      image: "/projects/smart-factory-qc/feature-bdd-editor.png",
     },
     {
       title: {
@@ -428,7 +426,6 @@ export const smartFactoryQc: ProjectDetail = {
         en: "Unified communication layer connecting to PLCs and controllers via Modbus TCP and MQTT protocols. Read sensor values, write control registers, and subscribe to real-time equipment events through a single abstraction — no vendor-specific tools required.",
         ko: "Modbus TCP 및 MQTT 프로토콜로 PLC 및 컨트롤러에 연결하는 통합 통신 레이어입니다. 단일 추상화를 통해 센서 값 읽기, 제어 레지스터 쓰기, 실시간 장비 이벤트 구독이 가능하며 벤더별 도구가 필요 없습니다.",
       },
-      image: "/projects/smart-factory-qc/feature-equipment-comm.png",
     },
     {
       title: {
@@ -439,7 +436,6 @@ export const smartFactoryQc: ProjectDetail = {
         en: "Execute BDD scenarios against live equipment with real-time progress tracking. Each step shows live sensor readings, pass/fail verdicts, and captured evidence as the test runs. Engineers can monitor multiple test sessions simultaneously from a single control panel.",
         ko: "실제 장비에 대해 BDD 시나리오를 실행하며 실시간 진행 상황을 추적합니다. 각 단계에서 실시간 센서 값, 합격/불합격 판정, 캡처된 증빙이 테스트 실행 중에 표시됩니다. 엔지니어가 단일 제어 패널에서 여러 테스트 세션을 동시에 모니터링할 수 있습니다.",
       },
-      image: "/projects/smart-factory-qc/feature-test-execution.png",
     },
     {
       title: {
@@ -450,7 +446,6 @@ export const smartFactoryQc: ProjectDetail = {
         en: "Comprehensive dashboard showing test pass rates, trend analysis, and equipment health across production lines. Auto-generates audit-ready PDF reports with full evidence trails including sensor readings, timestamps, and step-by-step test results.",
         ko: "생산 라인 전체의 테스트 합격률, 추이 분석, 장비 상태를 보여주는 종합 대시보드입니다. 센서 값, 타임스탬프, 단계별 테스트 결과를 포함한 전체 증빙 이력이 담긴 감사 대응 PDF 보고서를 자동 생성합니다.",
       },
-      image: "/projects/smart-factory-qc/feature-dashboard.png",
     },
   ],
 
