@@ -1,0 +1,3520 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>OQC Platform · Field Demo · 2026-04-20</title>
+        <style>
+            :root {
+                --bg: #0a0e1a;
+                --surface: #111827;
+                --surface2: #1a2235;
+                --border: #1e2d45;
+                --accent: #3b82f6;
+                --accent2: #6366f1;
+                --accent3: #8b5cf6;
+                --green: #10b981;
+                --yellow: #f59e0b;
+                --red: #ef4444;
+                --cyan: #06b6d4;
+                --pink: #ec4899;
+                --text: #e2e8f0;
+                --text-muted: #64748b;
+                --text-dim: #94a3b8;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    "Inter",
+                    "Pretendard",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    sans-serif;
+                font-feature-settings: "ss01", "ss02";
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ─────────── DECK CONTAINER ─────────── */
+            .deck {
+                position: fixed;
+                inset: 0;
+                overflow: hidden;
+            }
+
+            .slide {
+                position: absolute;
+                inset: 0;
+                padding: 44px 80px 56px;
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateX(40px);
+                transition:
+                    opacity 0.35s ease,
+                    transform 0.35s ease;
+                overflow-y: auto;
+            }
+            .slide.active {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateX(0);
+            }
+            .slide.prev {
+                transform: translateX(-40px);
+            }
+
+            /* ─────────── COMMON ─────────── */
+            .slide h1 {
+                font-size: clamp(36px, 5vw, 64px);
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1.1;
+            }
+            .slide h2 {
+                font-size: clamp(28px, 3.5vw, 44px);
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                line-height: 1.2;
+                margin-bottom: 10px;
+            }
+            .slide h3 {
+                font-size: clamp(20px, 2.2vw, 28px);
+                font-weight: 600;
+                color: var(--text-dim);
+                letter-spacing: -0.01em;
+                margin-bottom: 24px;
+            }
+            .slide p {
+                font-size: 18px;
+                line-height: 1.6;
+                color: var(--text-dim);
+            }
+
+            .slide-num {
+                position: absolute;
+                top: 22px;
+                right: 40px;
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--text-muted);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+            .slide-tag {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: rgba(99, 102, 241, 0.12);
+                border: 1px solid rgba(99, 102, 241, 0.3);
+                border-radius: 100px;
+                padding: 6px 14px;
+                font-size: 11px;
+                font-weight: 700;
+                color: #a5b4fc;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 12px;
+                align-self: flex-start;
+            }
+            .slide-tag.green {
+                background: rgba(16, 185, 129, 0.1);
+                border-color: rgba(16, 185, 129, 0.3);
+                color: #6ee7b7;
+            }
+            .slide-tag.cyan {
+                background: rgba(6, 182, 212, 0.1);
+                border-color: rgba(6, 182, 212, 0.3);
+                color: #67e8f9;
+            }
+            .slide-tag.pink {
+                background: rgba(236, 72, 153, 0.1);
+                border-color: rgba(236, 72, 153, 0.3);
+                color: #f9a8d4;
+            }
+
+            /* ─────────── SLIDE 01 · TITLE ─────────── */
+            .slide-title {
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                background:
+                    radial-gradient(
+                        ellipse at 30% 20%,
+                        rgba(99, 102, 241, 0.15),
+                        transparent 50%
+                    ),
+                    radial-gradient(
+                        ellipse at 70% 80%,
+                        rgba(59, 130, 246, 0.12),
+                        transparent 50%
+                    ),
+                    var(--bg);
+            }
+            .slide-title h1 {
+                font-size: clamp(56px, 8vw, 108px);
+                background: linear-gradient(
+                    135deg,
+                    #e2e8f0 20%,
+                    #a5b4fc 55%,
+                    #818cf8 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 24px;
+            }
+            .slide-title .subtitle {
+                font-size: clamp(18px, 2vw, 26px);
+                font-weight: 500;
+                color: var(--text-dim);
+                margin-bottom: 60px;
+            }
+            .meta-row {
+                display: flex;
+                gap: 16px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .meta-chip {
+                background: rgba(30, 45, 69, 0.6);
+                border: 1px solid var(--border);
+                padding: 12px 24px;
+                border-radius: 10px;
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--text);
+                backdrop-filter: blur(8px);
+            }
+            .meta-chip.accent {
+                background: rgba(99, 102, 241, 0.12);
+                border-color: rgba(99, 102, 241, 0.3);
+                color: #c7d2fe;
+            }
+
+            /* ─────────── CARDS ─────────── */
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                flex: 1;
+            }
+            .grid-3 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 20px;
+                flex: 1;
+            }
+            .card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 32px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .card-title {
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+            }
+            .card-sub {
+                font-size: 14px;
+                color: var(--text-muted);
+                margin-bottom: 8px;
+            }
+            .card ul {
+                list-style: none;
+                padding: 0;
+            }
+            .card ul li {
+                padding: 10px 0;
+                border-bottom: 1px dashed rgba(148, 163, 184, 0.12);
+                font-size: 16px;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .card ul li:last-child {
+                border-bottom: none;
+            }
+            .card ul li::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--accent2);
+                flex-shrink: 0;
+            }
+            .card.green {
+                border-color: rgba(16, 185, 129, 0.25);
+            }
+            .card.green ul li::before {
+                background: var(--green);
+            }
+            .card.green .card-title {
+                color: #6ee7b7;
+            }
+            .card.cyan {
+                border-color: rgba(6, 182, 212, 0.25);
+            }
+            .card.cyan ul li::before {
+                background: var(--cyan);
+            }
+            .card.cyan .card-title {
+                color: #67e8f9;
+            }
+            .card.yellow {
+                border-color: rgba(245, 158, 11, 0.25);
+            }
+            .card.yellow ul li::before {
+                background: var(--yellow);
+            }
+            .card.yellow .card-title {
+                color: #fcd34d;
+            }
+            .card.pink {
+                border-color: rgba(236, 72, 153, 0.25);
+            }
+            .card.pink ul li::before {
+                background: var(--pink);
+            }
+            .card.pink .card-title {
+                color: #f9a8d4;
+            }
+
+            /* ─────────── PROBLEM TABLE (SLIDE 02) ─────────── */
+            .problem-layout {
+                display: grid;
+                grid-template-columns: 1.6fr 1fr;
+                gap: 28px;
+                flex: 1;
+                min-height: 0;
+            }
+            .problem-image {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+            .problem-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+            }
+            .problem-list {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                justify-content: center;
+            }
+            .problem-item {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-left: 4px solid var(--red);
+                border-radius: 10px;
+                padding: 13px 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+                text-align: left;
+            }
+            .problem-item .way {
+                font-size: 17px;
+                font-weight: 700;
+                color: var(--text);
+            }
+            .problem-item .issue {
+                font-size: 14px;
+                color: var(--text-muted);
+                line-height: 1.5;
+            }
+            .conclusion-banner {
+                margin-top: 24px;
+                text-align: center;
+                padding: 20px 32px;
+                background: linear-gradient(
+                    135deg,
+                    rgba(239, 68, 68, 0.1),
+                    rgba(245, 158, 11, 0.08)
+                );
+                border: 1px solid rgba(239, 68, 68, 0.25);
+                border-radius: 12px;
+                font-size: 20px;
+                font-weight: 700;
+                color: #fca5a5;
+                letter-spacing: -0.01em;
+            }
+
+            /* ─────────── SYSTEM DIAGRAM (SLIDE 04) ─────────── */
+            .sys-diagram {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .sys-box {
+                width: 100%;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 22px 34px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 28px;
+            }
+            .sys-box-logo {
+                flex-shrink: 0;
+                width: 124px;
+                height: 124px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 10px;
+            }
+            .sys-box-logo img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .sys-box-content {
+                flex: 1;
+            }
+            .sys-box h4 {
+                font-size: 26px;
+                font-weight: 700;
+                margin-bottom: 10px;
+                letter-spacing: -0.01em;
+            }
+            .sys-box .features {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px 28px;
+                font-size: 17px;
+                color: var(--text-dim);
+            }
+            .sys-box.manager {
+                background: linear-gradient(
+                    135deg,
+                    rgba(99, 102, 241, 0.1),
+                    rgba(139, 92, 246, 0.06)
+                );
+                border-color: rgba(139, 92, 246, 0.3);
+            }
+            .sys-box.manager h4 {
+                color: #ddd6fe;
+                font-size: 30px;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+            }
+            .sys-box.manager .features {
+                font-size: 19px;
+                color: #e2e8f0;
+            }
+            .sys-box.edge {
+                background: linear-gradient(
+                    135deg,
+                    rgba(6, 182, 212, 0.08),
+                    rgba(59, 130, 246, 0.05)
+                );
+                border-color: rgba(6, 182, 212, 0.3);
+            }
+            .sys-box.edge h4 {
+                color: #a5f3fc;
+                font-size: 30px;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+            }
+            .sys-box.edge .features {
+                font-size: 19px;
+                color: #e2e8f0;
+            }
+            .sys-box.device {
+                background: linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.08),
+                    rgba(59, 130, 246, 0.04)
+                );
+                border-color: rgba(16, 185, 129, 0.3);
+                width: 100%;
+            }
+            .sys-box.device h4 {
+                color: #a7f3d0;
+                margin-bottom: 8px;
+                font-size: 34px;
+                font-weight: 800;
+                letter-spacing: -0.02em;
+            }
+            .sys-box.device .sub {
+                font-size: 22px;
+                font-weight: 700;
+                color: #d1fae5;
+                margin-bottom: 12px;
+            }
+            .sys-box.device .device-summary {
+                font-size: 18px;
+                line-height: 1.55;
+                color: #e2e8f0;
+                margin-bottom: 14px;
+                max-width: 920px;
+            }
+            .sys-box.device .device-features {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px 28px;
+                font-size: 17px;
+                color: #cbd5e1;
+            }
+            .sys-box.device .device-features div {
+                white-space: nowrap;
+            }
+            .device-logo {
+                flex-shrink: 0;
+                width: 280px;
+                height: 124px;
+                background: #ffffff;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+            .device-logo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+            .sys-connector {
+                width: 2px;
+                height: 24px;
+                background: linear-gradient(
+                    180deg,
+                    transparent,
+                    var(--border),
+                    transparent
+                );
+                position: relative;
+            }
+            .sys-connector::after {
+                content: attr(data-label);
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 13px;
+                color: var(--text-muted);
+                white-space: nowrap;
+            }
+
+            /* ─────────── CATEGORIES (SLIDE 05) ─────────── */
+            .grid-4 {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+                flex: 1;
+            }
+            .cat-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 24px 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .cat-card .cat-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+            .cat-card .cat-icon {
+                font-size: 32px;
+            }
+            .cat-card .cat-count {
+                font-size: 13px;
+                font-weight: 700;
+                padding: 3px 10px;
+                border-radius: 20px;
+                background: rgba(255, 255, 255, 0.07);
+                color: #94a3b8;
+                letter-spacing: 0.03em;
+            }
+            .cat-card .cat-title {
+                font-size: 22px;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+            }
+            .cat-card .cat-sub {
+                font-size: 14px;
+                color: #b0bfd6;
+                font-style: italic;
+                margin-top: -6px;
+            }
+            .cat-card .cat-method {
+                font-size: 15px;
+                color: #c0cde0;
+                line-height: 1.6;
+                padding: 10px 12px;
+                border-radius: 8px;
+                background: rgba(255, 255, 255, 0.04);
+            }
+            .cat-card .cat-flow {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .cat-card .cat-flow-step {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                font-size: 14px;
+                color: #b8c5d8;
+                line-height: 1.4;
+            }
+            .cat-card .cat-flow-step .step-num {
+                flex-shrink: 0;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                font-weight: 700;
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--text);
+                margin-top: 1px;
+            }
+            .cat-card .cat-example {
+                margin-top: auto;
+                padding-top: 12px;
+                border-top: 1px solid var(--border);
+                font-size: 14px;
+                color: #94a3b8;
+                line-height: 1.7;
+            }
+            .cat-card .cat-example strong {
+                display: block;
+                color: #b0bfd6;
+                font-size: 12px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 4px;
+            }
+            .cat-card.auto {
+                border-color: rgba(16, 185, 129, 0.35);
+            }
+            .cat-card.auto .cat-title {
+                color: #6ee7b7;
+            }
+            .cat-card.auto .step-num {
+                background: rgba(16, 185, 129, 0.25);
+                color: #6ee7b7;
+            }
+            .cat-card.semi-read {
+                border-color: rgba(245, 158, 11, 0.35);
+            }
+            .cat-card.semi-read .cat-title {
+                color: #fcd34d;
+            }
+            .cat-card.semi-read .step-num {
+                background: rgba(245, 158, 11, 0.2);
+                color: #fcd34d;
+            }
+            .cat-card.semi-write {
+                border-color: rgba(251, 146, 60, 0.35);
+            }
+            .cat-card.semi-write .cat-title {
+                color: #fb923c;
+            }
+            .cat-card.semi-write .step-num {
+                background: rgba(251, 146, 60, 0.2);
+                color: #fb923c;
+            }
+            .cat-card.manual {
+                border-color: rgba(139, 92, 246, 0.35);
+            }
+            .cat-card.manual .cat-title {
+                color: #c4b5fd;
+            }
+            .cat-card.manual .step-num {
+                background: rgba(139, 92, 246, 0.2);
+                color: #c4b5fd;
+            }
+
+            .takeaway {
+                margin-top: 16px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .takeaway div {
+                padding: 14px 20px;
+                background: var(--surface2);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                font-size: 15px;
+                color: var(--text-dim);
+            }
+            .takeaway div strong {
+                color: var(--text);
+            }
+
+            /* ─────────── CHRONICLE (SLIDE 10) ─────────── */
+            .chronicle-layout {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+                flex: 1;
+                min-height: 0;
+            }
+            .chronicle-timeline {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                position: relative;
+                padding-left: 8px;
+            }
+            .tl-item {
+                display: flex;
+                gap: 20px;
+                position: relative;
+                padding-bottom: 24px;
+            }
+            .tl-item:last-child {
+                padding-bottom: 0;
+            }
+            .tl-item::before {
+                content: "";
+                position: absolute;
+                left: 11px;
+                top: 24px;
+                bottom: 0;
+                width: 2px;
+                background: var(--border);
+            }
+            .tl-item:last-child::before {
+                display: none;
+            }
+            .tl-dot {
+                flex-shrink: 0;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 2px solid;
+                margin-top: 2px;
+                position: relative;
+                z-index: 1;
+            }
+            .tl-item.fail .tl-dot {
+                border-color: #f87171;
+                background: rgba(248, 113, 113, 0.15);
+            }
+            .tl-item.action .tl-dot {
+                border-color: #fbbf24;
+                background: rgba(251, 191, 36, 0.15);
+            }
+            .tl-item.pass .tl-dot {
+                border-color: #6ee7b7;
+                background: rgba(110, 231, 183, 0.15);
+            }
+            .tl-content {
+                flex: 1;
+            }
+            .tl-time {
+                font-size: 12px;
+                color: var(--text-muted);
+                margin-bottom: 4px;
+                letter-spacing: 0.03em;
+            }
+            .tl-title {
+                font-size: 16px;
+                font-weight: 700;
+                margin-bottom: 6px;
+                color: var(--text);
+            }
+            .tl-item.fail .tl-title {
+                color: #fca5a5;
+            }
+            .tl-item.action .tl-title {
+                color: #fde68a;
+            }
+            .tl-item.pass .tl-title {
+                color: #6ee7b7;
+            }
+            .tl-body {
+                font-size: 14px;
+                color: var(--text-dim);
+                line-height: 1.6;
+                padding: 10px 14px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--border);
+                border-radius: 8px;
+            }
+            .chronicle-desc {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                justify-content: center;
+            }
+            .chron-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 18px 20px;
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+            }
+            .chron-card-icon {
+                font-size: 28px;
+                flex-shrink: 0;
+            }
+            .chron-card-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--text);
+                margin-bottom: 4px;
+            }
+            .chron-card-body {
+                font-size: 14px;
+                color: var(--text-dim);
+                line-height: 1.6;
+            }
+            .chron-highlight {
+                padding: 16px 20px;
+                border-radius: 10px;
+                background: linear-gradient(
+                    135deg,
+                    rgba(248, 113, 113, 0.08),
+                    rgba(110, 231, 183, 0.06)
+                );
+                border: 1px solid rgba(110, 231, 183, 0.2);
+                font-size: 14px;
+                color: var(--text-dim);
+                line-height: 1.7;
+            }
+            .chron-highlight strong {
+                color: #6ee7b7;
+            }
+
+            /* ─────────── DEMO SLIDES ─────────── */
+            .demo-layout {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                flex: 1;
+                min-height: 0;
+            }
+            .demo-layout.flip {
+                grid-template-columns: 1.1fr 1fr;
+            }
+            .demo-media {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                overflow: hidden;
+            }
+            .demo-media img {
+                max-width: 100%;
+                max-height: 100%;
+                width: 100%;
+                object-fit: contain;
+                border-radius: 8px;
+                flex: 1;
+                min-height: 0;
+            }
+            .demo-media .media-caption {
+                font-size: 12px;
+                color: var(--text-muted);
+                text-align: center;
+            }
+            .demo-media-split {
+                display: grid;
+                grid-template-rows: 1fr 1fr;
+                gap: 8px;
+                height: 100%;
+            }
+            .demo-media-split img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+
+            .demo-info h4 {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--text-dim);
+                margin-bottom: 12px;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+            .flow-steps {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .flow-step {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 14px 18px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                font-size: 16px;
+                position: relative;
+            }
+            .flow-step .num {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: var(--accent2);
+                color: white;
+                font-weight: 700;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .flow-step .content {
+                color: var(--text);
+            }
+            .flow-step .content strong {
+                color: #a5b4fc;
+            }
+            .flow-step.highlight {
+                background: linear-gradient(
+                    135deg,
+                    rgba(99, 102, 241, 0.12),
+                    rgba(139, 92, 246, 0.06)
+                );
+                border-color: rgba(139, 92, 246, 0.3);
+            }
+
+            .info-table {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                overflow: hidden;
+                margin-bottom: 20px;
+            }
+            .info-table-row {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                padding: 10px 16px;
+                border-bottom: 1px solid var(--border);
+                font-size: 15px;
+            }
+            .info-table-row:last-child {
+                border-bottom: none;
+            }
+            .info-table-row .label {
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+            .info-table-row .value {
+                color: var(--text);
+                font-weight: 600;
+            }
+
+            .key-point {
+                margin-top: auto;
+                padding: 16px 20px;
+                background: linear-gradient(
+                    135deg,
+                    rgba(99, 102, 241, 0.12),
+                    rgba(59, 130, 246, 0.06)
+                );
+                border: 1px solid rgba(99, 102, 241, 0.3);
+                border-radius: 12px;
+                font-size: 16px;
+                color: #c7d2fe;
+                font-weight: 500;
+            }
+            .key-point strong {
+                color: white;
+            }
+
+            /* ─────────── GHERKIN BLOCK ─────────── */
+            .gherkin {
+                background: #0f1729;
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--green);
+                border-radius: 10px;
+                padding: 14px 18px;
+                font-family: "JetBrains Mono", "Fira Code", "Menlo", monospace;
+                font-size: 13px;
+                line-height: 1.65;
+                color: var(--text-dim);
+                white-space: pre-wrap;
+                overflow-x: auto;
+            }
+            .gherkin .kw {
+                color: #c4b5fd;
+                font-weight: 600;
+            }
+            .gherkin .pass {
+                color: #6ee7b7;
+                font-weight: 600;
+            }
+            .gherkin .comment {
+                color: var(--text-muted);
+            }
+
+            .case-list {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 14px 18px;
+                font-family: "JetBrains Mono", monospace;
+                font-size: 12.5px;
+                line-height: 1.75;
+                color: var(--text-dim);
+            }
+            .case-list .case-title {
+                color: #fcd34d;
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+
+            /* ─────────── BEFORE/AFTER (SLIDE 10) ─────────── */
+            .ba-grid {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                gap: 10px 0;
+                align-items: center;
+                flex: 1;
+                align-content: center;
+            }
+            .ba-cell {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 20px 28px;
+                font-size: 20px;
+            }
+            .ba-cell.before {
+                border-left: none;
+                border-right: 3px solid var(--red);
+                border-radius: 10px 0 0 10px;
+                color: var(--text-dim);
+                text-align: right;
+            }
+            .ba-cell.after {
+                border-left: 3px solid var(--green);
+                border-radius: 0 10px 10px 0;
+                color: var(--text);
+                font-weight: 500;
+            }
+            .ba-arrow {
+                font-size: 22px;
+                color: var(--text-muted);
+                text-align: center;
+                padding: 0 10px;
+                background: var(--surface);
+                border-top: 1px solid var(--border);
+                border-bottom: 1px solid var(--border);
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+            .ba-header {
+                font-size: clamp(32px, 3.5vw, 48px);
+                font-weight: 800;
+                letter-spacing: -0.02em;
+                text-transform: uppercase;
+                padding-bottom: 12px;
+            }
+            .ba-header.before-hd {
+                text-align: right;
+                padding-right: 10px;
+            }
+            .ba-header.after-hd {
+                text-align: left;
+                padding-left: 10px;
+            }
+
+            /* ─────────── ROADMAP (SLIDE 11) ─────────── */
+            .roadmap {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                justify-content: center;
+            }
+            .rm-item {
+                display: grid;
+                grid-template-columns: 60px 1fr;
+                gap: 20px;
+                padding: 16px 24px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                align-items: center;
+            }
+            .rm-item .rm-num {
+                font-size: 32px;
+                font-weight: 800;
+                background: linear-gradient(135deg, #6366f1, #a5b4fc);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                line-height: 1;
+                text-align: center;
+            }
+            .rm-item .rm-title {
+                font-size: 18px;
+                font-weight: 600;
+                color: var(--text);
+                margin-bottom: 2px;
+            }
+            .rm-item .rm-desc {
+                font-size: 14px;
+                color: var(--text-muted);
+            }
+
+            /* ─────────── Q&A SLIDE ─────────── */
+            .slide-qa {
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                background:
+                    radial-gradient(
+                        ellipse at center,
+                        rgba(99, 102, 241, 0.15),
+                        transparent 60%
+                    ),
+                    var(--bg);
+            }
+            .slide-qa h1 {
+                font-size: clamp(72px, 10vw, 140px);
+                background: linear-gradient(
+                    135deg,
+                    #e2e8f0,
+                    #a5b4fc 60%,
+                    #6366f1
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 20px;
+            }
+            .slide-qa h3 {
+                font-size: clamp(20px, 2.2vw, 28px);
+                font-weight: 400;
+                margin-bottom: 60px;
+            }
+
+            /* ─────────── DASHBOARD SLIDE ─────────── */
+            .dashboard-layout {
+                display: grid;
+                grid-template-columns: 1.3fr 1fr;
+                gap: 28px;
+                flex: 1;
+                min-height: 0;
+            }
+            .push-flow {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 20px 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .push-row {
+                display: grid;
+                grid-template-columns: 130px auto 120px auto 1fr;
+                gap: 10px;
+                align-items: center;
+                padding: 10px 0;
+                border-bottom: 1px dashed rgba(148, 163, 184, 0.1);
+                font-size: 15px;
+            }
+            .push-row:last-child {
+                border-bottom: none;
+            }
+            .push-row .src {
+                font-weight: 600;
+                color: var(--text);
+            }
+            .push-row .arrow {
+                color: var(--text-muted);
+            }
+            .push-row .mid {
+                color: #a5b4fc;
+                font-weight: 500;
+            }
+            .push-row.final .dst {
+                background: linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.15),
+                    rgba(6, 182, 212, 0.08)
+                );
+                border: 1px solid rgba(16, 185, 129, 0.3);
+                border-radius: 8px;
+                padding: 8px 14px;
+                color: #6ee7b7;
+                font-weight: 600;
+            }
+            .report-list h4 {
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                margin-bottom: 14px;
+            }
+            .report-list ul {
+                list-style: none;
+            }
+            .report-list li {
+                padding: 14px 16px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                margin-bottom: 10px;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .report-list li::before {
+                content: "✓";
+                color: var(--green);
+                font-weight: 700;
+                font-size: 16px;
+            }
+
+            /* ─────────── CONTROLS ─────────── */
+            .controls {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(17, 24, 39, 0.85);
+                border: 1px solid var(--border);
+                border-radius: 100px;
+                padding: 8px 14px;
+                backdrop-filter: blur(12px);
+                z-index: 1000;
+                transition: opacity 0.3s;
+            }
+            .controls button {
+                background: transparent;
+                border: none;
+                color: var(--text-dim);
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.15s;
+            }
+            .controls button:hover {
+                background: rgba(99, 102, 241, 0.15);
+                color: #a5b4fc;
+            }
+            .controls .counter {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--text);
+                font-variant-numeric: tabular-nums;
+                padding: 0 6px;
+                min-width: 56px;
+                text-align: center;
+            }
+            .controls .divider {
+                width: 1px;
+                height: 20px;
+                background: var(--border);
+            }
+
+            /* ─────────── PROGRESS BAR ─────────── */
+            .progress {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 3px;
+                background: linear-gradient(
+                    90deg,
+                    var(--accent2),
+                    var(--accent)
+                );
+                z-index: 1001;
+                transition: width 0.35s ease;
+            }
+
+            /* ─────────── CLICK ZONES ─────────── */
+            .click-zone {
+                position: fixed;
+                top: 0;
+                bottom: 60px;
+                width: 40%;
+                z-index: 5;
+                cursor: pointer;
+            }
+            .click-zone.left {
+                left: 0;
+            }
+            .click-zone.right {
+                right: 0;
+            }
+
+            /* ─────────── UTILS ─────────── */
+            .muted {
+                color: var(--text-muted);
+            }
+            .accent-text {
+                color: #a5b4fc;
+            }
+
+            /* ─────────── LANG TOGGLE ─────────── */
+            #lang-toggle {
+                background: rgba(16, 185, 129, 0.1);
+                border: 1px solid rgba(16, 185, 129, 0.4);
+                color: #6ee7b7;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                padding: 0 10px;
+                height: 32px;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.15s;
+                min-width: 38px;
+            }
+            #lang-toggle:hover {
+                background: rgba(16, 185, 129, 0.22);
+                color: #a7f3d0;
+            }
+
+            /* Scrollbar hidden on slides */
+            .slide::-webkit-scrollbar {
+                display: none;
+            }
+
+            /* Fullscreen hides controls slightly */
+            :fullscreen .controls {
+                opacity: 0.3;
+            }
+            :fullscreen .controls:hover {
+                opacity: 1;
+            }
+
+            /* Print / small screen fallback */
+            @media (max-width: 900px) {
+                .slide {
+                    padding: 40px 24px;
+                }
+                .grid-2,
+                .grid-3,
+                .demo-layout,
+                .demo-layout.flip,
+                .problem-layout,
+                .dashboard-layout {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="progress" id="progress"></div>
+        <div class="click-zone left" id="zone-prev"></div>
+        <div class="click-zone right" id="zone-next"></div>
+
+        <div class="deck" id="deck">
+            <!-- ═══════════════════════════════════════
+         SLIDE 01 · TITLE
+         ═══════════════════════════════════════ -->
+            <section class="slide slide-title active" data-slide="1">
+                <div
+                    class="slide-tag"
+                    style="
+                        position: absolute;
+                        bottom: 56px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        align-self: auto;
+                        margin-bottom: 0;
+                    "
+                >
+                    <span
+                        style="
+                            width: 6px;
+                            height: 6px;
+                            background: #10b981;
+                            border-radius: 50%;
+                        "
+                    ></span>
+                    FIELD DEMO · GM & EXECUTIVE REVIEW
+                </div>
+                <h1>OQC Platform</h1>
+                <div
+                    class="subtitle"
+                    data-ko="EUV 장비 자동화 테스트 &amp; 시운전 체크리스트"
+                    data-en="EUV Equipment Automated Test &amp; Commissioning Checklist"
+                >
+                    EUV 장비 자동화 테스트 &amp; 시운전 체크리스트
+                </div>
+                <div class="meta-row">
+                    <div class="meta-chip accent">
+                        2026. 04. 20 · 15:00–17:00 KST
+                    </div>
+                    <div class="meta-chip">Edwards Korea · OQC Team</div>
+                </div>
+                <a href="https://oqc.atlascopco.group/" target="_blank" style="
+                    display: block;
+                    margin-top: 28px;
+                    font-size: clamp(16px, 1.8vw, 22px);
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    color: #10b981;
+                    text-decoration: none;
+                    opacity: 0.9;
+                ">oqc.atlascopco.group</a>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 02 · 현장 문제
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="2">
+                <div class="slide-num">02 / 12</div>
+                <div class="slide-tag pink">PROBLEM</div>
+                <h2
+                    data-ko="지금 현장은 이렇게 일하고 있습니다"
+                    data-en="This Is How the Field Works Today"
+                >
+                    지금 현장은 이렇게 일하고 있습니다
+                </h2>
+                <h3
+                    data-ko="출하검사 — Excel 체크리스트 수기 작성"
+                    data-en="Factory Test — Manual Excel Checklist"
+                >
+                    출하검사 — Excel 체크리스트 수기 작성
+                </h3>
+
+                <div class="problem-layout">
+                    <div class="problem-image">
+                        <img
+                            src="img/img-07-excel-checklist.gif"
+                            alt="Excel 체크리스트"
+                        />
+                    </div>
+                    <div class="problem-list">
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="Excel 체크리스트 수기 작성"
+                                data-en="Manual Excel Checklist Entry"
+                            >
+                                Excel 체크리스트 수기 작성
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="Pass만 남기고 실패 히스토리는 전부 소실"
+                                data-en="Only Pass remains — all failure history is lost"
+                            >
+                                Pass만 남기고 실패 히스토리는 전부 소실
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="시스템 변경 시 절차서 전체 수작업 편집"
+                                data-en="Full manual edit of procedures on system change"
+                            >
+                                시스템 변경 시 절차서 전체 수작업 편집
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="셀 병합, 섹션 번호 재설정 — 섹션마다 구조 다름"
+                                data-en="Cell merges, section renumbering — inconsistent structure per section"
+                            >
+                                셀 병합, 섹션 번호 재설정 — 섹션마다 구조 다름
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="구두 전달 · 암묵적 프로세스"
+                                data-en="Verbal handover · Implicit processes"
+                            >
+                                구두 전달 · 암묵적 프로세스
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="숙련자 없으면 업무 중단"
+                                data-en="Work halts without experienced personnel"
+                            >
+                                숙련자 없으면 업무 중단
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="명시적 추적성 미확보"
+                                data-en="No explicit traceability"
+                            >
+                                명시적 추적성 미확보
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="채팅, 전화, Word, 이메일… 히스토리 역추적 불가"
+                                data-en="Chat, calls, Word, email… history impossible to trace back"
+                            >
+                                채팅, 전화, Word, 이메일… 히스토리 역추적 불가
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="검사자 편향 · 숙련자 의존도"
+                                data-en="Inspector bias · Over-reliance on experts"
+                            >
+                                검사자 편향 · 숙련자 의존도
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="사람마다 다른 기준, 편향 발생"
+                                data-en="Different standards per person, bias introduced"
+                            >
+                                사람마다 다른 기준, 편향 발생
+                            </div>
+                        </div>
+                        <div class="problem-item">
+                            <div
+                                class="way"
+                                data-ko="수작업 보고서 · 높은 커뮤니케이션 비용"
+                                data-en="Manual reports · High communication overhead"
+                            >
+                                수작업 보고서 · 높은 커뮤니케이션 비용
+                            </div>
+                            <div
+                                class="issue"
+                                data-ko="보고서 작성 추가 시간, 이슈 맥락 전달 비용"
+                                data-en="Extra time for report writing, high cost of issue context handover"
+                            >
+                                보고서 작성 추가 시간, 이슈 맥락 전달 비용
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="conclusion-banner"
+                    data-ko="데이터가 남지 않으면 — 분석도, 개선도 없다"
+                    data-en="No data left behind — no analysis, no improvement"
+                >
+                    데이터가 남지 않으면 — 분석도, 개선도 없다
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 03 · OQC 해결책 (두 축)
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="3">
+                <div class="slide-num">03 / 12</div>
+                <div class="slide-tag">SOLUTION</div>
+                <h2
+                    data-ko="OQC Platform이 해결하는 것"
+                    data-en="What OQC Platform Solves"
+                >
+                    OQC Platform이 해결하는 것
+                </h2>
+                <h3
+                    data-ko="두 가지 축으로 접근합니다"
+                    data-en="Two pillars of approach"
+                >
+                    두 가지 축으로 접근합니다
+                </h3>
+
+                <div class="grid-2" style="flex: 1; min-height: 0">
+                    <div
+                        class="card cyan"
+                        style="
+                            padding: 20px 24px;
+                            gap: 6px;
+                            min-height: 0;
+                            overflow-y: auto;
+                        "
+                    >
+                        <div style="font-size: 32px; margin-bottom: 2px">
+                            🗄️
+                        </div>
+                        <div
+                            class="card-title"
+                            data-ko="데이터화"
+                            data-en="Digitization"
+                        >
+                            데이터화
+                        </div>
+                        <div
+                            class="card-sub"
+                            data-ko="모든 과정을 DB에 남긴다"
+                            data-en="Every step recorded in the database"
+                        >
+                            모든 과정을 DB에 남긴다
+                        </div>
+                        <ul style="margin-top: 4px">
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="절차서 버전 관리 — 개정 이력 · 변경 사유 DB 보존"
+                                data-en="Procedure version control — revision history &amp; change reason preserved in DB"
+                            >
+                                절차서 버전 관리 — 개정 이력 · 변경 사유 DB 보존
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="수행 기록 전체 저장 — 검사자 / 시각 / 결과 / 실측값"
+                                data-en="Full execution log — inspector / timestamp / result / measured value"
+                            >
+                                수행 기록 전체 저장 — 검사자 / 시각 / 결과 /
+                                실측값
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="이슈 · 조치 이력 일원화 — 재발 방지 데이터 축적"
+                                data-en="Unified issue &amp; action history — data accumulation for recurrence prevention"
+                            >
+                                이슈 · 조치 이력 일원화 — 재발 방지 데이터 축적
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="Follow-up Action 할당 · 담당자 · 완료 기한 추적"
+                                data-en="Follow-up action assignment · owner · deadline tracking"
+                            >
+                                Follow-up Action 할당 · 담당자 · 완료 기한 추적
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="고객사 · 검사자 · 장비별 Pass/Fail 통계 분석"
+                                data-en="Pass/Fail statistics by customer · inspector · equipment"
+                            >
+                                고객사 · 검사자 · 장비별 Pass/Fail 통계 분석
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="Docx 보고서 자동 생성 — 고객사 납품 양식 그대로"
+                                data-en="Auto-generated Docx report — matches customer delivery format exactly"
+                            >
+                                Docx 보고서 자동 생성 — 고객사 납품 양식 그대로
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="멀티 Edge PC 결과 서버에서 일괄 집계 · 조회"
+                                data-en="Multi Edge PC results aggregated &amp; queried centrally on server"
+                            >
+                                멀티 Edge PC 결과 서버에서 일괄 집계 · 조회
+                            </li>
+                        </ul>
+                    </div>
+                    <div
+                        class="card green"
+                        style="
+                            padding: 20px 24px;
+                            gap: 6px;
+                            min-height: 0;
+                            overflow-y: auto;
+                        "
+                    >
+                        <div style="font-size: 32px; margin-bottom: 2px">
+                            ⚡
+                        </div>
+                        <div
+                            class="card-title"
+                            data-ko="자동화"
+                            data-en="Automation"
+                        >
+                            자동화
+                        </div>
+                        <div
+                            class="card-sub"
+                            data-ko="반복 작업은 OQC 플랫폼이 한다"
+                            data-en="Repetitive tasks handled by the OQC platform"
+                        >
+                            반복 작업은 OQC 플랫폼이 한다
+                        </div>
+                        <ul style="margin-top: 4px">
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="장비 직결 — Modbus TCP / PLF / FMS Serial 프로토콜"
+                                data-en="Direct device connection — Modbus TCP / PLF / FMS Serial protocols"
+                            >
+                                장비 직결 — Modbus TCP / PLF / FMS Serial
+                                프로토콜
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="Signal 읽기 · 쓰기 자동 — 수동 모니터링 불필요"
+                                data-en="Automated signal read/write — no manual monitoring needed"
+                            >
+                                Signal 읽기 · 쓰기 자동 — 수동 모니터링 불필요
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="Pass / Fail 자동 판정 — 기준값 벗어나면 즉시 알림"
+                                data-en="Automatic Pass/Fail judgment — instant alert when out of spec"
+                            >
+                                Pass / Fail 자동 판정 — 기준값 벗어나면 즉시
+                                알림
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="반자동 지원 — 현장 트리거 후 측정값 자동 캡처"
+                                data-en="Semi-auto support — auto-capture measured value after field trigger"
+                            >
+                                반자동 지원 — 현장 트리거 후 측정값 자동 캡처
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="BDD Gherkin 시나리오 — 비개발자도 절차 직접 수정"
+                                data-en="BDD Gherkin scenarios — non-developers can edit procedures directly"
+                            >
+                                BDD Gherkin 시나리오 — 비개발자도 절차 직접 수정
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="Edge → Server 실행 결과 자동 Push · 동기화"
+                                data-en="Edge → Server execution results auto-pushed &amp; synced"
+                            >
+                                Edge → Server 실행 결과 자동 Push · 동기화
+                            </li>
+                            <li
+                                style="padding: 5px 0"
+                                data-ko="서버에서 절차서 변경 시 → 현장 Edge 즉시 반영"
+                                data-en="Procedure updates on server → immediately reflected on field Edge"
+                            >
+                                서버에서 절차서 변경 시 → 현장 Edge 즉시 반영
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div
+                    style="
+                        margin-top: 16px;
+                        padding: 0;
+                        text-align: center;
+                        flex-shrink: 0;
+                    "
+                >
+                    <div
+                        data-ko="모든 테스트 과정이 기록되고, 반복 작업은 자동화됩니다"
+                        data-en="Every test process is recorded, and repetitive tasks are automated"
+                        style="
+                            font-size: clamp(20px, 2.4vw, 30px);
+                            font-weight: 800;
+                            letter-spacing: -0.02em;
+                            line-height: 1.3;
+                            background: linear-gradient(
+                                90deg,
+                                #6ee7b7 0%,
+                                #a5b4fc 50%,
+                                #67e8f9 100%
+                            );
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        "
+                    >
+                        모든 테스트 과정이 기록되고, 반복 작업은 자동화됩니다
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 04 · 시스템 구조
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="4">
+                <div class="slide-num">04 / 12</div>
+                <div class="slide-tag">ARCHITECTURE</div>
+                <h2 data-ko="시스템 구조" data-en="System Architecture">
+                    시스템 구조
+                </h2>
+                <h3
+                    data-ko="OQC Manager (Cloud) + OQC Edge (현장 PC)"
+                    data-en="OQC Manager (Cloud) + OQC Edge (Field PC)"
+                >
+                    OQC Manager (Cloud) + OQC Edge (현장 PC)
+                </h3>
+
+                <div class="sys-diagram">
+                    <div class="sys-box manager">
+                        <div class="sys-box-logo">
+                            <img
+                                src="img/oqc-manager-logo.png"
+                                alt="OQC Manager"
+                            />
+                        </div>
+                        <div class="sys-box-content">
+                            <h4>OQC Manager · Cloud</h4>
+                            <div class="features">
+                                <div
+                                    data-ko="· 절차서 생성 · 편집"
+                                    data-en="· Procedure creation &amp; editing"
+                                >
+                                    · 절차서 생성 · 편집
+                                </div>
+                                <div
+                                    data-ko="· 통계 대시보드"
+                                    data-en="· Statistics dashboard"
+                                >
+                                    · 통계 대시보드
+                                </div>
+                                <div
+                                    data-ko="· 보고서 생성"
+                                    data-en="· Report generation"
+                                >
+                                    · 보고서 생성
+                                </div>
+                                <div
+                                    data-ko="· Edge 패키지 배포"
+                                    data-en="· Edge package deployment"
+                                >
+                                    · Edge 패키지 배포
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="sys-connector"
+                        data-label="인터넷 / 사내망"
+                    ></div>
+                    <div class="sys-box edge">
+                        <div class="sys-box-logo">
+                            <img src="img/oqc-edge-logo.png" alt="OQC Edge" />
+                        </div>
+                        <div class="sys-box-content">
+                            <h4
+                                data-ko="OQC Edge · 현장 PC"
+                                data-en="OQC Edge · Field PC"
+                            >
+                                OQC Edge · 현장 PC
+                            </h4>
+                            <div class="features">
+                                <div
+                                    data-ko="· 절차서 다운로드"
+                                    data-en="· Procedure download"
+                                >
+                                    · 절차서 다운로드
+                                </div>
+                                <div
+                                    data-ko="· 테스트 실행"
+                                    data-en="· Test execution"
+                                >
+                                    · 테스트 실행
+                                </div>
+                                <div
+                                    data-ko="· 이미지 첨부"
+                                    data-en="· Image attachment"
+                                >
+                                    · 이미지 첨부
+                                </div>
+                                <div
+                                    data-ko="· 결과 서버 업로드"
+                                    data-en="· Results upload to server"
+                                >
+                                    · 결과 서버 업로드
+                                </div>
+                                <div
+                                    data-ko="· 장비 연결 관리"
+                                    data-en="· Device connection management"
+                                >
+                                    · 장비 연결 관리
+                                </div>
+                                <div
+                                    data-ko="· 유저 관리"
+                                    data-en="· User management"
+                                >
+                                    · 유저 관리
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="sys-connector"
+                        data-label="Modbus TCP / PLF / FMS Serial"
+                    ></div>
+                    <div class="sys-box device">
+                        <div class="device-logo">
+                            <img src="img/euv.png" alt="EUV 장비" />
+                        </div>
+                        <div class="sys-box-content">
+                            <h4
+                                data-ko="🔧 EUV 장비"
+                                data-en="🔧 EUV Equipment"
+                            >
+                                🔧 EUV 장비
+                            </h4>
+                            <div
+                                class="sub"
+                                data-ko="Gen2 / Gen4 · 실제 테스트 대상 설비"
+                                data-en="Gen2 / Gen4 · Actual equipment under test"
+                            >
+                                Gen2 / Gen4 · 실제 테스트 대상 설비
+                            </div>
+                            <div
+                                class="device-summary"
+                                data-ko="Edge가 현장 장비와 직접 연결되어 시퀀스 실행, 상태값 수집, 결과 판정을 수행하는 최종 실행 레이어입니다."
+                                data-en="Edge connects directly to field equipment, executing sequences, collecting status values, and performing result judgments as the final execution layer."
+                            >
+                                Edge가 현장 장비와 직접 연결되어 시퀀스 실행,
+                                상태값 수집, 결과 판정을 수행하는 최종 실행
+                                레이어입니다.
+                            </div>
+                            <div class="device-features">
+                                <div
+                                    data-ko="· 자동 시퀀스 / 레시피 실행"
+                                    data-en="· Auto sequence / recipe execution"
+                                >
+                                    · 자동 시퀀스 / 레시피 실행
+                                </div>
+                                <div
+                                    data-ko="· 센서 · I/O 상태 실시간 수집"
+                                    data-en="· Real-time sensor &amp; I/O status collection"
+                                >
+                                    · 센서 · I/O 상태 실시간 수집
+                                </div>
+                                <div
+                                    data-ko="· PLC / FMS 인터페이스 연동"
+                                    data-en="· PLC / FMS interface integration"
+                                >
+                                    · PLC / FMS 인터페이스 연동
+                                </div>
+                                <div
+                                    data-ko="· 테스트 결과 · 알람 이력 반환"
+                                    data-en="· Test results &amp; alarm history returned"
+                                >
+                                    · 테스트 결과 · 알람 이력 반환
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 05 · 테스트 케이스 분류
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="5">
+                <div class="slide-num">05 / 12</div>
+                <div class="slide-tag">TEST CLASSIFICATION</div>
+                <h2
+                    data-ko="테스트 케이스 분류"
+                    data-en="Test Case Classification"
+                >
+                    테스트 케이스 분류
+                </h2>
+                <h3
+                    data-ko="자동화 수준에 따라 4가지로 나뉩니다"
+                    data-en="Divided into 4 categories by automation level"
+                >
+                    자동화 수준에 따라 4가지로 나뉩니다
+                </h3>
+
+                <div class="grid-4">
+                    <!-- 완전 자동 -->
+                    <div class="cat-card auto">
+                        <div class="cat-header">
+                            <div class="cat-icon">🤖</div>
+                            <div
+                                class="cat-count"
+                                data-ko="5건"
+                                data-en="5 cases"
+                            >
+                                5건
+                            </div>
+                        </div>
+                        <div
+                            class="cat-title"
+                            data-ko="완전 자동"
+                            data-en="Full Auto"
+                        >
+                            완전 자동
+                        </div>
+                        <div
+                            class="cat-sub"
+                            data-ko="사람 개입 없이 전자동"
+                            data-en="Fully automated without human intervention"
+                        >
+                            사람 개입 없이 전자동
+                        </div>
+                        <div
+                            class="cat-method"
+                            data-ko="OQC가 장비에 명령을 전송하고&lt;br /&gt;응답값을 받아 자동으로 Pass / Fail 판정"
+                            data-en="OQC sends commands to equipment&lt;br /&gt;and automatically judges Pass / Fail from the response"
+                        >
+                            OQC가 장비에 명령을 전송하고<br />응답값을 받아
+                            자동으로 Pass / Fail 판정
+                        </div>
+                        <div class="cat-flow">
+                            <div class="cat-flow-step">
+                                <div class="step-num">1</div>
+                                <span
+                                    data-ko="Modbus/PLF 명령 전송"
+                                    data-en="Send Modbus/PLF command"
+                                    >Modbus/PLF 명령 전송</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">2</div>
+                                <span
+                                    data-ko="장비 응답값 수신"
+                                    data-en="Receive equipment response"
+                                    >장비 응답값 수신</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">3</div>
+                                <span
+                                    data-ko="기준값 비교 → 자동 판정"
+                                    data-en="Compare against spec → auto judgment"
+                                    >기준값 비교 → 자동 판정</span
+                                >
+                            </div>
+                        </div>
+                        <div class="cat-example">
+                            <strong data-ko="예시" data-en="Examples"
+                                >예시</strong
+                            >
+                            <span
+                                data-ko="Facility Start / Stop&lt;br /&gt;펌프 속도 설정 · 확인&lt;br /&gt;Vacuum 레벨 자동 확인"
+                                data-en="Facility Start / Stop&lt;br /&gt;Pump speed set &amp; verify&lt;br /&gt;Vacuum level auto check"
+                                >Facility Start / Stop<br />
+                                펌프 속도 설정 · 확인<br />
+                                Vacuum 레벨 자동 확인</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 반자동 · 읽기 -->
+                    <div class="cat-card semi-read">
+                        <div class="cat-header">
+                            <div class="cat-icon">📡</div>
+                            <div
+                                class="cat-count"
+                                data-ko="64건"
+                                data-en="64 cases"
+                            >
+                                64건
+                            </div>
+                        </div>
+                        <div
+                            class="cat-title"
+                            data-ko="반자동 · 읽기"
+                            data-en="Semi-Auto · Read"
+                        >
+                            반자동 · 읽기
+                        </div>
+                        <div
+                            class="cat-sub"
+                            data-ko="트리거는 사람, 측정은 장비"
+                            data-en="Human triggers, equipment measures"
+                        >
+                            트리거는 사람, 측정은 장비
+                        </div>
+                        <div
+                            class="cat-method"
+                            data-ko="엔지니어가 물리적 조작을 하면&lt;br /&gt;OQC가 Modbus/PLF 값을 자동 수집하여 판정"
+                            data-en="Engineer performs physical action,&lt;br /&gt;OQC auto-collects Modbus/PLF values and judges"
+                        >
+                            엔지니어가 물리적 조작을 하면<br />OQC가 Modbus/PLF
+                            값을 자동 수집하여 판정
+                        </div>
+                        <div class="cat-flow">
+                            <div class="cat-flow-step">
+                                <div class="step-num">1</div>
+                                <span
+                                    data-ko="엔지니어 물리 트리거"
+                                    data-en="Engineer physical trigger"
+                                    >엔지니어 물리 트리거</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">2</div>
+                                <span
+                                    data-ko="Modbus/PLF 값 자동 수집"
+                                    data-en="Auto-collect Modbus/PLF values"
+                                    >Modbus/PLF 값 자동 수집</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">3</div>
+                                <span
+                                    data-ko="기준값 비교 → 자동 판정"
+                                    data-en="Compare against spec → auto judgment"
+                                    >기준값 비교 → 자동 판정</span
+                                >
+                            </div>
+                        </div>
+                        <div class="cat-example">
+                            <strong data-ko="예시" data-en="Examples"
+                                >예시</strong
+                            >
+                            <span
+                                data-ko="Hz 측정 (버튼 누름 후 자동)&lt;br /&gt;Air Flow 센서값 수집&lt;br /&gt;온도·압력 측정값 확인"
+                                data-en="Hz measurement (auto after button press)&lt;br /&gt;Air flow sensor value collection&lt;br /&gt;Temperature &amp; pressure reading"
+                                >Hz 측정 (버튼 누름 후 자동)<br />
+                                Air Flow 센서값 수집<br />
+                                온도·압력 측정값 확인</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 반자동 · 쓰기 -->
+                    <div class="cat-card semi-write">
+                        <div class="cat-header">
+                            <div class="cat-icon">⚙️</div>
+                            <div
+                                class="cat-count"
+                                data-ko="9건"
+                                data-en="9 cases"
+                            >
+                                9건
+                            </div>
+                        </div>
+                        <div
+                            class="cat-title"
+                            data-ko="반자동 · 쓰기"
+                            data-en="Semi-Auto · Write"
+                        >
+                            반자동 · 쓰기
+                        </div>
+                        <div
+                            class="cat-sub"
+                            data-ko="명령은 자동, 확인은 사람이"
+                            data-en="Commands auto, verification by human"
+                        >
+                            명령은 자동, 확인은 사람이
+                        </div>
+                        <div
+                            class="cat-method"
+                            data-ko="OQC가 Modbus/PLF 명령을 자동 전송하면&lt;br /&gt;엔지니어가 물리 상태를 눈으로 확인"
+                            data-en="OQC auto-sends Modbus/PLF commands,&lt;br /&gt;engineer visually verifies physical state"
+                        >
+                            OQC가 Modbus/PLF 명령을 자동 전송하면<br />엔지니어가
+                            물리 상태를 눈으로 확인
+                        </div>
+                        <div class="cat-flow">
+                            <div class="cat-flow-step">
+                                <div class="step-num">1</div>
+                                <span
+                                    data-ko="Modbus 명령 자동 전송"
+                                    data-en="Auto-send Modbus command"
+                                    >Modbus 명령 자동 전송</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">2</div>
+                                <span
+                                    data-ko="장비 물리 동작 수행"
+                                    data-en="Equipment physical action performed"
+                                    >장비 물리 동작 수행</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">3</div>
+                                <span
+                                    data-ko="엔지니어 육안 확인 후 입력"
+                                    data-en="Engineer visual check then input"
+                                    >엔지니어 육안 확인 후 입력</span
+                                >
+                            </div>
+                        </div>
+                        <div class="cat-example">
+                            <strong data-ko="예시" data-en="Examples"
+                                >예시</strong
+                            >
+                            <span
+                                data-ko="밸브 Open / Close 확인&lt;br /&gt;팬 구동 상태 점검&lt;br /&gt;경보등 점등 여부 확인"
+                                data-en="Valve Open / Close verification&lt;br /&gt;Fan drive status check&lt;br /&gt;Alarm light activation check"
+                                >밸브 Open / Close 확인<br />
+                                팬 구동 상태 점검<br />
+                                경보등 점등 여부 확인</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 수동 -->
+                    <div class="cat-card manual">
+                        <div class="cat-header">
+                            <div class="cat-icon">👁️</div>
+                            <div
+                                class="cat-count"
+                                data-ko="648건"
+                                data-en="648 cases"
+                            >
+                                648건
+                            </div>
+                        </div>
+                        <div class="cat-title" data-ko="수동" data-en="Manual">
+                            수동
+                        </div>
+                        <div
+                            class="cat-sub"
+                            data-ko="사람이 직접 확인 · 기록"
+                            data-en="Human direct inspection &amp; recording"
+                        >
+                            사람이 직접 확인 · 기록
+                        </div>
+                        <div
+                            class="cat-method"
+                            data-ko="물리 측정·육안 검사를 사람이 수행하고&lt;br /&gt;OQC로 결과를 체계적으로 기록"
+                            data-en="Human performs physical measurement &amp; visual inspection,&lt;br /&gt;results systematically recorded in OQC"
+                        >
+                            물리 측정·육안 검사를 사람이 수행하고<br />OQC로
+                            결과를 체계적으로 기록
+                        </div>
+                        <div class="cat-flow">
+                            <div class="cat-flow-step">
+                                <div class="step-num">1</div>
+                                <span
+                                    data-ko="현장 육안 · 계측기 점검"
+                                    data-en="Field visual &amp; instrument check"
+                                    >현장 육안 · 계측기 점검</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">2</div>
+                                <span
+                                    data-ko="결과 입력 · 판정"
+                                    data-en="Input result &amp; judgment"
+                                    >결과 입력 · 판정</span
+                                >
+                            </div>
+                            <div class="cat-flow-step">
+                                <div class="step-num">3</div>
+                                <span
+                                    data-ko="이미지 Evidence 첨부"
+                                    data-en="Attach image evidence"
+                                    >이미지 Evidence 첨부</span
+                                >
+                            </div>
+                        </div>
+                        <div class="cat-example">
+                            <strong data-ko="예시" data-en="Examples"
+                                >예시</strong
+                            >
+                            <span
+                                data-ko="명판 · 라벨 · 누수 확인&lt;br /&gt;외관 · 케이블 연결 점검&lt;br /&gt;측정기 수치 직접 확인"
+                                data-en="Nameplate · label · leak check&lt;br /&gt;Exterior &amp; cable connection inspection&lt;br /&gt;Direct instrument reading"
+                                >명판 · 라벨 · 누수 확인<br />
+                                외관 · 케이블 연결 점검<br />
+                                측정기 수치 직접 확인</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="takeaway">
+                    <div
+                        data-ko="&lt;strong&gt;완전 자동 + 반자동&lt;/strong&gt; = 장비와 직접 통신 → 데이터 자동 수집 + Pass/Fail 자동 판정"
+                        data-en="&lt;strong&gt;Full Auto + Semi-Auto&lt;/strong&gt; = direct device communication → auto data collection + auto Pass/Fail judgment"
+                    >
+                        <strong>완전 자동 + 반자동</strong> = 장비와 직접 통신 →
+                        데이터 자동 수집 + Pass/Fail 자동 판정
+                    </div>
+                    <div
+                        data-ko="&lt;strong&gt;수동&lt;/strong&gt; = 기존 Excel 대비 체계적 기록 + 이미지 Evidence 첨부 + 추적 가능"
+                        data-en="&lt;strong&gt;Manual&lt;/strong&gt; = structured recording vs. Excel + image evidence attached + traceable"
+                    >
+                        <strong>수동</strong> = 기존 Excel 대비 체계적 기록 +
+                        이미지 Evidence 첨부 + 추적 가능
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 06 · Dashboard & Docx Report (merged)
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="6" style="padding-bottom: 40px">
+                <div class="slide-num">06 / 12</div>
+                <div
+                    style="
+                        display: flex;
+                        align-items: baseline;
+                        gap: 16px;
+                        margin-bottom: 4px;
+                    "
+                >
+                    <div class="slide-tag" style="margin-bottom: 0">
+                        RESULT · DASHBOARD & REPORT
+                    </div>
+                    <h2
+                        data-ko="결과 — Dashboard &amp; Docx Report"
+                        data-en="Results — Dashboard &amp; Docx Report"
+                        style="
+                            margin-bottom: 0;
+                            font-size: clamp(22px, 3vw, 36px);
+                        "
+                    >
+                        결과 — Dashboard &amp; Docx Report
+                    </h2>
+                </div>
+                <p
+                    data-ko="모든 테스트 결과가 집계되고, 버튼 하나로 완성본 문서가 생성됩니다"
+                    data-en="All test results are aggregated and a complete document is generated with one button"
+                    style="
+                        font-size: 15px;
+                        color: var(--text-dim);
+                        margin-bottom: 14px;
+                    "
+                >
+                    모든 테스트 결과가 집계되고, 버튼 하나로 완성본 문서가
+                    생성됩니다
+                </p>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 18px;
+                        flex: 1;
+                        min-height: 0;
+                    "
+                >
+                    <!-- 좌: 텍스트 콘텐츠 -->
+                    <div
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            min-height: 0;
+                        "
+                    >
+                        <div
+                            class="push-flow"
+                            style="flex-shrink: 0; padding: 10px 16px"
+                        >
+                            <div class="push-row final" style="margin: 0">
+                                <div class="src">OQC Edge</div>
+                                <div class="arrow">──▶</div>
+                                <div class="mid">Server Push</div>
+                                <div class="arrow">──▶</div>
+                                <div class="dst">Download Report</div>
+                            </div>
+                        </div>
+                        <div class="report-list" style="flex-shrink: 0">
+                            <h4
+                                data-ko="리포트에 담기는 것"
+                                data-en="What Goes in the Report"
+                            >
+                                리포트에 담기는 것
+                            </h4>
+                            <ul>
+                                <li
+                                    data-ko="모든 Pass / Fail 이력 + 재측정 기록"
+                                    data-en="All Pass / Fail history + re-measurement records"
+                                >
+                                    모든 Pass / Fail 이력 + 재측정 기록
+                                </li>
+                                <li
+                                    data-ko="이미지 Evidence (현장 사진 자동 삽입)"
+                                    data-en="Image evidence (field photos auto-inserted)"
+                                >
+                                    이미지 Evidence (현장 사진 자동 삽입)
+                                </li>
+                                <li
+                                    data-ko="자동 판정 결과 + 측정값"
+                                    data-en="Auto judgment result + measured values"
+                                >
+                                    자동 판정 결과 + 측정값
+                                </li>
+                                <li
+                                    data-ko="이슈 조치 내역 · F/U 기록"
+                                    data-en="Issue action history · F/U records"
+                                >
+                                    이슈 조치 내역 · F/U 기록
+                                </li>
+                                <li
+                                    data-ko="전체 실행 타임라인"
+                                    data-en="Full execution timeline"
+                                >
+                                    전체 실행 타임라인
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="chron-card" style="flex-shrink: 0">
+                            <div class="chron-card-icon">⚡</div>
+                            <div>
+                                <div
+                                    class="chron-card-title"
+                                    data-ko="기존 대비 차이"
+                                    data-en="Difference vs. Before"
+                                >
+                                    기존 대비 차이
+                                </div>
+                                <div
+                                    class="chron-card-body"
+                                    data-ko="수작업 보고서 수 시간 → &lt;strong style='color: #6ee7b7'&gt;버튼 1회 즉시 완료&lt;/strong&gt;&lt;br /&gt;누락 없는 완전한 기록 · 양식 자동 준수"
+                                    data-en="Hours of manual report work → &lt;strong style='color: #6ee7b7'&gt;One button, instant completion&lt;/strong&gt;&lt;br /&gt;Complete records with no gaps · auto format compliance"
+                                >
+                                    수작업 보고서 수 시간 →
+                                    <strong style="color: #6ee7b7"
+                                        >버튼 1회 즉시 완료</strong
+                                    ><br />누락 없는 완전한 기록 · 양식 자동
+                                    준수
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chron-card" style="flex-shrink: 0">
+                            <div class="chron-card-icon">🏭</div>
+                            <div>
+                                <div
+                                    class="chron-card-title"
+                                    data-ko="고객사 납품 양식"
+                                    data-en="Customer Delivery Format"
+                                >
+                                    고객사 납품 양식
+                                </div>
+                                <div
+                                    class="chron-card-body"
+                                    data-ko="SKH / 삼성 / TSMC 포맷 Docx 템플릿 · 즉시 제출 가능"
+                                    data-en="SKH / Samsung / TSMC format Docx templates · ready for immediate submission"
+                                >
+                                    SKH / 삼성 / TSMC 포맷 Docx 템플릿 · 즉시
+                                    제출 가능
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 우: 이미지 상하 배치 (Docx 2/3 · Dashboard 1/3) -->
+                    <div
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            min-height: 0;
+                        "
+                    >
+                        <div
+                            class="demo-media"
+                            style="flex: 2; min-height: 0; overflow: hidden"
+                        >
+                            <img
+                                src="img/img-03-docx-report.gif"
+                                alt="Docx Report 생성"
+                                style="
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    object-position: top;
+                                    border-radius: 8px;
+                                "
+                            />
+                            <div
+                                class="media-caption"
+                                data-ko="Docx Report 자동 생성 · 실제 화면"
+                                data-en="Auto-generated Docx Report · actual screen"
+                            >
+                                Docx Report 자동 생성 · 실제 화면
+                            </div>
+                        </div>
+                        <div
+                            class="demo-media"
+                            style="flex: 1; min-height: 0; overflow: hidden"
+                        >
+                            <img
+                                src="img/img-04-manager-dashboard.jpg"
+                                alt="OQC Manager Dashboard"
+                                style="
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    object-position: top;
+                                    border-radius: 8px;
+                                "
+                            />
+                            <div
+                                class="media-caption"
+                                data-ko="OQC Manager — 통계 대시보드"
+                                data-en="OQC Manager — Statistics Dashboard"
+                            >
+                                OQC Manager — 통계 대시보드
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 10 · 실행 연대기
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="7">
+                <div class="slide-num">07 / 12</div>
+                <div class="slide-tag">AUDIT TRAIL</div>
+                <h2
+                    data-ko="실행 연대기 — 모든 기록"
+                    data-en="Execution Chronicle — Every Record"
+                >
+                    실행 연대기 — 모든 기록
+                </h2>
+                <h3
+                    data-ko="테스트 세션의 전체 흐름이 시간 순서로 저장됩니다"
+                    data-en="The entire test session flow is saved in chronological order"
+                >
+                    테스트 세션의 전체 흐름이 시간 순서로 저장됩니다
+                </h3>
+
+                <div class="chronicle-layout">
+                    <div class="chronicle-timeline">
+                        <div class="tl-item pass">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">09:12:04</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="세션 시작 — Gen4 AZ #12"
+                                    data-en="Session Start — Gen4 AZ #12"
+                                >
+                                    세션 시작 — Gen4 AZ #12
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko="엔지니어 로그인 · 절차서 v2.1 로드 · Edge 장비 연결 확인"
+                                    data-en="Engineer login · Procedure v2.1 loaded · Edge device connection confirmed"
+                                >
+                                    엔지니어 로그인 · 절차서 v2.1 로드 · Edge
+                                    장비 연결 확인
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item pass">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">09:14:38</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="Step 1.1 PASS — Vacuum Level 확인"
+                                    data-en="Step 1.1 PASS — Vacuum Level Check"
+                                >
+                                    Step 1.1 PASS — Vacuum Level 확인
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko="측정값 2.3×10⁻³ Pa · 기준값 &lt;5.0×10⁻³ Pa · 자동 판정 통과"
+                                    data-en="Measured 2.3×10⁻³ Pa · Spec &lt;5.0×10⁻³ Pa · Auto judgment passed"
+                                >
+                                    측정값 2.3×10⁻³ Pa · 기준값 &lt;5.0×10⁻³ Pa
+                                    · 자동 판정 통과
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item fail">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">09:31:17</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="Step 2.4 FAIL — Pump VP-203 rpm"
+                                    data-en="Step 2.4 FAIL — Pump VP-203 rpm"
+                                >
+                                    Step 2.4 FAIL — Pump VP-203 rpm
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko="측정값 2,810 rpm · 기준값 3,000±50 rpm · 이미지 Evidence 첨부"
+                                    data-en="Measured 2,810 rpm · Spec 3,000±50 rpm · Image evidence attached"
+                                >
+                                    측정값 2,810 rpm · 기준값 3,000±50 rpm ·
+                                    이미지 Evidence 첨부
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item action">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">09:35:02</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="이슈 조치 등록"
+                                    data-en="Issue Action Logged"
+                                >
+                                    이슈 조치 등록
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko='담당자 기록 · "VP-203 인버터 파라미터 재설정 후 재측정 예정"'
+                                    data-en='Owner recorded · "VP-203 inverter parameter reset, re-measurement scheduled"'
+                                >
+                                    담당자 기록 · "VP-203 인버터 파라미터 재설정
+                                    후 재측정 예정"
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item pass">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">10:02:55</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="Step 2.4 PASS — 재측정 완료"
+                                    data-en="Step 2.4 PASS — Re-measurement Complete"
+                                >
+                                    Step 2.4 PASS — 재측정 완료
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko="측정값 3,012 rpm · 조치 결과 기록 · 이슈 Close"
+                                    data-en="Measured 3,012 rpm · Action result recorded · Issue closed"
+                                >
+                                    측정값 3,012 rpm · 조치 결과 기록 · 이슈
+                                    Close
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tl-item pass">
+                            <div class="tl-dot"></div>
+                            <div class="tl-content">
+                                <div class="tl-time">11:48:21</div>
+                                <div
+                                    class="tl-title"
+                                    data-ko="세션 종료 — 서버 Push 완료"
+                                    data-en="Session End — Server Push Complete"
+                                >
+                                    세션 종료 — 서버 Push 완료
+                                </div>
+                                <div
+                                    class="tl-body"
+                                    data-ko="총 47개 항목 완료 · Pass 44 / Fail 2 / Skip 1 · Dashboard 집계 반영"
+                                    data-en="47 items total completed · Pass 44 / Fail 2 / Skip 1 · Reflected in dashboard"
+                                >
+                                    총 47개 항목 완료 · Pass 44 / Fail 2 / Skip
+                                    1 · Dashboard 집계 반영
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chronicle-desc">
+                        <div class="chron-card">
+                            <div class="chron-card-icon">🗂️</div>
+                            <div>
+                                <div
+                                    class="chron-card-title"
+                                    data-ko="무엇이 기록되나"
+                                    data-en="What Gets Recorded"
+                                >
+                                    무엇이 기록되나
+                                </div>
+                                <div
+                                    class="chron-card-body"
+                                    data-ko="누가 · 언제 · 어떤 값으로 · 어떤 판정을 내렸는지&lt;br /&gt;모든 단계가 타임스탬프와 함께 DB에 영구 저장됩니다"
+                                    data-en="Who · when · what value · what judgment was made&lt;br /&gt;Every step is permanently stored in the DB with a timestamp"
+                                >
+                                    누가 · 언제 · 어떤 값으로 · 어떤 판정을
+                                    내렸는지<br />모든 단계가 타임스탬프와 함께
+                                    DB에 영구 저장됩니다
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chron-card">
+                            <div class="chron-card-icon">📷</div>
+                            <div>
+                                <div
+                                    class="chron-card-title"
+                                    data-ko="이미지 Evidence"
+                                    data-en="Image Evidence"
+                                >
+                                    이미지 Evidence
+                                </div>
+                                <div
+                                    class="chron-card-body"
+                                    data-ko="FAIL 또는 수동 항목에서 현장 사진을 직접 첨부&lt;br /&gt;리포트에 자동 삽입되어 추적 가능"
+                                    data-en="Field photos directly attached on FAIL or manual items&lt;br /&gt;Auto-inserted into the report for traceability"
+                                >
+                                    FAIL 또는 수동 항목에서 현장 사진을 직접
+                                    첨부<br />리포트에 자동 삽입되어 추적 가능
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chron-card">
+                            <div class="chron-card-icon">🔄</div>
+                            <div>
+                                <div
+                                    class="chron-card-title"
+                                    data-ko="재측정 이력"
+                                    data-en="Re-measurement History"
+                                >
+                                    재측정 이력
+                                </div>
+                                <div
+                                    class="chron-card-body"
+                                    data-ko="FAIL → 조치 → 재측정 전 과정이 별도 기록&lt;br /&gt;최초값과 최종값 모두 리포트에 포함됩니다"
+                                    data-en="FAIL → action → re-measurement entire process separately recorded&lt;br /&gt;Both initial and final values included in the report"
+                                >
+                                    FAIL → 조치 → 재측정 전 과정이 별도 기록<br />최초값과
+                                    최종값 모두 리포트에 포함됩니다
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="chron-highlight"
+                            data-ko="기존 Excel에서는 &lt;strong&gt;덮어쓰면 사라지던 기록&lt;/strong&gt;이&lt;br /&gt;OQC에서는 모든 수정·재측정 이력이 &lt;strong&gt;영구 보존&lt;/strong&gt;됩니다"
+                            data-en="Records that &lt;strong&gt;disappeared when overwritten in Excel&lt;/strong&gt;&lt;br /&gt;are &lt;strong&gt;permanently preserved&lt;/strong&gt; in OQC — every edit and re-measurement"
+                        >
+                            기존 Excel에서는
+                            <strong>덮어쓰면 사라지던 기록</strong>이<br />
+                            OQC에서는 모든 수정·재측정 이력이
+                            <strong>영구 보존</strong>됩니다
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 08 · DEMO 1 · Gen2 (Andrew)
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="8">
+                <div class="slide-num">08 / 12</div>
+                <div class="slide-tag green">DEMO 1 · MANUAL TEST</div>
+                <h2
+                    data-ko="Gen2 SKH #25 · Manual Test"
+                    data-en="Gen2 SKH #25 · Manual Test"
+                >
+                    Gen2 SKH #25 · Manual Test
+                </h2>
+                <h3
+                    data-ko="Gen2 장비 앞에서 Maual 테스트를 시연합니다"
+                    data-en="Manual test demonstration in front of Gen2 equipment"
+                >
+                    Gen2 장비 앞에서 Maual 테스트를 시연합니다
+                </h3>
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 1fr 2fr 2fr;
+                        gap: 20px;
+                        flex: 1;
+                        min-height: 0;
+                    "
+                >
+                    <!-- 왼쪽: 플로우 스텝 -->
+                    <div
+                        class="demo-info"
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 8px;
+                            min-height: 0;
+                            overflow-y: auto;
+                        "
+                    >
+                        <h4 style="margin-bottom: 4px">TEST FLOW</h4>
+                        <div class="flow-steps" style="gap: 7px">
+                            <div class="flow-step" style="padding: 10px 14px">
+                                <div class="num">1</div>
+                                <div
+                                    class="content"
+                                    data-ko="&lt;strong&gt;절차서 편집&lt;/strong&gt; — Manager"
+                                    data-en="&lt;strong&gt;Edit Procedure&lt;/strong&gt; — Manager"
+                                >
+                                    <strong>절차서 편집</strong> — Manager
+                                </div>
+                            </div>
+                            <div class="flow-step" style="padding: 10px 14px">
+                                <div class="num">2</div>
+                                <div
+                                    class="content"
+                                    data-ko="&lt;strong&gt;Edge 배포&lt;/strong&gt; — 서버 → 현장"
+                                    data-en="&lt;strong&gt;Deploy to Edge&lt;/strong&gt; — Server → Field"
+                                >
+                                    <strong>Edge 배포</strong> — 서버 → 현장
+                                </div>
+                            </div>
+                            <div class="flow-step" style="padding: 10px 14px">
+                                <div class="num">3</div>
+                                <div
+                                    class="content"
+                                    data-ko="&lt;strong&gt;Execution 생성&lt;/strong&gt; — Edge"
+                                    data-en="&lt;strong&gt;Create Execution&lt;/strong&gt; — Edge"
+                                >
+                                    <strong>Execution 생성</strong> — Edge
+                                </div>
+                            </div>
+                            <div
+                                class="flow-step highlight"
+                                style="padding: 10px 14px"
+                            >
+                                <div class="num">4</div>
+                                <div
+                                    class="content"
+                                    data-ko="&lt;strong&gt;테스트 수행&lt;/strong&gt;&lt;br&gt;&lt;span style='font-size:13px; color: var(--text-muted);'&gt;Pass/Fail + 이미지 첨부&lt;/span&gt;"
+                                    data-en="&lt;strong&gt;Run Test&lt;/strong&gt;&lt;br&gt;&lt;span style='font-size:13px; color: var(--text-muted);'&gt;Pass/Fail + image attachment&lt;/span&gt;"
+                                >
+                                    <strong>테스트 수행</strong><br /><span
+                                        style="
+                                            font-size: 13px;
+                                            color: var(--text-muted);
+                                        "
+                                        >Pass/Fail + 이미지 첨부</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="flow-step" style="padding: 10px 14px">
+                                <div class="num">5</div>
+                                <div
+                                    class="content"
+                                    data-ko="&lt;strong&gt;서버 Push&lt;/strong&gt; — 결과 업로드"
+                                    data-en="&lt;strong&gt;Server Push&lt;/strong&gt; — Upload results"
+                                >
+                                    <strong>서버 Push</strong> — 결과 업로드
+                                </div>
+                            </div>
+                            <div class="flow-step" style="padding: 10px 14px">
+                                <div class="num">6</div>
+                                <div class="content">
+                                    <strong>Dashboard + Docx</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 가운데: 수행 화면 -->
+                    <div class="demo-media" style="min-height: 0">
+                        <img
+                            src="img/img-02-edge-execution.gif"
+                            alt="Edge 테스트 수행"
+                            style="flex: 1; min-height: 0"
+                        />
+                        <div
+                            class="media-caption"
+                            data-ko="Edge 테스트 수행"
+                            data-en="Edge test execution"
+                        >
+                            Edge 테스트 수행
+                        </div>
+                    </div>
+                    <!-- 오른쪽: 편집 화면 -->
+                    <div class="demo-media" style="min-height: 0">
+                        <img
+                            src="img/img-01-manager-catalog.gif"
+                            alt="OQC Manager 절차서 편집"
+                            style="flex: 1; min-height: 0"
+                        />
+                        <div
+                            class="media-caption"
+                            data-ko="Manager 절차서 편집"
+                            data-en="Manager procedure editing"
+                        >
+                            Manager 절차서 편집
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 07 · DEMO 2 · Auto Test (Dave + Chloe)
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="9">
+                <div class="slide-num">09 / 12</div>
+                <div class="slide-tag green">DEMO 3 · AUTO TEST</div>
+                <h2
+                    data-ko="EUV Pump Performance · Auto Test"
+                    data-en="EUV Pump Performance · Auto Test"
+                >
+                    EUV Pump Performance · Auto Test
+                </h2>
+                <h3
+                    data-ko="Gen4 장비와 직접 연결 — 자동화 테스트를 라이브 실행합니다"
+                    data-en="Direct connection to Gen4 equipment — live execution of automated tests"
+                >
+                    Gen4 장비와 직접 연결 — 자동화 테스트를 라이브 실행합니다
+                </h3>
+
+                <div class="demo-layout" style="grid-template-columns: 1fr 3fr">
+                    <div
+                        class="demo-info"
+                        style="
+                            gap: 10px;
+                            display: flex;
+                            flex-direction: column;
+                            overflow-y: auto;
+                        "
+                    >
+                        <div>
+                            <h4
+                                style="
+                                    font-size: 12px;
+                                    margin-bottom: 5px;
+                                    color: #a5b4fc;
+                                "
+                            >
+                                Scenario 1 · Facility Start/Stop
+                            </h4>
+                            <div
+                                class="gherkin"
+                                style="
+                                    font-size: 11px;
+                                    padding: 8px 10px;
+                                    line-height: 1.7;
+                                    white-space: pre-wrap;
+                                "
+                            >
+                                <span class="comment"
+                                    ># facility_start.feature</span
+                                >
+                                <span class="kw" data-ko="조건" data-en="Given"
+                                    >조건</span
+                                >
+                                <span
+                                    data-ko="Gateway가 실행 중이다"
+                                    data-en="Gateway is running"
+                                    >Gateway가 실행 중이다</span
+                                >
+                                <span class="kw" data-ko="만약" data-en="When"
+                                    >만약</span
+                                >
+                                <span
+                                    data-ko="주소 109에 값 2를 쓰면"
+                                    data-en="write value 2 to address 109"
+                                    >주소 109에 값 2를 쓰면</span
+                                >
+                                <span class="kw" data-ko="그러면" data-en="Then"
+                                    >그러면</span
+                                >
+                                <span
+                                    data-ko="명령이 성공 전송된다"
+                                    data-en="command is sent successfully"
+                                    >명령이 성공 전송된다</span
+                                >
+                                <span class="kw" data-ko="만약" data-en="When"
+                                    >만약</span
+                                >
+                                <span
+                                    data-ko="3초 후 Exp state(1310) 읽으면"
+                                    data-en="read Exp state(1310) after 3 seconds"
+                                    >3초 후 Exp state(1310) 읽으면</span
+                                >
+                                <span class="kw" data-ko="그러면" data-en="Then"
+                                    >그러면</span
+                                >
+                                Exp state → Starting
+                                <span class="pass">✅</span>
+                                <span class="kw" data-ko="그리고" data-en="And"
+                                    >그리고</span
+                                >
+                                Src state → Starting
+                                <span class="pass">✅</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4
+                                style="
+                                    font-size: 12px;
+                                    margin-bottom: 5px;
+                                    color: #a5b4fc;
+                                "
+                            >
+                                Scenario 2 · PFM Air Speed
+                            </h4>
+                            <div
+                                class="case-list"
+                                style="
+                                    font-size: 11px;
+                                    padding: 8px 10px;
+                                    line-height: 1.75;
+                                "
+                            >
+                                <div
+                                    data-ko="펌프 속도 8조합 × 2사이클 자동 측정"
+                                    data-en="8 pump speed combos × 2 cycles auto-measured"
+                                >
+                                    펌프 속도 8조합 × 2사이클 자동 측정
+                                </div>
+                                <div>
+                                    <span class="case-title">Case 1</span>
+                                    PB=160 / MB=102 / DP=100Hz
+                                </div>
+                                <div>
+                                    <span class="case-title">Case 2</span> PB=80
+                                    / MB=51 / DP=100Hz
+                                </div>
+                                <div>
+                                    <span class="case-title">Case 3</span> PB=40
+                                    / MB=26 / DP=100Hz
+                                </div>
+                                <div
+                                    style="color: #64748b"
+                                    data-ko="… Case 4–7 자동 순환"
+                                    data-en="… Case 4–7 auto cycle"
+                                >
+                                    … Case 4–7 자동 순환
+                                </div>
+                                <div>
+                                    <span class="case-title">Case 8</span>
+                                    <span
+                                        data-ko="기본값 복원 후 비교"
+                                        data-en="Restore default then compare"
+                                        >기본값 복원 후 비교</span
+                                    >
+                                    <span
+                                        style="color: #6ee7b7; font-weight: 600"
+                                    >
+                                        ✅ Pass/Fail</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4
+                                data-ko="자동화 흐름"
+                                data-en="Automation Flow"
+                                style="
+                                    font-size: 12px;
+                                    margin-bottom: 5px;
+                                    color: #a5b4fc;
+                                "
+                            >
+                                자동화 흐름
+                            </h4>
+                            <div
+                                style="
+                                    font-size: 11px;
+                                    line-height: 1.8;
+                                    color: #b8c5d8;
+                                    background: rgba(255, 255, 255, 0.03);
+                                    border: 1px solid var(--border);
+                                    border-radius: 8px;
+                                    padding: 8px 10px;
+                                "
+                            >
+                                <div
+                                    data-ko="① Edge → Modbus/PLF 명령 자동 전송"
+                                    data-en="① Edge → auto-send Modbus/PLF command"
+                                >
+                                    ① Edge → Modbus/PLF 명령 자동 전송
+                                </div>
+                                <div
+                                    data-ko="② 장비 응답값 자동 수집·기록"
+                                    data-en="② Auto-collect &amp; record equipment response"
+                                >
+                                    ② 장비 응답값 자동 수집·기록
+                                </div>
+                                <div
+                                    data-ko="③ 기준값 비교 → Pass/Fail 판정"
+                                    data-en="③ Compare against spec → Pass/Fail judgment"
+                                >
+                                    ③ 기준값 비교 → Pass/Fail 판정
+                                </div>
+                                <div
+                                    data-ko="④ 결과 서버 Push → Dashboard 반영"
+                                    data-en="④ Push results to server → reflected in dashboard"
+                                >
+                                    ④ 결과 서버 Push → Dashboard 반영
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="key-point"
+                            style="
+                                font-size: 11px;
+                                padding: 8px 10px;
+                                margin-top: auto;
+                            "
+                            data-ko="&lt;strong&gt;사람&lt;/strong&gt; 시나리오 선택 · 실행 버튼&lt;br /&gt;&lt;strong&gt;OQC&lt;/strong&gt; 명령 → 수집 → 판정 → 기록"
+                            data-en="&lt;strong&gt;Human&lt;/strong&gt; selects scenario · presses run&lt;br /&gt;&lt;strong&gt;OQC&lt;/strong&gt; commands → collects → judges → records"
+                        >
+                            <strong>사람</strong> 시나리오 선택 · 실행 버튼<br />
+                            <strong>OQC</strong> 명령 → 수집 → 판정 → 기록
+                        </div>
+                    </div>
+
+                    <div class="demo-media" style="padding: 8px">
+                        <div
+                            style="
+                                position: relative;
+                                width: 100%;
+                                flex: 1;
+                                min-height: 0;
+                                border-radius: 8px;
+                                overflow: hidden;
+                                background: #000;
+                            "
+                        >
+                            <iframe
+                                src="https://onevirtualoffice-my.sharepoint.com/personal/dave_kim_edwardsvacuum_com/_layouts/15/embed.aspx?UniqueId=edf6cb91-1886-4006-a6f7-eb2027a8ee7d&embed=%7B%22af%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create&autoplay=1&muted=1"
+                                frameborder="0"
+                                scrolling="no"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen
+                                title="Auto Test 시연 영상"
+                                style="
+                                    position: absolute;
+                                    inset: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    border: none;
+                                "
+                            ></iframe>
+                        </div>
+                        <div
+                            class="media-caption"
+                            data-ko="Gen4 자동화 테스트 · 라이브 실행 영상"
+                            data-en="Gen4 automated test · live execution video"
+                        >
+                            Gen4 자동화 테스트 · 라이브 실행 영상
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 12 · Before / After
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="10">
+                <div class="slide-num">10 / 12</div>
+                <div class="slide-tag">IMPACT</div>
+                <h2
+                    data-ko="결과 — 무엇이 달라지나"
+                    data-en="Results — What Changes"
+                >
+                    결과 — 무엇이 달라지나
+                </h2>
+                <h3>Before / After</h3>
+
+                <div class="ba-grid">
+                    <div class="ba-header before-hd" style="color: #fca5a5">
+                        BEFORE
+                    </div>
+                    <div></div>
+                    <div class="ba-header after-hd" style="color: #6ee7b7">
+                        AFTER · OQC
+                    </div>
+
+                    <div
+                        class="ba-cell before"
+                        data-ko="Excel · 기억에 의존"
+                        data-en="Excel · reliance on memory"
+                    >
+                        Excel · 기억에 의존
+                    </div>
+                    <div class="ba-arrow">→</div>
+                    <div
+                        class="ba-cell after"
+                        data-ko="모든 수행 기록 DB 저장"
+                        data-en="All execution records saved in DB"
+                    >
+                        모든 수행 기록 DB 저장
+                    </div>
+
+                    <div
+                        class="ba-cell before"
+                        data-ko="검사자마다 다른 판정"
+                        data-en="Different judgment per inspector"
+                    >
+                        검사자마다 다른 판정
+                    </div>
+                    <div class="ba-arrow">→</div>
+                    <div
+                        class="ba-cell after"
+                        data-ko="자동 판정 기준 일관 적용"
+                        data-en="Consistent auto judgment criteria applied"
+                    >
+                        자동 판정 기준 일관 적용
+                    </div>
+
+                    <div
+                        class="ba-cell before"
+                        data-ko="수작업 보고서 추가 시간"
+                        data-en="Extra hours for manual report"
+                    >
+                        수작업 보고서 추가 시간
+                    </div>
+                    <div class="ba-arrow">→</div>
+                    <div
+                        class="ba-cell after"
+                        data-ko="버튼 하나로 Docx 즉시 생성"
+                        data-en="Docx generated instantly with one button"
+                    >
+                        버튼 하나로 Docx 즉시 생성
+                    </div>
+
+                    <div
+                        class="ba-cell before"
+                        data-ko="F/U 이슈 이메일 · 메모 분산"
+                        data-en="F/U issues scattered in email &amp; notes"
+                    >
+                        F/U 이슈 이메일 · 메모 분산
+                    </div>
+                    <div class="ba-arrow">→</div>
+                    <div
+                        class="ba-cell after"
+                        data-ko="단일 시스템에서 이슈 추적"
+                        data-en="Issue tracking in a single system"
+                    >
+                        단일 시스템에서 이슈 추적
+                    </div>
+
+                    <div
+                        class="ba-cell before"
+                        data-ko="데이터 없음 → 분석 불가"
+                        data-en="No data → no analysis possible"
+                    >
+                        데이터 없음 → 분석 불가
+                    </div>
+                    <div class="ba-arrow">→</div>
+                    <div
+                        class="ba-cell after"
+                        data-ko="누적 데이터 → 통계 · AI 분석 가능"
+                        data-en="Accumulated data → statistics &amp; AI analysis possible"
+                    >
+                        누적 데이터 → 통계 · AI 분석 가능
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 11 · Roadmap
+         ═══════════════════════════════════════ -->
+            <section class="slide" data-slide="11">
+                <div class="slide-num">11 / 12</div>
+                <div class="slide-tag">ROADMAP</div>
+                <h2 data-ko="향후 로드맵" data-en="Future Roadmap">
+                    향후 로드맵
+                </h2>
+                <h3
+                    data-ko="지금이 시작입니다 — 현장 배포 · 피드백 반영 · 지속 개선"
+                    data-en="This is the beginning — field deployment · feedback integration · continuous improvement"
+                >
+                    지금이 시작입니다 — 현장 배포 · 피드백 반영 · 지속 개선
+                </h3>
+
+                <div class="roadmap">
+                    <div class="rm-item">
+                        <div class="rm-num">01</div>
+                        <div>
+                            <div
+                                class="rm-title"
+                                data-ko="SOP 일원화"
+                                data-en="SOP Unification"
+                            >
+                                SOP 일원화
+                            </div>
+                            <div
+                                class="rm-desc"
+                                data-ko="파편적으로 흩어진 절차서 → 표준 카탈로그로 통합 관리"
+                                data-en="Fragmented procedures → unified into a standard catalog"
+                            >
+                                파편적으로 흩어진 절차서 → 표준 카탈로그로 통합
+                                관리
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-num">02</div>
+                        <div>
+                            <div
+                                class="rm-title"
+                                data-ko="Abatement 시스템 확대 적용"
+                                data-en="Expand to Abatement System"
+                            >
+                                Abatement 시스템 확대 적용
+                            </div>
+                            <div
+                                class="rm-desc"
+                                data-ko="펌프 외 Abatement 라인까지 테스트 커버리지 확장"
+                                data-en="Extend test coverage beyond pumps to the Abatement line"
+                            >
+                                펌프 외 Abatement 라인까지 테스트 커버리지 확장
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-num">03</div>
+                        <div>
+                            <div
+                                class="rm-title"
+                                data-ko="데이터 누적 → 통계 분석"
+                                data-en="Data Accumulation → Statistical Analysis"
+                            >
+                                데이터 누적 → 통계 분석
+                            </div>
+                            <div
+                                class="rm-desc"
+                                data-ko="테스트 결과 패턴 분석 → 크리티컬 패스 발견"
+                                data-en="Test result pattern analysis → discovery of critical paths"
+                            >
+                                테스트 결과 패턴 분석 → 크리티컬 패스 발견
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-num">04</div>
+                        <div>
+                            <div
+                                class="rm-title"
+                                data-ko="AI 시나리오 작성 보조 · Summary 기능"
+                                data-en="AI Scenario Authoring Assist · Summary Feature"
+                            >
+                                AI 시나리오 작성 보조 · Summary 기능
+                            </div>
+                            <div
+                                class="rm-desc"
+                                data-ko="시나리오 작성 자동화, 테스트 요약 리포트 자동 생성"
+                                data-en="Automated scenario authoring, auto-generated test summary reports"
+                            >
+                                시나리오 작성 자동화, 테스트 요약 리포트 자동
+                                생성
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rm-item">
+                        <div class="rm-num">05</div>
+                        <div>
+                            <div
+                                class="rm-title"
+                                data-ko="장비 전 라인 커버리지"
+                                data-en="Full Equipment Line Coverage"
+                            >
+                                장비 전 라인 커버리지
+                            </div>
+                            <div
+                                class="rm-desc"
+                                data-ko="완전 디지털 출하검사 — 모든 출하 장비 디지털 기록"
+                                data-en="Fully digital factory test — digital records for all shipped equipment"
+                            >
+                                완전 디지털 출하검사 — 모든 출하 장비 디지털
+                                기록
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════════════════════════════
+         SLIDE 12 · Q&A
+         ═══════════════════════════════════════ -->
+            <section class="slide slide-qa" data-slide="12">
+                <div class="slide-num">12 / 12</div>
+                <h1 data-ko="감사합니다" data-en="Thank You">감사합니다</h1>
+                <h3
+                    data-ko="궁금한 점은 무엇이든 질문해주세요"
+                    data-en="Please ask us anything you'd like to know"
+                >
+                    궁금한 점은 무엇이든 질문해주세요
+                </h3>
+                <div class="meta-row">
+                    <div class="meta-chip accent">OQC Team · Edwards Korea</div>
+                    <div class="meta-chip">2026. 04. 20</div>
+                </div>
+                <a href="https://oqc.atlascopco.group/" target="_blank" style="
+                    display: block;
+                    margin-top: 28px;
+                    font-size: clamp(16px, 1.8vw, 22px);
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    color: #10b981;
+                    text-decoration: none;
+                    opacity: 0.9;
+                ">oqc.atlascopco.group</a>
+            </section>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls" id="controls">
+            <button id="btn-prev" title="이전 (←)">←</button>
+            <span class="counter" id="counter">1 / 12</span>
+            <button id="btn-next" title="다음 (→)">→</button>
+            <div class="divider"></div>
+            <button id="btn-fs" title="전체 화면 (F)">⛶</button>
+            <div class="divider"></div>
+            <button id="lang-toggle" onclick="toggleLang()">KO</button>
+        </div>
+
+        <script>
+            (function () {
+                const slides = Array.from(document.querySelectorAll(".slide"));
+                const total = slides.length;
+                const counter = document.getElementById("counter");
+                const progress = document.getElementById("progress");
+                let idx = 0;
+
+                function render() {
+                    slides.forEach((s, i) => {
+                        s.classList.remove("active", "prev");
+                        if (i === idx) s.classList.add("active");
+                        else if (i < idx) s.classList.add("prev");
+                    });
+                    counter.textContent = idx + 1 + " / " + total;
+                    progress.style.width = ((idx + 1) / total) * 100 + "%";
+                    const url = new URL(window.location.href);
+                    url.hash = "#" + (idx + 1);
+                    history.replaceState(null, "", url.toString());
+
+                    // iframe(비디오) 슬라이드에서는 click-zone 비활성화
+                    // — 클릭이 iframe으로 전달되어 재생 버튼이 동작하도록
+                    const hasIframe =
+                        slides[idx].querySelector("iframe") !== null;
+                    const pe = hasIframe ? "none" : "";
+                    document.getElementById("zone-prev").style.pointerEvents =
+                        pe;
+                    document.getElementById("zone-next").style.pointerEvents =
+                        pe;
+                }
+
+                function go(i) {
+                    idx = Math.max(0, Math.min(total - 1, i));
+                    render();
+                }
+                function next() {
+                    go(idx + 1);
+                }
+                function prev() {
+                    go(idx - 1);
+                }
+
+                // Keyboard
+                document.addEventListener("keydown", (e) => {
+                    if (
+                        e.key === "ArrowRight" ||
+                        e.key === "PageDown" ||
+                        e.key === " "
+                    ) {
+                        e.preventDefault();
+                        next();
+                    } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+                        e.preventDefault();
+                        prev();
+                    } else if (e.key === "Home") {
+                        e.preventDefault();
+                        go(0);
+                    } else if (e.key === "End") {
+                        e.preventDefault();
+                        go(total - 1);
+                    } else if (e.key === "f" || e.key === "F") {
+                        e.preventDefault();
+                        toggleFullscreen();
+                    }
+                });
+
+                // Controls
+                document
+                    .getElementById("btn-prev")
+                    .addEventListener("click", prev);
+                document
+                    .getElementById("btn-next")
+                    .addEventListener("click", next);
+                document
+                    .getElementById("btn-fs")
+                    .addEventListener("click", toggleFullscreen);
+
+                // Click zones
+                document
+                    .getElementById("zone-prev")
+                    .addEventListener("click", prev);
+                document
+                    .getElementById("zone-next")
+                    .addEventListener("click", next);
+
+                // Fullscreen
+                function toggleFullscreen() {
+                    if (!document.fullscreenElement) {
+                        document.documentElement
+                            .requestFullscreen()
+                            .catch(() => {});
+                    } else {
+                        document.exitFullscreen();
+                    }
+                }
+
+                // Initial — read hash
+                const hashNum = parseInt(
+                    (window.location.hash || "").replace("#", ""),
+                    10,
+                );
+                if (!isNaN(hashNum) && hashNum >= 1 && hashNum <= total) {
+                    idx = hashNum - 1;
+                }
+                render();
+
+                // Touch swipe
+                let touchStartX = 0;
+                document.addEventListener(
+                    "touchstart",
+                    (e) => {
+                        touchStartX = e.touches[0].clientX;
+                    },
+                    { passive: true },
+                );
+                document.addEventListener("touchend", (e) => {
+                    const dx = e.changedTouches[0].clientX - touchStartX;
+                    if (Math.abs(dx) > 60) {
+                        dx < 0 ? next() : prev();
+                    }
+                });
+            })();
+
+            // ─── Language Toggle ───────────────────────────────────────
+            (function () {
+                const LANG_KEY = "slide-lang";
+                let currentLang = localStorage.getItem(LANG_KEY) || "ko";
+
+                function applyLang(lang) {
+                    document
+                        .querySelectorAll("[data-ko][data-en]")
+                        .forEach(function (el) {
+                            el.innerHTML =
+                                lang === "ko"
+                                    ? el.getAttribute("data-ko")
+                                    : el.getAttribute("data-en");
+                        });
+                    document.getElementById("lang-toggle").textContent =
+                        lang === "ko" ? "KO" : "EN";
+                    document.documentElement.lang = lang;
+                }
+
+                window.toggleLang = function () {
+                    currentLang = currentLang === "ko" ? "en" : "ko";
+                    localStorage.setItem(LANG_KEY, currentLang);
+                    applyLang(currentLang);
+                };
+
+                // Apply on load
+                applyLang(currentLang);
+            })();
+        </script>
+    </body>
+</html>
