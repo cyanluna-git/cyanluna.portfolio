@@ -46,7 +46,7 @@ const t = {
     },
   },
   ctas: {
-    startHere: {
+    featured: {
       en: "See featured work",
       ko: "추천 작업 보기",
     },
@@ -586,7 +586,7 @@ export default function Home() {
               onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
               className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#b87749]/40 bg-[#b87749]/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-[#b87749]/70 hover:bg-[#b87749]/20"
             >
-              {t.ctas.startHere[lang]}
+              {t.ctas.featured[lang]}
             </button>
             <a
               href="#projects"
