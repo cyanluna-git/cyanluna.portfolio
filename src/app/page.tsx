@@ -608,8 +608,8 @@ export default function Home() {
         setTrackFilter={setTrackFilter}
         filtered={filtered}
       />
-      <AboutSection lang={lang} />
       <IntersectionSection lang={lang} />
+      <AboutSection lang={lang} />
       <ContactSection lang={lang} />
 
       <footer className="border-t border-border px-4 py-10 sm:px-6 sm:py-16">

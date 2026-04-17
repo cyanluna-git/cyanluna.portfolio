@@ -50,10 +50,10 @@ function MoonIcon() {
 }
 
 const navT = {
-  start: { en: "Start", ko: "시작" },
-  about: { en: "About", ko: "About" },
+  work: { en: "Work", ko: "작업" },
   projects: { en: "Projects", ko: "프로젝트" },
-  stack: { en: "Stack", ko: "스택" },
+  strategy: { en: "Strategy", ko: "전략" },
+  about: { en: "About", ko: "About" },
   contact: { en: "Contact", ko: "연락" },
 };
 
@@ -128,10 +128,10 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
   }, [menuOpen]);
 
   const navLinks = [
-    { href: "#start-here", label: navT.start[lang] },
+    { href: "#featured", label: navT.work[lang] },
     { href: "#projects", label: navT.projects[lang] },
+    { href: "#intersection", label: navT.strategy[lang] },
     { href: "#about", label: navT.about[lang] },
-    { href: "#stack", label: navT.stack[lang] },
     { href: "#contact", label: navT.contact[lang] },
   ];
 
