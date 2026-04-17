@@ -39,7 +39,17 @@ const t = {
       "작동하는 시스템을 OQC-EOB와 향후 Microsoft 365 / SAP 연계 방향까지 번역합니다.",
     ],
   },
+  stackTitle: { en: "Core Stack", ko: "핵심 스택" },
 };
+
+const stackGroups = [
+  { label: "Frontend", items: ["React 19", "Next.js 15/16", "Tailwind CSS", "Zustand", "TanStack Query", "Recharts", "ReactFlow"] },
+  { label: "Backend", items: ["FastAPI", "Ruby on Rails 8", "Node.js"] },
+  { label: "Database", items: ["PostgreSQL", "TimescaleDB", "InfluxDB", "SQLite", "Neon", "Supabase"] },
+  { label: "AI / LLM", items: ["Claude API", "Groq (Llama)", "Gemini", "Multi-Agent Orchestration"] },
+  { label: "Infra", items: ["Docker", "Vercel", "Cloud Run", "GitHub Actions"] },
+  { label: "Protocol", items: ["Modbus TCP", "Hostlink", "SAML 2.0", "OAuth 2.0"] },
+];
 
 const domains = [
   {
@@ -237,6 +247,27 @@ export default function AboutSection({ lang }: { lang: Lang }) {
               enabled={inView}
             />
           ))}
+        </div>
+
+        <div className="mt-8 sm:mt-12 border-t border-border pt-8 sm:pt-12">
+          <div id="stack" />
+          <h3 className={`text-xl font-bold tracking-tight mb-6 sm:mb-8 scroll-fade ${inView ? "in-view" : ""}`}>
+            {t.stackTitle[lang]}
+          </h3>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {stackGroups.map((group, index) => (
+              <div key={group.label} className={`scroll-fade stagger-${Math.min(index + 1, 6)} space-y-3 ${inView ? "in-view" : ""}`}>
+                <h4 className="text-xs font-mono uppercase tracking-widest text-muted">{group.label}</h4>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span key={item} className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-zinc-300">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

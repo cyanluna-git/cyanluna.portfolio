@@ -107,17 +107,7 @@ const t = {
     en: "Built with curiosity across domains.",
     ko: "도메인을 넘나드는 호기심으로 만들었습니다.",
   },
-  stackTitle: { en: "Core Stack", ko: "핵심 스택" },
 };
-
-const stackGroups = [
-  { label: "Frontend", items: ["React 19", "Next.js 15/16", "Tailwind CSS", "Zustand", "TanStack Query", "Recharts", "ReactFlow"] },
-  { label: "Backend", items: ["FastAPI", "Ruby on Rails 8", "Node.js"] },
-  { label: "Database", items: ["PostgreSQL", "TimescaleDB", "InfluxDB", "SQLite", "Neon", "Supabase"] },
-  { label: "AI / LLM", items: ["Claude API", "Groq (Llama)", "Gemini", "Multi-Agent Orchestration"] },
-  { label: "Infra", items: ["Docker", "Vercel", "Cloud Run", "GitHub Actions"] },
-  { label: "Protocol", items: ["Modbus TCP", "Hostlink", "SAML 2.0", "OAuth 2.0"] },
-];
 
 function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }) {
   const colors = {
@@ -541,34 +531,6 @@ function ProjectsSection({
   );
 }
 
-function StackSection({ lang }: { lang: Lang }) {
-  const [ref, inView] = useInView();
-
-  return (
-    <section id="stack" ref={ref as React.RefObject<HTMLElement>} className="border-t border-border px-4 py-12 sm:px-6 sm:py-20">
-      <div className="mx-auto max-w-6xl">
-        <h2 className={`scroll-fade mb-8 text-xl font-bold tracking-tight sm:mb-10 sm:text-2xl ${inView ? "in-view" : ""}`}>
-          {t.stackTitle[lang]}
-        </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {stackGroups.map((group, index) => (
-            <div key={group.label} className={`scroll-fade stagger-${Math.min(index + 1, 6)} space-y-3 ${inView ? "in-view" : ""}`}>
-              <h3 className="text-xs font-mono uppercase tracking-widest text-muted">{group.label}</h3>
-              <div className="flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span key={item} className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm text-zinc-300">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [verticalFilter, setVerticalFilter] = useState<Vertical | "all">("all");
@@ -648,7 +610,6 @@ export default function Home() {
       />
       <AboutSection lang={lang} />
       <IntersectionSection lang={lang} />
-      <StackSection lang={lang} />
       <ContactSection lang={lang} />
 
       <footer className="border-t border-border px-4 py-10 sm:px-6 sm:py-16">
