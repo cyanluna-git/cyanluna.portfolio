@@ -72,7 +72,7 @@ export default function ProjectHero({
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: verticalColor }} />
-              {lang === "ko" ? "라이브 데모 보기" : "View Live Demo"}
+              {lang === "ko" ? "서비스 바로가기" : "Go to Service"}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                 <polyline points="15 3 21 3 21 9" />
