@@ -14,6 +14,7 @@ export const aiCyclingCoach: ProjectDetail = {
     ko: "AI 기반 개인 맞춤 사이클링 트레이닝",
   },
   heroImage: "/projects/ai-cycling-coach/landing.webp",
+  liveUrl: "https://ai-cycling-workout-planner.vercel.app/",
 
   painPoints: [
     {

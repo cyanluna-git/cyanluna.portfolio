@@ -56,6 +56,7 @@ export default function ProjectDetailClient({
         status={project.status}
         verticalColor={project.verticalColor}
         heroImage={project.heroImage}
+        liveUrl={project.liveUrl}
         lang={lang}
       />
 

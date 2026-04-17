@@ -21,6 +21,7 @@ interface ProjectHeroProps {
   status: ProjectDetail["status"];
   verticalColor: string;
   heroImage?: string;
+  liveUrl?: string;
   lang: Lang;
 }
 
@@ -30,6 +31,7 @@ export default function ProjectHero({
   status,
   verticalColor,
   heroImage,
+  liveUrl,
   lang,
 }: ProjectHeroProps) {
   return (
@@ -56,6 +58,29 @@ export default function ProjectHero({
         <p className="mt-3 sm:mt-4 text-base sm:text-lg text-muted max-w-2xl leading-relaxed animate-fade-up delay-2">
           {tagline[lang]}
         </p>
+
+        {liveUrl && (
+          <div className="mt-5 animate-fade-up delay-2">
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border transition-colors"
+              style={{
+                borderColor: verticalColor,
+                color: verticalColor,
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: verticalColor }} />
+              {lang === "ko" ? "라이브 데모 보기" : "View Live Demo"}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          </div>
+        )}
 
         <div className="mt-8 sm:mt-10 animate-fade-up delay-3">
           <BrowserFrame

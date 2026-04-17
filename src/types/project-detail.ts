@@ -82,6 +82,7 @@ export interface ProjectDetail {
   title: BiText;
   tagline: BiText;
   heroImage?: string;
+  liveUrl?: string;
 
   painPoints: PainPoint[];
   beforeAfter: BeforeAfter[];
