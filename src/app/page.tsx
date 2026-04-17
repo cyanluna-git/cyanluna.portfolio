@@ -55,45 +55,6 @@ const t = {
       ko: "전체 프로젝트 보기",
     },
   },
-  startHere: {
-    eyebrow: { en: "Start Here", ko: "Start Here" },
-    title: {
-      en: "Pick the lens that matches what you want to validate first.",
-      ko: "먼저 확인하고 싶은 관점에 맞춰 시작점을 고르세요.",
-    },
-    sub: {
-      en: "Instead of scanning 14 projects at once, start with the track that best matches your question.",
-      ko: "14개 프로젝트를 한 번에 훑기보다, 지금 궁금한 질문에 맞는 트랙부터 보는 편이 빠릅니다.",
-    },
-    enterprise: {
-      title: { en: "See enterprise proof first", ko: "엔터프라이즈 증거부터 보기" },
-      body: {
-        en: "Start with manufacturing DX and internal operating systems that show process depth, system integration, and delivery realism.",
-        ko: "제조 DX와 내부 운영 시스템부터 보면서, 프로세스 깊이와 시스템 통합, 실제 전달력을 먼저 확인할 수 있습니다.",
-      },
-      button: { en: "Focus on enterprise systems", ko: "엔터프라이즈 시스템 보기" },
-    },
-    ai: {
-      title: { en: "See AI-native workflow proof", ko: "AI 네이티브 워크플로우 보기" },
-      body: {
-        en: "Start with multi-agent delivery, automated review, and AI products that ship real outputs instead of just demos.",
-        ko: "멀티에이전트 전달, 자동 리뷰, 데모가 아니라 실제 산출물을 만드는 AI 제품부터 볼 수 있습니다.",
-      },
-      button: { en: "Focus on AI tooling", ko: "AI 툴링 보기" },
-    },
-    data: {
-      title: { en: "See data product range", ko: "데이터 제품 범위 보기" },
-      body: {
-        en: "Start with analytics-heavy products that turn messy signals, files, and records into usable insight.",
-        ko: "복잡한 신호, 파일, 기록을 사용 가능한 인사이트로 바꾸는 분석 중심 제품부터 볼 수 있습니다.",
-      },
-      button: { en: "Focus on data products", ko: "데이터 제품 보기" },
-    },
-    bestFirstClicks: {
-      en: "Best first clicks",
-      ko: "추천 첫 클릭",
-    },
-  },
   featured: {
     eyebrow: { en: "Featured Proof", ko: "Featured Proof" },
     title: {
@@ -157,8 +118,6 @@ const stackGroups = [
   { label: "Infra", items: ["Docker", "Vercel", "Cloud Run", "GitHub Actions"] },
   { label: "Protocol", items: ["Modbus TCP", "Hostlink", "SAML 2.0", "OAuth 2.0"] },
 ];
-
-const starterTracks = ["enterprise", "ai", "data"] as const;
 
 function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }) {
   const colors = {
@@ -340,7 +299,7 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
   );
 }
 
-function GuidedEntrySection({
+function CuratedEntrySection({
   lang,
   onSelectTrack,
 }: {
@@ -351,85 +310,10 @@ function GuidedEntrySection({
 
   return (
     <section
-      id="start-here"
+      id="featured"
       ref={ref as React.RefObject<HTMLElement>}
-      className="px-4 py-12 sm:px-6 sm:py-20"
+      className="border-t border-border px-4 py-12 sm:px-6 sm:py-20"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-[#b87749]">
-            {t.startHere.eyebrow[lang]}
-          </div>
-          <h2 className="mt-3 max-w-4xl text-2xl font-bold tracking-tight sm:text-4xl">
-            {t.startHere.title[lang]}
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-            {t.startHere.sub[lang]}
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-4 lg:grid-cols-[1.2fr_1fr_1fr]">
-          {starterTracks.map((trackKey, index) => {
-            const starters = projects
-              .filter((project) => project.curation.track === trackKey)
-              .sort((a, b) => (a.curation.featuredRank ?? 999) - (b.curation.featuredRank ?? 999))
-              .slice(0, 2);
-            const copy = t.startHere[trackKey];
-            return (
-              <article
-                key={trackKey}
-                data-testid={`guided-path-${trackKey}`}
-                className={`scroll-fade stagger-${Math.min(index + 1, 3)} flex flex-col justify-between rounded-[28px] border border-border bg-surface/95 p-6 shadow-[0_18px_55px_rgba(15,23,42,0.08)] ${inView ? "in-view" : ""}`}
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
-                      {curationTracks[trackKey].label[lang]}
-                    </span>
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-muted">
-                      {trackKey === "enterprise" ? "01" : trackKey === "ai" ? "02" : "03"}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 text-xl font-semibold tracking-tight">{copy.title[lang]}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted">{copy.body[lang]}</p>
-                  <div className="mt-5">
-                    <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-zinc-500">
-                      {t.startHere.bestFirstClicks[lang]}
-                    </div>
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {starters.map((project) => (
-                        <span
-                          key={project.id}
-                          className="rounded-full border border-border bg-background/60 px-3 py-1.5 text-xs text-zinc-300"
-                        >
-                          {project.title[lang]}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => onSelectTrack(trackKey)}
-                  className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-background px-4 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
-                >
-                  {copy.button[lang]}
-                </button>
-              </article>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeaturedProjectsSection({ lang }: { lang: Lang }) {
-  const [ref, inView] = useInView();
-
-  return (
-    <section ref={ref as React.RefObject<HTMLElement>} className="border-t border-border px-4 py-12 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
           <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-[#b87749]">
@@ -441,6 +325,20 @@ function FeaturedProjectsSection({ lang }: { lang: Lang }) {
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
             {t.featured.sub[lang]}
           </p>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-2.5">
+          {(["enterprise", "ai", "data"] as const).map((trackKey) => (
+            <button
+              key={trackKey}
+              type="button"
+              data-testid={`guided-path-${trackKey}`}
+              onClick={() => onSelectTrack(trackKey)}
+              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
+            >
+              {curationTracks[trackKey].label[lang]}
+            </button>
+          ))}
         </div>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-3">
@@ -739,8 +637,7 @@ export default function Home() {
         </div>
       </section>
 
-      <GuidedEntrySection lang={lang} onSelectTrack={jumpToProjects} />
-      <FeaturedProjectsSection lang={lang} />
+      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} />
       <ProjectsSection
         lang={lang}
         verticalFilter={verticalFilter}
