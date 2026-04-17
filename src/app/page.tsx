@@ -7,7 +7,6 @@ import {
   curationTracks,
   featuredProjects,
   projects,
-  stats,
   verticals,
   type CurationTrack,
   type Project,
@@ -19,7 +18,6 @@ import AboutSection from "@/components/AboutSection";
 import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
 import { useInView } from "@/hooks/useInView";
-import { useCounter } from "@/hooks/useCounter";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -37,10 +35,6 @@ const t = {
     en: "AI-native full-stack engineer and strategic program solver building manufacturing DX, internal operating tools, and decision systems that teams can use immediately.",
     ko: "제조 DX, 내부 운영 도구, 의사결정 시스템을 빠르게 제품화하는 AI Native 풀스택 엔지니어이자 전략적 프로그램 솔버입니다.",
   },
-  support: {
-    en: "I go deep on the real constraint first, then build the analysis, visualization, and management layer the team needs next.",
-    ko: "문제의 표면이 아니라 실제 제약을 먼저 파고든 뒤, 팀에 필요한 분석·시각화·관리 레이어를 바로 만들어냅니다.",
-  },
   pills: {
     manufacturing: {
       en: "Manufacturing DX systems",
@@ -49,10 +43,6 @@ const t = {
     tooling: {
       en: "Rapid data and ops tooling",
       ko: "빠른 데이터·운영 도구 제작",
-    },
-    roadmap: {
-      en: "OQC-EOB → Microsoft 365 / SAP (planned)",
-      ko: "OQC-EOB → Microsoft 365 / SAP (구축 예정)",
     },
   },
   ctas: {
@@ -64,12 +54,6 @@ const t = {
       en: "Browse all projects",
       ko: "전체 프로젝트 보기",
     },
-  },
-  statsLabel: {
-    projects: { en: "Projects", ko: "프로젝트" },
-    techStacks: { en: "Tech Stacks", ko: "기술 스택" },
-    domains: { en: "Domains", ko: "도메인" },
-    agents: { en: "AI Agents", ko: "AI 에이전트" },
   },
   startHere: {
     eyebrow: { en: "Start Here", ko: "Start Here" },
@@ -687,18 +671,6 @@ function StackSection({ lang }: { lang: Lang }) {
   );
 }
 
-function HeroStatCard({ label, end }: { label: string; end: number }) {
-  const [ref, inView] = useInView({ threshold: 0.3 });
-  const display = useCounter({ end, duration: 400, enabled: inView });
-
-  return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className="rounded-xl border border-border bg-surface p-3 text-center sm:p-4">
-      <div className="font-mono text-xl font-bold sm:text-2xl">{display}</div>
-      <div className="mt-1 text-[11px] text-muted sm:text-xs">{label}</div>
-    </div>
-  );
-}
-
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [verticalFilter, setVerticalFilter] = useState<Vertical | "all">("all");
@@ -740,12 +712,8 @@ export default function Home() {
           <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">
             {t.sub[lang]}
           </p>
-          <p className="mt-3 max-w-3xl animate-fade-up text-sm leading-relaxed text-zinc-400 delay-1 sm:text-base">
-            {t.support[lang]}
-          </p>
-
           <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
-            {(["manufacturing", "tooling", "roadmap"] as const).map((key) => (
+            {(["manufacturing", "tooling"] as const).map((key) => (
               <span key={key} className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300">
                 {t.pills[key][lang]}
               </span>
@@ -768,11 +736,6 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-8 grid max-w-2xl grid-cols-2 gap-3 animate-fade-up delay-3 sm:mt-12 sm:grid-cols-4 sm:gap-4">
-            {(Object.entries(stats) as [keyof typeof stats, number][]).map(([key, val]) => (
-              <HeroStatCard key={key} label={t.statsLabel[key][lang]} end={val} />
-            ))}
-          </div>
         </div>
       </section>
 
