@@ -11,14 +11,14 @@ test.describe("Curated homepage discovery", () => {
         name: /I turn messy operations, data bottlenecks, and industrial constraints into working systems\./,
       }),
     ).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Pick the lens that matches what you want to validate first\./ })).toBeVisible();
+    await expect(page.getByTestId("guided-path-enterprise")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Three projects that explain the portfolio faster than a long bio\./ })).toBeVisible();
   });
 
   test("guides users into featured work and browse filters", async ({ page }) => {
     await page.goto("/");
 
-    await page.getByTestId("guided-path-enterprise").getByRole("button", { name: "Focus on enterprise systems" }).click();
+    await page.getByTestId("guided-path-enterprise").click();
     await expect(page.getByRole("heading", { name: "Browse All Work" })).toBeVisible();
     await expect(page.getByText("Current track: Enterprise Systems")).toBeVisible();
 
@@ -36,7 +36,7 @@ test.describe("Curated homepage discovery", () => {
     await page.goto("/");
 
     await expect(page.getByText("AI-Native Problem Solver")).toBeVisible();
-    await page.getByRole("heading", { name: /Pick the lens that matches what you want to validate first\./ }).scrollIntoViewIfNeeded();
+    await page.getByTestId("guided-path-enterprise").scrollIntoViewIfNeeded();
     await expect(page.getByTestId("guided-path-ai")).toBeVisible();
     await page.getByRole("heading", { name: "Browse All Work" }).scrollIntoViewIfNeeded();
     await expect(page.getByRole("heading", { name: "Browse All Work" })).toBeVisible();
