@@ -149,7 +149,7 @@ function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: 
 /* ── Icon visuals for projects with no screenshots ───────────────── */
 
 const PROJECT_ICONS: Record<string, string> = {
-  moru: "/projects/moru/icon.svg",
+  moru: "/projects/moru/icon.png",
   "smart-factory-qc": "/projects/smart-factory-qc/icon.svg",
   "ai-cycling-coach": "/projects/ai-cycling-coach/icon.svg",
   "equipment-gateway": "/projects/equipment-gateway/icon.svg",
@@ -158,18 +158,25 @@ const PROJECT_ICONS: Record<string, string> = {
   javis: "/projects/javis/icon.svg",
 };
 
+// Projects whose icon has a light background — render on white
+const LIGHT_BG_ICONS = new Set(["moru"]);
+
 function ProjectIconVisual({ project }: { project: Project }) {
   const iconSrc = PROJECT_ICONS[project.id];
   if (!iconSrc) return null;
 
+  const isLight = LIGHT_BG_ICONS.has(project.id);
+
   return (
-    <div className="flex aspect-video items-center justify-center bg-zinc-900/60">
+    <div
+      className={`flex aspect-video items-center justify-center ${isLight ? "bg-[#f0f2f5]" : "bg-zinc-900/60"}`}
+    >
       <Image
         src={iconSrc}
         alt={`${project.id} icon`}
-        width={120}
-        height={120}
-        className="h-28 w-28 object-contain"
+        width={isLight ? 180 : 120}
+        height={isLight ? 100 : 120}
+        className={isLight ? "h-20 w-auto object-contain" : "h-28 w-28 object-contain"}
         unoptimized
       />
     </div>
