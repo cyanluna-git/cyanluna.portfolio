@@ -1,0 +1,9 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#ECFDF5"/>
+  <!-- Lung left lobe -->
+  <path d="M50 28 L50 55 Q50 72 38 74 Q24 74 24 60 Q24 48 32 44 Q36 42 36 36 Q36 28 42 26 Q46 25 50 28 Z" fill="#10B981" opacity="0.8"/>
+  <!-- Lung right lobe -->
+  <path d="M50 28 L50 55 Q50 72 62 74 Q76 74 76 60 Q76 48 68 44 Q64 42 64 36 Q64 28 58 26 Q54 25 50 28 Z" fill="#10B981" opacity="0.6"/>
+  <!-- Trachea -->
+  <rect x="47" y="18" width="6" height="14" rx="3" fill="#10B981"/>
+</svg>

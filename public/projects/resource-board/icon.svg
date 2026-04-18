@@ -1,44 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <rect width="256" height="256" fill="#0f172a" rx="32"/>
-  <defs>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <!-- Calendar grid -->
-  <rect x="64" y="76" width="128" height="112" rx="10" fill="none" stroke="#3b82f6" stroke-width="2.5" opacity="0.5"/>
-  <!-- Calendar top bar -->
-  <rect x="64" y="76" width="128" height="26" rx="10" fill="#3b82f6" opacity="0.15"/>
-  <line x1="64" y1="102" x2="192" y2="102" stroke="#3b82f6" stroke-width="1.5" opacity="0.4"/>
-
-  <!-- Calendar binding tabs -->
-  <rect x="92" y="68" width="8" height="20" rx="3" fill="#3b82f6" opacity="0.5"/>
-  <rect x="156" y="68" width="8" height="20" rx="3" fill="#3b82f6" opacity="0.5"/>
-
-  <!-- Grid cells with allocation bars -->
-  <!-- Row 1 -->
-  <rect x="76" y="112" width="30" height="8" rx="2" fill="#3b82f6" opacity="0.5"/>
-  <rect x="76" y="124" width="20" height="8" rx="2" fill="#3b82f6" opacity="0.3"/>
-  <rect x="76" y="136" width="26" height="8" rx="2" fill="#3b82f6" opacity="0.4"/>
-
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#EFF6FF"/>
+  <!-- Calendar frame -->
+  <rect x="20" y="26" width="60" height="54" rx="5" fill="#3B82F6" opacity="0.12"/>
+  <rect x="20" y="26" width="60" height="54" rx="5" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+  <!-- Top bar -->
+  <rect x="20" y="26" width="60" height="14" rx="5" fill="#3B82F6" opacity="0.2"/>
+  <line x1="20" y1="40" x2="80" y2="40" stroke="#3B82F6" stroke-width="1.5"/>
+  <!-- Binding tabs -->
+  <rect x="33" y="20" width="5" height="12" rx="2" fill="#3B82F6" opacity="0.6"/>
+  <rect x="62" y="20" width="5" height="12" rx="2" fill="#3B82F6" opacity="0.6"/>
+  <!-- Row 1 allocation bars -->
+  <rect x="28" y="47" width="16" height="5" rx="2" fill="#3B82F6" opacity="0.6"/>
+  <rect x="28" y="56" width="11" height="5" rx="2" fill="#3B82F6" opacity="0.4"/>
+  <rect x="28" y="65" width="14" height="5" rx="2" fill="#3B82F6" opacity="0.5"/>
   <!-- Row 2 -->
-  <rect x="116" y="112" width="22" height="8" rx="2" fill="#3b82f6" opacity="0.6" filter="url(#glow)"/>
-  <rect x="116" y="124" width="34" height="8" rx="2" fill="#3b82f6" opacity="0.35"/>
-  <rect x="116" y="136" width="18" height="8" rx="2" fill="#3b82f6" opacity="0.45"/>
-
-  <!-- Row 3 -->
-  <rect x="156" y="112" width="26" height="8" rx="2" fill="#3b82f6" opacity="0.3"/>
-  <rect x="156" y="124" width="16" height="8" rx="2" fill="#3b82f6" opacity="0.5"/>
-  <rect x="156" y="136" width="28" height="8" rx="2" fill="#3b82f6" opacity="0.4"/>
-
-  <!-- People icons row -->
-  <circle cx="92" cy="160" r="7" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <path d="M80 174 Q80 166 92 166 Q104 166 104 174" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
-  <circle cx="128" cy="160" r="7" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.6" filter="url(#glow)"/>
-  <path d="M116 174 Q116 166 128 166 Q140 166 140 174" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
-  <circle cx="164" cy="160" r="7" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <path d="M152 174 Q152 166 164 166 Q176 166 176 174" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  <rect x="52" y="47" width="12" height="5" rx="2" fill="#3B82F6" opacity="0.7"/>
+  <rect x="52" y="56" width="18" height="5" rx="2" fill="#3B82F6" opacity="0.45"/>
+  <rect x="52" y="65" width="10" height="5" rx="2" fill="#3B82F6" opacity="0.55"/>
 </svg>

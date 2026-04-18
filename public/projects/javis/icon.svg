@@ -1,32 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <rect width="256" height="256" fill="#0f172a" rx="32"/>
-  <defs>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <!-- Jira-style compass/ticket left block -->
-  <rect x="56" y="84" width="64" height="88" rx="10" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="2" opacity="0.4"/>
-  <!-- Ticket lines -->
-  <rect x="68" y="104" width="40" height="4" rx="2" fill="#8b5cf6" opacity="0.5"/>
-  <rect x="68" y="116" width="28" height="4" rx="2" fill="#8b5cf6" opacity="0.35"/>
-  <rect x="68" y="128" width="34" height="4" rx="2" fill="#8b5cf6" opacity="0.4"/>
-  <rect x="68" y="140" width="22" height="4" rx="2" fill="#8b5cf6" opacity="0.3"/>
-
-  <!-- Arrow bridge -->
-  <path d="M124 120 L136 120 M132 116 L136 120 L132 124" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
-
-  <!-- Slack-style lightning right block -->
-  <rect x="140" y="84" width="60" height="88" rx="10" fill="#8b5cf6" opacity="0.1" stroke="#8b5cf6" stroke-width="2" opacity="0.4"/>
-  <!-- Lightning bolt -->
-  <path d="M168 96 L158 120 L166 120 L156 148 L174 116 L165 116 L176 96 Z"
-        fill="#8b5cf6" opacity="0.6" filter="url(#glow)"/>
-
-  <!-- Bell icon small accent bottom right -->
-  <path d="M190 178 Q190 170 200 170 Q210 170 210 178 L210 186 Q210 190 200 190 Q190 190 190 186 Z"
-        fill="none" stroke="#8b5cf6" stroke-width="2" opacity="0.4"/>
-  <line x1="200" y1="190" x2="200" y2="194" stroke="#8b5cf6" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#F5F3FF"/>
+  <!-- Ticket/issue card left -->
+  <rect x="14" y="26" width="32" height="48" rx="5" fill="#8B5CF6" opacity="0.12"/>
+  <rect x="14" y="26" width="32" height="48" rx="5" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <rect x="21" y="35" width="18" height="3" rx="1.5" fill="#8B5CF6" opacity="0.6"/>
+  <rect x="21" y="43" width="13" height="3" rx="1.5" fill="#8B5CF6" opacity="0.4"/>
+  <rect x="21" y="51" width="15" height="3" rx="1.5" fill="#8B5CF6" opacity="0.5"/>
+  <rect x="21" y="59" width="10" height="3" rx="1.5" fill="#8B5CF6" opacity="0.35"/>
+  <!-- Arrow -->
+  <path d="M49 48 L58 48 M55 44 L59 48 L55 52" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Lightning bolt right -->
+  <rect x="60" y="26" width="26" height="48" rx="5" fill="#8B5CF6" opacity="0.12"/>
+  <rect x="60" y="26" width="26" height="48" rx="5" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <path d="M76 34 L68 50 L74 50 L65 66 L79 46 L73 46 L82 34 Z" fill="#8B5CF6" opacity="0.7"/>
 </svg>
