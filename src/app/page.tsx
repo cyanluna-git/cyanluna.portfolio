@@ -185,6 +185,42 @@ function ProjectIconVisual({ project }: { project: Project }) {
   );
 }
 
+function FeaturedIconTile({ project }: { project: Project }) {
+  const iconSrc = PROJECT_ICONS[project.id];
+  if (!iconSrc) return null;
+  return (
+    <div
+      style={{
+        aspectRatio: "1 / 1",
+        maxHeight: 180,
+        width: "100%",
+        background:
+          "radial-gradient(circle at 60% 40%, color-mix(in srgb, var(--v-color) 18%, var(--surface)), color-mix(in srgb, var(--v-color) 6%, var(--surface)))",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "16px 16px 0 0",
+      }}
+    >
+      <div
+        style={{
+          width: 72,
+          height: 72,
+          maskImage: `url(${iconSrc})`,
+          WebkitMaskImage: `url(${iconSrc})`,
+          maskSize: "contain",
+          WebkitMaskSize: "contain",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskPosition: "center",
+          backgroundColor: "var(--v-color)",
+        }}
+      />
+    </div>
+  );
+}
+
 /* ── Project media: icon if available, else first-frame / video ──── */
 
 function ProjectMediaArea({ project }: { project: Project }) {
@@ -384,7 +420,7 @@ function CuratedEntrySection({
                 <p className="mt-4 text-sm leading-relaxed text-muted">{project.curation.quickPitch[lang]}</p>
 
                 <div className="mt-5 overflow-hidden rounded-2xl border border-white/5">
-                  <ProjectMediaArea project={project} />
+                  <FeaturedIconTile project={project} />
                 </div>
 
                 <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -588,40 +624,55 @@ export default function Home() {
 
       <section className="px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
         <div className="mx-auto max-w-6xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-muted animate-fade-up">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            {t.heroBadge[lang]}
-          </div>
-          <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold font-display leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            {t.hero[lang]}
-          </h1>
-          <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">
-            {t.sub[lang]}
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
-            {(["manufacturing", "tooling"] as const).map((key) => (
-              <span key={key} className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300">
-                {t.pills[key][lang]}
-              </span>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-muted animate-fade-up">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                {t.heroBadge[lang]}
+              </div>
+              <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold font-display leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                {t.hero[lang]}
+              </h1>
+              <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">
+                {t.sub[lang]}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
+                {(["manufacturing", "tooling"] as const).map((key) => (
+                  <span key={key} className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300">
+                    {t.pills[key][lang]}
+                  </span>
+                ))}
+              </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 animate-fade-up delay-2">
-            <button
-              type="button"
-              onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
-            >
-              {t.ctas.featured[lang]}
-            </button>
-            <a
-              href="#projects"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
-            >
-              {t.ctas.browseAll[lang]}
-            </a>
+              <div className="mt-6 flex flex-wrap gap-3 animate-fade-up delay-2">
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
+                >
+                  {t.ctas.featured[lang]}
+                </button>
+                <a
+                  href="#projects"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
+                >
+                  {t.ctas.browseAll[lang]}
+                </a>
+              </div>
+            </div>
+            {/* Right: decorative orb */}
+            <div className="hidden md:flex items-center justify-center" aria-hidden="true">
+              <div
+                style={{
+                  width: 320,
+                  height: 320,
+                  borderRadius: "50%",
+                  background: "radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent) 15%, transparent), color-mix(in srgb, var(--accent) 5%, transparent) 70%, transparent)",
+                  border: "1px solid color-mix(in srgb, var(--accent) 20%, transparent)",
+                }}
+              />
+            </div>
           </div>
-
         </div>
       </section>
 
