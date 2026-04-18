@@ -18,7 +18,9 @@ import StatusBadge from "@/components/StatusBadge";
 import AboutSection from "@/components/AboutSection";
 import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
+import RecruiterBanner from "@/components/RecruiterBanner";
 import { useInView } from "@/hooks/useInView";
+import { useRecruiterMode } from "@/hooks/useRecruiterMode";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -353,17 +355,23 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
 function CuratedEntrySection({
   lang,
   onSelectTrack,
+  recruiterStep,
+  recruiterActive,
 }: {
   lang: Lang;
   onSelectTrack: (track: CurationTrack) => void;
+  recruiterStep?: number | null;
+  recruiterActive?: boolean;
 }) {
   const [ref, inView] = useInView();
+  const isRecruiterActive = recruiterActive && recruiterStep === 1;
 
   return (
     <section
       id="featured"
       ref={ref as React.RefObject<HTMLElement>}
-      className="border-t border-border px-4 py-12 sm:px-6 sm:py-20"
+      data-recruiter-step={1}
+      className={`border-t border-border px-4 py-12 sm:px-6 sm:py-20${isRecruiterActive ? " recruiter-active" : ""}`}
     >
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
@@ -459,6 +467,8 @@ function ProjectsSection({
   trackFilter,
   setTrackFilter,
   filtered,
+  recruiterStep,
+  recruiterActive,
 }: {
   lang: Lang;
   verticalFilter: Vertical | "all";
@@ -466,11 +476,19 @@ function ProjectsSection({
   trackFilter: CurationTrack | "all";
   setTrackFilter: (v: CurationTrack | "all") => void;
   filtered: Project[];
+  recruiterStep?: number | null;
+  recruiterActive?: boolean;
 }) {
   const [ref, inView] = useInView();
+  const isRecruiterActive = recruiterActive && recruiterStep === 2;
 
   return (
-    <section id="projects" ref={ref as React.RefObject<HTMLElement>} className="border-t border-border px-4 py-12 sm:px-6 sm:py-20">
+    <section
+      id="projects"
+      ref={ref as React.RefObject<HTMLElement>}
+      data-recruiter-step={2}
+      className={`border-t border-border px-4 py-12 sm:px-6 sm:py-20${isRecruiterActive ? " recruiter-active" : ""}`}
+    >
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
           <h2 className="text-2xl font-bold font-display tracking-tight sm:text-4xl">{t.browse.title[lang]}</h2>
@@ -597,6 +615,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [verticalFilter, setVerticalFilter] = useState<Vertical | "all">("all");
   const [trackFilter, setTrackFilter] = useState<CurationTrack | "all">("all");
+  const { active: recruiterActive, step: recruiterStep, completed: recruiterCompleted, start: recruiterStart, next: recruiterNext, exit: recruiterExit } = useRecruiterMode();
 
   const filtered = [...projects]
     .filter((project) => trackFilter === "all" || project.curation.track === trackFilter)
@@ -619,7 +638,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" data-recruiter-active={recruiterActive ? "true" : undefined}>
+      <RecruiterBanner
+        active={recruiterActive}
+        step={recruiterStep}
+        completed={recruiterCompleted}
+        onNext={recruiterNext}
+        onExit={recruiterExit}
+      />
       <Nav lang={lang} onLangChange={setLang} showHomeLinks />
 
       <section className="px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
@@ -658,6 +684,13 @@ export default function Home() {
                 >
                   {t.ctas.browseAll[lang]}
                 </a>
+                <button
+                  type="button"
+                  onClick={recruiterStart}
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/60 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
+                >
+                  Recruiter path →
+                </button>
               </div>
             </div>
             {/* Right: decorative orb */}
@@ -676,7 +709,7 @@ export default function Home() {
         </div>
       </section>
 
-      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} />
+      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} recruiterStep={recruiterStep} recruiterActive={recruiterActive} />
       <ProjectsSection
         lang={lang}
         verticalFilter={verticalFilter}
@@ -684,10 +717,17 @@ export default function Home() {
         trackFilter={trackFilter}
         setTrackFilter={setTrackFilter}
         filtered={filtered}
+        recruiterStep={recruiterStep}
+        recruiterActive={recruiterActive}
       />
       <IntersectionSection lang={lang} />
       <AboutSection lang={lang} />
-      <ContactSection lang={lang} />
+      <div
+        data-recruiter-step={3}
+        className={recruiterActive && recruiterStep === 3 ? "recruiter-active" : undefined}
+      >
+        <ContactSection lang={lang} />
+      </div>
 
       <footer className="border-t border-border px-4 py-10 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-6xl text-center">

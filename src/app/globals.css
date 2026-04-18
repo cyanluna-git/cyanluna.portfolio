@@ -414,3 +414,20 @@ html:not([data-theme="dark"]) .hover\:border-white\/20:hover {
     color: #52525b !important;
   }
 }
+
+/* Recruiter tour */
+[data-recruiter-active] [data-recruiter-step]:not(.recruiter-active) {
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+[data-recruiter-step].recruiter-active {
+  box-shadow: 0 0 0 2px var(--accent);
+  border-radius: 8px;
+  transition: box-shadow 0.3s, opacity 0.3s;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-recruiter-active] [data-recruiter-step],
+  [data-recruiter-step].recruiter-active {
+    transition: none;
+  }
+}
