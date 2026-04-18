@@ -86,6 +86,7 @@ export default function RootLayout({
       <body
         className={`${uiSans.variable} ${geistMono.variable} antialiased grain`}
       >
+        <div className="page-grid" aria-hidden="true" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -277,7 +277,7 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
 }
 
 function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
-  const cardClass = `group relative block overflow-hidden rounded-[28px] border border-border bg-surface/95 shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-300 ${
+  const cardClass = `group relative block overflow-hidden rounded-[28px] border border-border bg-surface/95 dark-glass shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-300 ${
     project.hasDetailPage ? "hover:-translate-y-1 hover:border-white/20" : "opacity-60"
   }`;
 
@@ -313,7 +313,7 @@ function CuratedEntrySection({
     >
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-[#b87749]">
+          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">
             {t.featured.eyebrow[lang]}
           </div>
           <h2 className="mt-3 max-w-4xl text-2xl font-bold tracking-tight sm:text-4xl">
@@ -346,7 +346,7 @@ function CuratedEntrySection({
                 key={project.id}
                 href={`/projects/${project.id}`}
                 data-testid={`featured-project-${project.id}`}
-                className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
+                className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 dark-glass p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
               >
                 <div
                   className="absolute inset-x-0 top-0 h-[3px]"
@@ -424,7 +424,7 @@ function ProjectsSection({
           </p>
         </div>
 
-        <div className={`mt-8 rounded-[28px] border border-border bg-surface/90 p-5 scroll-fade ${inView ? "in-view" : ""}`}>
+        <div className={`mt-8 rounded-[28px] border border-border bg-surface/90 dark-glass p-5 scroll-fade ${inView ? "in-view" : ""}`}>
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
@@ -591,7 +591,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#b87749]/40 bg-[#b87749]/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-[#b87749]/70 hover:bg-[#b87749]/20"
+              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
             >
               {t.ctas.featured[lang]}
             </button>
