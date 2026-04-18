@@ -8,7 +8,7 @@ type Lang = "en" | "ko";
 const t = {
   sectionTitle: { en: "About", ko: "About" },
   bio: {
-    en: "I work where operational ambiguity, data friction, and execution pressure meet. My strongest position is not generic SaaS. It is turning manufacturing workflows, data systems, and internal operations into software teams can actually use.",
+    en: "I work where operational ambiguity, data friction, and execution pressure meet. My strongest position is not generic SaaS. It is turning manufacturing workflows, data systems, and internal operations into software that teams can actually use.",
     ko: "저는 운영의 불확실성, 데이터의 마찰, 실행 압박이 만나는 지점에서 일합니다. 제 강점은 범용 SaaS가 아니라, 제조 워크플로우와 데이터 시스템, 내부 운영을 실제로 쓰이는 소프트웨어로 바꾸는 데 있습니다.",
   },
   bioSupport: {
@@ -20,8 +20,8 @@ const t = {
     ko: "작동 방식",
   },
   leadershipTitle: {
-    en: "AI-native problem solving that scales into team change",
-    ko: "AI Native 문제 해결을 팀의 변화로 연결",
+    en: "Solo builds become enterprise leverage — every time",
+    ko: "혼자 만든 시스템이 엔터프라이즈 결정의 기준이 됩니다",
   },
   leadershipBody: {
     en: "As a team lead, I use solo end-to-end deployment work as a proving ground for enterprise decisions. Managed services taught me how to move fast, translate modern stacks into enterprise constraints, and propose the next operating layer instead of waiting for it to appear.",
@@ -58,24 +58,24 @@ const domains = [
     keywords: ["Manufacturing Automation", "PLC / Modbus", "Edge-to-Cloud"],
   },
   {
-    label: "Health",
+    label: "Cycling",
     color: "#10B981",
-    keywords: ["Metabolic Analysis", "Training Science", "Wearable Data"],
+    keywords: ["Cycling Performance", "Sport Science", "Bike Service"],
   },
   {
-    label: "Consumer",
+    label: "Cloud / Ops",
     color: "#F59E0B",
-    keywords: ["Service Platforms", "Multi-bank Parsing", "OAuth Flows"],
+    keywords: ["SaaS Products", "API Integration", "Cloud Services"],
   },
   {
-    label: "DevTools",
+    label: "AI Agents",
     color: "#8B5CF6",
-    keywords: ["Multi-Agent AI", "Code Review", "CI/CD Automation"],
+    keywords: ["Multi-Agent Pipeline", "LLM Orchestration", "Code Review Automation"],
   },
 ];
 
 const counters = [
-  { value: "12+", num: 12, suffix: "+", label: { en: "Projects Shipped", ko: "\uD504\uB85C\uC81D\uD2B8" } },
+  { value: "14", num: 14, suffix: "", label: { en: "Projects Shipped", ko: "\uD504\uB85C\uC81D\uD2B8" } },
   { value: "4", num: 4, suffix: "", label: { en: "Domain Verticals", ko: "\uB3C4\uBA54\uC778" } },
   { value: "15+", num: 15, suffix: "+", label: { en: "Tech Stacks", ko: "\uAE30\uC220 \uC2A4\uD0DD" } },
 ];

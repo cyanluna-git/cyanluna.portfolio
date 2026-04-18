@@ -7,32 +7,32 @@ type Lang = "en" | "ko";
 
 const t = {
   sectionTitle: {
-    en: "From Three Worlds to One Strategy",
-    ko: "\uc138 \uac1c\uc758 \uc138\uacc4\ub97c \ud558\ub098\uc758 \uc804\ub7b5\uc73c\ub85c",
+    en: "The Operating Model Behind the Work",
+    ko: "작업 뒤에 있는 운영 모델",
   },
   strategyLabel: {
-    en: "Strategic thesis",
-    ko: "\uc804\ub7b5 \ud14c\uc81c",
+    en: "Strategic position",
+    ko: "전략적 포지션",
   },
   strategyTitle: {
     en: "The value is not just the apps. It is the operating system behind them.",
-    ko: "\uac00\uce58\ub294 \uc571 \uc790\uccb4\ubcf4\ub2e4, \uadf8 \ub4a4\uc758 \uc6b4\uc601 \uc2dc\uc2a4\ud15c\uc5d0 \uc788\uc2b5\ub2c8\ub2e4.",
+    ko: "가치는 앱 자체보다, 그 뒤의 운영 시스템에 있습니다.",
   },
   strategyBody: {
-    en: "My strongest position sits at the intersection of manufacturing DX, full-stack product delivery, and AI-native tooling. I go deep on the real operational problem, make the data legible, and build the missing software layer fast enough for the team to use it immediately.",
-    ko: "\uc81c \uac00\uc7a5 \uac15\ud55c \ud3ec\uc9c0\uc158\uc740 \uc81c\uc870 DX, \ud480\uc2a4\ud0dd \uc81c\ud488 \uad6c\ud604, AI Native \ub3c4\uad6c\uc758 \uad50\ucc28\uc810\uc5d0 \uc788\uc2b5\ub2c8\ub2e4. \uc2e4\uc81c \uc6b4\uc601 \ubb38\uc81c\ub97c \uae4a\uc774 \ud30c\uace0\ub4e4\uc5b4 \ub370\uc774\ud130\ub97c \ubcf4\uc774\uac8c \ub9cc\ub4e4\uace0, \ud300\uc774 \ubc14\ub85c \uc4f8 \uc218 \uc788\ub294 \uc18c\ud504\ud2b8\uc6e8\uc5b4 \ub808\uc774\uc5b4\ub97c \ube60\ub974\uac8c \uad6c\ucd95\ud569\ub2c8\ub2e4.",
+    en: "My strongest position sits at the intersection of manufacturing DX, full-stack product delivery, and AI-native tooling. I enter a domain I don't fully know, build the process from zero, and leave a working system behind — every time.",
+    ko: "제 가장 강한 포지션은 제조 DX, 풀스택 제품 구현, AI 네이티브 도구의 교차점에 있습니다. 모르는 도메인에 들어가서 처음부터 과정을 만들고, 작동하는 시스템을 남깁니다.",
   },
   strategyNote: {
-    en: "Solo build-and-deploy experience became enterprise leverage because it gave me a working map for OQC, EOB, and the next integration surface.",
-    ko: "\ud63c\uc790 \ub9cc\ub4e4\uace0 \ubc30\ud3ec\ud574 \ubcf8 \uacbd\ud5d8\uc740 OQC, EOB, \uadf8\ub9ac\uace0 \ub2e4\uc74c \ud1b5\ud569 \ud45c\uba74\uc744 \uadf8\ub824\ub0bc \uc218 \uc788\ub294 \uc791\ub3d9 \uc9c0\ub3c4\uac00 \ub418\uc5c8\uc2b5\ub2c8\ub2e4.",
+    en: "Solo build-and-deploy experience became enterprise leverage — it gave me a working map for OQC, EOB, and every integration surface that followed.",
+    ko: "혼자 만들고 배포해 본 경험이 엔터프라이즈 의사결정의 실전 지도가 됐습니다. OQC, EOB, 그리고 이후의 모든 통합 지점에서.",
   },
   roadmapTitle: {
     en: "Enterprise direction",
     ko: "\uc5d4\ud130\ud504\ub77c\uc774\uc988 \ubc29\ud5a5",
   },
   roadmapNote: {
-    en: "Microsoft 365 and SAP are planned integration targets, not yet shipped public features.",
-    ko: "Microsoft 365\uc640 SAP\ub294 \uad6c\ucd95 \uc608\uc815 \ud1b5\ud569 \ub300\uc0c1\uc774\uba70, \uc544\uc9c1 \uacf5\uac1c \uc6b4\uc601 \uae30\ub2a5\uc740 \uc544\ub2d9\ub2c8\ub2e4.",
+    en: "Microsoft 365 and SAP are planned integration targets — not yet live, but already on the architecture.",
+    ko: "Microsoft 365\uc640 SAP\ub294 \uad6c\ucd95 \uc608\uc815 \ud1b5\ud569 \ub300\uc0c1\uc785\ub2c8\ub2e4. \uc544\uc9c1 \ub77c\uc774\ube0c\ub294 \uc544\ub2c8\uc9c0\ub9cc, \uc544\ud0a4\ud14d\ucc98\uc5d0\ub294 \uc774\ubbf8 \ud3ec\ud568\ub418\uc5b4 \uc788\uc2b5\ub2c8\ub2e4.",
   },
   categories: {
     manufacturing: { en: "Manufacturing DX", ko: "\uc81c\uc870 DX" },
@@ -87,7 +87,7 @@ const categories: CategoryData[] = [
 ];
 
 const impactNumbers = [
-  { end: 11, suffix: "", label: { en: "Products Shipped", ko: "\ucd9c\uc2dc \ud504\ub85c\ub355\ud2b8" } },
+  { end: 14, suffix: "", label: { en: "Products Shipped", ko: "\ucd9c\uc2dc \ud504\ub85c\ub355\ud2b8" } },
   { end: 4, suffix: "", label: { en: "Domain Verticals", ko: "\ub3c4\uba54\uc778 \ubc84\ud2f0\uceec" } },
   { end: 3, suffix: "", label: { en: "Industrial Protocols", ko: "\uc0b0\uc5c5 \ud504\ub85c\ud1a0\ucf5c" } },
   { end: 6, suffix: "", label: { en: "AI Agents", ko: "AI \uc5d0\uc774\uc804\ud2b8" } },
