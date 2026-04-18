@@ -18,7 +18,9 @@ import StatusBadge from "@/components/StatusBadge";
 import AboutSection from "@/components/AboutSection";
 import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
+import RecruiterBanner from "@/components/RecruiterBanner";
 import { useInView } from "@/hooks/useInView";
+import { useRecruiterMode } from "@/hooks/useRecruiterMode";
 
 type Lang = "en" | "ko";
 type Vertical = keyof typeof verticals;
@@ -152,16 +154,70 @@ const PROJECT_ICONS: Record<string, string> = {
 function ProjectIconVisual({ project }: { project: Project }) {
   const iconSrc = PROJECT_ICONS[project.id];
   if (!iconSrc) return null;
-
   return (
-    <div className="flex aspect-video items-center justify-center bg-transparent">
-      <Image
-        src={iconSrc}
-        alt={`${project.id} icon`}
-        width={100}
-        height={100}
-        className="h-20 w-20 object-contain"
-        unoptimized
+    <div className="flex items-center justify-center py-6">
+      <div
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 12,
+          background: "color-mix(in srgb, var(--v-color) 10%, var(--surface))",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            maskImage: `url(${iconSrc})`,
+            WebkitMaskImage: `url(${iconSrc})`,
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            backgroundColor: "var(--v-color)",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FeaturedIconTile({ project }: { project: Project }) {
+  const iconSrc = PROJECT_ICONS[project.id];
+  if (!iconSrc) return null;
+  return (
+    <div
+      style={{
+        aspectRatio: "1 / 1",
+        maxHeight: 180,
+        width: "100%",
+        background:
+          "radial-gradient(circle at 60% 40%, color-mix(in srgb, var(--v-color) 18%, var(--surface)), color-mix(in srgb, var(--v-color) 6%, var(--surface)))",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "16px 16px 0 0",
+      }}
+    >
+      <div
+        style={{
+          width: 72,
+          height: 72,
+          maskImage: `url(${iconSrc})`,
+          WebkitMaskImage: `url(${iconSrc})`,
+          maskSize: "contain",
+          WebkitMaskSize: "contain",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+          maskPosition: "center",
+          WebkitMaskPosition: "center",
+          backgroundColor: "var(--v-color)",
+        }}
       />
     </div>
   );
@@ -277,7 +333,7 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
 }
 
 function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
-  const cardClass = `group relative block overflow-hidden rounded-[28px] border border-border bg-surface/95 shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-300 ${
+  const cardClass = `group relative block overflow-hidden rounded-[28px] border border-border bg-surface/95 dark-glass shadow-[0_18px_55px_rgba(15,23,42,0.08)] transition-all duration-300 ${
     project.hasDetailPage ? "hover:-translate-y-1 hover:border-white/20" : "opacity-60"
   }`;
 
@@ -299,24 +355,30 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
 function CuratedEntrySection({
   lang,
   onSelectTrack,
+  recruiterStep,
+  recruiterActive,
 }: {
   lang: Lang;
   onSelectTrack: (track: CurationTrack) => void;
+  recruiterStep?: number | null;
+  recruiterActive?: boolean;
 }) {
   const [ref, inView] = useInView();
+  const isRecruiterActive = recruiterActive && recruiterStep === 1;
 
   return (
     <section
       id="featured"
       ref={ref as React.RefObject<HTMLElement>}
-      className="border-t border-border px-4 py-12 sm:px-6 sm:py-20"
+      data-recruiter-step={1}
+      className={`border-t border-border px-4 py-12 sm:px-6 sm:py-20${isRecruiterActive ? " recruiter-active" : ""}`}
     >
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-[#b87749]">
+          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">
             {t.featured.eyebrow[lang]}
           </div>
-          <h2 className="mt-3 max-w-4xl text-2xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mt-3 max-w-4xl text-2xl font-bold font-display tracking-tight sm:text-4xl">
             {t.featured.title[lang]}
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
@@ -345,8 +407,9 @@ function CuratedEntrySection({
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
+                data-vertical={project.vertical}
                 data-testid={`featured-project-${project.id}`}
-                className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
+                className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 dark-glass p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
               >
                 <div
                   className="absolute inset-x-0 top-0 h-[3px]"
@@ -365,7 +428,7 @@ function CuratedEntrySection({
                 <p className="mt-4 text-sm leading-relaxed text-muted">{project.curation.quickPitch[lang]}</p>
 
                 <div className="mt-5 overflow-hidden rounded-2xl border border-white/5">
-                  <ProjectMediaArea project={project} />
+                  <FeaturedIconTile project={project} />
                 </div>
 
                 <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -404,6 +467,8 @@ function ProjectsSection({
   trackFilter,
   setTrackFilter,
   filtered,
+  recruiterStep,
+  recruiterActive,
 }: {
   lang: Lang;
   verticalFilter: Vertical | "all";
@@ -411,20 +476,28 @@ function ProjectsSection({
   trackFilter: CurationTrack | "all";
   setTrackFilter: (v: CurationTrack | "all") => void;
   filtered: Project[];
+  recruiterStep?: number | null;
+  recruiterActive?: boolean;
 }) {
   const [ref, inView] = useInView();
+  const isRecruiterActive = recruiterActive && recruiterStep === 2;
 
   return (
-    <section id="projects" ref={ref as React.RefObject<HTMLElement>} className="border-t border-border px-4 py-12 sm:px-6 sm:py-20">
+    <section
+      id="projects"
+      ref={ref as React.RefObject<HTMLElement>}
+      data-recruiter-step={2}
+      className={`border-t border-border px-4 py-12 sm:px-6 sm:py-20${isRecruiterActive ? " recruiter-active" : ""}`}
+    >
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-4xl">{t.browse.title[lang]}</h2>
+          <h2 className="text-2xl font-bold font-display tracking-tight sm:text-4xl">{t.browse.title[lang]}</h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
             {t.browse.sub[lang]}
           </p>
         </div>
 
-        <div className={`mt-8 rounded-[28px] border border-border bg-surface/90 p-5 scroll-fade ${inView ? "in-view" : ""}`}>
+        <div className={`mt-8 rounded-[28px] border border-border bg-surface/90 dark-glass p-5 scroll-fade ${inView ? "in-view" : ""}`}>
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
@@ -542,6 +615,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [verticalFilter, setVerticalFilter] = useState<Vertical | "all">("all");
   const [trackFilter, setTrackFilter] = useState<CurationTrack | "all">("all");
+  const { active: recruiterActive, step: recruiterStep, completed: recruiterCompleted, start: recruiterStart, next: recruiterNext, exit: recruiterExit } = useRecruiterMode();
 
   const filtered = [...projects]
     .filter((project) => trackFilter === "all" || project.curation.track === trackFilter)
@@ -564,49 +638,78 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" data-recruiter-active={recruiterActive ? "true" : undefined}>
+      <RecruiterBanner
+        active={recruiterActive}
+        step={recruiterStep}
+        completed={recruiterCompleted}
+        onNext={recruiterNext}
+        onExit={recruiterExit}
+      />
       <Nav lang={lang} onLangChange={setLang} showHomeLinks />
 
       <section className="px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
         <div className="mx-auto max-w-6xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-muted animate-fade-up">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            {t.heroBadge[lang]}
-          </div>
-          <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-            {t.hero[lang]}
-          </h1>
-          <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">
-            {t.sub[lang]}
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
-            {(["manufacturing", "tooling"] as const).map((key) => (
-              <span key={key} className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300">
-                {t.pills[key][lang]}
-              </span>
-            ))}
-          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] text-muted animate-fade-up">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                {t.heroBadge[lang]}
+              </div>
+              <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold font-display leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                {t.hero[lang]}
+              </h1>
+              <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">
+                {t.sub[lang]}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2.5 animate-fade-up delay-2">
+                {(["manufacturing", "tooling"] as const).map((key) => (
+                  <span key={key} className="rounded-full border border-border bg-surface px-3 py-1.5 text-xs text-zinc-300">
+                    {t.pills[key][lang]}
+                  </span>
+                ))}
+              </div>
 
-          <div className="mt-6 flex flex-wrap gap-3 animate-fade-up delay-2">
-            <button
-              type="button"
-              onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-[#b87749]/40 bg-[#b87749]/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-[#b87749]/70 hover:bg-[#b87749]/20"
-            >
-              {t.ctas.featured[lang]}
-            </button>
-            <a
-              href="#projects"
-              className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
-            >
-              {t.ctas.browseAll[lang]}
-            </a>
+              <div className="mt-6 flex flex-wrap gap-3 animate-fade-up delay-2">
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
+                >
+                  {t.ctas.featured[lang]}
+                </button>
+                <a
+                  href="#projects"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
+                >
+                  {t.ctas.browseAll[lang]}
+                </a>
+                <button
+                  type="button"
+                  onClick={recruiterStart}
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/60 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
+                >
+                  Recruiter path →
+                </button>
+              </div>
+            </div>
+            {/* Right: decorative orb */}
+            <div className="hidden md:flex items-center justify-center" aria-hidden="true">
+              <div
+                style={{
+                  width: 320,
+                  height: 320,
+                  borderRadius: "50%",
+                  background: "radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent) 15%, transparent), color-mix(in srgb, var(--accent) 5%, transparent) 70%, transparent)",
+                  border: "1px solid color-mix(in srgb, var(--accent) 20%, transparent)",
+                }}
+              />
+            </div>
           </div>
-
         </div>
       </section>
 
-      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} />
+      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} recruiterStep={recruiterStep} recruiterActive={recruiterActive} />
       <ProjectsSection
         lang={lang}
         verticalFilter={verticalFilter}
@@ -614,10 +717,17 @@ export default function Home() {
         trackFilter={trackFilter}
         setTrackFilter={setTrackFilter}
         filtered={filtered}
+        recruiterStep={recruiterStep}
+        recruiterActive={recruiterActive}
       />
       <IntersectionSection lang={lang} />
       <AboutSection lang={lang} />
-      <ContactSection lang={lang} />
+      <div
+        data-recruiter-step={3}
+        className={recruiterActive && recruiterStep === 3 ? "recruiter-active" : undefined}
+      >
+        <ContactSection lang={lang} />
+      </div>
 
       <footer className="border-t border-border px-4 py-10 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-6xl text-center">

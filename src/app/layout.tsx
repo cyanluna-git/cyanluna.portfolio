@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Sans, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 
 const uiSans = IBM_Plex_Sans({
@@ -11,6 +11,14 @@ const uiSans = IBM_Plex_Sans({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
 const SITE_URL = "https://cyanluna.com";
@@ -84,8 +92,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body
-        className={`${uiSans.variable} ${geistMono.variable} antialiased grain`}
+        className={`${uiSans.variable} ${geistMono.variable} ${fraunces.variable} antialiased grain`}
       >
+        <div className="page-grid" aria-hidden="true" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
