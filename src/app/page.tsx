@@ -152,17 +152,35 @@ const PROJECT_ICONS: Record<string, string> = {
 function ProjectIconVisual({ project }: { project: Project }) {
   const iconSrc = PROJECT_ICONS[project.id];
   if (!iconSrc) return null;
-
   return (
-    <div className="flex aspect-video items-center justify-center bg-transparent">
-      <Image
-        src={iconSrc}
-        alt={`${project.id} icon`}
-        width={100}
-        height={100}
-        className="h-20 w-20 object-contain"
-        unoptimized
-      />
+    <div className="flex items-center justify-center py-6">
+      <div
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: 12,
+          background: "color-mix(in srgb, var(--v-color) 10%, var(--surface))",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: 36,
+            height: 36,
+            maskImage: `url(${iconSrc})`,
+            WebkitMaskImage: `url(${iconSrc})`,
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            backgroundColor: "var(--v-color)",
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -345,6 +363,7 @@ function CuratedEntrySection({
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
+                data-vertical={project.vertical}
                 data-testid={`featured-project-${project.id}`}
                 className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 dark-glass p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
               >
