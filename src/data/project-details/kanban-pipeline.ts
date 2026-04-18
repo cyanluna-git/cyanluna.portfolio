@@ -2,7 +2,7 @@ import type { ProjectDetail } from "@/types/project-detail";
 
 export const kanbanPipeline: ProjectDetail = {
   slug: "kanban-pipeline",
-  vertical: "devtools",
+  vertical: "aiagents",
   verticalColor: "#8B5CF6",
   status: "live",
   title: {

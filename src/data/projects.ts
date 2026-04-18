@@ -45,7 +45,7 @@ export type Project = {
   title: { en: string; ko: string };
   tagline: { en: string; ko: string };
   description: { en: string; ko: string };
-  vertical: "industrial" | "health" | "consumer" | "devtools";
+  vertical: "industrial" | "cycling" | "cloudops" | "aiagents";
   stack: string[];
   highlights: { en: string[]; ko: string[] };
   status: "live" | "active" | "beta";
@@ -72,28 +72,28 @@ export const verticals = {
       ko: "제조 자동화 및 장비 관리 플랫폼",
     },
   },
-  health: {
-    label: { en: "Health & Fitness", ko: "Health & Fitness" },
+  cycling: {
+    label: { en: "Cycling", ko: "Cycling" },
     color: "#10B981",
     description: {
-      en: "Data-driven training & metabolic analysis tools",
-      ko: "데이터 기반 트레이닝 및 대사 분석 도구",
+      en: "Cycling performance, sport science & bike service tools",
+      ko: "사이클링 퍼포먼스, 스포츠 과학 및 자전거 서비스 도구",
     },
   },
-  consumer: {
-    label: { en: "Consumer", ko: "Consumer" },
+  cloudops: {
+    label: { en: "Cloud / Ops", ko: "Cloud / Ops" },
     color: "#F59E0B",
     description: {
-      en: "Everyday tools for real-world problems",
-      ko: "실생활 문제를 해결하는 서비스",
+      en: "Cloud-native services and everyday operational products",
+      ko: "클라우드 네이티브 서비스 및 생활 운영 도구",
     },
   },
-  devtools: {
-    label: { en: "Developer Tools", ko: "Developer Tools" },
+  aiagents: {
+    label: { en: "AI Agents", ko: "AI Agents" },
     color: "#8B5CF6",
     description: {
-      en: "AI-native engineering workflow & automation",
-      ko: "AI 네이티브 엔지니어링 워크플로우 및 자동화",
+      en: "LLM-powered agents for engineering workflow automation",
+      ko: "엔지니어링 워크플로우 자동화를 위한 LLM 에이전트",
     },
   },
 } as const;
@@ -304,7 +304,7 @@ export const projects: Project[] = [
       en: "Generates personalized cycling workout plans using your training history. Uses TSB (Training Stress Balance) and athlete context (FTP, weight, wellness) to select from pre-validated workout modules, then outputs Zwift-compatible ZWO files you can ride immediately.",
       ko: "훈련 이력을 바탕으로 개인 맞춤 사이클링 운동 플랜을 생성합니다. TSB(트레이닝 스트레스 밸런스)와 선수 컨텍스트(FTP, 체중, 컨디션)로 사전 검증된 운동 모듈을 선택하고, 바로 라이딩 가능한 Zwift ZWO 파일을 출력합니다.",
     },
-    vertical: "health",
+    vertical: "cycling",
     stack: ["React 19", "FastAPI", "Supabase", "Groq/Gemini LLM", "Vercel"],
     hasDetailPage: true,
     media: {
@@ -360,7 +360,7 @@ export const projects: Project[] = [
       en: "Rebuilt as a CPET Platform v2 that accepts multi-source submissions, runs a SQLite-based analysis pipeline, publishes static HTML reports, and exposes subject-linked snapshots and feature explorers for follow-up research.",
       ko: "다중 소스 제출을 받아 SQLite 기반 분석 파이프라인을 실행하고, 정적 HTML 리포트를 발행하며, 피험자 연결 snapshot과 feature 탐색기를 제공하는 CPET Platform v2로 재구성했습니다.",
     },
-    vertical: "health",
+    vertical: "cycling",
     stack: ["FastAPI", "Jinja2", "HTMX", "SQLite", "Python Pipeline"],
     hasDetailPage: true,
     media: {
@@ -416,7 +416,7 @@ export const projects: Project[] = [
       en: "Aggregates cycling ride data through a multi-stage pipeline (staging → matching → fingerprinting → curation), then visualizes routes on interactive maps with performance statistics and trend analysis.",
       ko: "다단계 파이프라인(스테이징 → 매칭 → 핑거프린팅 → 큐레이션)으로 사이클링 라이드 데이터를 집계하고, 인터랙티브 지도에 경로와 성능 통계를 시각화합니다.",
     },
-    vertical: "health",
+    vertical: "cycling",
     stack: ["Next.js 15", "React 19", "Supabase", "Kakao Maps SDK", "Recharts"],
     hasDetailPage: true,
     media: {
@@ -473,7 +473,7 @@ export const projects: Project[] = [
       en: "Full-service platform for bicycle shops — from intake to delivery. Manages service workflows (6 types), customer portal with Kakao OAuth, and QR-based bicycle passports. Built with Rails 8 for rapid iteration with 20 domain models.",
       ko: "자전거 매장의 접수부터 출고까지 전 과정을 관리하는 플랫폼. 6가지 서비스 유형의 워크플로우, 카카오 OAuth 고객 포털, QR 기반 자전거 여권을 제공합니다. Rails 8로 20개 도메인 모델을 빠르게 구축했습니다.",
     },
-    vertical: "consumer",
+    vertical: "cycling",
     stack: ["Ruby on Rails 8", "SQLite", "Tailwind CSS", "Stimulus", "Kakao OAuth"],
     hasDetailPage: true,
     media: {
@@ -528,7 +528,7 @@ export const projects: Project[] = [
       en: "Consolidates credit card statements from 7 Korean banks — each with different file formats (XLSX, HTML-disguised XLS, legacy OLE) — into a unified SQLite database. Auto-classifies merchants into spending categories with keyword-based rules.",
       ko: "7개 한국 카드사의 서로 다른 파일 포맷(XLSX, HTML 위장 XLS, 레거시 OLE)을 통합 SQLite 데이터베이스로 합칩니다. 키워드 기반 규칙으로 가맹점을 지출 카테고리로 자동 분류합니다.",
     },
-    vertical: "consumer",
+    vertical: "cloudops",
     stack: ["Next.js 15", "Drizzle ORM", "SQLite", "Tailwind CSS"],
     hasDetailPage: true,
     media: {
@@ -584,7 +584,7 @@ export const projects: Project[] = [
       en: "Single-user localhost application that consolidates Google Classroom materials, multi-source notifications (SMS, Gmail, RSS), and academic schedules into one dashboard. Built with Next.js 16 and Prisma + SQLite for zero-configuration local persistence.",
       ko: "Google Classroom 자료, 멀티 소스 알림(SMS, Gmail, RSS), 학사 일정을 하나의 대시보드로 통합하는 단일 사용자 로컬호스트 애플리케이션입니다. Next.js 16과 Prisma + SQLite로 제로 설정 로컬 데이터 저장을 제공합니다.",
     },
-    vertical: "consumer",
+    vertical: "cloudops",
     stack: ["Next.js 16", "Prisma", "SQLite", "Google APIs", "Tailwind CSS"],
     hasDetailPage: true,
     media: {
@@ -639,7 +639,7 @@ export const projects: Project[] = [
       en: "Full-featured community platform for MBA cohort members. Features community boards (notice/free/column), photo gallery, polls, study groups, lunch recommendations with Kakao Maps, thesis repository, and student council management — all as a PWA for mobile-first access.",
       ko: "MBA 동기를 위한 풀 기능 커뮤니티 플랫폼입니다. 커뮤니티 게시판(공지/자유/칼럼), 사진 갤러리, 투표, 소모임, 카카오맵 기반 점심 추천, 논문 저장소, 학생회 관리를 PWA로 모바일 우선 접근을 제공합니다.",
     },
-    vertical: "consumer",
+    vertical: "cloudops",
     stack: ["Next.js 15", "Drizzle ORM", "Neon PostgreSQL", "AWS S3", "Kakao Maps"],
     hasDetailPage: true,
     media: {
@@ -696,7 +696,7 @@ export const projects: Project[] = [
       en: "A 7-column kanban system with 6 specialized AI agents (Planner, Critic, Builder, Shield, Inspector, Ranger) that autonomously plan, implement, test, and review code changes. Tasks flow through the pipeline with built-in circuit breakers and human approval gates.",
       ko: "6개 전문 AI 에이전트(Planner, Critic, Builder, Shield, Inspector, Ranger)가 코드 변경을 자율적으로 계획, 구현, 테스트, 리뷰하는 7-컬럼 칸반 시스템. 회로 차단기와 사람 승인 게이트가 내장된 파이프라인으로 태스크가 흐릅니다.",
     },
-    vertical: "devtools",
+    vertical: "aiagents",
     stack: ["Neon PostgreSQL", "Claude Code", "REST API", "Multi-agent"],
     hasDetailPage: true,
     media: {
@@ -752,7 +752,7 @@ export const projects: Project[] = [
       en: "Automated code review system that analyzes Bitbucket PRs with domain-specific lenses — backend (API design, DB, security), frontend (components, state, accessibility), and PLC (CODESYS architecture, sequence deadlocks). Posts structured review comments directly to the PR.",
       ko: "Bitbucket PR을 도메인별 관점으로 분석하는 자동 코드 리뷰 시스템 — 백엔드(API 설계, DB, 보안), 프론트엔드(컴포넌트, 상태, 접근성), PLC(CODESYS 아키텍처, 시퀀스 데드락). 구조화된 리뷰 코멘트를 PR에 직접 게시합니다.",
     },
-    vertical: "devtools",
+    vertical: "aiagents",
     stack: ["Python", "Claude API", "Bitbucket API", "Markdown"],
     hasDetailPage: true,
     highlights: {
@@ -798,7 +798,7 @@ export const projects: Project[] = [
       en: "Bridges the gap between Jira/Confluence and local development workflows. Provides bidirectional sync, AI-powered risk detection (5 risk types), sprint analytics, and Slack integration. Functions as a local-first project management copilot.",
       ko: "Jira/Confluence와 로컬 개발 워크플로우 간의 간극을 잇는 브릿지. 양방향 동기화, AI 기반 리스크 감지(5가지 유형), 스프린트 분석, Slack 연동을 제공합니다. 로컬 우선 프로젝트 관리 코파일럿으로 기능합니다.",
     },
-    vertical: "devtools",
+    vertical: "aiagents",
     stack: ["Next.js", "PostgreSQL", "Claude API", "Jira/Confluence API", "Slack API"],
     hasDetailPage: true,
     highlights: {

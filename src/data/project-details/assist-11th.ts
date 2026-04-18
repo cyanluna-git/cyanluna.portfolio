@@ -2,7 +2,7 @@ import type { ProjectDetail } from "@/types/project-detail";
 
 export const assist11th: ProjectDetail = {
   slug: "assist-11th",
-  vertical: "consumer",
+  vertical: "cloudops",
   verticalColor: "#F59E0B",
   status: "active",
   title: {
