@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   curationTracks,
-  featuredProjects,
   projects,
   verticals,
   type CurationTrack,
@@ -49,27 +48,10 @@ const t = {
     },
   },
   ctas: {
-    featured: {
-      en: "See featured work",
-      ko: "대표 작업 보기",
-    },
     browseAll: {
       en: "Browse all projects",
       ko: "전체 프로젝트 보기",
     },
-  },
-  featured: {
-    eyebrow: { en: "Featured Proof", ko: "Featured Proof" },
-    title: {
-      en: "Three projects that explain the portfolio faster than a long bio.",
-      ko: "긴 자기소개보다 빠르게 포트폴리오를 설명해주는 대표 프로젝트 3개입니다.",
-    },
-    sub: {
-      en: "These are the strongest entry points if you want to understand enterprise systems, AI orchestration, and delivery quality.",
-      ko: "엔터프라이즈 시스템, AI 오케스트레이션, 전달 품질을 빠르게 이해하려면 여기서 시작하는 편이 가장 좋습니다.",
-    },
-    why: { en: "Why start here", ko: "왜 먼저 봐야 하나" },
-    rank: { en: "Featured", ko: "추천" },
   },
   browse: {
     title: { en: "Browse All Work", ko: "전체 프로젝트 둘러보기" },
@@ -187,41 +169,6 @@ function ProjectIconVisual({ project }: { project: Project }) {
   );
 }
 
-function FeaturedIconTile({ project }: { project: Project }) {
-  const iconSrc = PROJECT_ICONS[project.id];
-  if (!iconSrc) return null;
-  return (
-    <div
-      style={{
-        aspectRatio: "1 / 1",
-        maxHeight: 180,
-        width: "100%",
-        background:
-          "radial-gradient(circle at 60% 40%, color-mix(in srgb, var(--v-color) 18%, var(--surface)), color-mix(in srgb, var(--v-color) 6%, var(--surface)))",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "16px 16px 0 0",
-      }}
-    >
-      <div
-        style={{
-          width: 72,
-          height: 72,
-          maskImage: `url(${iconSrc})`,
-          WebkitMaskImage: `url(${iconSrc})`,
-          maskSize: "contain",
-          WebkitMaskSize: "contain",
-          maskRepeat: "no-repeat",
-          WebkitMaskRepeat: "no-repeat",
-          maskPosition: "center",
-          WebkitMaskPosition: "center",
-          backgroundColor: "var(--v-color)",
-        }}
-      />
-    </div>
-  );
-}
 
 /* ── Project media: icon if available, else first-frame / video ──── */
 
@@ -352,113 +299,6 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
   );
 }
 
-function CuratedEntrySection({
-  lang,
-  onSelectTrack,
-  recruiterStep,
-  recruiterActive,
-}: {
-  lang: Lang;
-  onSelectTrack: (track: CurationTrack) => void;
-  recruiterStep?: number | null;
-  recruiterActive?: boolean;
-}) {
-  const [ref, inView] = useInView();
-  const isRecruiterActive = recruiterActive && recruiterStep === 1;
-
-  return (
-    <section
-      id="featured"
-      ref={ref as React.RefObject<HTMLElement>}
-      data-recruiter-step={1}
-      className={`border-t border-border px-4 py-12 sm:px-6 sm:py-20${isRecruiterActive ? " recruiter-active" : ""}`}
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">
-            {t.featured.eyebrow[lang]}
-          </div>
-          <h2 className="mt-3 max-w-4xl text-2xl font-bold font-display tracking-tight sm:text-4xl">
-            {t.featured.title[lang]}
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
-            {t.featured.sub[lang]}
-          </p>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2.5">
-          {(["enterprise", "ai", "data"] as const).map((trackKey) => (
-            <button
-              key={trackKey}
-              type="button"
-              data-testid={`guided-path-${trackKey}`}
-              onClick={() => onSelectTrack(trackKey)}
-              className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
-            >
-              {curationTracks[trackKey].label[lang]}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-8 grid gap-5 lg:grid-cols-3">
-          {featuredProjects.slice(0, 3).map((project, index) => {
-            const vColor = verticals[project.vertical].color;
-            return (
-              <Link
-                key={project.id}
-                href={`/projects/${project.id}`}
-                data-vertical={project.vertical}
-                data-testid={`featured-project-${project.id}`}
-                className={`group relative overflow-hidden rounded-[30px] border border-border bg-surface/95 dark-glass p-6 shadow-[0_24px_60px_rgba(15,23,42,0.1)] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 scroll-fade stagger-${Math.min(index + 1, 3)} ${inView ? "in-view" : ""}`}
-              >
-                <div
-                  className="absolute inset-x-0 top-0 h-[3px]"
-                  style={{ background: `linear-gradient(90deg, transparent, ${vColor}, transparent)` }}
-                />
-                <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-2">
-                    <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
-                      {t.featured.rank[lang]} {project.curation.featuredRank}
-                    </div>
-                    <h3 className="text-2xl font-semibold tracking-tight">{project.title[lang]}</h3>
-                  </div>
-                  <StatusBadge status={project.status} lang={lang} />
-                </div>
-
-                <p className="mt-4 text-sm leading-relaxed text-muted">{project.curation.quickPitch[lang]}</p>
-
-                <div className="mt-5 overflow-hidden rounded-2xl border border-white/5">
-                  <FeaturedIconTile project={project} />
-                </div>
-
-                <div className="mt-5 flex flex-wrap items-center gap-3">
-                  <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
-                    {curationTracks[project.curation.track].label[lang]}
-                  </span>
-                  <ProofBadge proof={project.curation.proof} lang={lang} />
-                </div>
-
-                <div className="mt-5 rounded-2xl border border-border bg-background/65 p-4">
-                  <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-zinc-500">
-                    {t.featured.why[lang]}
-                  </div>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-300">{project.curation.whyStartHere[lang]}</p>
-                </div>
-
-                <div className="mt-5 flex items-end justify-between gap-3">
-                  <AudiencePills audience={project.curation.audience} lang={lang} />
-                  <span className="text-xs font-medium" style={{ color: vColor }}>
-                    {t.viewDetails[lang]}
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function ProjectsSection({
   lang,
@@ -627,16 +467,6 @@ export default function Home() {
       return a.title.en.localeCompare(b.title.en);
     });
 
-  const jumpToProjects = (track?: CurationTrack) => {
-    if (track) {
-      setTrackFilter(track);
-      setVerticalFilter("all");
-    }
-    requestAnimationFrame(() => {
-      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  };
-
   return (
     <div className="min-h-screen" data-recruiter-active={recruiterActive ? "true" : undefined}>
       <RecruiterBanner
@@ -671,16 +501,9 @@ export default function Home() {
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3 animate-fade-up delay-2">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("featured")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
-                >
-                  {t.ctas.featured[lang]}
-                </button>
                 <a
                   href="#projects"
-                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-white/20 hover:bg-surface-hover"
+                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/40 bg-accent/15 px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-accent/70 hover:bg-accent/20"
                 >
                   {t.ctas.browseAll[lang]}
                 </a>
@@ -777,7 +600,6 @@ export default function Home() {
         </div>
       </section>
 
-      <CuratedEntrySection lang={lang} onSelectTrack={jumpToProjects} recruiterStep={recruiterStep} recruiterActive={recruiterActive} />
       <ProjectsSection
         lang={lang}
         verticalFilter={verticalFilter}
