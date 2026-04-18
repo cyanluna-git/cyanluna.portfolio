@@ -27,31 +27,31 @@ type Vertical = keyof typeof verticals;
 
 const t = {
   heroBadge: {
-    en: "AI-Native Problem Solver",
-    ko: "AI Native 문제 해결자",
+    en: "Enterprise Systems Builder",
+    ko: "엔터프라이즈 시스템 빌더",
   },
   hero: {
-    en: "I turn messy operations,\ndata bottlenecks, and industrial constraints\ninto working systems.",
-    ko: "복잡한 운영 문제와 데이터 병목,\n산업 현장의 제약을\n작동하는 시스템으로 바꿉니다.",
+    en: "I enter unknown domains,\nbuild the process from zero,\nand leave working systems behind.",
+    ko: "모르는 도메인에 뛰어들어\n처음부터 과정을 만들고\n작동하는 시스템을 남깁니다.",
   },
   sub: {
-    en: "AI-native full-stack engineer and strategic program solver building manufacturing DX, internal operating tools, and decision systems that teams can use immediately.",
-    ko: "제조 DX, 내부 운영 도구, 의사결정 시스템을 빠르게 제품화하는 AI Native 풀스택 엔지니어이자 전략적 프로그램 솔버입니다.",
+    en: "Full-stack engineer and cross-regional program lead — I've shipped manufacturing DX platforms, enterprise cloud infrastructure, and AI-integrated tooling from scratch. If it crosses organizational, technical, or geographic boundaries, I build it.",
+    ko: "제조 DX, 엔터프라이즈 클라우드 인프라, AI 통합 도구를 처음부터 구축해온 풀스택 엔지니어 겸 크로스리지널 프로그램 리더입니다. 조직·기술·지리적 경계를 넘는 시스템이라면 제 일입니다.",
   },
   pills: {
     manufacturing: {
-      en: "Manufacturing DX systems",
-      ko: "제조 DX 시스템",
+      en: "Manufacturing DX",
+      ko: "제조 DX",
     },
     tooling: {
-      en: "Rapid data and ops tooling",
-      ko: "빠른 데이터·운영 도구 제작",
+      en: "Enterprise Cloud & AI",
+      ko: "엔터프라이즈 클라우드 & AI",
     },
   },
   ctas: {
     featured: {
       en: "See featured work",
-      ko: "추천 작업 보기",
+      ko: "대표 작업 보기",
     },
     browseAll: {
       en: "Browse all projects",
