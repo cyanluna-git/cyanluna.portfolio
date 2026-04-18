@@ -684,26 +684,94 @@ export default function Home() {
                 >
                   {t.ctas.browseAll[lang]}
                 </a>
+              </div>
+              <div className="mt-4 animate-fade-up delay-3">
                 <button
                   type="button"
                   onClick={recruiterStart}
-                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-accent/60 px-5 py-3 text-sm font-medium text-accent transition-colors hover:border-accent hover:bg-accent/10"
+                  className="font-mono text-[11px] tracking-[0.12em] text-muted uppercase transition-colors hover:text-foreground"
                 >
-                  Recruiter path →
+                  → {lang === "en" ? "Recruiter path" : "채용 담당자용 가이드"}
                 </button>
               </div>
             </div>
-            {/* Right: decorative orb */}
+            {/* Right: domain compass */}
             <div className="hidden md:flex items-center justify-center" aria-hidden="true">
-              <div
-                style={{
-                  width: 320,
-                  height: 320,
-                  borderRadius: "50%",
-                  background: "radial-gradient(circle at 40% 40%, color-mix(in srgb, var(--accent) 15%, transparent), color-mix(in srgb, var(--accent) 5%, transparent) 70%, transparent)",
-                  border: "1px solid color-mix(in srgb, var(--accent) 20%, transparent)",
-                }}
-              />
+              <svg viewBox="0 0 480 480" width="420" height="420" style={{ display: "block" }}>
+                <defs>
+                  <radialGradient id="hgCenter" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#5b8cff" stopOpacity="0.5" />
+                    <stop offset="100%" stopColor="#5b8cff" stopOpacity="0" />
+                  </radialGradient>
+                  <linearGradient id="hgArc1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#5b9cff" />
+                    <stop offset="100%" stopColor="#5b9cff" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="hgArc2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#3ecf8e" />
+                    <stop offset="100%" stopColor="#3ecf8e" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="hgArc3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#f5a524" />
+                    <stop offset="100%" stopColor="#f5a524" stopOpacity="0" />
+                  </linearGradient>
+                  <linearGradient id="hgArc4" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#a78bfa" />
+                    <stop offset="100%" stopColor="#a78bfa" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                {/* background glow */}
+                <circle cx="240" cy="240" r="200" fill="url(#hgCenter)" />
+                {/* grid rings */}
+                <circle cx="240" cy="240" r="60" fill="none" stroke="rgba(148,170,210,0.15)" strokeWidth="1" />
+                <circle cx="240" cy="240" r="110" fill="none" stroke="rgba(148,170,210,0.12)" strokeWidth="1" strokeDasharray="2 4" />
+                <circle cx="240" cy="240" r="170" fill="none" stroke="rgba(148,170,210,0.08)" strokeWidth="1" />
+                <circle cx="240" cy="240" r="220" fill="none" stroke="rgba(148,170,210,0.05)" strokeWidth="1" strokeDasharray="1 5" />
+                {/* arc segments */}
+                <g strokeLinecap="round" fill="none" strokeWidth="12">
+                  <path d="M 240 80 A 160 160 0 0 1 400 240" stroke="url(#hgArc1)" />
+                  <path d="M 400 240 A 160 160 0 0 1 240 400" stroke="url(#hgArc2)" />
+                  <path d="M 240 400 A 160 160 0 0 1 80 240" stroke="url(#hgArc3)" />
+                  <path d="M 80 240 A 160 160 0 0 1 240 80" stroke="url(#hgArc4)" />
+                </g>
+                {/* domain node dots */}
+                <g>
+                  <circle cx="240" cy="80" r="10" fill="#5b9cff" />
+                  <circle cx="240" cy="80" r="20" fill="none" stroke="#5b9cff" strokeOpacity="0.3" strokeWidth="1" />
+                  <circle cx="400" cy="240" r="10" fill="#3ecf8e" />
+                  <circle cx="400" cy="240" r="20" fill="none" stroke="#3ecf8e" strokeOpacity="0.3" strokeWidth="1" />
+                  <circle cx="240" cy="400" r="10" fill="#f5a524" />
+                  <circle cx="240" cy="400" r="20" fill="none" stroke="#f5a524" strokeOpacity="0.3" strokeWidth="1" />
+                  <circle cx="80" cy="240" r="10" fill="#a78bfa" />
+                  <circle cx="80" cy="240" r="20" fill="none" stroke="#a78bfa" strokeOpacity="0.3" strokeWidth="1" />
+                </g>
+                {/* axis lines */}
+                <g stroke="rgba(148,170,210,0.12)" strokeWidth="1">
+                  <line x1="80" y1="240" x2="400" y2="240" />
+                  <line x1="240" y1="80" x2="240" y2="400" />
+                </g>
+                {/* center node */}
+                <circle cx="240" cy="240" r="26" fill="#0a0f1a" stroke="#5b8cff" strokeWidth="1.5" />
+                <circle cx="240" cy="240" r="8" fill="#5b8cff" />
+                <circle cx="240" cy="240" r="4" fill="#e6ecf7" />
+                {/* domain labels */}
+                <g fontFamily="'JetBrains Mono', 'Geist Mono', monospace" fontSize="10" fill="#7a8599" letterSpacing="1.5">
+                  <text x="240" y="56" textAnchor="middle">INDUSTRIAL</text>
+                  <text x="432" y="244" textAnchor="start">HEALTH</text>
+                  <text x="240" y="432" textAnchor="middle">CONSUMER</text>
+                  <text x="48" y="244" textAnchor="end">DEVTOOLS</text>
+                </g>
+                {/* decorative dots */}
+                <g fill="#aab5cc" opacity="0.5">
+                  <circle cx="330" cy="130" r="2" /><circle cx="360" cy="160" r="2" />
+                  <circle cx="360" cy="320" r="2" /><circle cx="320" cy="350" r="2" />
+                  <circle cx="160" cy="350" r="2" /><circle cx="130" cy="320" r="2" />
+                  <circle cx="120" cy="150" r="2" /><circle cx="160" cy="125" r="2" />
+                  <circle cx="305" cy="105" r="2" /><circle cx="380" cy="200" r="2" />
+                  <circle cx="380" cy="280" r="2" /><circle cx="100" cy="195" r="2" />
+                  <circle cx="100" cy="290" r="2" /><circle cx="185" cy="100" r="2" />
+                </g>
+              </svg>
             </div>
           </div>
         </div>
