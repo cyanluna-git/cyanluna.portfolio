@@ -697,7 +697,7 @@ export default function Home() {
             </div>
             {/* Right: domain compass */}
             <div className="hidden md:flex items-center justify-center" aria-hidden="true">
-              <svg viewBox="0 0 480 480" width="420" height="420" style={{ display: "block" }}>
+              <svg viewBox="-60 -20 600 520" width="420" height="364" style={{ display: "block" }}>
                 <defs>
                   <radialGradient id="hgCenter" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stopColor="#5b8cff" stopOpacity="0.5" />
