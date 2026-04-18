@@ -334,7 +334,7 @@ function CuratedEntrySection({
           <div className="text-[11px] font-mono uppercase tracking-[0.24em] text-accent">
             {t.featured.eyebrow[lang]}
           </div>
-          <h2 className="mt-3 max-w-4xl text-2xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mt-3 max-w-4xl text-2xl font-bold font-display tracking-tight sm:text-4xl">
             {t.featured.title[lang]}
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
@@ -437,7 +437,7 @@ function ProjectsSection({
     <section id="projects" ref={ref as React.RefObject<HTMLElement>} className="border-t border-border px-4 py-12 sm:px-6 sm:py-20">
       <div className="mx-auto max-w-6xl">
         <div className={`scroll-fade ${inView ? "in-view" : ""}`}>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-4xl">{t.browse.title[lang]}</h2>
+          <h2 className="text-2xl font-bold font-display tracking-tight sm:text-4xl">{t.browse.title[lang]}</h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted sm:text-base">
             {t.browse.sub[lang]}
           </p>
@@ -592,7 +592,7 @@ export default function Home() {
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
             {t.heroBadge[lang]}
           </div>
-          <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold font-display leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
             {t.hero[lang]}
           </h1>
           <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">

@@ -10,6 +10,7 @@
   --color-accent: var(--accent);
   --font-sans: var(--font-ui);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
 }
 
 :root {
