@@ -1,19 +1,8 @@
 import type { ProjectDetail, BiText } from "@/types/project-detail";
 import BrowserFrame from "./BrowserFrame";
+import StatusBadge from "@/components/StatusBadge";
 
 type Lang = "en" | "ko";
-
-const statusLabels: Record<ProjectDetail["status"], BiText> = {
-  live: { en: "Live", ko: "운영 중" },
-  active: { en: "In Development", ko: "개발 중" },
-  beta: { en: "Beta", ko: "베타" },
-};
-
-const statusColors: Record<ProjectDetail["status"], string> = {
-  live: "bg-emerald-500/15 text-emerald-400 border-emerald-500/20",
-  active: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  beta: "bg-amber-500/15 text-amber-400 border-amber-500/20",
-};
 
 interface ProjectHeroProps {
   title: BiText;
@@ -42,14 +31,7 @@ export default function ProjectHero({
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: verticalColor }}
           />
-          <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full border ${statusColors[status]}`}
-          >
-            {status === "live" && (
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            )}
-            {statusLabels[status][lang]}
-          </span>
+          <StatusBadge status={status} lang={lang} />
         </div>
 
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.15] animate-fade-up delay-1">

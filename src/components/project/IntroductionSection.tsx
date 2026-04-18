@@ -20,13 +20,10 @@ const sectionT = {
   layer: { en: "Layer", ko: "레이어" },
 };
 
-const statusStyles: Record<
-  "active" | "planned" | "future",
-  string
-> = {
-  active: "bg-blue-500/12 text-blue-500 border-blue-500/25",
-  planned: "bg-amber-500/12 text-amber-500 border-amber-500/25",
-  future: "bg-zinc-500/12 text-zinc-500 border-zinc-500/25",
+const statusStyles: Record<"active" | "planned" | "future", string> = {
+  active: "text-blue-500",
+  planned: "text-amber-500",
+  future: "text-zinc-400",
 };
 
 interface IntroductionSectionProps {
@@ -47,12 +44,8 @@ function CapabilityCard({
   return (
     <article className="rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_20px_60px_rgba(15,23,42,0.06)]">
       <div
-        className="mb-4 inline-flex rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.24em]"
-        style={{
-          borderColor: `${verticalColor}25`,
-          color: verticalColor,
-          backgroundColor: `${verticalColor}12`,
-        }}
+        className="mb-4 text-[11px] font-mono uppercase tracking-[0.18em]"
+        style={{ color: verticalColor }}
       >
         {sectionT.capability[lang]}
       </div>
@@ -75,12 +68,8 @@ export default function IntroductionSection({
             <div className="max-w-3xl">
               <div className="mb-4 flex flex-wrap items-center gap-3">
                 <span
-                  className="inline-flex rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.24em]"
-                  style={{
-                    borderColor: `${verticalColor}28`,
-                    color: verticalColor,
-                    backgroundColor: `${verticalColor}10`,
-                  }}
+                  className="text-[11px] font-mono uppercase tracking-[0.18em]"
+                  style={{ color: verticalColor }}
                 >
                   {sectionT.title[lang]}
                 </span>
@@ -137,12 +126,8 @@ export default function IntroductionSection({
                   className="rounded-[1.75rem] border border-border bg-surface p-6 shadow-[0_16px_40px_rgba(15,23,42,0.05)]"
                 >
                   <div
-                    className="inline-flex rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em]"
-                    style={{
-                      borderColor: `${verticalColor}24`,
-                      color: verticalColor,
-                      backgroundColor: `${verticalColor}10`,
-                    }}
+                    className="text-[11px] font-mono uppercase tracking-[0.18em]"
+                    style={{ color: verticalColor }}
                   >
                     {pillar.label[lang]}
                   </div>
@@ -181,11 +166,8 @@ export default function IntroductionSection({
                   <div className="flex items-center justify-between gap-3">
                     <h3 className="text-base font-semibold tracking-tight">{layer.label[lang]}</h3>
                     <span
-                      className="inline-flex rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em]"
-                      style={{
-                        borderColor: `${verticalColor}24`,
-                        color: verticalColor,
-                      }}
+                      className="text-[11px] font-mono uppercase tracking-[0.18em]"
+                      style={{ color: verticalColor }}
                     >
                       {sectionT.layer[lang]}
                     </span>
@@ -249,12 +231,8 @@ export default function IntroductionSection({
                         {screen.title[lang]}
                       </h4>
                       <span
-                        className="inline-flex rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em]"
-                        style={{
-                          borderColor: `${verticalColor}24`,
-                          color: verticalColor,
-                          backgroundColor: `${verticalColor}10`,
-                        }}
+                        className="text-[11px] font-mono uppercase tracking-[0.18em]"
+                        style={{ color: verticalColor }}
                       >
                         {sectionT.actualScreen[lang]}
                       </span>
@@ -307,7 +285,7 @@ export default function IntroductionSection({
                   className="rounded-[1.5rem] border border-border bg-surface p-5"
                 >
                   <span
-                    className={`inline-flex rounded-full border px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] ${statusStyles[phase.status]}`}
+                    className={`text-[11px] font-mono uppercase tracking-[0.18em] ${statusStyles[phase.status]}`}
                   >
                     {phase.label[lang]}
                   </span>
