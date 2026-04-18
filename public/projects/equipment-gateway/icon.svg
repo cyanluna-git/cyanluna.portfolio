@@ -1,37 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <rect width="256" height="256" fill="#0f172a" rx="32"/>
-  <defs>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#EFF6FF"/>
   <!-- Central gateway box -->
-  <rect x="96" y="96" width="64" height="64" rx="10" fill="#3b82f6" opacity="0.15" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <!-- Gateway inner dot -->
-  <circle cx="128" cy="128" r="8" fill="#3b82f6" opacity="0.7" filter="url(#glow)"/>
-
+  <rect x="37" y="37" width="26" height="26" rx="5" fill="#3B82F6"/>
+  <circle cx="50" cy="50" r="5" fill="white"/>
   <!-- Left device -->
-  <rect x="44" y="108" width="32" height="40" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.4"/>
-  <circle cx="60" cy="128" r="5" fill="#3b82f6" opacity="0.5"/>
-
+  <rect x="14" y="41" width="14" height="18" rx="3" fill="#3B82F6" opacity="0.4"/>
+  <circle cx="21" cy="50" r="3" fill="#3B82F6"/>
   <!-- Right device -->
-  <rect x="180" y="108" width="32" height="40" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.4"/>
-  <circle cx="196" cy="128" r="5" fill="#3b82f6" opacity="0.5"/>
-
-  <!-- Top device (cloud) -->
-  <rect x="108" y="44" width="40" height="28" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.4"/>
-  <circle cx="128" cy="58" r="5" fill="#3b82f6" opacity="0.5"/>
-
-  <!-- Bottom device (DB) -->
-  <rect x="108" y="184" width="40" height="28" rx="6" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.4"/>
-  <circle cx="128" cy="198" r="5" fill="#3b82f6" opacity="0.5"/>
-
-  <!-- Connecting lines -->
-  <line x1="76" y1="128" x2="96" y2="128" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <line x1="160" y1="128" x2="180" y2="128" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <line x1="128" y1="72" x2="128" y2="96" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
-  <line x1="128" y1="160" x2="128" y2="184" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <rect x="72" y="41" width="14" height="18" rx="3" fill="#3B82F6" opacity="0.4"/>
+  <circle cx="79" cy="50" r="3" fill="#3B82F6"/>
+  <!-- Top device -->
+  <rect x="41" y="14" width="18" height="14" rx="3" fill="#3B82F6" opacity="0.4"/>
+  <circle cx="50" cy="21" r="3" fill="#3B82F6"/>
+  <!-- Bottom device -->
+  <rect x="41" y="72" width="18" height="14" rx="3" fill="#3B82F6" opacity="0.4"/>
+  <circle cx="50" cy="79" r="3" fill="#3B82F6"/>
+  <!-- Connectors -->
+  <line x1="28" y1="50" x2="37" y2="50" stroke="#3B82F6" stroke-width="2.5"/>
+  <line x1="63" y1="50" x2="72" y2="50" stroke="#3B82F6" stroke-width="2.5"/>
+  <line x1="50" y1="28" x2="50" y2="37" stroke="#3B82F6" stroke-width="2.5"/>
+  <line x1="50" y1="63" x2="50" y2="72" stroke="#3B82F6" stroke-width="2.5"/>
 </svg>

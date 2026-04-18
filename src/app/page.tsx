@@ -14,6 +14,7 @@ import {
   type ProjectProof,
 } from "@/data/projects";
 import Nav from "@/components/Nav";
+import StatusBadge from "@/components/StatusBadge";
 import AboutSection from "@/components/AboutSection";
 import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
@@ -109,23 +110,9 @@ const t = {
   },
 };
 
-function StatusBadge({ status, lang }: { status: Project["status"]; lang: Lang }) {
-  const colors = {
-    live: "bg-emerald-500/15 text-emerald-400 border-emerald-500/20",
-    active: "bg-blue-500/15 text-blue-400 border-blue-400/20",
-    beta: "bg-amber-500/15 text-amber-400 border-amber-500/20",
-  };
-  return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-medium rounded-full border whitespace-nowrap ${colors[status]}`}>
-      {status === "live" && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />}
-      {t.status[status][lang]}
-    </span>
-  );
-}
-
 function ProofBadge({ proof, lang }: { proof: ProjectProof; lang: Lang }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
+    <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
       {t.proofLabel[proof][lang]}
     </span>
   );
@@ -133,12 +120,9 @@ function ProofBadge({ proof, lang }: { proof: ProjectProof; lang: Lang }) {
 
 function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: Lang }) {
   return (
-    <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-2">
       {audience.map((item) => (
-        <span
-          key={item}
-          className="rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] font-medium text-muted"
-        >
+        <span key={item} className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
           {t.audienceLabel[item][lang]}
         </span>
       ))}
@@ -149,34 +133,34 @@ function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: 
 /* ── Icon visuals for projects with no screenshots ───────────────── */
 
 const PROJECT_ICONS: Record<string, string> = {
-  moru: "/projects/moru/icon.png",
-  "smart-factory-qc": "/projects/smart-factory-qc/icon.png",
+  moru: "/projects/moru/icon.svg",
+  "smart-factory-qc": "/projects/smart-factory-qc/icon.svg",
   "ai-cycling-coach": "/projects/ai-cycling-coach/icon.svg",
   "equipment-gateway": "/projects/equipment-gateway/icon.svg",
   "resource-board": "/projects/resource-board/icon.svg",
   "code-review-suite": "/projects/code-review-suite/icon.svg",
   javis: "/projects/javis/icon.svg",
+  "cpet-platform": "/projects/cpet-platform/icon.svg",
+  "ride-analytics": "/projects/ride-analytics/icon.svg",
+  "today-bike": "/projects/today-bike/icon.svg",
+  "personal-finance": "/projects/personal-finance/icon.svg",
+  "assist-hub": "/projects/assist-hub/icon.svg",
+  "assist-11th": "/projects/assist-11th/icon.svg",
+  "kanban-pipeline": "/projects/kanban-pipeline/icon.svg",
 };
-
-// Projects whose icon has a light background — render on white
-const LIGHT_BG_ICONS = new Set(["moru", "smart-factory-qc"]);
 
 function ProjectIconVisual({ project }: { project: Project }) {
   const iconSrc = PROJECT_ICONS[project.id];
   if (!iconSrc) return null;
 
-  const isLight = LIGHT_BG_ICONS.has(project.id);
-
   return (
-    <div
-      className={`flex aspect-video items-center justify-center ${isLight ? "bg-[#f0f2f5]" : "bg-zinc-900/60"}`}
-    >
+    <div className="flex aspect-video items-center justify-center bg-transparent">
       <Image
         src={iconSrc}
         alt={`${project.id} icon`}
-        width={isLight ? 180 : 120}
-        height={isLight ? 100 : 120}
-        className={isLight ? "h-20 w-auto object-contain" : "h-28 w-28 object-contain"}
+        width={100}
+        height={100}
+        className="h-20 w-20 object-contain"
         unoptimized
       />
     </div>
@@ -252,9 +236,9 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
       <div className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-2">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
-                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: vColor }} />
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
+                <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: vColor }} />
                 {track.label[lang]}
               </span>
               <ProofBadge proof={project.curation.proof} lang={lang} />
@@ -282,7 +266,7 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
               {t.viewDetails[lang]}
             </span>
           ) : (
-            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium text-muted">
+            <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
               {t.comingSoon[lang]}
             </span>
           )}
@@ -370,7 +354,7 @@ function CuratedEntrySection({
                 />
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-2">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
+                    <div className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
                       {t.featured.rank[lang]} {project.curation.featuredRank}
                     </div>
                     <h3 className="text-2xl font-semibold tracking-tight">{project.title[lang]}</h3>
@@ -384,8 +368,8 @@ function CuratedEntrySection({
                   <ProjectMediaArea project={project} />
                 </div>
 
-                <div className="mt-5 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full border border-border bg-background/60 px-2.5 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-muted">
                     {curationTracks[project.curation.track].label[lang]}
                   </span>
                   <ProofBadge proof={project.curation.proof} lang={lang} />

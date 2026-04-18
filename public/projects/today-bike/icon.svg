@@ -1,0 +1,19 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#FFFBEB"/>
+  <!-- Wheels -->
+  <circle cx="30" cy="64" r="18" fill="none" stroke="#F59E0B" stroke-width="3.5"/>
+  <circle cx="70" cy="64" r="18" fill="none" stroke="#F59E0B" stroke-width="3.5"/>
+  <!-- Frame -->
+  <polyline points="30,64 50,38 70,64" fill="none" stroke="#F59E0B" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="50" y1="38" x2="60" y2="28" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <line x1="42" y1="50" x2="60" y2="28" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="42" y1="50" x2="30" y2="64" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Handlebar -->
+  <line x1="60" y1="28" x2="66" y2="24" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="66" y1="24" x2="68" y2="30" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Saddle -->
+  <line x1="46" y1="37" x2="56" y2="37" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <!-- Hubs -->
+  <circle cx="30" cy="64" r="4" fill="#F59E0B"/>
+  <circle cx="70" cy="64" r="4" fill="#F59E0B"/>
+</svg>

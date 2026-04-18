@@ -1,0 +1,12 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#FFFBEB"/>
+  <!-- Person 1 (left, back) -->
+  <circle cx="28" cy="40" r="9" fill="#F59E0B" opacity="0.4"/>
+  <path d="M14 75 Q14 62 28 62 Q42 62 42 75" fill="#F59E0B" opacity="0.3"/>
+  <!-- Person 3 (right, back) -->
+  <circle cx="72" cy="40" r="9" fill="#F59E0B" opacity="0.4"/>
+  <path d="M58 75 Q58 62 72 62 Q86 62 86 75" fill="#F59E0B" opacity="0.3"/>
+  <!-- Person 2 (center, front) -->
+  <circle cx="50" cy="36" r="11" fill="#F59E0B" opacity="0.85"/>
+  <path d="M32 75 Q32 59 50 59 Q68 59 68 75" fill="#F59E0B" opacity="0.7"/>
+</svg>

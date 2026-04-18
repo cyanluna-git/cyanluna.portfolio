@@ -1,0 +1,14 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#FFFBEB"/>
+  <!-- Person head -->
+  <circle cx="40" cy="34" r="12" fill="#F59E0B" opacity="0.7"/>
+  <!-- Person body -->
+  <path d="M22 72 Q22 55 40 55 Q58 55 58 72" fill="#F59E0B" opacity="0.5"/>
+  <!-- Speech bubble -->
+  <rect x="54" y="20" width="30" height="22" rx="6" fill="#F59E0B"/>
+  <path d="M60 42 L56 50 L66 42" fill="#F59E0B"/>
+  <!-- Dots in bubble -->
+  <circle cx="62" cy="31" r="2.5" fill="white"/>
+  <circle cx="69" cy="31" r="2.5" fill="white"/>
+  <circle cx="76" cy="31" r="2.5" fill="white"/>
+</svg>

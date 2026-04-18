@@ -63,6 +63,15 @@ interface NavProps {
   showHomeLinks?: boolean;
 }
 
+function WordMark() {
+  return (
+    <span className="font-mono text-sm tracking-tight select-none">
+      <span className="text-accent font-bold">cyan</span>
+      <span className="text-foreground font-semibold">luna</span>
+    </span>
+  );
+}
+
 function HamburgerIcon({ open }: { open: boolean }) {
   return (
     <svg
@@ -138,8 +147,8 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
   return (
     <nav className="fixed top-0 inset-x-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href={`/${lang === "ko" ? "?lang=ko" : ""}`} className="font-mono text-sm font-semibold tracking-tight hover:text-foreground transition-colors">
-          CyanLuna
+        <a href={`/${lang === "ko" ? "?lang=ko" : ""}`} className="hover:opacity-80 transition-opacity">
+          <WordMark />
         </a>
 
         {/* Desktop nav links */}

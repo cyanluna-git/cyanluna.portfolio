@@ -1,0 +1,16 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100" height="100" fill="#FFFBEB"/>
+  <!-- Coin -->
+  <circle cx="36" cy="38" r="18" fill="#F59E0B" opacity="0.25"/>
+  <circle cx="36" cy="38" r="14" fill="#F59E0B" opacity="0.5"/>
+  <text x="36" y="44" text-anchor="middle" font-size="16" font-family="serif" font-weight="bold" fill="#F59E0B">$</text>
+  <!-- Bar chart -->
+  <rect x="56" y="58" width="9" height="20" rx="2" fill="#F59E0B" opacity="0.5"/>
+  <rect x="68" y="46" width="9" height="32" rx="2" fill="#F59E0B" opacity="0.7"/>
+  <rect x="80" y="36" width="9" height="42" rx="2" fill="#F59E0B"/>
+  <!-- Baseline -->
+  <line x1="52" y1="78" x2="92" y2="78" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+  <!-- Trend arrow -->
+  <path d="M57 65 L68 52 L80 42" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+  <path d="M76 38 L82 40 L80 46" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
