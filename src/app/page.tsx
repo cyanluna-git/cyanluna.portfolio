@@ -150,7 +150,7 @@ function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: 
 
 const PROJECT_ICONS: Record<string, string> = {
   moru: "/projects/moru/icon.png",
-  "smart-factory-qc": "/projects/smart-factory-qc/icon.svg",
+  "smart-factory-qc": "/projects/smart-factory-qc/icon.png",
   "ai-cycling-coach": "/projects/ai-cycling-coach/icon.svg",
   "equipment-gateway": "/projects/equipment-gateway/icon.svg",
   "resource-board": "/projects/resource-board/icon.svg",
@@ -159,7 +159,7 @@ const PROJECT_ICONS: Record<string, string> = {
 };
 
 // Projects whose icon has a light background — render on white
-const LIGHT_BG_ICONS = new Set(["moru"]);
+const LIGHT_BG_ICONS = new Set(["moru", "smart-factory-qc"]);
 
 function ProjectIconVisual({ project }: { project: Project }) {
   const iconSrc = PROJECT_ICONS[project.id];
