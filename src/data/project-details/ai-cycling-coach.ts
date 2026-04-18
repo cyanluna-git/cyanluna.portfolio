@@ -2,7 +2,7 @@ import type { ProjectDetail } from "@/types/project-detail";
 
 export const aiCyclingCoach: ProjectDetail = {
   slug: "ai-cycling-coach",
-  vertical: "health",
+  vertical: "cycling",
   verticalColor: "#10B981",
   status: "live",
   title: {

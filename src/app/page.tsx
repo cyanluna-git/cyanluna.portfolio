@@ -757,9 +757,9 @@ export default function Home() {
                 {/* domain labels */}
                 <g fontFamily="'JetBrains Mono', 'Geist Mono', monospace" fontSize="10" fill="#7a8599" letterSpacing="1.5">
                   <text x="240" y="56" textAnchor="middle">INDUSTRIAL</text>
-                  <text x="432" y="244" textAnchor="start">HEALTH</text>
-                  <text x="240" y="432" textAnchor="middle">CONSUMER</text>
-                  <text x="48" y="244" textAnchor="end">DEVTOOLS</text>
+                  <text x="432" y="244" textAnchor="start">CYCLING</text>
+                  <text x="240" y="432" textAnchor="middle">CLOUD / OPS</text>
+                  <text x="48" y="244" textAnchor="end">AI AGENTS</text>
                 </g>
                 {/* decorative dots */}
                 <g fill="#aab5cc" opacity="0.5">

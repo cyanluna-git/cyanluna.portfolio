@@ -2,7 +2,7 @@ import type { ProjectDetail } from "@/types/project-detail";
 
 export const javis: ProjectDetail = {
   slug: "javis",
-  vertical: "devtools",
+  vertical: "aiagents",
   verticalColor: "#8B5CF6",
   status: "active",
   title: {

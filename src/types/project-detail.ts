@@ -76,7 +76,7 @@ export interface ProjectIntroduction {
 
 export interface ProjectDetail {
   slug: string;
-  vertical: "industrial" | "health" | "consumer" | "devtools";
+  vertical: "industrial" | "cycling" | "cloudops" | "aiagents";
   verticalColor: string;
   status: "live" | "active" | "beta";
   title: BiText;

@@ -2,7 +2,7 @@ import type { ProjectDetail } from "@/types/project-detail";
 
 export const todayBike: ProjectDetail = {
   slug: "today-bike",
-  vertical: "consumer",
+  vertical: "cycling",
   verticalColor: "#6366F1",
   status: "beta",
   title: {
