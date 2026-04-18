@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark background -->
-  <rect width="256" height="256" fill="#0f172a" rx="32"/>
-
-  <!-- White anvil shape (top-left isometric view) -->
+  <!-- Dark anvil silhouette -->
   <g id="anvil">
-    <!-- Anvil body -->
-    <path d="M 80 140 L 110 100 L 170 100 L 170 140 Q 170 160 150 160 L 100 160 Q 80 160 80 140 Z"
-          fill="#f8fafc" stroke="none"/>
+    <!-- Main anvil body -->
+    <path d="M 75 160 L 100 110 L 160 110 L 160 155 Q 160 175 140 175 L 95 175 Q 75 175 75 160 Z"
+          fill="#1e293b" stroke="none"/>
 
-    <!-- Anvil horn (left) -->
-    <path d="M 90 130 Q 70 125 65 110 Q 63 100 75 95 L 85 115 Z"
-          fill="#f8fafc" stroke="none"/>
+    <!-- Left horn -->
+    <path d="M 85 150 Q 60 145 55 125 Q 52 110 68 105 L 80 125 Z"
+          fill="#1e293b" stroke="none"/>
 
-    <!-- Anvil horn (right) -->
-    <path d="M 160 130 Q 180 125 185 110 Q 187 100 175 95 L 165 115 Z"
-          fill="#f8fafc" stroke="none"/>
+    <!-- Right horn -->
+    <path d="M 155 150 Q 180 145 185 125 Q 188 110 172 105 L 160 125 Z"
+          fill="#1e293b" stroke="none"/>
 
-    <!-- Base/Foot -->
-    <rect x="95" y="155" width="70" height="20" fill="#f8fafc" rx="2"/>
-    <rect x="90" y="172" width="80" height="8" fill="#cbd5e1" rx="1"/>
+    <!-- Feet -->
+    <rect x="90" y="170" width="80" height="18" fill="#1e293b" rx="2"/>
+    <rect x="85" y="185" width="90" height="6" fill="#0f172a" rx="1"/>
   </g>
 
-  <!-- GPIO pins (cyan dots) -->
+  <!-- GPIO pins (cyan dots) arranged on anvil surface -->
   <g id="gpio-pins">
-    <!-- Top row (3 dots) -->
-    <circle cx="105" cy="115" r="6" fill="#06b6d4"/>
-    <circle cx="128" cy="115" r="6" fill="#06b6d4"/>
-    <circle cx="151" cy="115" r="6" fill="#06b6d4"/>
+    <!-- Top row -->
+    <circle cx="100" cy="125" r="7" fill="#06b6d4"/>
+    <circle cx="128" cy="125" r="7" fill="#06b6d4"/>
+    <circle cx="156" cy="125" r="7" fill="#06b6d4"/>
 
-    <!-- Bottom row (2 dots) -->
-    <circle cx="116" cy="145" r="6" fill="#06b6d4"/>
-    <circle cx="140" cy="145" r="6" fill="#06b6d4"/>
+    <!-- Middle row -->
+    <circle cx="114" cy="150" r="7" fill="#06b6d4"/>
+    <circle cx="142" cy="150" r="7" fill="#06b6d4"/>
+
+    <!-- Bottom accent (optional 6th pin) -->
+    <circle cx="128" cy="165" r="5" fill="#06b6d4" opacity="0.6"/>
   </g>
 
-  <!-- Subtle glow effect on GPIO pins -->
+  <!-- Glow effect -->
   <defs>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -45,11 +45,11 @@
     </filter>
   </defs>
 
-  <g id="gpio-glow" opacity="0.3" filter="url(#glow)">
-    <circle cx="105" cy="115" r="8" fill="#06b6d4"/>
-    <circle cx="128" cy="115" r="8" fill="#06b6d4"/>
-    <circle cx="151" cy="115" r="8" fill="#06b6d4"/>
-    <circle cx="116" cy="145" r="8" fill="#06b6d4"/>
-    <circle cx="140" cy="145" r="8" fill="#06b6d4"/>
+  <g id="gpio-glow" opacity="0.25" filter="url(#glow)">
+    <circle cx="100" cy="125" r="9" fill="#22d3ee"/>
+    <circle cx="128" cy="125" r="9" fill="#22d3ee"/>
+    <circle cx="156" cy="125" r="9" fill="#22d3ee"/>
+    <circle cx="114" cy="150" r="9" fill="#22d3ee"/>
+    <circle cx="142" cy="150" r="9" fill="#22d3ee"/>
   </g>
 </svg>
