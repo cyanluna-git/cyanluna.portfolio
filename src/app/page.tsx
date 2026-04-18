@@ -146,228 +146,87 @@ function AudiencePills({ audience, lang }: { audience: ProjectAudience[]; lang: 
   );
 }
 
-/* ── Icon-flow visuals for projects with no screenshots ─────────── */
+/* ── Icon visuals for projects with no screenshots ───────────────── */
 
-type IconPath = { d: string; clip?: string };
-
-const ICON_PATHS: Record<string, IconPath[]> = {
-  Terminal: [
-    { d: "M4 17l6-6-6-6" },
-    { d: "M12 19h8" },
-  ],
-  Sparkles: [
-    { d: "M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" },
-  ],
-  Cpu: [
-    { d: "M9 3H7a2 2 0 00-2 2v2M9 3h6M9 3v2M15 3h2a2 2 0 012 2v2M15 3v2M21 9v6M21 15v2a2 2 0 01-2 2h-2M21 15h-2M3 9v6M3 15v2a2 2 0 002 2h2M3 15h2M9 21h6M9 21v-2M15 21v-2M9 9h6v6H9z" },
-  ],
-  ShieldCheck: [
-    { d: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-    { d: "M9 12l2 2 4-4" },
-  ],
-  Cloud: [
-    { d: "M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" },
-  ],
-  FileCode: [
-    { d: "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" },
-    { d: "M14 2v6h6" },
-    { d: "M10 13l-2 2 2 2" },
-    { d: "M14 13l2 2-2 2" },
-  ],
-  Activity: [
-    { d: "M22 12h-4l-3 9L9 3l-3 9H2" },
-  ],
-  Users: [
-    { d: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
-    { d: "M9 11a4 4 0 100-8 4 4 0 000 8z" },
-    { d: "M23 21v-2a4 4 0 00-3-3.87" },
-    { d: "M16 3.13a4 4 0 010 7.75" },
-  ],
-  Calendar: [
-    { d: "M19 4H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2z" },
-    { d: "M16 2v4M8 2v4M3 10h18" },
-  ],
-  GitPR: [
-    { d: "M18 15a3 3 0 100 6 3 3 0 000-6z" },
-    { d: "M6 3a3 3 0 100 6 3 3 0 000-6z" },
-    { d: "M13 6h3a2 2 0 012 2v7" },
-    { d: "M6 9v12" },
-  ],
-  Search: [
-    { d: "M21 21l-4.35-4.35" },
-    { d: "M17 11A6 6 0 105 11a6 6 0 0012 0z" },
-  ],
-  MessageSquare: [
-    { d: "M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" },
-  ],
-  Layout: [
-    { d: "M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z" },
-    { d: "M3 9h18M9 21V9" },
-  ],
-  Bell: [
-    { d: "M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" },
-    { d: "M13.73 21a2 2 0 01-3.46 0" },
-  ],
-  ArrowRight: [
-    { d: "M5 12h14M12 5l7 7-7 7" },
-  ],
+const PROJECT_ICONS: Record<string, string> = {
+  moru: "/projects/moru/icon.svg",
+  "smart-factory-qc": "/projects/smart-factory-qc/icon.svg",
+  "ai-cycling-coach": "/projects/ai-cycling-coach/icon.svg",
+  "equipment-gateway": "/projects/equipment-gateway/icon.svg",
+  "resource-board": "/projects/resource-board/icon.svg",
+  "code-review-suite": "/projects/code-review-suite/icon.svg",
+  javis: "/projects/javis/icon.svg",
 };
 
-function SvgIcon({ name, size = 20 }: { name: string; size?: number }) {
-  const paths = ICON_PATHS[name] ?? [];
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {paths.map((p, i) => (
-        <path key={i} d={p.d} />
-      ))}
-    </svg>
-  );
-}
-
-type IconFlowStep = { icon: string; label: { en: string; ko: string } };
-
-const PROJECT_ICON_FLOWS: Record<string, IconFlowStep[]> = {
-  moru: [
-    { icon: "Terminal", label: { en: "LLM Control", ko: "LLM 제어" } },
-    { icon: "Sparkles", label: { en: "AI Planning", ko: "AI 기획" } },
-    { icon: "Cpu", label: { en: "MES Execution", ko: "MES 실행" } },
-  ],
-  "smart-factory-qc": [
-    { icon: "Cpu", label: { en: "Equipment", ko: "장비" } },
-    { icon: "ShieldCheck", label: { en: "BDD Tests", ko: "BDD 검증" } },
-    { icon: "Cloud", label: { en: "Digital Record", ko: "디지털 기록" } },
-  ],
-  "equipment-gateway": [
-    { icon: "FileCode", label: { en: "YAML Config", ko: "YAML 설정" } },
-    { icon: "ArrowRight", label: { en: "Gateway", ko: "게이트웨이" } },
-    { icon: "Activity", label: { en: "Time-series", ko: "시계열" } },
-  ],
-  "resource-board": [
-    { icon: "Users", label: { en: "Org Structure", ko: "조직 구조" } },
-    { icon: "Calendar", label: { en: "Planning", ko: "일정 계획" } },
-    { icon: "Sparkles", label: { en: "AI Parser", ko: "AI 파서" } },
-  ],
-  "code-review-suite": [
-    { icon: "GitPR", label: { en: "Pull Request", ko: "PR" } },
-    { icon: "Search", label: { en: "AI Lens", ko: "AI 분석" } },
-    { icon: "MessageSquare", label: { en: "Review", ko: "리뷰" } },
-  ],
-  javis: [
-    { icon: "Layout", label: { en: "Jira", ko: "Jira" } },
-    { icon: "ArrowRight", label: { en: "Bridge", ko: "브릿지" } },
-    { icon: "Bell", label: { en: "Slack Alerts", ko: "슬랙 알림" } },
-  ],
-};
-
-function ProjectIconVisual({ project, lang }: { project: Project; lang: Lang }) {
-  const vColor = verticals[project.vertical].color;
-  const steps = PROJECT_ICON_FLOWS[project.id];
-
-  if (!steps) return null;
+function ProjectIconVisual({ project }: { project: Project }) {
+  const iconSrc = PROJECT_ICONS[project.id];
+  if (!iconSrc) return null;
 
   return (
-    <div
-      className="flex aspect-video items-center justify-center gap-0"
-      style={{ backgroundColor: `${vColor}08` }}
-    >
-      {steps.map((step, i) => (
-        <div key={step.icon} className="flex items-center">
-          <div className="flex flex-col items-center gap-2 px-3">
-            <div
-              className="flex h-12 w-12 items-center justify-center rounded-xl border"
-              style={{
-                backgroundColor: `${vColor}15`,
-                borderColor: `${vColor}30`,
-                color: vColor,
-              }}
-            >
-              <SvgIcon name={step.icon} size={22} />
-            </div>
-            <span className="text-[10px] font-medium text-zinc-400 whitespace-nowrap">
-              {step.label[lang]}
-            </span>
-          </div>
-          {i < steps.length - 1 && (
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0 text-zinc-600"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          )}
-        </div>
-      ))}
+    <div className="flex aspect-video items-center justify-center bg-zinc-900/60">
+      <Image
+        src={iconSrc}
+        alt={`${project.id} icon`}
+        width={120}
+        height={120}
+        className="h-28 w-28 object-contain"
+        unoptimized
+      />
     </div>
   );
 }
 
-/* ── Project media: static first-frame for sequences, icon for no-media ── */
+/* ── Project media: icon if available, else first-frame / video ──── */
 
-function ProjectMediaArea({ project, lang }: { project: Project; lang: Lang }) {
+function ProjectMediaArea({ project }: { project: Project }) {
+  // If there's a dedicated icon for this project, always use it
+  if (PROJECT_ICONS[project.id]) {
+    return <ProjectIconVisual project={project} />;
+  }
+
   const media = project.media;
+  if (!media) return null;
 
-  if (media) {
-    const { type, src, poster } = media;
+  const { type, src, poster } = media;
 
-    if (type === "video") {
-      return (
-        <div className="aspect-video overflow-hidden bg-black">
-          <video autoPlay muted loop playsInline poster={poster} className="w-full h-full object-cover">
-            <source src={src} type="video/mp4" />
-          </video>
-        </div>
-      );
-    }
-
-    if (type === "sequence" && media.frames && media.frames.length > 0) {
-      return (
-        <div className="relative aspect-video overflow-hidden bg-black">
-          <Image
-            src={media.frames[0]}
-            alt=""
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            loading="eager"
-            className="object-cover"
-          />
-        </div>
-      );
-    }
-
+  if (type === "video") {
     return (
       <div className="aspect-video overflow-hidden bg-black">
+        <video autoPlay muted loop playsInline poster={poster} className="w-full h-full object-cover">
+          <source src={src} type="video/mp4" />
+        </video>
+      </div>
+    );
+  }
+
+  if (type === "sequence" && media.frames && media.frames.length > 0) {
+    return (
+      <div className="relative aspect-video overflow-hidden bg-black">
         <Image
-          src={src!}
+          src={media.frames[0]}
           alt=""
-          width={640}
-          height={360}
-          loading="lazy"
-          unoptimized={type === "gif"}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          loading="eager"
+          className="object-cover"
         />
       </div>
     );
   }
 
-  return <ProjectIconVisual project={project} lang={lang} />;
+  return (
+    <div className="aspect-video overflow-hidden bg-black">
+      <Image
+        src={src!}
+        alt=""
+        width={640}
+        height={360}
+        loading="lazy"
+        unoptimized={type === "gif"}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+      />
+    </div>
+  );
 }
 
 function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
@@ -381,7 +240,7 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
         className="absolute left-0 right-0 top-0 h-px"
         style={{ background: `linear-gradient(90deg, transparent, ${vColor}4d, transparent)` }}
       />
-      <ProjectMediaArea project={project} lang={lang} />
+      <ProjectMediaArea project={project} />
 
       <div className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
@@ -515,7 +374,7 @@ function CuratedEntrySection({
                 <p className="mt-4 text-sm leading-relaxed text-muted">{project.curation.quickPitch[lang]}</p>
 
                 <div className="mt-5 overflow-hidden rounded-2xl border border-white/5">
-                  <ProjectMediaArea project={project} lang={lang} />
+                  <ProjectMediaArea project={project} />
                 </div>
 
                 <div className="mt-5 flex flex-wrap items-center gap-2">

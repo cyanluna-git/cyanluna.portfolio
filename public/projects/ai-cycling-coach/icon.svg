@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="#0f172a" rx="32"/>
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Wheels -->
+  <circle cx="88" cy="168" r="36" fill="none" stroke="#10b981" stroke-width="4" opacity="0.5"/>
+  <circle cx="88" cy="168" r="8" fill="#10b981" opacity="0.6"/>
+  <circle cx="168" cy="168" r="36" fill="none" stroke="#10b981" stroke-width="4" opacity="0.5"/>
+  <circle cx="168" cy="168" r="8" fill="#10b981" opacity="0.6"/>
+
+  <!-- Spokes front wheel -->
+  <line x1="168" y1="132" x2="168" y2="160" stroke="#10b981" stroke-width="2" opacity="0.4"/>
+  <line x1="168" y1="176" x2="168" y2="204" stroke="#10b981" stroke-width="2" opacity="0.4"/>
+  <line x1="132" y1="168" x2="160" y2="168" stroke="#10b981" stroke-width="2" opacity="0.4"/>
+  <line x1="176" y1="168" x2="204" y2="168" stroke="#10b981" stroke-width="2" opacity="0.4"/>
+
+  <!-- Frame -->
+  <line x1="88" y1="168" x2="128" y2="120" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="128" y1="120" x2="168" y2="168" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="128" y1="120" x2="148" y2="100" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="108" y1="140" x2="148" y2="100" stroke="#10b981" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="108" y1="140" x2="88" y2="168" stroke="#10b981" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Handlebar -->
+  <line x1="148" y1="100" x2="158" y2="94" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+  <line x1="158" y1="94" x2="162" y2="104" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Saddle -->
+  <line x1="120" y1="118" x2="138" y2="118" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+  <line x1="129" y1="118" x2="129" y2="128" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Sparkle/AI accent -->
+  <g filter="url(#glow)" opacity="0.8">
+    <circle cx="88" cy="168" r="6" fill="#10b981"/>
+    <circle cx="168" cy="168" r="6" fill="#10b981"/>
+  </g>
+
+  <!-- Small power zone chart top-left -->
+  <rect x="56" y="60" width="6" height="20" fill="#10b981" opacity="0.3" rx="1"/>
+  <rect x="66" y="50" width="6" height="30" fill="#10b981" opacity="0.5" rx="1"/>
+  <rect x="76" y="55" width="6" height="25" fill="#10b981" opacity="0.4" rx="1"/>
+</svg>

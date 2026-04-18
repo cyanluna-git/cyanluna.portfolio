@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="#0f172a" rx="32"/>
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Shield outline -->
+  <path d="M128 44 L180 68 L180 128 Q180 172 128 196 Q76 172 76 128 L76 68 Z"
+        fill="none" stroke="#3b82f6" stroke-width="3" opacity="0.4"/>
+
+  <!-- Shield fill -->
+  <path d="M128 52 L172 74 L172 128 Q172 165 128 187 Q84 165 84 128 L84 74 Z"
+        fill="#3b82f6" opacity="0.08"/>
+
+  <!-- Checkmark -->
+  <path d="M104 128 L120 144 L152 112"
+        fill="none" stroke="#3b82f6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+        filter="url(#glow)"/>
+
+  <!-- Small gear/circuit accent bottom right -->
+  <circle cx="168" cy="168" r="14" fill="none" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <circle cx="168" cy="168" r="6" fill="#3b82f6" opacity="0.4"/>
+  <line x1="168" y1="150" x2="168" y2="154" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <line x1="168" y1="182" x2="168" y2="186" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <line x1="150" y1="168" x2="154" y2="168" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+  <line x1="182" y1="168" x2="186" y2="168" stroke="#3b82f6" stroke-width="2" opacity="0.5"/>
+</svg>
