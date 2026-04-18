@@ -151,12 +151,12 @@ export const projects: Project[] = [
   {
     id: "smart-factory-qc",
     title: {
-      en: "Smart Factory QC Platform",
-      ko: "스마트 팩토리 QC 플랫폼",
+      en: "ActiveQC Platform",
+      ko: "ActiveQC 플랫폼",
     },
     tagline: {
-      en: "Automated quality control for manufacturing equipment",
-      ko: "제조 장비 자동화 품질 관리",
+      en: "Edge-native active test execution replacing paper FAT/SAT in high-end manufacturing",
+      ko: "고성능 제조 현장의 종이 FAT/SAT를 대체하는 엣지 네이티브 능동 테스트 실행 플랫폼",
     },
     description: {
       en: "End-to-end quality control automation that replaces manual test checklists with BDD-driven test scenarios. Operators define test procedures in plain language (Gherkin), and the platform executes them against real equipment via industrial protocols, collecting structured pass/fail evidence automatically.",
