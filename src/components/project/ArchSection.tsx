@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { ArchNode, ArchConnection } from "@/types/project-detail";
 
 type Lang = "en" | "ko";
@@ -199,61 +200,45 @@ export default function ArchSection({
             <div className="space-y-5">
               {relationshipRows.map((sourceNode) => {
                 const rowConnections = outgoing.get(sourceNode.id) ?? [];
+                const rowCount = rowConnections.length;
 
                 return (
                   <div
                     key={sourceNode.id}
-                    className="grid gap-4 rounded-[1.55rem] border border-white/8 bg-white/[0.02] p-4 sm:grid-cols-[minmax(260px,300px)_1fr]"
+                    className="rounded-[1.55rem] border border-white/8 bg-white/[0.02] p-4 sm:p-5"
                   >
-                    <div>
-                      <p className="mb-3 text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
+                    {/* ── Mobile: stacked ── */}
+                    <div className="sm:hidden">
+                      <p className="mb-2 text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
                         {sectionT.source[lang]}
                       </p>
                       <NodeCard node={sourceNode} lang={lang} />
-                    </div>
-
-                    <div>
-                      <p className="mb-3 text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
+                      <p className="mb-2 mt-4 text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
                         {sectionT.targets[lang]}
                       </p>
                       <div className="space-y-3">
                         {rowConnections.map((connection, index) => {
                           const targetNode = nodeMap.get(connection.to);
                           if (!targetNode) return null;
-
                           return (
-                            <div
-                              key={`${connection.from}-${connection.to}-${index}`}
-                              className="grid gap-3 md:grid-cols-[84px_1fr]"
-                            >
-                              <div className="flex items-center justify-center md:justify-start">
-                                <div className="flex items-center gap-2">
-                                  <span
-                                    className="inline-grid h-14 w-14 place-items-center rounded-full border text-[1.55rem] font-semibold"
-                                    style={{
-                                      background:
-                                        "linear-gradient(135deg, rgba(209,138,88,0.14), rgba(94,142,160,0.1)), rgba(255,255,255,0.03)",
-                                      borderColor: "rgba(209,138,88,0.22)",
-                                      color: "rgba(226,191,157,0.96)",
-                                      boxShadow:
-                                        "inset 0 1px 0 rgba(255,255,255,0.04)",
-                                      fontFamily:
-                                        '"JetBrains Mono", "IBM Plex Sans KR", monospace',
-                                    }}
-                                  >
-                                    →
-                                  </span>
-                                </div>
-                              </div>
-
-                              <div className="space-y-2">
+                            <div key={index} className="flex items-start gap-3">
+                              <span
+                                className="mt-1 inline-grid h-11 w-11 shrink-0 place-items-center rounded-full border text-xl font-semibold"
+                                style={{
+                                  background: "linear-gradient(135deg, rgba(209,138,88,0.14), rgba(94,142,160,0.1)), rgba(255,255,255,0.03)",
+                                  borderColor: "rgba(209,138,88,0.22)",
+                                  color: "rgba(226,191,157,0.96)",
+                                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                                  fontFamily: '"JetBrains Mono", "IBM Plex Sans KR", monospace',
+                                }}
+                              >
+                                →
+                              </span>
+                              <div className="flex-1 space-y-2">
                                 {connection.label ? (
                                   <div
                                     className="inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-mono uppercase tracking-[0.16em] text-white/72"
-                                    style={{
-                                      borderColor: "rgba(255,255,255,0.1)",
-                                      background: "rgba(17,24,39,0.92)",
-                                    }}
+                                    style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(17,24,39,0.92)" }}
                                   >
                                     {connection.label[lang]}
                                   </div>
@@ -264,6 +249,75 @@ export default function ArchSection({
                           );
                         })}
                       </div>
+                    </div>
+
+                    {/* ── Desktop: SOURCE | ARROW | TARGET 3-column grid ── */}
+                    <div
+                      className="hidden sm:grid"
+                      style={{
+                        gridTemplateColumns: "minmax(180px, 240px) 68px 1fr",
+                        columnGap: "12px",
+                        rowGap: "10px",
+                        alignItems: "start",
+                      }}
+                    >
+                      {/* Row 1: headers */}
+                      <p className="text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
+                        {sectionT.source[lang]}
+                      </p>
+                      <div />
+                      <p className="text-[0.72rem] font-mono uppercase tracking-[0.22em] text-white/42">
+                        {sectionT.targets[lang]}
+                      </p>
+
+                      {/* Source card — spans all target rows, vertically centered */}
+                      <div
+                        style={{
+                          gridColumn: "1",
+                          gridRow: `2 / ${rowCount + 2}`,
+                          alignSelf: rowCount > 1 ? "center" : "start",
+                        }}
+                      >
+                        <NodeCard node={sourceNode} lang={lang} />
+                      </div>
+
+                      {/* Arrows + Targets — auto-placed into col 2 & col 3 */}
+                      {rowConnections.map((connection, index) => {
+                        const targetNode = nodeMap.get(connection.to);
+                        if (!targetNode) return null;
+                        return (
+                          <Fragment key={`${connection.from}-${connection.to}-${index}`}>
+                            {/* Arrow — col 2 */}
+                            <div className="flex items-center justify-center" style={{ alignSelf: "center" }}>
+                              <span
+                                className="inline-grid h-14 w-14 place-items-center rounded-full border text-[1.55rem] font-semibold"
+                                style={{
+                                  background: "linear-gradient(135deg, rgba(209,138,88,0.14), rgba(94,142,160,0.1)), rgba(255,255,255,0.03)",
+                                  borderColor: "rgba(209,138,88,0.22)",
+                                  color: "rgba(226,191,157,0.96)",
+                                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)",
+                                  fontFamily: '"JetBrains Mono", "IBM Plex Sans KR", monospace',
+                                }}
+                              >
+                                →
+                              </span>
+                            </div>
+
+                            {/* Target — col 3 */}
+                            <div className="space-y-2">
+                              {connection.label ? (
+                                <div
+                                  className="inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-mono uppercase tracking-[0.16em] text-white/72"
+                                  style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(17,24,39,0.92)" }}
+                                >
+                                  {connection.label[lang]}
+                                </div>
+                              ) : null}
+                              <NodeCard node={targetNode} lang={lang} compact />
+                            </div>
+                          </Fragment>
+                        );
+                      })}
                     </div>
                   </div>
                 );
