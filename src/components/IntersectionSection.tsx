@@ -143,76 +143,97 @@ function VennDiagramSVG() {
   return (
     <div className="flex justify-center mb-8 sm:mb-12">
       <svg
-        viewBox="0 0 400 350"
-        className="w-[280px] h-[240px] sm:w-[400px] sm:h-[350px]"
+        viewBox="-10 -10 460 430"
+        className="w-[300px] h-[278px] sm:w-[440px] sm:h-[408px]"
         role="img"
         aria-label="Venn diagram showing intersection of Manufacturing, Full-Stack, and AI-Native"
       >
-        {/* Manufacturing circle - top left */}
-        <circle
-          cx="160"
-          cy="140"
-          r="100"
-          fill={COLORS.manufacturing}
-          fillOpacity="0.12"
-          stroke={COLORS.manufacturing}
-          strokeOpacity="0.4"
-          strokeWidth="1"
-        />
-        {/* AI-Native circle - top right */}
-        <circle
-          cx="240"
-          cy="140"
-          r="100"
-          fill={COLORS.ainative}
-          fillOpacity="0.12"
-          stroke={COLORS.ainative}
-          strokeOpacity="0.4"
-          strokeWidth="1"
-        />
-        {/* Full-Stack circle - bottom center */}
-        <circle
-          cx="200"
-          cy="220"
-          r="100"
-          fill={COLORS.fullstack}
-          fillOpacity="0.12"
-          stroke={COLORS.fullstack}
-          strokeOpacity="0.4"
-          strokeWidth="1"
-        />
+        <defs>
+          {/* Glow filter for strokes */}
+          <filter id="venn-glow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Drop shadow for text legibility */}
+          <filter id="venn-text-shadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#060b14" floodOpacity="1" />
+          </filter>
+          {/* Radial gradients for circle fills */}
+          <radialGradient id="venn-grad-mfg" cx="38%" cy="38%" r="62%">
+            <stop offset="0%" stopColor={COLORS.manufacturing} stopOpacity="0.38" />
+            <stop offset="100%" stopColor={COLORS.manufacturing} stopOpacity="0.04" />
+          </radialGradient>
+          <radialGradient id="venn-grad-ai" cx="62%" cy="38%" r="62%">
+            <stop offset="0%" stopColor={COLORS.ainative} stopOpacity="0.38" />
+            <stop offset="100%" stopColor={COLORS.ainative} stopOpacity="0.04" />
+          </radialGradient>
+          <radialGradient id="venn-grad-fs" cx="50%" cy="62%" r="62%">
+            <stop offset="0%" stopColor={COLORS.fullstack} stopOpacity="0.28" />
+            <stop offset="100%" stopColor={COLORS.fullstack} stopOpacity="0.02" />
+          </radialGradient>
+          {/* Center intersection glow */}
+          <radialGradient id="venn-center" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#c4b5fd" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="#c4b5fd" stopOpacity="0" />
+          </radialGradient>
+        </defs>
 
-        {/* Labels */}
+        {/* Circle fills */}
+        <circle cx="180" cy="165" r="122" fill="url(#venn-grad-mfg)" />
+        <circle cx="260" cy="165" r="122" fill="url(#venn-grad-ai)" />
+        <circle cx="220" cy="250" r="122" fill="url(#venn-grad-fs)" />
+
+        {/* Circle strokes — inner (crisp) + outer (glow layer) */}
+        <circle cx="180" cy="165" r="122" fill="none" stroke={COLORS.manufacturing} strokeOpacity="0.75" strokeWidth="1.5" />
+        <circle cx="180" cy="165" r="122" fill="none" stroke={COLORS.manufacturing} strokeOpacity="0.35" strokeWidth="4" filter="url(#venn-glow)" />
+        <circle cx="260" cy="165" r="122" fill="none" stroke={COLORS.ainative} strokeOpacity="0.75" strokeWidth="1.5" />
+        <circle cx="260" cy="165" r="122" fill="none" stroke={COLORS.ainative} strokeOpacity="0.35" strokeWidth="4" filter="url(#venn-glow)" />
+        <circle cx="220" cy="250" r="122" fill="none" stroke={COLORS.fullstack} strokeOpacity="0.5" strokeWidth="1.5" />
+        <circle cx="220" cy="250" r="122" fill="none" stroke={COLORS.fullstack} strokeOpacity="0.22" strokeWidth="4" filter="url(#venn-glow)" />
+
+        {/* Center intersection highlight */}
+        <circle cx="220" cy="200" r="48" fill="url(#venn-center)" />
+        {/* Center dot */}
+        <circle cx="220" cy="200" r="10" fill="#7c3aed" opacity="0.85" filter="url(#venn-glow)" />
+        <circle cx="220" cy="200" r="4.5" fill="#ede9fe" />
+
+        {/* Labels — outside each circle with text-shadow backdrop */}
         <text
-          x="120"
-          y="100"
+          x="88"
+          y="38"
           textAnchor="middle"
           fill={COLORS.manufacturing}
-          fontSize="13"
-          fontWeight="500"
+          fontSize="14"
+          fontWeight="600"
           fontFamily="var(--font-ui), system-ui, sans-serif"
+          filter="url(#venn-text-shadow)"
         >
           Manufacturing
         </text>
         <text
-          x="280"
-          y="100"
+          x="352"
+          y="38"
           textAnchor="middle"
           fill={COLORS.ainative}
-          fontSize="13"
-          fontWeight="500"
+          fontSize="14"
+          fontWeight="600"
           fontFamily="var(--font-ui), system-ui, sans-serif"
+          filter="url(#venn-text-shadow)"
         >
           AI-Native
         </text>
         <text
-          x="200"
-          y="280"
+          x="220"
+          y="398"
           textAnchor="middle"
           fill={COLORS.fullstack}
-          fontSize="13"
-          fontWeight="500"
+          fontSize="14"
+          fontWeight="600"
           fontFamily="var(--font-ui), system-ui, sans-serif"
+          filter="url(#venn-text-shadow)"
         >
           Full-Stack
         </text>
