@@ -1,24 +1,28 @@
-import { getProjectDetail } from "@/data/project-details";
-import ProjectDetailClient from "@/app/projects/[slug]/ProjectDetailClient";
-import { notFound } from "next/navigation";
+import "./activeqc.css";
+import ActiveQcPage from "./ActiveQcPage";
 
 const SITE_URL = "https://cyanluna.com";
 const SLUG = "smart-factory-qc";
 
 export function generateMetadata() {
-  const project = getProjectDetail(SLUG);
-  if (!project) return { title: "Project Not Found" };
-
-  const title = `${project.title.en} — CyanLuna`;
-  const description = project.tagline.en;
-  const url = `${SITE_URL}/projects/${SLUG}`;
-
   return {
-    title: project.title.en,
-    description,
-    openGraph: { title, description, url, type: "article" as const },
-    twitter: { card: "summary_large_image" as const, title, description },
-    alternates: { canonical: url },
+    title: "ActiveQC — Kill the Excel Checklist",
+    description:
+      "고부가가치 산업 설비의 출하 검수를 Excel에서 벗어나 자동화하는 Edge-Native Quality Execution Platform",
+    openGraph: {
+      title: "ActiveQC — Kill the Excel Checklist",
+      description:
+        "고부가가치 산업 설비의 출하 검수를 Excel에서 벗어나 자동화하는 Edge-Native Quality Execution Platform",
+      url: `${SITE_URL}/projects/${SLUG}`,
+      type: "article" as const,
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: "ActiveQC — Kill the Excel Checklist",
+      description:
+        "고부가가치 산업 설비의 출하 검수를 Excel에서 벗어나 자동화하는 Edge-Native Quality Execution Platform",
+    },
+    alternates: { canonical: `${SITE_URL}/projects/${SLUG}` },
   };
 }
 
@@ -28,10 +32,6 @@ export default async function SmartFactoryQcPage({
   searchParams: Promise<{ lang?: string }>;
 }) {
   const { lang } = await searchParams;
-  const project = getProjectDetail(SLUG);
-  if (!project) notFound();
-
   const initialLang = lang === "ko" ? "ko" : "en";
-
-  return <ProjectDetailClient project={project} initialLang={initialLang} />;
+  return <ActiveQcPage initialLang={initialLang} />;
 }
