@@ -1,12 +1,24 @@
 import { notFound } from "next/navigation";
 import { getProjectDetail, getAllProjectSlugs } from "@/data/project-details";
+import { getProjectHtmlUrl } from "@/lib/project-html-blob";
 import ProjectDetailClient from "./ProjectDetailClient";
+
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
 
 const SITE_URL = "https://cyanluna.com";
+
+async function safeGetBlobUrl(slug: string): Promise<string | null> {
+  try {
+    return await getProjectHtmlUrl(slug);
+  } catch (err: unknown) {
+    console.error("[slug/page] getProjectHtmlUrl threw for slug:", slug, err);
+    return null;
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -15,30 +27,38 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const project = getProjectDetail(slug);
-  if (!project) return { title: "Project Not Found" };
 
-  const title = `${project.title.en} — CyanLuna`;
-  const description = project.tagline.en;
-  const url = `${SITE_URL}/projects/${slug}`;
+  if (project) {
+    const title = `${project.title.en} — CyanLuna`;
+    const description = project.tagline.en;
+    const url = `${SITE_URL}/projects/${slug}`;
 
-  return {
-    title: project.title.en,
-    description,
-    openGraph: {
-      title,
+    return {
+      title: project.title.en,
       description,
-      url,
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image" as const,
-      title,
-      description,
-    },
-    alternates: {
-      canonical: url,
-    },
-  };
+      openGraph: {
+        title,
+        description,
+        url,
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image" as const,
+        title,
+        description,
+      },
+      alternates: {
+        canonical: url,
+      },
+    };
+  }
+
+  const blobUrl = await safeGetBlobUrl(slug);
+  if (blobUrl) {
+    return { title: slug };
+  }
+
+  return { title: "Project Not Found" };
 }
 
 export default async function ProjectPage({
@@ -49,8 +69,20 @@ export default async function ProjectPage({
   searchParams: Promise<{ lang?: string }>;
 }) {
   const { slug } = await params;
-  const { lang } = await searchParams;
 
+  const blobUrl = await safeGetBlobUrl(slug);
+  if (blobUrl) {
+    return (
+      <iframe
+        src={blobUrl}
+        sandbox="allow-scripts"
+        title={slug}
+        style={{ position: "fixed", inset: 0, width: "100vw", height: "100vh", border: 0 }}
+      />
+    );
+  }
+
+  const { lang } = await searchParams;
   const project = getProjectDetail(slug);
   if (!project) notFound();
 
