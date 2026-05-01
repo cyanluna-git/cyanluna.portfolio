@@ -19,6 +19,10 @@ export default defineConfig({
     stdout: "pipe",
     stderr: "pipe",
     timeout: 120_000,
+    env: {
+      BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN ?? "",
+      ADMIN_UPLOAD_KEY_B64: process.env.ADMIN_UPLOAD_KEY_B64 ?? "",
+    },
   },
   projects: [
     {
