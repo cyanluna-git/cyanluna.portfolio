@@ -31,6 +31,7 @@
     "demo:cpet:deploy": "bash scripts/deploy-demo-static.sh"
   },
   "dependencies": {
+    "@vercel/blob": "^2.3.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
