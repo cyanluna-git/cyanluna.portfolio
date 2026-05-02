@@ -25,6 +25,7 @@ import {
   markExternalLinks,
   mergeLanguages,
   injectLangToggle,
+  inlineCss,
 } from "./lib/post-process.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -69,6 +70,7 @@ async function main(): Promise<void> {
       throw err;
     }
     await waitForPageReady(enPage);
+    await inlineCss(enPage);
     const enHtmlRaw = await enPage.content();
     console.log(`EN captured: ${(enHtmlRaw.length / 1024).toFixed(1)} KB`);
 
@@ -76,6 +78,7 @@ async function main(): Promise<void> {
     const koPage = await context.newPage();
     await koPage.goto(koUrl, { waitUntil: "domcontentloaded" });
     await waitForPageReady(koPage);
+    await inlineCss(koPage);
     const koHtmlRaw = await koPage.content();
     console.log(`KO captured: ${(koHtmlRaw.length / 1024).toFixed(1)} KB`);
 

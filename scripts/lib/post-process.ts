@@ -159,7 +159,49 @@ export async function mergeLanguages(
 }
 
 // ---------------------------------------------------------------------------
-// 5. Inject inline lang-toggle JS before </body>
+// 5. Inline all resolved stylesheets and lock dark-theme state
+//    Serializes document.styleSheets in-browser, injects them as a single
+//    <style id="inline-css"> block, removes <link rel="stylesheet"> tags,
+//    and sets data-theme="dark" on <html> to lock the dark theme.
+// ---------------------------------------------------------------------------
+
+export async function inlineCss(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    const sheets = Array.from(document.styleSheets);
+    const cssText = sheets
+      .flatMap((sheet) => {
+        try {
+          return Array.from(sheet.cssRules);
+        } catch {
+          return []; // SecurityError for cross-origin sheets
+        }
+      })
+      .filter((rule) => {
+        // Remove @font-face rules
+        if (rule.type === CSSRule.FONT_FACE_RULE) return false;
+        // Remove rules referencing /_next/static/media/ (font files)
+        if (rule.cssText.includes("/_next/static/media/")) return false;
+        return true;
+      })
+      .map((rule) => rule.cssText)
+      .join("\n");
+
+    // Inject inline style block
+    const style = document.createElement("style");
+    style.id = "inline-css";
+    style.textContent = cssText;
+    document.head.appendChild(style);
+
+    // Remove all external stylesheet link tags
+    document.querySelectorAll('link[rel="stylesheet"]').forEach((el) => el.remove());
+
+    // Lock dark theme
+    document.documentElement.setAttribute("data-theme", "dark");
+  });
+}
+
+// ---------------------------------------------------------------------------
+// 6. Inject inline lang-toggle JS before </body>
 // ---------------------------------------------------------------------------
 
 const LANG_TOGGLE_SCRIPT = `
