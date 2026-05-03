@@ -4,7 +4,7 @@
  * read by the SDK; this module does not validate it.
  */
 
-import { BlobNotFoundError, type PutBlobResult, head, put } from "@vercel/blob";
+import { BlobNotFoundError, type PutBlobResult, del, head, put } from "@vercel/blob";
 
 // Must stay in sync with the page.tsx folders under src/app/projects/<slug>/
 export const BLOB_PREFIX = "portfolio-html/";
@@ -61,6 +61,32 @@ export async function putProjectHtml(
   });
 
   return { url: result.url, pathname: result.pathname };
+}
+
+/**
+ * Deletes the stored HTML for a slug from Vercel Blob.
+ * Returns true if deleted, false if it did not exist.
+ *
+ * Throws when slug is hardcoded or invalid.
+ * Caller is responsible for Node runtime guarantee.
+ */
+export async function deleteProjectHtml(slug: string): Promise<boolean> {
+  if (!validateSlug(slug)) {
+    throw new Error(`Invalid slug: "${slug}"`);
+  }
+  if (isHardcodedSlug(slug)) {
+    throw new Error(`Slug is hardcoded and cannot be deleted: "${slug}"`);
+  }
+
+  try {
+    await head(getBlobKey(slug));
+  } catch (err: unknown) {
+    if (err instanceof BlobNotFoundError) return false;
+    throw err;
+  }
+
+  await del(getBlobKey(slug));
+  return true;
 }
 
 /**

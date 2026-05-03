@@ -1,14 +1,17 @@
 /**
- * Uploads all generated HTML files from scripts/output/ to Vercel Blob.
+ * Uploads generated HTML files from scripts/output/ to Vercel Blob.
  *
- * Usage: pnpm seed:project-html
+ * Usage:
+ *   pnpm seed:project-html                          — upload all files in scripts/output/
+ *   pnpm publish:project-html <slug>                — upload scripts/output/<slug>.html
+ *   pnpm publish:project-html <slug> <file-path>    — upload any HTML file as <slug>
  *
  * Requires BLOB_READ_WRITE_TOKEN — loaded from .env.local automatically if present.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { put } from "@vercel/blob";
+import { del, head, put } from "@vercel/blob";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -47,14 +50,69 @@ async function main(): Promise<void> {
   }
 
   if (!fs.existsSync(OUTPUT_DIR)) {
-    console.error(`Error: scripts/output/ not found. Run pnpm generate:all-projects-html first.`);
+    console.error(`Error: scripts/output/ not found.`);
     process.exitCode = 1;
     return;
   }
 
+  const command = process.argv[2]; // slug or "delete"
+  const slugArg = command === "delete" ? process.argv[3] : command;
+  const fileArg = command === "delete" ? undefined : process.argv[3];
+
+  // Delete mode: pnpm publish:project-html delete <slug>
+  if (command === "delete") {
+    if (!slugArg) {
+      console.error("Usage: pnpm publish:project-html delete <slug>");
+      process.exitCode = 1;
+      return;
+    }
+    const blobKey = `${BLOB_PREFIX}${slugArg}.html`;
+    try {
+      await head(blobKey);
+    } catch {
+      console.error(`✗ ${slugArg}: not found in Blob`);
+      process.exitCode = 1;
+      return;
+    }
+    await del(blobKey);
+    console.log(`✓ ${slugArg} — deleted from Blob`);
+    return;
+  }
+
+  // Single file mode: pnpm publish:project-html <slug> [file-path]
+  if (slugArg) {
+    const filePath = fileArg
+      ? path.resolve(process.cwd(), fileArg)
+      : path.join(OUTPUT_DIR, `${slugArg}.html`);
+
+    if (!fs.existsSync(filePath)) {
+      console.error(`Error: file not found — ${filePath}`);
+      process.exitCode = 1;
+      return;
+    }
+
+    const content = fs.readFileSync(filePath);
+    const blobKey = `${BLOB_PREFIX}${slugArg}.html`;
+    try {
+      await put(blobKey, content, {
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        contentType: "text/html; charset=utf-8",
+        access: "public",
+      });
+      const sizeKb = (content.length / 1024).toFixed(1);
+      console.log(`✓ ${slugArg} (${sizeKb} KB) — published`);
+    } catch (err) {
+      console.error(`✗ ${slugArg}: ${err instanceof Error ? err.message : String(err)}`);
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  // Bulk mode: upload all files in scripts/output/
   const htmlFiles = fs.readdirSync(OUTPUT_DIR).filter((f) => f.endsWith(".html"));
   if (htmlFiles.length === 0) {
-    console.error(`Error: No .html files in scripts/output/. Run pnpm generate:all-projects-html first.`);
+    console.error(`Error: No .html files in scripts/output/.`);
     process.exitCode = 1;
     return;
   }

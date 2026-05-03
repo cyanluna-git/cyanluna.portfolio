@@ -30,6 +30,7 @@
     "generate:project-html": "npx tsx scripts/generate-project-html.ts",
     "generate:all-projects-html": "npx tsx scripts/generate-all-projects-html.ts",
     "seed:project-html": "npx tsx scripts/seed-project-html.ts",
+    "publish:project-html": "npx tsx scripts/seed-project-html.ts",
     "demo:cpet:sync": "bash scripts/sync-cpet-report.sh",
     "demo:cpet:deploy": "bash scripts/deploy-demo-static.sh"
   },

@@ -51,9 +51,11 @@ export default function UploadForm({
   const [newSlug, setNewSlug] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [result, setResult] = useState<UploadResponseResult | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [cliSlug, setCliSlug] = useState<string | null>(null);
+  const [localUploadedSlugs, setLocalUploadedSlugs] = useState<string[]>(uploadedSlugs);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -121,7 +123,36 @@ export default function UploadForm({
 
   const slugClass: SlugClassification = classifySlug(slug, { staticSlugs, hardcodedSlugs });
   const fileResult: FileValidationResult = validateFile(file);
-  const submitEnabled = canSubmit({ token, slugClass, fileResult }) && !loading;
+  const submitEnabled = canSubmit({ token, slugClass, fileResult }) && !loading && !deleting;
+  const isSelectedUploaded = mode === "list" && localUploadedSlugs.includes(selectedSlug);
+  const deleteEnabled = !!token && !!selectedSlug && isSelectedUploaded && !loading && !deleting;
+
+  const handleDelete = async () => {
+    if (!deleteEnabled) return;
+    if (!confirm(`"${selectedSlug}" 을 Blob에서 삭제할까요?`)) return;
+
+    setDeleting(true);
+    setResult(null);
+    try {
+      const resp = await fetch("/api/admin/projects/delete", {
+        method: "DELETE",
+        headers: { ...buildAuthHeader(token), "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: selectedSlug }),
+      });
+      const body = await resp.json() as { ok?: boolean; error?: { message?: string } };
+      if (resp.ok && body.ok) {
+        setLocalUploadedSlugs((prev) => prev.filter((s) => s !== selectedSlug));
+        setResult({ kind: "success", slug: selectedSlug, replaced: false } as UploadResponseResult);
+        setSelectedSlug("");
+      } else {
+        setResult({ kind: "error", message: body.error?.message ?? "삭제 실패" } as UploadResponseResult);
+      }
+    } catch {
+      setResult({ kind: "network_error", message: "네트워크 오류가 발생했습니다." } as UploadResponseResult);
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -164,7 +195,7 @@ export default function UploadForm({
   };
 
   // Uploaded slugs that are NOT in projectList (e.g. e2e test uploads)
-  const extraUploaded = uploadedSlugs.filter(
+  const extraUploaded = localUploadedSlugs.filter(
     (s) => !projectList.some((p) => p.slug === s) && !hardcodedSlugs.includes(s),
   );
 
@@ -188,16 +219,18 @@ export default function UploadForm({
         >
           {result.kind === "success" ? (
             <div className="space-y-1">
-              <div className="font-medium">✓ 업로드 완료</div>
-              <div>{result.replaced ? "기존 콘텐츠 교체됨" : "신규 게시"}</div>
-              <a
-                href={`/projects/${result.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-accent underline underline-offset-2"
-              >
-                {result.slug} 페이지 보기 →
-              </a>
+              <div className="font-medium">{deleting ? "✓ 삭제 완료" : "✓ 업로드 완료"}</div>
+              {!deleting && <div>{result.replaced ? "기존 콘텐츠 교체됨" : "신규 게시"}</div>}
+              {!deleting && (
+                <a
+                  href={`/projects/${result.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-accent underline underline-offset-2"
+                >
+                  {result.slug} 페이지 보기 →
+                </a>
+              )}
             </div>
           ) : result.kind === "error" ? (
             <div className="space-y-1">
@@ -264,7 +297,7 @@ export default function UploadForm({
             <div className="max-h-[320px] overflow-y-auto">
               {/* Known projects */}
               {projectList.map((project) => {
-                const status = getProjectStatus(project.slug, hardcodedSlugs, uploadedSlugs);
+                const status = getProjectStatus(project.slug, hardcodedSlugs, localUploadedSlugs);
                 const isSelected = mode === "list" && selectedSlug === project.slug;
                 const isDisabled = status === "locked";
 
@@ -430,26 +463,51 @@ export default function UploadForm({
           )}
         </div>
 
-        {/* ── Submit ── */}
-        <button
-          type="submit"
-          disabled={!submitEnabled}
-          className={`accent-button w-full rounded-md border px-4 py-2.5 text-sm font-medium transition-colors ${
-            !submitEnabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-          }`}
-        >
-          {loading ? (
-            <span className="flex items-center justify-center gap-2">
-              <span
-                className="border-accent/30 border-t-accent inline-block h-4 w-4 animate-spin rounded-full border-2"
-                aria-hidden="true"
-              />
-              업로드 중…
-            </span>
-          ) : (
-            "업로드"
+        {/* ── Submit / Delete ── */}
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            disabled={!submitEnabled}
+            className={`accent-button flex-1 rounded-md border px-4 py-2.5 text-sm font-medium transition-colors ${
+              !submitEnabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+            }`}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span
+                  className="border-accent/30 border-t-accent inline-block h-4 w-4 animate-spin rounded-full border-2"
+                  aria-hidden="true"
+                />
+                업로드 중…
+              </span>
+            ) : (
+              "업로드"
+            )}
+          </button>
+
+          {isSelectedUploaded && (
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={!deleteEnabled}
+              className={`rounded-md border px-4 py-2.5 text-sm font-medium transition-colors border-red-500/40 text-red-500 hover:bg-red-500/10 ${
+                !deleteEnabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+              }`}
+            >
+              {deleting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span
+                    className="border-red-400/30 border-t-red-400 inline-block h-4 w-4 animate-spin rounded-full border-2"
+                    aria-hidden="true"
+                  />
+                  삭제 중…
+                </span>
+              ) : (
+                "삭제"
+              )}
+            </button>
           )}
-        </button>
+        </div>
       </form>
 
       {/* ── CLI Modal ── */}
