@@ -64,7 +64,7 @@ export default function UploadForm({
 
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem(SESSION_KEY);
+      const saved = localStorage.getItem(SESSION_KEY);
       if (saved) setToken(saved);
     } catch {
       // privacy mode
@@ -74,14 +74,14 @@ export default function UploadForm({
   const handleTokenChange = (val: string) => {
     setToken(val);
     try {
-      sessionStorage.setItem(SESSION_KEY, val);
+      localStorage.setItem(SESSION_KEY, val);
     } catch {}
   };
 
   const clearToken = () => {
     setToken("");
     try {
-      sessionStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(SESSION_KEY);
     } catch {}
   };
 
