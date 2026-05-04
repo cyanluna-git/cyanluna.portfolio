@@ -1,13 +1,10 @@
 import { notFound } from "next/navigation";
-import { getProjectDetail, getAllProjectSlugs } from "@/data/project-details";
+import { getProjectDetail } from "@/data/project-details";
 import { getProjectHtmlUrl } from "@/lib/project-html-blob";
 import ProjectDetailClient from "./ProjectDetailClient";
 
-export const dynamicParams = true;
-
-export function generateStaticParams() {
-  return getAllProjectSlugs().map((slug) => ({ slug }));
-}
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://cyanluna.com";
 
