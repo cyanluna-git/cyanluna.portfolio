@@ -71,7 +71,7 @@ export default async function ProjectPage({
   if (blobUrl) {
     return (
       <iframe
-        src={blobUrl}
+        src={`/api/projects/${slug}/html`}
         sandbox="allow-scripts"
         title={slug}
         style={{ position: "fixed", inset: 0, width: "100vw", height: "100vh", border: 0 }}
