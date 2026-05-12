@@ -13,7 +13,7 @@ export const BLOB_PREFIX = "portfolio-html/";
  * Slugs that are served from hardcoded Next.js routes under src/app/projects/.
  * If you add a new route folder with its own page.tsx, add the slug here too.
  */
-export const HARDCODED_SLUGS = ["moru", "smart-factory-qc"] as const;
+export const HARDCODED_SLUGS: readonly string[] = [];
 
 /** Accepts lowercase alphanumeric slugs with hyphens, 1–64 characters. */
 export const SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{0,63}$/;

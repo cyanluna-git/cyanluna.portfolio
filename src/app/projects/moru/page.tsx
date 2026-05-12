@@ -1,3 +1,8 @@
+import { getProjectHtmlUrl } from "@/lib/project-html-blob";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Moru — AI-Driven IIoT Engineering Platform",
   description:
@@ -20,10 +25,20 @@ export const metadata = {
   },
 };
 
-export default function MoruSlidePage() {
+export default async function MoruSlidePage() {
+  let blobUrl: string | null = null;
+  try {
+    blobUrl = await getProjectHtmlUrl("moru");
+  } catch {
+    // blob unavailable — fall through to static
+  }
+
+  const src = blobUrl ? "/api/projects/moru/html" : "/demo/moru/slides.html";
+
   return (
     <iframe
-      src="/demo/moru/slides.html"
+      src={src}
+      {...(blobUrl ? { sandbox: "allow-scripts" } : {})}
       style={{
         position: "fixed",
         inset: 0,

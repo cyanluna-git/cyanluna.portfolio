@@ -1,5 +1,9 @@
+import { getProjectHtmlUrl } from "@/lib/project-html-blob";
 import "./activeqc.css";
 import ActiveQcPage from "./ActiveQcPage";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://cyanluna.com";
 const SLUG = "smart-factory-qc";
@@ -31,6 +35,30 @@ export default async function SmartFactoryQcPage({
 }: {
   searchParams: Promise<{ lang?: string }>;
 }) {
+  let blobUrl: string | null = null;
+  try {
+    blobUrl = await getProjectHtmlUrl(SLUG);
+  } catch {
+    // blob unavailable — fall through to static
+  }
+
+  if (blobUrl) {
+    return (
+      <iframe
+        src={`/api/projects/${SLUG}/html`}
+        sandbox="allow-scripts"
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100vw",
+          height: "100vh",
+          border: 0,
+        }}
+        title="ActiveQC Platform"
+      />
+    );
+  }
+
   const { lang } = await searchParams;
   const initialLang = lang === "ko" ? "ko" : "en";
   return <ActiveQcPage initialLang={initialLang} />;
