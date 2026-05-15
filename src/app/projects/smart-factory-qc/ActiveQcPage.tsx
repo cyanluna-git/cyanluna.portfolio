@@ -53,8 +53,8 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
               <div className="hero-stat-label">발주처 리포트 자동 생성</div>
             </div>
             <div>
-              <div className="hero-stat-num">6개</div>
-              <div className="hero-stat-label">확장 가능한 수직 시장</div>
+              <div className="hero-stat-num">BDD</div>
+              <div className="hero-stat-label">Gherkin 파싱 엔진 내장</div>
             </div>
           </div>
         </section>
@@ -157,6 +157,54 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
           <div className="approach-result">
             <strong>결과</strong> — 모든 테스트 과정이 기록되고, 반복 작업은 자동화됩니다
           </div>
+
+          {/* BDD Execution Pipeline */}
+          <div className="bdd-pipeline">
+            <div className="section-label" style={{ marginBottom: "20px" }}>BDD 실행 파이프라인</div>
+            <div className="bdd-flow">
+              <div className="bdd-node bdd-scenario">
+                <div className="bdd-node-num">01</div>
+                <div className="bdd-node-name">Gherkin 시나리오</div>
+                <div className="bdd-node-meta">Given / When / Then</div>
+              </div>
+              <div className="bdd-conn">→</div>
+              <div className="bdd-node bdd-engine">
+                <div className="bdd-node-num">02</div>
+                <div className="bdd-node-name">BDD 파싱 엔진</div>
+                <div className="bdd-node-meta">Step 정의 자동 바인딩</div>
+              </div>
+              <div className="bdd-conn">→</div>
+              <div className="bdd-node bdd-driver">
+                <div className="bdd-node-num">03</div>
+                <div className="bdd-node-name">Protocol Driver</div>
+                <div className="bdd-node-meta">Modbus TCP · MQTT</div>
+              </div>
+              <div className="bdd-conn">→</div>
+              <div className="bdd-node bdd-device">
+                <div className="bdd-node-num">04</div>
+                <div className="bdd-node-name">PLC / 설비</div>
+                <div className="bdd-node-meta">명령 전송 · 응답 수집</div>
+              </div>
+              <div className="bdd-conn">→</div>
+              <div className="bdd-node bdd-verdict">
+                <div className="bdd-node-num">05</div>
+                <div className="bdd-node-name">Pass/Fail 판정</div>
+                <div className="bdd-node-meta">자동 판정 · DB 저장</div>
+              </div>
+            </div>
+            <div className="bdd-example">
+              <div className="bdd-example-label">시나리오 예시 — 속도 제어 검증</div>
+              <div className="bdd-code">
+                <div><span className="gk-given">Given</span><span className="gk-text"> 설비가 가동 중이고 현재 속도가 0 rpm 일 때</span></div>
+                <div><span className="gk-when">When </span><span className="gk-text"> 속도 명령 1200 rpm 을 Modbus reg 0x0031 에 전송한다</span></div>
+                <div><span className="gk-then">Then </span><span className="gk-text"> Modbus reg 0x0032 응답값이 1200 ±5% 이내여야 한다</span></div>
+              </div>
+              <div className="bdd-result-row">
+                <span className="bdd-pass">✓ PASS</span>
+                <span className="bdd-result-val">실측값 1195 rpm — 허용 오차 이내 → 판정 통과, DB 저장</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <hr className="divider" />
@@ -218,6 +266,47 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
 
           <div className="sys-connector">↕ 산업용 통신 프로토콜 — 실제 설비 직결</div>
 
+          {/* Architecture flow diagram */}
+          <div className="arch-diagram">
+            <div className="arch-row">
+              <div className="arch-node arch-client">Browser / React SPA</div>
+            </div>
+            <div className="arch-edge-line">
+              <span className="arch-edge-label">REST API</span>
+            </div>
+            <div className="arch-row">
+              <div className="arch-node arch-server">
+                <div className="arch-node-title">FastAPI Server</div>
+                <div className="arch-node-sub">PostgreSQL · RBAC · 카탈로그 관리 · 보고서 생성</div>
+              </div>
+            </div>
+            <div className="arch-edge-line">
+              <span className="arch-edge-label">WebSocket / Sync</span>
+            </div>
+            <div className="arch-row">
+              <div className="arch-node arch-edge-node">
+                <div className="arch-node-title">OQC Edge Agent</div>
+                <div className="arch-node-sub">현장 PC · BDD 시나리오 실행 · Offline-first</div>
+              </div>
+            </div>
+            <div className="arch-row arch-proto-row">
+              <div className="arch-proto-branch">
+                <div className="arch-proto-line arch-proto-left" />
+                <span className="arch-proto-label">Modbus TCP</span>
+              </div>
+              <div className="arch-proto-branch">
+                <div className="arch-proto-line arch-proto-right" />
+                <span className="arch-proto-label">MQTT</span>
+              </div>
+            </div>
+            <div className="arch-row">
+              <div className="arch-node arch-device">
+                <div className="arch-node-title">PLC / Controller</div>
+                <div className="arch-node-sub">설비 신호 읽기·쓰기 · 자동 판정 · 실시간 계측</div>
+              </div>
+            </div>
+          </div>
+
           <div style={{ marginBottom: "48px", borderRadius: "12px", overflow: "hidden", border: "1px solid var(--border)" }}>
             <img
               src={`${IMG}/euv-equipment.jpg`}
@@ -232,6 +321,59 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
                 border: "1px solid rgba(100,116,139,0.3)", marginRight: "8px"
               }}>실제 설비</span>
               고부가가치 산업 설비 — ActiveQC가 직접 연결하여 검수를 자동화합니다
+            </div>
+          </div>
+
+          {/* Edge-Server Sync Diagram */}
+          <div className="sync-diag">
+            <div className="section-label" style={{ marginBottom: "20px" }}>Edge-Server 동기화 시퀀스</div>
+            <div className="sync-three">
+              {/* Cloud column */}
+              <div className="sync-col sync-col-cloud">
+                <div className="sync-col-header">Cloud Manager</div>
+                <ul className="sync-col-items">
+                  <li>카탈로그 버전 관리</li>
+                  <li>절차서 배포 · 업데이트</li>
+                  <li>결과 수신 · 대시보드</li>
+                  <li>DOCX 보고서 자동 생성</li>
+                </ul>
+              </div>
+
+              {/* Center arrows */}
+              <div className="sync-center">
+                <div className="sync-msg sync-msg-down">
+                  <div className="sync-msg-line" />
+                  <div className="sync-msg-arrow-r">▶</div>
+                  <div className="sync-msg-label">절차서 배포</div>
+                  <div className="sync-msg-sub">테스트 카탈로그 · 시나리오 Push</div>
+                </div>
+
+                <div className="sync-offline-note">
+                  <div className="sync-offline-icon">⊘</div>
+                  <div>
+                    <div className="sync-offline-title">네트워크 단절</div>
+                    <div className="sync-offline-desc">Edge 로컬 캐시로 독립 실행 유지</div>
+                  </div>
+                </div>
+
+                <div className="sync-msg sync-msg-up">
+                  <div className="sync-msg-arrow-l">◀</div>
+                  <div className="sync-msg-line" />
+                  <div className="sync-msg-label">결과 동기화</div>
+                  <div className="sync-msg-sub">재연결 시 자동 sync · 결과 · 증빙 · 타임스탬프</div>
+                </div>
+              </div>
+
+              {/* Edge column */}
+              <div className="sync-col sync-col-edge">
+                <div className="sync-col-header">Edge Agent<br /><small>현장 PC</small></div>
+                <ul className="sync-col-items">
+                  <li>절차서 로컬 캐시</li>
+                  <li>BDD 시나리오 실행</li>
+                  <li>설비 직결 · 자동 판정</li>
+                  <li className="sync-offline-item">오프라인 독립 실행</li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -406,85 +548,6 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
 
         <hr className="divider" />
 
-        {/* MARKET */}
-        <section id="market">
-          <div className="section-label">Market</div>
-          <h2>
-            라인(Line)이 아닌<br />
-            <span>셀(Cell)이 미래다</span>
-          </h2>
-          <p className="sub">
-            컨베이어 라인에서 87%였던 가동률이 셀 방식에서는 98%로 오른다.
-            하이엔드 제조업의 패러다임이 전환되고 있다.
-          </p>
-
-          <div className="market-grid">
-            <div className="market-card">
-              <h3>타겟 수직 시장 (Vertical Expansion)</h3>
-              <ul className="vertical-list">
-                <li>반도체 설비 — EUV 펌프 · Abatement · CMP · 식각 장비</li>
-                <li>2차전지 — 코터 · 캘린더 · 노칭 · 포메이션 설비</li>
-                <li>우주항공 — 터빈 · 엔진 부품 · 위성 부품</li>
-                <li>데이터센터 — 초정밀 냉각 설비 · 전력 장비</li>
-                <li>중공업 — 압축기 · 칠러 · 대형 펌프 (석유화학/조선)</li>
-                <li>바이오/제약 — GMP 대응 설비</li>
-              </ul>
-            </div>
-            <div className="market-card">
-              <h3>메가 트렌드 — Why Now</h3>
-              <ul className="trend-list">
-                <li>
-                  <strong>ESG / CSDDD 규제 강화</strong><br />
-                  공급망 실사 지침 — 100% 디지털 검증 데이터 의무화 가속
-                </li>
-                <li>
-                  <strong>리쇼어링 &amp; 공급망 재편</strong><br />
-                  신규 공장 구축 시 디지털 트윈 기반 품질 관리 기본 채택
-                </li>
-                <li>
-                  <strong>AI / Autonomous Factory</strong><br />
-                  물리 데이터 수집 인프라로서 ActiveQC가 필수 레이어
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="market-card">
-            <h3>Line vs Cell — 패러다임 전환</h3>
-            <table className="paradigm-table">
-              <tbody>
-                <tr>
-                  <th>구분</th>
-                  <th>Line (컨베이어) — 과거</th>
-                  <th>Cell (유연 셀) — 현재/미래</th>
-                </tr>
-                <tr>
-                  <td>생산 방식</td>
-                  <td>소품종 대량</td>
-                  <td className="highlight-cell">다품종 소량, 고객 맞춤</td>
-                </tr>
-                <tr>
-                  <td>작업자 가동률</td>
-                  <td>87%</td>
-                  <td className="highlight-cell">98%</td>
-                </tr>
-                <tr>
-                  <td>검수 방식</td>
-                  <td>라인 끝단 단순 검수</td>
-                  <td className="highlight-cell">셀별 개별 FAT/SAT 필수</td>
-                </tr>
-                <tr>
-                  <td>대표 산업</td>
-                  <td>자동차 조립</td>
-                  <td className="highlight-cell">EUV 장비 · 2차전지 · 우주항공</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <hr className="divider" />
-
         {/* TRACTION */}
         <section id="traction">
           <div className="section-label">Traction</div>
@@ -524,134 +587,6 @@ export default function ActiveQcPage({ initialLang = "ko" }: { initialLang?: Lan
             <div className="demo-dashboard-caption">
               <span className="demo-badge badge-manager">Manager</span>
               실시간 테스트 현황 대시보드 — 실제 현장 운영 화면
-            </div>
-          </div>
-        </section>
-
-        <hr className="divider" />
-
-        {/* BUSINESS MODEL */}
-        <section id="model">
-          <div className="section-label">Business Model</div>
-          <h2>
-            SaaS J-Curve<br />
-            <span>3단계 성장 전략</span>
-          </h2>
-          <p className="sub">
-            Land &amp; Expand. 단일 병목 라인에 침투해 1개월 안에 ROI를 증명하고, 수평·수직으로 확산한다.
-          </p>
-
-          <div className="bm-phases">
-            <div className="phase-card">
-              <div className="phase-num">Phase 01</div>
-              <div className="phase-title">Edge 점유 &amp; 병목 돌파</div>
-              <div className="phase-period">0 ~ 12개월</div>
-              <ul className="phase-items">
-                <li>단일 공정 셀 침투 (전사 도입 요구 금지)</li>
-                <li>1개월 안에 ROI 숫자 증명</li>
-                <li>파일럿 레퍼런스 1~3개 확보</li>
-                <li>Per-Cell 월 구독 과금</li>
-              </ul>
-            </div>
-            <div className="phase-card">
-              <div className="phase-num">Phase 02</div>
-              <div className="phase-title">노코드 SaaS 전환</div>
-              <div className="phase-period">12 ~ 24개월</div>
-              <ul className="phase-items">
-                <li>Visual Builder UI 정식 출시</li>
-                <li>고객 셀프서비스 생태계 구축</li>
-                <li>도입 기간 수주 → 수일로 압축</li>
-                <li>Tiered SaaS (Starter/Pro/Enterprise)</li>
-              </ul>
-            </div>
-            <div className="phase-card">
-              <div className="phase-num">Phase 03</div>
-              <div className="phase-title">글로벌 품질 데이터 독점</div>
-              <div className="phase-period">24 ~ 36개월+</div>
-              <ul className="phase-items">
-                <li>글로벌 ERP(SAP 등) 연동</li>
-                <li>ESG 규제 리포트 자동 생성</li>
-                <li>원청 → 공급사 강제 채택 네트워크 효과</li>
-                <li>품질 데이터 생태계 "블룸버그 터미널"</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="market-card">
-            <h3>수익 레이어</h3>
-            <table className="revenue-table">
-              <tbody>
-                <tr>
-                  <th>레이어</th>
-                  <th>과금 방식</th>
-                  <th>핵심 Moat</th>
-                </tr>
-                <tr>
-                  <td>Base SaaS</td>
-                  <td>Per-Cell / Per-Seat 월 구독</td>
-                  <td>안정적 MRR</td>
-                </tr>
-                <tr>
-                  <td>Value SaaS</td>
-                  <td>BDD 시나리오 템플릿 마켓플레이스</td>
-                  <td>산업별 템플릿 네트워크 효과</td>
-                </tr>
-                <tr>
-                  <td>Outcome</td>
-                  <td>품질 리포트 API / ESG 인증서 발급당 과금</td>
-                  <td>규제 대응 수익</td>
-                </tr>
-                <tr>
-                  <td>Data Licensing</td>
-                  <td>익명화된 품질 벤치마크 데이터</td>
-                  <td>컨설팅 / 보험사 판매</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <hr className="divider" />
-
-        {/* GTM */}
-        <section>
-          <div className="section-label">Go-To-Market</div>
-          <h2>
-            Land &amp; <span>Expand</span>
-          </h2>
-          <p className="sub">
-            임원 결재가 필요한 전사 도입을 요구하지 않는다. 가장 아픈 단일 라인에 꽂고, ROI로 문을 연다.
-          </p>
-
-          <div className="gtm-steps">
-            <div className="gtm-step">
-              <div className="gtm-num">01</div>
-              <div className="gtm-title">Land — 단일 병목 라인 침투</div>
-              <div className="gtm-desc">
-                불량률이 가장 높거나 수동 테스트 병목이 심각한 단일 제품군 1개 라인에만 Edge 형태로 주입.
-                결재 라인을 공장장 / 품질 팀장 수준으로 낮춘다.
-              </div>
-              <div className="gtm-arrow">→</div>
-            </div>
-            <div className="gtm-step">
-              <div className="gtm-num">02</div>
-              <div className="gtm-title">Prove — 1개월 ROI 증명</div>
-              <div className="gtm-desc">공장장이 한 달 안에 볼 수 있는 숫자를 보여준다.</div>
-              <div className="gtm-metrics">
-                <div className="gtm-metric">테스트 시간 30% 단축</div>
-                <div className="gtm-metric">휴먼 에러 0건</div>
-                <div className="gtm-metric">발주처 리포트 1초 자동 생성</div>
-                <div className="gtm-metric">베테랑 암묵지 → 시나리오 자산화</div>
-              </div>
-              <div className="gtm-arrow">→</div>
-            </div>
-            <div className="gtm-step">
-              <div className="gtm-num">03</div>
-              <div className="gtm-title">Expand — 수평·수직 확장</div>
-              <div className="gtm-desc">
-                파일럿 성공 사례를 무기로 해당 공장의 다른 라인, 타 계열사, 해외 공장으로 수평 전개.
-                확보된 레퍼런스로 경쟁사 공략.
-              </div>
             </div>
           </div>
         </section>
