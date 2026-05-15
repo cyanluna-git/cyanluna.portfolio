@@ -9,12 +9,63 @@ import {
   isHardcodedSlug,
   putProjectHtml,
   getProjectHtmlUrl,
+  putProjectMeta,
+  isValidProjectType,
+  type ProjectType,
 } from "@/lib/project-html-blob";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+/** Simple HTML entity decoding for common entities in title text. */
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+/** Converts a slug to a title by splitting on hyphens and capitalising each word. */
+function formatSlugAsTitle(slug: string): string {
+  return slug
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
+/**
+ * Extracts a human-readable title from HTML in priority order:
+ * 1. <title> tag content
+ * 2. <h1> tag text (inner tags stripped)
+ * 3. formatSlug(slug) fallback
+ * Truncates to 80 characters.
+ */
+function extractTitle(html: string, slug: string): string {
+  // Try <title>
+  const titleMatch = /<title[^>]*>([\s\S]*?)<\/title>/i.exec(html);
+  if (titleMatch) {
+    const candidate = decodeEntities(titleMatch[1].trim());
+    if (candidate) {
+      return candidate.length > 80 ? candidate.slice(0, 79) + "…" : candidate;
+    }
+  }
+
+  // Try <h1>
+  const h1Match = /<h1[^>]*>([\s\S]*?)<\/h1>/i.exec(html);
+  if (h1Match) {
+    const candidate = decodeEntities(h1Match[1].replace(/<[^>]+>/g, "").trim());
+    if (candidate) {
+      return candidate.length > 80 ? candidate.slice(0, 79) + "…" : candidate;
+    }
+  }
+
+  // Fallback
+  return formatSlugAsTitle(slug);
+}
 
 function errorResponse(
   status: number,
@@ -66,6 +117,15 @@ export async function POST(request: Request): Promise<Response> {
   }
   const file = fileValue;
 
+  // 5b. type field (optional, default "lab")
+  const typeValue = form.get("type");
+  const type: ProjectType = (() => {
+    if (typeof typeValue === "string" && isValidProjectType(typeValue)) {
+      return typeValue;
+    }
+    return "lab";
+  })();
+
   // 6. slug pattern validation (400)
   if (!validateSlug(slug)) {
     return errorResponse(400, "invalid_slug", `Slug "${slug}" does not match the allowed pattern (lowercase alphanumeric and hyphens, 1–64 chars).`);
@@ -91,8 +151,10 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   // 10. content sniff — first non-whitespace byte must be `<` (400)
-  const head = (await file.slice(0, 4096).text()).trimStart();
-  if (head.length === 0 || head[0] !== "<") {
+  // Read the full text once; use it for both sniffing and title extraction below.
+  const fullText = await file.text();
+  const sniffHead = fullText.trimStart();
+  if (sniffHead.length === 0 || sniffHead[0] !== "<") {
     return errorResponse(400, "bad_file_content", "File content does not appear to be valid HTML (must start with '<').");
   }
 
@@ -108,14 +170,23 @@ export async function POST(request: Request): Promise<Response> {
 
   // 12. upload to blob storage (500 on failure)
   try {
-    await putProjectHtml(slug, file);
+    await putProjectHtml(slug, fullText);
   } catch (err: unknown) {
     const reason = err instanceof Error ? err.message : "unknown error";
     return errorResponse(500, "storage_put_failed", "Failed to upload file to blob storage.", { reason });
   }
 
+  // 12b. extract title and save metadata sidecar (non-fatal — upload success takes priority)
+  const title = extractTitle(fullText, slug);
+  try {
+    await putProjectMeta(slug, { title, type, uploadedAt: new Date().toISOString() });
+  } catch (err: unknown) {
+    console.error("[upload] putProjectMeta failed:", err instanceof Error ? err.message : err);
+  }
+
   // 13. revalidate cache (always on success)
   revalidatePath(`/projects/${slug}`);
+  revalidatePath("/");
 
   // 14. success response
   return NextResponse.json({
@@ -123,5 +194,7 @@ export async function POST(request: Request): Promise<Response> {
     slug,
     url: `/projects/${slug}`,
     replaced,
+    title,
+    type,
   });
 }

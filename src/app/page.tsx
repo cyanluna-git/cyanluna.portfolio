@@ -18,6 +18,7 @@ import AboutSection from "@/components/AboutSection";
 import IntersectionSection from "@/components/IntersectionSection";
 import ContactSection from "@/components/ContactSection";
 import RecruiterBanner from "@/components/RecruiterBanner";
+import LabSection from "@/components/LabSection";
 import { useInView } from "@/hooks/useInView";
 import { useRecruiterMode } from "@/hooks/useRecruiterMode";
 
@@ -612,6 +613,7 @@ export default function Home() {
       />
       <IntersectionSection lang={lang} />
       <AboutSection lang={lang} />
+      <LabSection lang={lang} />
       <div
         data-recruiter-step={3}
         className={recruiterActive && recruiterStep === 3 ? "recruiter-active" : undefined}

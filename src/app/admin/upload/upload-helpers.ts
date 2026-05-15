@@ -91,10 +91,11 @@ export function canSubmit({ token, slugClass, fileResult }: CanSubmitParams): bo
 // ---------------------------------------------------------------------------
 
 /** Build the multipart FormData payload for the upload endpoint. */
-export function buildUploadFormData(slug: string, file: File): FormData {
+export function buildUploadFormData(slug: string, file: File, type = "lab"): FormData {
   const fd = new FormData();
   fd.append("slug", slug);
   fd.append("file", file);
+  fd.append("type", type);
   return fd;
 }
 

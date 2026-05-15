@@ -12,6 +12,8 @@ vi.mock("@/lib/project-html-blob", () => ({
   isHardcodedSlug: vi.fn(),
   putProjectHtml: vi.fn(),
   getProjectHtmlUrl: vi.fn(),
+  putProjectMeta: vi.fn(),
+  isValidProjectType: vi.fn().mockReturnValue(true),
 }));
 
 vi.mock("next/cache", () => ({
@@ -24,6 +26,8 @@ import {
   isHardcodedSlug,
   putProjectHtml,
   getProjectHtmlUrl,
+  putProjectMeta,
+  isValidProjectType,
 } from "@/lib/project-html-blob";
 import { revalidatePath } from "next/cache";
 import { POST } from "@/app/api/admin/projects/upload/route";
@@ -52,6 +56,7 @@ function makeRequest(
     auth?: string | null;
     skipFile?: boolean;
     skipSlug?: boolean;
+    type?: string | null;
   } = {},
 ): Request {
   const fd = new FormData();
@@ -68,6 +73,10 @@ function makeRequest(
     if (file !== null) {
       fd.set("file", file);
     }
+  }
+
+  if (options.type !== undefined && options.type !== null) {
+    fd.set("type", options.type);
   }
 
   const headers: Record<string, string> = {};
@@ -89,11 +98,13 @@ function setupHappyPathMocks(existing: string | null = null): void {
   vi.mocked(verifyAdminToken).mockReturnValue(true);
   vi.mocked(validateSlug).mockReturnValue(true);
   vi.mocked(isHardcodedSlug).mockReturnValue(false);
+  vi.mocked(isValidProjectType).mockReturnValue(true);
   vi.mocked(getProjectHtmlUrl).mockResolvedValue(existing);
   vi.mocked(putProjectHtml).mockResolvedValue({
     url: BLOB_URL,
     pathname: "portfolio-html/my-project.html",
   });
+  vi.mocked(putProjectMeta).mockResolvedValue(undefined);
 }
 
 // ---------------------------------------------------------------------------
@@ -278,6 +289,7 @@ describe("POST /api/admin/projects/upload", () => {
     expect(body.url).toBe(`/projects/${VALID_SLUG}`);
     expect(body.replaced).toBe(false);
     expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith(`/projects/${VALID_SLUG}`);
+    expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith("/");
   });
 
   // --- 13. happy path: existing slug (replaced=true) ---
@@ -292,6 +304,7 @@ describe("POST /api/admin/projects/upload", () => {
     expect(body.ok).toBe(true);
     expect(body.replaced).toBe(true);
     expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith(`/projects/${VALID_SLUG}`);
+    expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith("/");
   });
 
   // --- 14. success response must NOT expose blob storage URL ---
@@ -344,16 +357,16 @@ describe("edge cases — Shield", () => {
     expect(body.ok).toBe(true);
   });
 
-  // --- EC-3. revalidatePath called exactly once with the correct path ---
-  it("calls revalidatePath exactly once with '/projects/<slug>'", async () => {
+  // --- EC-3. revalidatePath called for both the slug path and the root ---
+  it("calls revalidatePath for '/projects/<slug>' and '/'", async () => {
     const slug = "my-project";
     setupHappyPathMocks(null);
 
     await POST(makeRequest({ slug }));
 
-    const calls = vi.mocked(revalidatePath).mock.calls;
-    expect(calls).toHaveLength(1);
-    expect(calls[0][0]).toBe(`/projects/${slug}`);
+    const calls = vi.mocked(revalidatePath).mock.calls.map((c) => c[0]);
+    expect(calls).toContain(`/projects/${slug}`);
+    expect(calls).toContain("/");
   });
 
   // --- EC-4. Hyphenated slug reaches the url field intact ---
@@ -403,8 +416,239 @@ describe("edge cases — Shield", () => {
     expect(bodyB.slug).toBe(slugB);
     expect(bodyB.replaced).toBe(true);
 
-    // Verify revalidatePath was invoked for each slug separately (once per upload call)
-    expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith(`/projects/${slugB}`);
-    expect(vi.mocked(revalidatePath).mock.calls).toHaveLength(1);
+    // Verify revalidatePath was invoked for the slug path and "/" (2 calls for this upload)
+    const calls = vi.mocked(revalidatePath).mock.calls.map((c) => c[0]);
+    expect(calls).toContain(`/projects/${slugB}`);
+    expect(calls).toContain("/");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Shield — extractTitle() behavior via POST upload
+// ---------------------------------------------------------------------------
+
+describe("Shield — extractTitle title extraction via POST response", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  // EC-T1: <title> tag present
+  it("extracts title from <title> tag when present", async () => {
+    setupHappyPathMocks(null);
+    const htmlWithTitle = "<html><head><title>My Awesome Project</title></head><body><h1>Ignored H1</h1></body></html>";
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlWithTitle) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("My Awesome Project");
+  });
+
+  // EC-T2: No <title>, fallback to <h1>
+  it("falls back to <h1> when no <title> tag exists", async () => {
+    setupHappyPathMocks(null);
+    const htmlNoTitle = "<html><body><h1>Dashboard Overview</h1></body></html>";
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlNoTitle) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("Dashboard Overview");
+  });
+
+  // EC-T3: <h1> with inner HTML tags stripped
+  it("strips inner HTML tags from <h1> when using h1 fallback", async () => {
+    setupHappyPathMocks(null);
+    const htmlH1WithTags = "<html><body><h1>Project <span>Alpha</span> Report</h1></body></html>";
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlH1WithTags) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("Project Alpha Report");
+  });
+
+  // EC-T4: Neither <title> nor <h1> → formatSlug fallback
+  it("falls back to formatSlug when neither <title> nor <h1> exists", async () => {
+    setupHappyPathMocks(null);
+    const htmlMinimal = "<html><body><p>No title here</p></body></html>";
+    const res = await POST(makeRequest({
+      slug: "my-project",
+      file: makeHtmlFile(htmlMinimal),
+    }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("My Project");
+  });
+
+  // EC-T5: Title > 80 chars gets truncated with "…"
+  it("truncates title longer than 80 chars with ellipsis", async () => {
+    setupHappyPathMocks(null);
+    const longTitle = "A".repeat(90);
+    const htmlLongTitle = `<html><head><title>${longTitle}</title></head><body></body></html>`;
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlLongTitle) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title.length).toBe(80);
+    expect(body.title.endsWith("…")).toBe(true);
+  });
+
+  // EC-T6: Exactly 80 chars is NOT truncated
+  it("does not truncate a title of exactly 80 chars", async () => {
+    setupHappyPathMocks(null);
+    const exactTitle = "B".repeat(80);
+    const htmlExact = `<html><head><title>${exactTitle}</title></head><body></body></html>`;
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlExact) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe(exactTitle);
+    expect(body.title.endsWith("…")).toBe(false);
+  });
+
+  // EC-T7: HTML entities decoded in title
+  it("decodes HTML entities in <title> content", async () => {
+    setupHappyPathMocks(null);
+    const htmlEntities = "<html><head><title>Tom &amp; Jerry &lt;Pitch&gt;</title></head><body></body></html>";
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlEntities) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("Tom & Jerry <Pitch>");
+  });
+
+  // EC-T8: Empty <title> tag falls through to next strategy
+  it("falls through to <h1> when <title> is empty", async () => {
+    setupHappyPathMocks(null);
+    const htmlEmptyTitle = "<html><head><title></title></head><body><h1>Real Title</h1></body></html>";
+    const res = await POST(makeRequest({ file: makeHtmlFile(htmlEmptyTitle) }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { title: string };
+    expect(body.title).toBe("Real Title");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Shield — type field handling
+// ---------------------------------------------------------------------------
+
+describe("Shield — type field handling", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  // EC-TY1: Explicit valid type "pitch" returned in response
+  it("uses type=pitch from FormData when isValidProjectType returns true", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(isValidProjectType).mockReturnValue(true);
+    const res = await POST(makeRequest({ type: "pitch" }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { type: string };
+    expect(body.type).toBe("pitch");
+  });
+
+  // EC-TY2: No type field → defaults to "lab"
+  it("defaults type to 'lab' when type is absent from FormData", async () => {
+    setupHappyPathMocks(null);
+    const res = await POST(makeRequest({ type: null })); // null = don't add type field
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { type: string };
+    expect(body.type).toBe("lab");
+  });
+
+  // EC-TY3: Invalid type value → defaults to "lab"
+  it("defaults type to 'lab' when isValidProjectType returns false for invalid value", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(isValidProjectType).mockReturnValue(false);
+    const res = await POST(makeRequest({ type: "invalid-type" }));
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { type: string };
+    expect(body.type).toBe("lab");
+  });
+
+  // EC-TY4: putProjectMeta called with the correct type
+  it("calls putProjectMeta with the resolved type value", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(isValidProjectType).mockReturnValue(true);
+    await POST(makeRequest({ type: "report" }));
+
+    expect(vi.mocked(putProjectMeta)).toHaveBeenCalledWith(
+      VALID_SLUG,
+      expect.objectContaining({ type: "report" }),
+    );
+  });
+
+  // EC-TY5: putProjectMeta called with slug and uploadedAt ISO string
+  it("calls putProjectMeta with the slug and an uploadedAt ISO string", async () => {
+    setupHappyPathMocks(null);
+    await POST(makeRequest());
+
+    expect(vi.mocked(putProjectMeta)).toHaveBeenCalledWith(
+      VALID_SLUG,
+      expect.objectContaining({
+        uploadedAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/),
+      }),
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Shield — putProjectMeta failure is non-fatal
+// ---------------------------------------------------------------------------
+
+describe("Shield — putProjectMeta failure is non-fatal", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  // EC-NF1: putProjectMeta throws → upload still succeeds (200)
+  it("still returns 200 ok:true when putProjectMeta throws", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(putProjectMeta).mockRejectedValueOnce(new Error("Meta write failed"));
+
+    const res = await POST(makeRequest());
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { ok: boolean };
+    expect(body.ok).toBe(true);
+  });
+
+  // EC-NF2: putProjectMeta throws → response still contains slug and url
+  it("response still has slug and url when putProjectMeta throws", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(putProjectMeta).mockRejectedValueOnce(new Error("Network error"));
+
+    const res = await POST(makeRequest({ slug: VALID_SLUG }));
+    const body = await res.json() as { ok: boolean; slug: string; url: string };
+
+    expect(body.slug).toBe(VALID_SLUG);
+    expect(body.url).toBe(`/projects/${VALID_SLUG}`);
+  });
+
+  // EC-NF3: putProjectMeta throws → revalidatePath still called
+  it("still calls revalidatePath when putProjectMeta throws", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(putProjectMeta).mockRejectedValueOnce(new Error("Blob error"));
+
+    await POST(makeRequest({ slug: VALID_SLUG }));
+
+    const calls = vi.mocked(revalidatePath).mock.calls.map((c) => c[0]);
+    expect(calls).toContain(`/projects/${VALID_SLUG}`);
+    expect(calls).toContain("/");
+  });
+
+  // EC-NF4: putProjectMeta rejects with non-Error → upload still succeeds
+  it("still returns 200 when putProjectMeta rejects with a string (non-Error)", async () => {
+    setupHappyPathMocks(null);
+    vi.mocked(putProjectMeta).mockRejectedValueOnce("string error");
+
+    const res = await POST(makeRequest());
+
+    expect(res.status).toBe(200);
+    const body = await res.json() as { ok: boolean };
+    expect(body.ok).toBe(true);
   });
 });

@@ -15,6 +15,8 @@ import {
 
 const SESSION_KEY = "admin_upload_token";
 
+type ProjectType = "pitch" | "report" | "demo" | "lab";
+
 interface ProjectItem {
   slug: string;
   title: string;
@@ -49,6 +51,7 @@ export default function UploadForm({
   const [mode, setMode] = useState<SelectionMode>("list");
   const [selectedSlug, setSelectedSlug] = useState("");
   const [newSlug, setNewSlug] = useState("");
+  const [type, setType] = useState<ProjectType>("lab");
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -162,7 +165,7 @@ export default function UploadForm({
     setResult(null);
 
     try {
-      const fd = buildUploadFormData(slug, file);
+      const fd = buildUploadFormData(slug, file, type);
       const resp = await fetch("/api/admin/projects/upload", {
         method: "POST",
         headers: buildAuthHeader(token),
@@ -461,6 +464,24 @@ export default function UploadForm({
               파일 선택 해제
             </button>
           )}
+        </div>
+
+        {/* ── Project Type ── */}
+        <div className="space-y-1.5">
+          <label className="text-foreground text-sm font-medium" htmlFor="project-type">
+            프로젝트 유형
+          </label>
+          <select
+            id="project-type"
+            value={type}
+            onChange={(e) => setType(e.target.value as ProjectType)}
+            className="border-border bg-surface text-foreground focus:ring-accent w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring-1"
+          >
+            <option value="pitch">피치 (Pitch)</option>
+            <option value="report">리포트 (Report)</option>
+            <option value="demo">데모 (Demo)</option>
+            <option value="lab">랩 (Lab)</option>
+          </select>
         </div>
 
         {/* ── Submit / Delete ── */}

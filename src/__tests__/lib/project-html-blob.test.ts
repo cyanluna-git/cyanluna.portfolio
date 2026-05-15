@@ -13,18 +13,29 @@ vi.mock("@vercel/blob", () => {
     BlobNotFoundError,
     put: vi.fn(),
     head: vi.fn(),
+    list: vi.fn(),
+    del: vi.fn(),
   };
 });
 
-import { BlobNotFoundError, head, put } from "@vercel/blob";
+// Mock global fetch for getProjectMeta URL fetching
+const mockFetch = vi.fn();
+vi.stubGlobal("fetch", mockFetch);
+
+import { BlobNotFoundError, head, put, list } from "@vercel/blob";
 import {
   BLOB_PREFIX,
   HARDCODED_SLUGS,
   SLUG_PATTERN,
   getBlobKey,
+  getMetaBlobKey,
   getProjectHtmlUrl,
+  getProjectMeta,
   isHardcodedSlug,
+  isValidProjectType,
+  listUploadedProjects,
   putProjectHtml,
+  putProjectMeta,
   validateSlug,
 } from "@/lib/project-html-blob";
 
@@ -299,5 +310,287 @@ describe("getProjectHtmlUrl", () => {
     await getProjectHtmlUrl("some-slug");
 
     expect(mockHead).toHaveBeenCalledWith("portfolio-html/some-slug.html");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Metadata helpers
+// ---------------------------------------------------------------------------
+
+describe("isValidProjectType", () => {
+  it('accepts "pitch"', () => {
+    expect(isValidProjectType("pitch")).toBe(true);
+  });
+
+  it('accepts "report"', () => {
+    expect(isValidProjectType("report")).toBe(true);
+  });
+
+  it('accepts "demo"', () => {
+    expect(isValidProjectType("demo")).toBe(true);
+  });
+
+  it('accepts "lab"', () => {
+    expect(isValidProjectType("lab")).toBe(true);
+  });
+
+  it("rejects an empty string", () => {
+    expect(isValidProjectType("")).toBe(false);
+  });
+
+  it('rejects "unknown"', () => {
+    expect(isValidProjectType("unknown")).toBe(false);
+  });
+
+  it("rejects null", () => {
+    expect(isValidProjectType(null)).toBe(false);
+  });
+
+  it("rejects undefined", () => {
+    expect(isValidProjectType(undefined)).toBe(false);
+  });
+
+  it("rejects a number", () => {
+    expect(isValidProjectType(123)).toBe(false);
+  });
+
+  it("rejects an object", () => {
+    expect(isValidProjectType({ type: "lab" })).toBe(false);
+  });
+
+  it('rejects "Lab" (wrong case)', () => {
+    expect(isValidProjectType("Lab")).toBe(false);
+  });
+});
+
+describe("getMetaBlobKey", () => {
+  it("returns the correct meta blob pathname", () => {
+    expect(getMetaBlobKey("my-project")).toBe("portfolio-html/my-project.meta.json");
+  });
+});
+
+describe("putProjectMeta", () => {
+  const mockPut = vi.mocked(put);
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("throws for an invalid slug", async () => {
+    await expect(
+      putProjectMeta("Bad Slug!", { title: "T", type: "lab", uploadedAt: "2024-01-01T00:00:00Z" }),
+    ).rejects.toThrow("Invalid slug");
+    expect(mockPut).not.toHaveBeenCalled();
+  });
+
+  it("calls put with the meta blob key and correct options", async () => {
+    mockPut.mockResolvedValueOnce({
+      url: "https://blob.vercel.com/portfolio-html/my-project.meta.json",
+      pathname: "portfolio-html/my-project.meta.json",
+      contentType: "application/json",
+      contentDisposition: "inline",
+      downloadUrl: "",
+      etag: "abc",
+    });
+
+    await putProjectMeta("my-project", { title: "My Project", type: "pitch", uploadedAt: "2024-01-01T00:00:00Z" });
+
+    expect(mockPut).toHaveBeenCalledWith(
+      "portfolio-html/my-project.meta.json",
+      JSON.stringify({ title: "My Project", type: "pitch", uploadedAt: "2024-01-01T00:00:00Z" }),
+      expect.objectContaining({
+        contentType: "application/json",
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        access: "public",
+      }),
+    );
+  });
+});
+
+describe("getProjectMeta", () => {
+  const mockHead = vi.mocked(head);
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockFetch.mockReset();
+  });
+
+  it("returns null when BlobNotFoundError", async () => {
+    mockHead.mockRejectedValueOnce(new BlobNotFoundError());
+    const result = await getProjectMeta("nonexistent");
+    expect(result).toBeNull();
+  });
+
+  it("rethrows non-BlobNotFoundError errors", async () => {
+    const err = new Error("auth failure");
+    mockHead.mockRejectedValueOnce(err);
+    await expect(getProjectMeta("my-project")).rejects.toBe(err);
+  });
+
+  it("returns parsed meta on success", async () => {
+    const meta = { title: "My Project", type: "pitch", uploadedAt: "2024-01-01T00:00:00Z" };
+    mockHead.mockResolvedValueOnce({
+      url: "https://blob.vercel.com/portfolio-html/my-project.meta.json",
+      pathname: "portfolio-html/my-project.meta.json",
+      contentType: "application/json",
+      contentDisposition: "inline",
+      downloadUrl: "",
+      size: 100,
+      uploadedAt: new Date(),
+      cacheControl: "public",
+      etag: "abc",
+    });
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => meta,
+    });
+
+    const result = await getProjectMeta("my-project");
+    expect(result).toEqual(meta);
+  });
+
+  it("returns null when fetch response is not ok", async () => {
+    mockHead.mockResolvedValueOnce({
+      url: "https://blob.vercel.com/portfolio-html/my-project.meta.json",
+      pathname: "portfolio-html/my-project.meta.json",
+      contentType: "application/json",
+      contentDisposition: "inline",
+      downloadUrl: "",
+      size: 100,
+      uploadedAt: new Date(),
+      cacheControl: "public",
+      etag: "abc",
+    });
+    mockFetch.mockResolvedValueOnce({ ok: false });
+
+    const result = await getProjectMeta("my-project");
+    expect(result).toBeNull();
+  });
+
+  it("returns null when JSON is malformed or missing fields", async () => {
+    mockHead.mockResolvedValueOnce({
+      url: "https://blob.vercel.com/portfolio-html/my-project.meta.json",
+      pathname: "portfolio-html/my-project.meta.json",
+      contentType: "application/json",
+      contentDisposition: "inline",
+      downloadUrl: "",
+      size: 100,
+      uploadedAt: new Date(),
+      cacheControl: "public",
+      etag: "abc",
+    });
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ unexpected: "data" }),
+    });
+
+    const result = await getProjectMeta("my-project");
+    expect(result).toBeNull();
+  });
+});
+
+describe("listUploadedProjects", () => {
+  const mockList = vi.mocked(list);
+  const mockHead = vi.mocked(head);
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mockFetch.mockReset();
+  });
+
+  it("returns empty array when no HTML blobs exist", async () => {
+    mockList.mockResolvedValueOnce({ blobs: [], cursor: undefined, hasMore: false });
+    const result = await listUploadedProjects();
+    expect(result).toEqual([]);
+  });
+
+  it("filters out .meta.json blobs", async () => {
+    mockList.mockResolvedValueOnce({
+      blobs: [
+        {
+          pathname: "portfolio-html/my-project.meta.json",
+          url: "https://blob.vercel.com/portfolio-html/my-project.meta.json",
+          uploadedAt: new Date("2024-01-01"),
+          size: 100,
+          etag: "abc",
+          contentType: "application/json",
+          contentDisposition: "inline",
+          downloadUrl: "",
+          cacheControl: "public",
+        },
+      ],
+      cursor: undefined,
+      hasMore: false,
+    });
+
+    const result = await listUploadedProjects();
+    expect(result).toEqual([]);
+  });
+
+  it("falls back to formatSlug when meta is missing", async () => {
+    mockList.mockResolvedValueOnce({
+      blobs: [
+        {
+          pathname: "portfolio-html/moru-scroll.html",
+          url: "https://blob.vercel.com/portfolio-html/moru-scroll.html",
+          uploadedAt: new Date("2024-06-01T00:00:00Z"),
+          size: 500,
+          etag: "abc",
+          contentType: "text/html",
+          contentDisposition: "inline",
+          downloadUrl: "",
+          cacheControl: "public",
+        },
+      ],
+      cursor: undefined,
+      hasMore: false,
+    });
+    // head throws BlobNotFoundError for meta
+    mockHead.mockRejectedValueOnce(new BlobNotFoundError());
+
+    const result = await listUploadedProjects();
+    expect(result).toHaveLength(1);
+    expect(result[0].slug).toBe("moru-scroll");
+    expect(result[0].title).toBe("Moru Scroll");
+    expect(result[0].type).toBe("lab");
+    expect(result[0].thumbnailUrl).toContain("/api/og/lab?");
+  });
+
+  it("sorts by uploadedAt descending", async () => {
+    mockList.mockResolvedValueOnce({
+      blobs: [
+        {
+          pathname: "portfolio-html/older.html",
+          url: "https://blob.vercel.com/portfolio-html/older.html",
+          uploadedAt: new Date("2024-01-01T00:00:00Z"),
+          size: 100,
+          etag: "a",
+          contentType: "text/html",
+          contentDisposition: "inline",
+          downloadUrl: "",
+          cacheControl: "public",
+        },
+        {
+          pathname: "portfolio-html/newer.html",
+          url: "https://blob.vercel.com/portfolio-html/newer.html",
+          uploadedAt: new Date("2024-06-01T00:00:00Z"),
+          size: 100,
+          etag: "b",
+          contentType: "text/html",
+          contentDisposition: "inline",
+          downloadUrl: "",
+          cacheControl: "public",
+        },
+      ],
+      cursor: undefined,
+      hasMore: false,
+    });
+    // Both have no meta
+    mockHead.mockRejectedValue(new BlobNotFoundError());
+
+    const result = await listUploadedProjects();
+    expect(result[0].slug).toBe("newer");
+    expect(result[1].slug).toBe("older");
   });
 });
