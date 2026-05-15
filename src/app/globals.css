@@ -161,21 +161,22 @@ body {
 .stagger-5 { animation-delay: 320ms; }
 .stagger-6 { animation-delay: 400ms; }
 
-/* Accessibility: skip all motion */
+/* Accessibility: skip motion animations (preserve functional transitions) */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-delay: 0ms !important;
-    transition-duration: 0.01ms !important;
+  .animate-fade-up,
+  .animate-pulse,
+  .animate-spin,
+  [class*="animate-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-
-  .scroll-fade {
-    opacity: 1;
-    transform: none;
+  .scroll-fade,
+  .scroll-fade.in-view {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
-
   html {
     scroll-behavior: auto;
   }
