@@ -12,6 +12,8 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "pnpm build && playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
     "optimize:images": "node scripts/optimize-images.mjs",
     "generate:placeholders": "node scripts/generate-placeholders.mjs",
     "seed:unahouse": "npx tsx scripts/capture/seeds/unahouse-finance.ts --reset",
