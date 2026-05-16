@@ -202,7 +202,6 @@ function ProjectMediaArea({ project }: { project: Project }) {
           alt=""
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          loading="eager"
           className="object-cover"
         />
       </div>
