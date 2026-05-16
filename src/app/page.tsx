@@ -31,8 +31,8 @@ const t = {
     ko: "엔터프라이즈 시스템 빌더",
   },
   hero: {
-    en: "I enter unknown domains,\nbuild the process from zero,\nand leave working systems behind.",
-    ko: "모르는 도메인에 뛰어들어\n처음부터 과정을 만들고\n작동하는 시스템을 남깁니다.",
+    en: "I enter unknown domains, build the process from zero, and leave working systems behind.",
+    ko: "모르는 도메인에 뛰어들어 처음부터 과정을 만들고 작동하는 시스템을 남깁니다.",
   },
   sub: {
     en: "Full-stack engineer and cross-regional program lead — I've shipped manufacturing DX platforms, enterprise cloud infrastructure, and AI-integrated tooling from scratch. If it crosses organizational, technical, or geographic boundaries, I build it.",
@@ -173,14 +173,35 @@ function ProjectIconVisual({ project }: { project: Project }) {
 
 /* ── Project media: icon if available, else first-frame / video ──── */
 
-function ProjectMediaArea({ project }: { project: Project }) {
-  // If there's a dedicated icon for this project, always use it
+function ProjectMediaArea({
+  project,
+  vColor,
+  verticalLabel,
+}: {
+  project: Project;
+  vColor: string;
+  verticalLabel: string;
+}) {
   if (PROJECT_ICONS[project.id]) {
     return <ProjectIconVisual project={project} />;
   }
 
   const media = project.media;
-  if (!media) return null;
+  if (!media) {
+    return (
+      <div
+        className="aspect-video flex items-center justify-center"
+        style={{ background: `linear-gradient(135deg, ${vColor}18 0%, ${vColor}08 100%)` }}
+      >
+        <span
+          className="font-mono text-[11px] uppercase tracking-[0.22em]"
+          style={{ color: `${vColor}99` }}
+        >
+          {verticalLabel}
+        </span>
+      </div>
+    );
+  }
 
   const { type, src, poster } = media;
 
@@ -234,7 +255,11 @@ function ProjectCardInner({ project, lang }: { project: Project; lang: Lang }) {
         className="absolute left-0 right-0 top-0 h-px"
         style={{ background: `linear-gradient(90deg, transparent, ${vColor}4d, transparent)` }}
       />
-      <ProjectMediaArea project={project} />
+      <ProjectMediaArea
+        project={project}
+        vColor={vColor}
+        verticalLabel={verticals[project.vertical]?.label[lang] ?? project.vertical}
+      />
 
       <div className="space-y-4 p-6">
         <div className="flex items-start justify-between gap-3">
@@ -344,8 +369,8 @@ function ProjectsSection({
               onClick={() => setTrackFilter("all")}
               className={`rounded-full border px-3.5 py-2 text-sm transition-colors ${
                 trackFilter === "all"
-                  ? "border-white/20 bg-white/10 text-foreground"
-                  : "border-border text-muted hover:border-white/20 hover:text-foreground"
+                  ? "border-accent/70 bg-accent/15 text-foreground font-medium"
+                  : "border-border text-muted hover:border-border/60 hover:text-foreground"
               }`}
             >
               {t.browse.allTracks[lang]}
@@ -358,8 +383,8 @@ function ProjectsSection({
                 onClick={() => setTrackFilter(key)}
                 className={`rounded-full border px-3.5 py-2 text-sm transition-colors ${
                   trackFilter === key
-                    ? "border-white/20 bg-white/10 text-foreground"
-                    : "border-border text-muted hover:border-white/20 hover:text-foreground"
+                    ? "border-accent/70 bg-accent/15 text-foreground font-medium"
+                    : "border-border text-muted hover:border-border/60 hover:text-foreground"
                 }`}
               >
                 {track.label[lang]}
@@ -373,8 +398,8 @@ function ProjectsSection({
               onClick={() => setVerticalFilter("all")}
               className={`rounded-full border px-3.5 py-2 text-sm transition-colors ${
                 verticalFilter === "all"
-                  ? "border-white/20 bg-white/10 text-foreground"
-                  : "border-border text-muted hover:border-white/20 hover:text-foreground"
+                  ? "border-accent/70 bg-accent/15 text-foreground font-medium"
+                  : "border-border text-muted hover:border-border/60 hover:text-foreground"
               }`}
             >
               {t.browse.allVerticals[lang]}
@@ -386,9 +411,10 @@ function ProjectsSection({
                 onClick={() => setVerticalFilter(key)}
                 className={`flex items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition-colors ${
                   verticalFilter === key
-                    ? "border-white/20 bg-white/10 text-foreground"
-                    : "border-border text-muted hover:border-white/20 hover:text-foreground"
+                    ? "bg-accent/15 text-foreground font-medium"
+                    : "border-border text-muted hover:border-border/60 hover:text-foreground"
                 }`}
+                style={verticalFilter === key ? { borderColor: vertical.color } : undefined}
               >
                 <span className="h-2 w-2 rounded-full" style={{ backgroundColor: vertical.color }} />
                 {vertical.label[lang]}
@@ -486,7 +512,7 @@ export default function Home() {
                 <span className="h-2 w-2 rounded-full bg-emerald-400" />
                 {t.heroBadge[lang]}
               </div>
-              <h1 className="animate-fade-up whitespace-pre-line text-3xl font-bold font-display leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+              <h1 className="animate-fade-up text-balance text-3xl font-bold font-display leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
                 {t.hero[lang]}
               </h1>
               <p className="mt-4 max-w-3xl animate-fade-up text-base leading-relaxed text-muted delay-1 sm:mt-6 sm:text-lg">

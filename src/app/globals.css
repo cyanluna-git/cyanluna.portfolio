@@ -108,6 +108,10 @@ body {
   background: rgba(15, 77, 129, 0.18);
 }
 
+:lang(ko) h1 {
+  word-break: keep-all;
+}
+
 /* ── Vertical accent colors ── */
 [data-vertical="industrial"] { --v-color: #5fa8ff; }
 [data-vertical="health"]     { --v-color: #7ef0d0; }
