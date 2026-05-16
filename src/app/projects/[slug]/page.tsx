@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProjectDetail } from "@/data/project-details";
-import { getProjectHtmlUrl } from "@/lib/project-html-blob";
+import { getProjectHtmlUrl, getProjectMeta } from "@/lib/project-html-blob";
 import ProjectDetailClient from "./ProjectDetailClient";
 
 export const runtime = "nodejs";
@@ -52,7 +52,19 @@ export async function generateMetadata({
 
   const blobUrl = await safeGetBlobUrl(slug);
   if (blobUrl) {
-    return { title: slug };
+    const meta = await getProjectMeta(slug);
+    const title = meta?.title ?? slug;
+    const url = `${SITE_URL}/projects/${slug}`;
+    return {
+      title,
+      openGraph: {
+        title: `${title} — CyanLuna`,
+        url,
+        type: "article" as const,
+      },
+      twitter: { card: "summary_large_image" as const, title },
+      alternates: { canonical: url },
+    };
   }
 
   return { title: "Project Not Found" };

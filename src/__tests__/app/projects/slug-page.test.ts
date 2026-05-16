@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 // Mocks must be hoisted before the module under test is imported.
 vi.mock("@/lib/project-html-blob", () => ({
   getProjectHtmlUrl: vi.fn(),
+  getProjectMeta: vi.fn().mockResolvedValue(null),
 }));
 
 vi.mock("@/data/project-details", () => ({
@@ -171,14 +172,19 @@ describe("generateMetadata", () => {
     expect(getProjectHtmlUrl).not.toHaveBeenCalled();
   });
 
-  // AC8b: blob + no detail → { title: slug }
-  it("returns { title: slug } when blob exists but no detail", async () => {
+  // AC8b: blob + no detail → title from meta (or slug fallback) + openGraph/twitter/alternates
+  it("returns full blob metadata when blob exists but no detail", async () => {
     vi.mocked(getProjectDetail).mockReturnValue(undefined);
     vi.mocked(getProjectHtmlUrl).mockResolvedValue(BLOB_URL);
 
     const meta = await generateMetadata({ params: Promise.resolve({ slug: SLUG }) });
 
-    expect(meta).toEqual({ title: SLUG });
+    expect(meta).toMatchObject({
+      title: SLUG,
+      openGraph: { type: "article" },
+      twitter: { card: "summary_large_image" },
+      alternates: { canonical: `https://cyanluna.com/projects/${SLUG}` },
+    });
   });
 
   // AC8c: no blob + no detail → { title: "Project Not Found" }
