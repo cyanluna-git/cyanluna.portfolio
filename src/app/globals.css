@@ -13,6 +13,15 @@
   --font-display: var(--font-display);
 }
 
+@layer base {
+  *:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--background),
+      0 0 0 4px var(--accent);
+  }
+}
+
 :root {
   --background: #f3f4f6;
   --foreground: #16181d;
