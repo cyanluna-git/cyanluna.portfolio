@@ -293,7 +293,7 @@ function ProjectCard({ project, lang }: { project: Project; lang: Lang }) {
   }
 
   return (
-    <div data-vertical={project.vertical} className={cardClass} aria-disabled="true">
+    <div data-vertical={project.vertical} className={cardClass} inert>
       <ProjectCardInner project={project} lang={lang} />
     </div>
   );
@@ -421,7 +421,7 @@ function ProjectsSection({
                 </button>
               )}
             </div>
-            <span className="font-mono text-muted">
+            <span className="font-mono text-muted" aria-live="polite" aria-atomic="true">
               {filtered.length} {t.browse.results[lang]}
             </span>
           </div>

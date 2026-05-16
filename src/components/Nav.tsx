@@ -147,7 +147,7 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
   return (
     <nav className="fixed top-0 inset-x-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href={`/${lang === "ko" ? "?lang=ko" : ""}`} className="hover:opacity-80 transition-opacity">
+        <a href={`/${lang === "ko" ? "?lang=ko" : ""}`} className="hover:opacity-80 transition-opacity" aria-label="CyanLuna — Go to homepage">
           <WordMark />
         </a>
 
