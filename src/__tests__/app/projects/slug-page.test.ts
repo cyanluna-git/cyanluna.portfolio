@@ -83,7 +83,7 @@ describe("ProjectPage", () => {
     const result = await ProjectPage(makeParams());
 
     expect(result.type).toBe("iframe");
-    expect(result.props.src).toBe(BLOB_URL);
+    expect(result.props.src).toBe(`/api/projects/${SLUG}/html`);
     expect(result.props.sandbox).toBe("allow-scripts");
     expect(result.props.title).toBe(SLUG);
     expect(result.props.style.position).toBe("fixed");

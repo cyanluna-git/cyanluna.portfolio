@@ -69,8 +69,8 @@ describe("generate-project-html.ts — static analysis", () => {
     expect(afterFinally).toContain("browser.close()");
   });
 
-  it("uses page.content() to extract HTML", () => {
-    expect(scriptContent).toContain("page.content()");
+  it("uses .content() to extract HTML (via named page variable)", () => {
+    expect(scriptContent).toMatch(/\w+Page\.content\(\)/);
   });
 
   it("writes output to scripts/output/ directory", () => {

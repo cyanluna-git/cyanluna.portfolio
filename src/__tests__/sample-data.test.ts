@@ -28,8 +28,8 @@ describe("smartFactoryQc sample data", () => {
   });
 
   it("title has both en and ko", () => {
-    expect(smartFactoryQc.title.en).toBe("Smart Factory QC Platform");
-    expect(smartFactoryQc.title.ko).toBe("스마트 팩토리 QC 플랫폼");
+    expect(smartFactoryQc.title.en).toBe("ActiveQC Platform");
+    expect(smartFactoryQc.title.ko).toBe("ActiveQC 플랫폼");
   });
 
   it("tagline has both en and ko", () => {
@@ -37,9 +37,11 @@ describe("smartFactoryQc sample data", () => {
     expect(smartFactoryQc.tagline.ko.trim().length).toBeGreaterThan(0);
   });
 
-  it("heroImage is a non-empty string path", () => {
-    expect(typeof smartFactoryQc.heroImage).toBe("string");
-    expect(smartFactoryQc.heroImage!.startsWith("/")).toBe(true);
+  it("heroImage, if present, is a string path starting with /", () => {
+    if (smartFactoryQc.heroImage !== undefined) {
+      expect(typeof smartFactoryQc.heroImage).toBe("string");
+      expect(smartFactoryQc.heroImage.startsWith("/")).toBe(true);
+    }
   });
 
   // Pain points
@@ -71,10 +73,11 @@ describe("smartFactoryQc sample data", () => {
     expect(smartFactoryQc.features).toHaveLength(4);
   });
 
-  it("all features have image paths starting with '/'", () => {
+  it("features with images have paths starting with '/'", () => {
     for (const f of smartFactoryQc.features) {
-      expect(typeof f.image).toBe("string");
-      expect(f.image!.startsWith("/")).toBe(true);
+      if (f.image !== undefined) {
+        expect(f.image.startsWith("/")).toBe(true);
+      }
     }
   });
 

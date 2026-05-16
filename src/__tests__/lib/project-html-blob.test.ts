@@ -50,8 +50,8 @@ describe("BLOB_PREFIX", () => {
 });
 
 describe("HARDCODED_SLUGS", () => {
-  it('contains exactly ["moru", "smart-factory-qc"]', () => {
-    expect([...HARDCODED_SLUGS]).toEqual(["moru", "smart-factory-qc"]);
+  it("is an empty array (moru and smart-factory-qc were unlocked for blob upload)", () => {
+    expect([...HARDCODED_SLUGS]).toEqual([]);
   });
 });
 
@@ -123,12 +123,12 @@ describe("validateSlug", () => {
 });
 
 describe("isHardcodedSlug", () => {
-  it('returns true for "moru"', () => {
-    expect(isHardcodedSlug("moru")).toBe(true);
+  it('returns false for "moru" (unlocked)', () => {
+    expect(isHardcodedSlug("moru")).toBe(false);
   });
 
-  it('returns true for "smart-factory-qc"', () => {
-    expect(isHardcodedSlug("smart-factory-qc")).toBe(true);
+  it('returns false for "smart-factory-qc" (unlocked)', () => {
+    expect(isHardcodedSlug("smart-factory-qc")).toBe(false);
   });
 
   it("returns false for a non-hardcoded slug", () => {
@@ -180,25 +180,8 @@ describe("putProjectHtml", () => {
     await expect(putProjectHtml("", "content")).rejects.toThrow("Invalid slug");
   });
 
-  it("throws with hardcoded message when slug is a hardcoded route (moru)", async () => {
-    await expect(putProjectHtml("moru", "content")).rejects.toThrow(
-      'Slug is hardcoded and cannot be uploaded: "moru"',
-    );
-  });
-
-  it("throws with hardcoded message for smart-factory-qc", async () => {
-    await expect(
-      putProjectHtml("smart-factory-qc", "content"),
-    ).rejects.toThrow("Slug is hardcoded and cannot be uploaded");
-  });
-
   it("does not call put() when slug is invalid", async () => {
     await expect(putProjectHtml("Bad!", "content")).rejects.toThrow();
-    expect(mockPut).not.toHaveBeenCalled();
-  });
-
-  it("does not call put() when slug is hardcoded", async () => {
-    await expect(putProjectHtml("moru", "content")).rejects.toThrow();
     expect(mockPut).not.toHaveBeenCalled();
   });
 

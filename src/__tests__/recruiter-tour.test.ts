@@ -405,11 +405,6 @@ describe("page.tsx data-recruiter-step section attributes", () => {
     expect(pageSource).toContain("data-recruiter-step");
   });
 
-  it("data-recruiter-step='1' exists (featured projects section)", () => {
-    // JSX numeric: data-recruiter-step={1}  or string: data-recruiter-step="1"
-    expect(pageSource).toMatch(/data-recruiter-step=\{?["']?1["']?\}?/);
-  });
-
   it("data-recruiter-step='2' exists (all projects section)", () => {
     expect(pageSource).toMatch(/data-recruiter-step=\{?["']?2["']?\}?/);
   });

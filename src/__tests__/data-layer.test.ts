@@ -99,7 +99,7 @@ describe("projectDetails registry", () => {
   });
 
   it("every project has a valid vertical value", () => {
-    const validVerticals = ["industrial", "health", "consumer", "devtools"];
+    const validVerticals = ["industrial", "health", "consumer", "devtools", "cycling", "cloudops", "aiagents"];
     for (const project of Object.values(projectDetails)) {
       expect(validVerticals).toContain(project.vertical);
     }

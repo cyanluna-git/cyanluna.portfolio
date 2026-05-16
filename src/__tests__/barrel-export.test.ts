@@ -14,6 +14,7 @@ const EXPECTED_EXPORTS = [
   "BrowserFrame",
   "ProjectHero",
   "ProblemSection",
+  "IntroductionSection",
   "ApproachSection",
   "FeatureShowcase",
   "ArchSection",
@@ -42,10 +43,9 @@ describe("src/components/project/index.ts barrel export", () => {
     }
   });
 
-  it("does not export any unexpected names beyond the 9 components", async () => {
+  it("does not export any unexpected names beyond the 10 components", async () => {
     const barrel = await import("@/components/project");
     const exportedKeys = Object.keys(barrel);
-    // Every exported key must be in the expected list
     for (const key of exportedKeys) {
       expect(EXPECTED_EXPORTS as readonly string[]).toContain(key);
     }
