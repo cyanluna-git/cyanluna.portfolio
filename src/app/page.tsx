@@ -479,7 +479,7 @@ export default function Home() {
       />
       <Nav lang={lang} onLangChange={setLang} showHomeLinks />
 
-      <section className="px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
+      <section id="main-content" className="px-4 pb-12 pt-24 sm:px-6 sm:pb-20 sm:pt-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-12 items-center">
             <div>
