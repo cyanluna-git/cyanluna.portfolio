@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 type Lang = "en" | "ko";
 type Theme = "dark" | "light";
@@ -104,6 +104,9 @@ function HamburgerIcon({ open }: { open: boolean }) {
 export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
 
   useEffect(() => {
     const current = document.documentElement.getAttribute("data-theme");
@@ -134,6 +137,62 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
     return () => {
       document.body.style.overflow = "";
     };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      if (wasOpenRef.current) {
+        hamburgerRef.current?.focus();
+      }
+      wasOpenRef.current = false;
+      return;
+    }
+    wasOpenRef.current = true;
+    const container = mobileMenuRef.current;
+    if (!container) return;
+
+    const getFocusable = () =>
+      Array.from(
+        container.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])'
+        )
+      ).filter(el => !el.hasAttribute('inert'));
+
+    // Auto-focus first item when menu opens
+    const focusable = getFocusable();
+    if (focusable.length > 0) {
+      focusable[0].focus();
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const focusable = getFocusable();
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement as HTMLElement;
+
+      if (e.shiftKey) {
+        if (active === first || !container.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (active === last || !container.contains(active)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [menuOpen]);
 
   const navLinks = [
@@ -198,6 +257,7 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
           </button>
           {showHomeLinks && (
             <button
+              ref={hamburgerRef}
               onClick={() => setMenuOpen(!menuOpen)}
               className="min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-foreground transition-colors cursor-pointer"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -211,7 +271,7 @@ export default function Nav({ lang, onLangChange, showHomeLinks = true }: NavPro
 
       {/* Mobile dropdown menu */}
       {showHomeLinks && menuOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
+        <div ref={mobileMenuRef} className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
           <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
