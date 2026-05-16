@@ -210,9 +210,9 @@ export default async function ProjectOgImage({
               <img
                 src={screenshotSrc}
                 alt=""
+                width={504}
+                height={630}
                 style={{
-                  width: "100%",
-                  height: "100%",
                   objectFit: "cover",
                   objectPosition: "left top",
                   opacity: 0.85,
