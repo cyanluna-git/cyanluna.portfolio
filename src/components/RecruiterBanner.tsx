@@ -18,7 +18,7 @@ export default function RecruiterBanner({ active, step, completed, onNext, onExi
       className="sticky top-0 z-[60] border-b border-[color:var(--accent)]/30 bg-surface/90 dark-glass"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <span className="text-sm font-medium text-foreground">
+        <span aria-live="polite" className="text-sm font-medium text-foreground">
           {completed ? "Tour complete ✓" : `Recruiter path · Step ${step}/3`}
         </span>
         <div className="flex items-center gap-2">

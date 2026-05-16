@@ -87,12 +87,14 @@ export default function LabSection({ lang }: Props) {
                     <img
                       src={item.thumbnailUrl}
                       alt=""
+                      width={80}
+                      height={45}
                       loading="lazy"
-                      className="h-full w-full object-cover opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                      className="h-full w-full object-cover opacity-50 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
                     />
                     {/* Placeholder visible when thumbnail not shown */}
                     <div
-                      className="absolute inset-0 flex items-center justify-center group-hover:hidden"
+                      className="absolute inset-0 flex items-center justify-center group-hover:hidden group-focus-within:hidden"
                       style={{ backgroundColor: `${typeColor}14` }}
                     >
                       <div
