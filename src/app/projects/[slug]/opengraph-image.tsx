@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { ImageResponse } from "next/og";
 import { getProjectDetail, getAllProjectSlugs } from "@/data/project-details";
 import { getProjectMeta } from "@/lib/project-html-blob";
@@ -6,8 +8,6 @@ export const alt = "Project — CyanLuna";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const runtime = "nodejs";
-
-const SITE_URL = "https://cyanluna.com";
 
 const VERTICAL_COLORS: Record<string, string> = {
   industrial: "#3B82F6",
@@ -39,6 +39,21 @@ const TYPE_LABELS: Record<string, string> = {
 
 const ACCENT_COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#8B5CF6"];
 
+/** Read image from public dir and return a data URI satori can render.
+ *  Converts webp→JPEG (satori doesn't support webp).
+ *  Returns null if file is missing or unreadable. */
+async function heroDataUri(heroImage: string): Promise<string | null> {
+  const abs = path.join(process.cwd(), "public", heroImage);
+  if (!fs.existsSync(abs)) return null;
+  try {
+    const sharp = (await import("sharp")).default;
+    const jpeg = await sharp(abs).jpeg({ quality: 85 }).toBuffer();
+    return `data:image/jpeg;base64,${jpeg.toString("base64")}`;
+  } catch {
+    return null;
+  }
+}
+
 export function generateStaticParams(): { slug: string }[] {
   return getAllProjectSlugs().map((slug) => ({ slug }));
 }
@@ -59,7 +74,7 @@ export default async function ProjectOgImage({
     const verticalColor = VERTICAL_COLORS[vertical] ?? "#3B82F6";
     const verticalLabel = VERTICAL_LABELS[vertical] ?? vertical;
     const screenshotSrc = project.heroImage
-      ? `${SITE_URL}${project.heroImage}`
+      ? await heroDataUri(project.heroImage)
       : null;
 
     return new ImageResponse(
